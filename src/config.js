@@ -1,12 +1,14 @@
 const dev = {
     api_clipr: {
-        BASE_URL: "http://app.clipr.local:8888/app_dev.php/fr"
+        API_BASE_URL: "http://app.clipr.local:8888/app_dev.php/fr/api",
+        TOKEN_ENDPOINT: "http://app.clipr.local:8888/app_dev.php/oauth/v2/token"
     }
 }
 
 const prod = {
     api_clipr: {
-        BASE_URL: "http://app.clipr.co/fr/"
+        API_BASE_URL: "http://app.clipr.co/fr/api",
+        TOKEN_ENDPOINT: "http://app.clipr.co/oauth/v2/token"
     }
 }
 

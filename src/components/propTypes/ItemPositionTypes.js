@@ -1,0 +1,16 @@
+
+import PropTypes from 'prop-types'
+
+export let ItemPositionTypes = PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+    width: PropTypes.number,
+    ratio: PropTypes.number,            // height/width
+    rotation: PropTypes.number          // radian !!!
+})
+
+export let ItemPositionDefaults = {
+    width: 0.2,
+    ratio: 1,
+    rotation: 0
+}

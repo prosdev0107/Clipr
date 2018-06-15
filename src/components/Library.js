@@ -1,5 +1,6 @@
 import React from 'react'
-
+import LibraryStickerContainer from "../containers/library/LibraryStickerContainer"
+import {Row, Col} from 'react-bootstrap'
 
 const Library = ({stickers}) => {
 
@@ -10,20 +11,32 @@ const Library = ({stickers}) => {
 
         {/* Images */}
         <div className="stickers-library-shelf">
-            {images.map((sticker,index) =>
-                <div key={index}>
-                    <p>{sticker.src}</p>
-                </div>
-            )}
+            <Row>
+                {images.map((sticker,index) =>
+                    <Col
+                        key={index}
+                        sm={4}>
+                        <div className={"width-full relative"} style={ {paddingTop: (Math.min(100,Math.round(sticker.ratio*1000)/10))+"%" } }>
+                            <LibraryStickerContainer sticker={ {...sticker, type: "img"} } />
+                        </div>
+                    </Col>
+                )}
+            </Row>
         </div>
 
         {/* SVG */}
         <div className="stickers-library-shelf">
-            {svg.map((sticker,index) =>
-                <div key={index}>
-                    <p>{sticker.html}</p>
-                </div>
-            )}
+            <Row>
+                {svg.map((sticker,index) =>
+                    <Col
+                        key={index}
+                        sm={4}>
+                        <div className={"width-full relative"} style={ {paddingTop: (Math.min(100,Math.round(sticker.ratio*1000)/10))+"%" } }>
+                            <LibraryStickerContainer sticker={ {...sticker, type: "svg"} } />
+                        </div>
+                    </Col>
+                )}
+            </Row>
         </div>
 
     </div>

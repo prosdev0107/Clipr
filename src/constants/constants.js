@@ -1,0 +1,2 @@
+
+export const MEDIA_PANEL_ID = "MEDIA_PANEL_ID"

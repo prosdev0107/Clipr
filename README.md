@@ -2,10 +2,10 @@
 ## Table of Contents
 
 - [Best Practises](#best-practises)
-  - [npm start](#dom)
-  - [npm test](#components)
-  - [npm run build](#reducers)
-  - [npm run eject](#css)
+  - [DOM](#dom)
+  - [Components](#components)
+  - [Reducers](#reducers)
+  - [CSS](#css)
 - [Wording](#wording)
 
 

@@ -1,0 +1,184 @@
+.media-panel {
+
+  height: 667px;
+  width: 350px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  background: purple;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  .media-panel-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+  }
+
+  .media-panel-layer-media {
+
+    z-index: 0;
+
+    .poster {
+      position: absolute;
+      width: auto;
+      height: auto;
+      z-index: -100;
+      background-size: cover;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      border: 0;
+      background-color: transparent;
+    }
+
+    .poster-fit-screen {
+      max-width: 100%;
+      max-height:100%;
+      min-width: 100%;
+    }
+
+    .poster-full-screen {
+      min-width: 100%;
+      min-height: 100%;
+      background-position: top left;
+      background-repeat: no-repeat;
+      -webkit-background-size:cover;
+      -moz-background-size:cover;
+      -o-background-size:cover;
+      background-size:cover;
+    }
+
+    .poster-fill-height {
+      max-height: 100%;
+    }
+
+    .poster-fill-width {
+      max-width: 100%;
+    }
+  }
+
+  .media-panel-layer-overlay {
+    z-index: 1;
+  }
+
+  .media-panel-layer-stickers {
+    z-index: 1;
+
+    .story-sticker {
+
+      cursor: move;
+      position: absolute;
+
+      * {
+        pointer-events: none;
+      }
+
+      // Show which box is going to be selected with current cursor position
+      &:hover:not(.selected) {
+        border: dashed 2px red;
+      }
+
+      // Specific styles when user selects the box
+      &.selected {
+
+        @squareHalfWith: 4px;
+        @darkColor: #000;
+        @darkBorder: 2px dashed @darkColor;
+        @lightColor: #fff;
+        @lightBorder: 1px solid @lightColor;
+        @fiftyPercentCalc: calc(~"50% - "@squareHalfWith);
+
+        border: @darkBorder;
+
+        .rotatable-handle {
+
+          position: absolute;
+          top: -25px;
+          left: @fiftyPercentCalc;
+          height: 25px;
+          width: 2*@squareHalfWith;
+
+          .rotatable-handle-bar {
+            position: absolute;
+            left: ~"calc(50% - 1px)";
+            border: solid 1px #000;
+            height: 100%;
+          }
+          .rotatable-handle-circle {
+            cursor: url("../images/rotate-icon.png") 12 12, row-resize;
+            pointer-events: auto;
+            position: absolute;;
+            width: 2*@squareHalfWith;
+            height: 2*@squareHalfWith;
+            border-radius: 50%;
+            background-color: @darkColor;
+            border: @lightBorder;
+          }
+        }
+
+        .resizable-handle {
+          width: 2*@squareHalfWith;
+          height: 2*@squareHalfWith;
+          background-color: @darkColor;
+          border: @lightBorder;
+          position: absolute;
+          pointer-events: auto;
+        }
+
+        // First made through LESS loop but it's quite a mess for just saving 5-10 lines of code. Not worth it.
+        .resizable-nw {
+          left: -@squareHalfWith;
+          top: -@squareHalfWith;
+          cursor: nwse-resize;
+        }
+        .resizable-ne {
+          top: -@squareHalfWith;
+          right: -@squareHalfWith;
+          cursor: nesw-resize;
+        }
+        .resizable-sw {
+          bottom: -@squareHalfWith;
+          left: -@squareHalfWith;
+          cursor: nesw-resize;
+        }
+        .resizable-se {
+          bottom: -@squareHalfWith;
+          right:-@squareHalfWith;
+          cursor: nwse-resize;
+        }
+        .resizable-n {
+          top: -@squareHalfWith;
+          left: @fiftyPercentCalc;
+          cursor: ns-resize;
+        }
+        .resizable-s {
+          bottom: -@squareHalfWith;
+          left: @fiftyPercentCalc;
+          cursor: ns-resize;
+        }
+        .resizable-w {
+          left: -@squareHalfWith;
+          top: @fiftyPercentCalc;
+          cursor: ew-resize;
+        }
+        .resizable-e {
+          right: -@squareHalfWith;
+          top: @fiftyPercentCalc;
+          cursor: ew-resize;
+        }
+      }
+    }
+  }
+
+}
