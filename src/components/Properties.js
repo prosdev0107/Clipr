@@ -1,5 +1,6 @@
 import React from 'react'
 import PropertiesFormContainer from "../containers/properties/PropertiesFormContainer"
+import GeneralFormContainer from "../containers/properties/GeneralFormContainer"
 import {Button} from 'react-bootstrap'
 
 const Properties = ({story_sticker, propertiesButtonAction}) => {
@@ -24,7 +25,12 @@ const Properties = ({story_sticker, propertiesButtonAction}) => {
         </div>
     }
 
-    return <p>Nothing selected</p>
+    return <div>
+
+        {/* Edit general attributes */}
+        <GeneralFormContainer story_sticker={story_sticker}/>
+
+    </div>
 }
 
 export default Properties

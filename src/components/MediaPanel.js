@@ -2,6 +2,7 @@ import React from 'react'
 
 import StickerLayerContainer from '../containers/central/StickersLayerContainer'
 import {CsItemTypes, CsItemDefaults} from "./propTypes/CsItemTypes"
+import {OverlayTypes,OverlayDefaults} from "./propTypes/OverlayTypes";
 import {MEDIA_PANEL_ID} from "../constants/constants"
 
 /**
@@ -14,7 +15,12 @@ import {MEDIA_PANEL_ID} from "../constants/constants"
  * @returns {*}
  * @constructor
  */
-const MediaPanel = ({ cs_item }) => {
+const MediaPanel = ({ cs_item, overlay }) => {
+
+    let overlay_styles = {
+        backgroundColor: overlay.color,
+        opacity: overlay.opacity
+    }
 
     // Display image or video depending of media type
     const renderMedia = (cs_item) => {
@@ -79,7 +85,7 @@ const MediaPanel = ({ cs_item }) => {
             {renderMedia(cs_item)}
         </div>
 
-        <div className="media-panel-layer media-panel-layer-overlay">
+        <div className="media-panel-layer media-panel-layer-overlay" style={overlay_styles}>
 
         </div>
 
@@ -95,10 +101,12 @@ const MediaPanel = ({ cs_item }) => {
 }
 
 MediaPanel.propTypes = {
-    cs_item: CsItemTypes
+    cs_item: CsItemTypes,
+    overlay: OverlayTypes
 }
 MediaPanel.defaultProps = {
-    cs_item: CsItemDefaults
+    cs_item: CsItemDefaults,
+    overlay: OverlayDefaults
 }
 
 

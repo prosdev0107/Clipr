@@ -23,6 +23,9 @@ const initialState = {
             ratio: 2
         }
     }],
+    general: {
+        overlay: {},
+    },
     cs_item: {
         id: "",
         cnv_short_code: ""
