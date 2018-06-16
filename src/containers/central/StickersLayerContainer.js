@@ -1,16 +1,16 @@
 
 import { connect } from 'react-redux'
 import StickersLayer from '../../components/StickersLayer'
-// import { transformSSBoxAction } from "../../actions"
+import { transformStoryStickerAction } from "../../actions"
 
 
 const mapStateToProps = state => ({
-    story_stickers: state.story_stickers
+    story_stickers: state.story_stickers,
+    listen_drag_events: state.listen_drag_events
 })
 
-/*const mapDispatchToProps = (dispatch) => ({
-    // What to do cursor is dragging a box inside storyStickerBoxes
-    transformSSBox: (type, event) => dispatch(transformSSBoxAction(type, event)),
-})*/
+const mapDispatchToProps = (dispatch) => ({
+    transformStorySticker: (type, event) => dispatch(transformStoryStickerAction(type, event)),
+})
 
-export default connect(mapStateToProps)(StickersLayer)
+export default connect(mapStateToProps,mapDispatchToProps)(StickersLayer)

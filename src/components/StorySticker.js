@@ -1,5 +1,5 @@
 import React from 'react'
-import Sticker from "./Sticker"
+import SimpleStickerContainer from "../containers/SimpleStickerContainer"
 import {StoryStickerTypes,StoryStickerDefaults} from "./propTypes/StoryStickerTypes";
 
 // A draggable, resizable box on storyStickerBoxes
@@ -8,10 +8,8 @@ const StorySticker = ({
                              id,
                              sticker,          // What should be displayed inside the box
                              position,         // Current position relative to parent container
-                             // edit_info,        // If currently edited by user, information about current modification
+                             edit_info,        // If currently edited by user, information about current modification
                          }) => {
-
-    console.log(id,sticker,position)
 
     let styles = {
         left:   position.x*100+'%',
@@ -30,8 +28,8 @@ const StorySticker = ({
 
     return (
         <div id={id}
-             className="story-sticker"
-             // className={edit_info.selected ? "story-sticker-box selected" : "story-sticker-box"}
+             data-component="story-sticker"
+             className={edit_info.selected ? "story-sticker selected" : "story-sticker"}
              draggable={true}
              style={styles}
         >
@@ -39,14 +37,14 @@ const StorySticker = ({
             {/* This sticker container allow us to keep the ratio w/h of the sticker */}
             <div className={"width-100 relative"} style={container_styles}>
                 {/* Render box content */}
-                <Sticker sticker={sticker}/>
+                <SimpleStickerContainer sticker={sticker}/>
             </div>
 
 
             {/* Render rotate symbol on top of box when selected */}
-            <div className="rotatable-handle" >
+            <div className="rotatable-handle">
                 <div className="rotatable-handle-bar" />
-                <div className="rotatable-handle-circle" />
+                <div className="rotatable-handle-circle" data-rotate-handler={1}/>
             </div>
 
             {/* Render 8 "resizable-style" squares around the box when selected */}
@@ -55,6 +53,7 @@ const StorySticker = ({
                     key={i}
                     data-region={region}
                     className={`resizable-handle resizable-${region}`}
+                    data-resize-handler={1}
                 />
             )}
         </div>

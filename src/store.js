@@ -6,6 +6,7 @@ import LivetimeSave from "./utilities/API/LivetimeSave"
 // Init state structure
 const initialState = {
     stickers: [],
+    listen_drag_events: 0,
     story_stickers: [{
         id: "SSBox_1",
         sticker: {
@@ -16,10 +17,10 @@ const initialState = {
             }
         },
         position: {
-            x: 0.03,
-            y: 0.24,
-            width: 0.2,
-            ratio: 1.5
+            x: 0,
+            y: 0,
+            width: 0.5,
+            ratio: 2
         }
     }],
     cs_item: {
@@ -34,7 +35,7 @@ const store = createStore(rootReducer, initialState)
 // Subscribe to any change of story_stickers, so we can send new data to our APIs
 export const subscriber = initSubscriber(store)
 subscriber('story_stickers', state => {
-    LivetimeSave(state)
+    // LivetimeSave(state)
 })
 
 export default store

@@ -1,1 +1,1 @@
-{"version":3,"sources":["sticker.less"],"names":[],"mappings":"AAEA;EAEE,kBAAA;EACA,MAAA;EACA,OAAA;EACA,QAAA;EACA,SAAA;;AANF,QAQE;EACE,oBAAA;;AAGF,QAAE;EACA,eAAA;EACA,gBAAA;EACA,cAAA;EACA,kBAAA;EACA,SAAA;EACA,UAAA;;AAGF,QAAE;EACA,YAAA","file":"sticker.css"}
+{"version":3,"sources":["sticker.less"],"names":[],"mappings":"AAEA;EAEE,kBAAA;EACA,MAAA;EACA,OAAA;EACA,QAAA;EACA,SAAA;;AANF,QAQE;EACE,oBAAA;;AAGF,QAAE;EACA,WAAA;EACA,YAAA;EACA,cAAA;EACA,kBAAA;EACA,SAAA;EACA,UAAA","file":"sticker.css"}
