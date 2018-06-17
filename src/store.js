@@ -38,7 +38,13 @@ const store = createStore(rootReducer, initialState)
 // Subscribe to any change of story_stickers, so we can send new data to our APIs
 export const subscriber = initSubscriber(store)
 subscriber('story_stickers', state => {
-    // LivetimeSave(state)
+    // Do not update if we are dragging an element ! too much lag !
+    if (!state.listen_drag_events) {
+        LivetimeSave(state)
+    }
+})
+subscriber('general', state => {
+    LivetimeSave(state)
 })
 
 export default store

@@ -13,8 +13,7 @@
   -ms-user-select: none;
   user-select: none;
 }
-.media-panel .media-panel-layer,
-.media-panel .media-panel-layer > div {
+.media-panel .media-panel-layer {
   position: absolute;
   top: 0;
   left: 0;
@@ -24,41 +23,6 @@
 }
 .media-panel .media-panel-layer-media {
   z-index: 0;
-}
-.media-panel .media-panel-layer-media .poster {
-  position: absolute;
-  width: auto;
-  height: auto;
-  z-index: -100;
-  background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  border: 0;
-  background-color: transparent;
-}
-.media-panel .media-panel-layer-media .poster-fit-screen {
-  max-width: 100%;
-  max-height: 100%;
-  min-width: 100%;
-}
-.media-panel .media-panel-layer-media .poster-full-screen {
-  min-width: 100%;
-  min-height: 100%;
-  background-position: top left;
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-.media-panel .media-panel-layer-media .poster-fill-height {
-  max-height: 100%;
-}
-.media-panel .media-panel-layer-media .poster-fill-width {
-  max-width: 100%;
 }
 .media-panel .media-panel-layer-overlay {
   z-index: 1;

@@ -5,7 +5,6 @@ import {StickerDefaults,StickerTypes} from "./propTypes/StickerTypes";
 const Sticker = ({sticker}) => {
 
     let {id, type, ratio, source, customize} = sticker
-    console.log('REDNER STICKER CONTENT '+id)
 
     const renderSticker = (id, type, ratio, source, customize)  => {
 

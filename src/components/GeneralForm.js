@@ -1,7 +1,7 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import Input from './form/Input'
-import {OverlayDefaults, OverlayTypes} from "./propTypes/OverlayTypes";
+import {OverlayTypes} from "./propTypes/OverlayTypes";
 
 
 const GeneralForm = ({general,formChanged}) => {
@@ -23,11 +23,6 @@ const GeneralForm = ({general,formChanged}) => {
 GeneralForm.propTypes = {
     general: {
         overlay: OverlayTypes
-    }
-}
-GeneralForm.defaultProps = {
-    general: {
-        overlay: OverlayDefaults
     }
 }
 

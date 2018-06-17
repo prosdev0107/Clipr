@@ -8,8 +8,8 @@ import generalReducer from './generalReducer'
 
 export default combineReducers({
     story_stickers: storyStickersReducer,
+    general: generalReducer,
     stickers: stickersReducer,
     cs_item: csItemReducer,
     listen_drag_events: listenDragEventsReducer,
-    general: generalReducer
 })

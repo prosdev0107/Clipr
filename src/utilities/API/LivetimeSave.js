@@ -1,16 +1,13 @@
 
-// import api_client from './CliprRequest'
-import _ from "lodash"
+import api_client from "./CliprRequest"
 
 var apiSaveTimeout
 
 // Send data directly to API
 const LivetimeSave = (new_state) => {
 
-    console.log("Ask for data save")
     // Cancel previous API call delay
     if (apiSaveTimeout) {
-        console.log("Cancel previous call")
         clearTimeout(apiSaveTimeout)
     }
 
@@ -18,17 +15,22 @@ const LivetimeSave = (new_state) => {
     apiSaveTimeout = setTimeout(function() {
 
         // Step 1 : reformat data from story_stickers
-        // TODO : transform story stickers data to what need to save in database
-        let template = new_state.story_stickers
-        console.log("check if state has changed")
+        let template = {
+            'story_stickers': new_state.story_stickers,
+            'general': new_state.general
+        }
 
-        // Step 2 : check if any change compared to cs_item data
-        if (!_.isEqual(template,new_state.cs_item.template)) {
+        // Step 2 : post data to API
+        let cs_item = new_state.cs_item
+        console.log(cs_item)
+        if (typeof cs_item.cnv_short_code !== "undefined" && cs_item.cnv_short_code.length > 0) {
 
-            // Step 3 : post data to API if differences found at step 2
-            // TODO : post data with axios
-            console.log("saving data : ",template)
-
+            let request = api_client()
+            request
+                .post("/cnv/clip/"+cs_item.cnv_short_code+"/cs_items/"+cs_item.id+"/update", {'template': template})
+                // Get response data and save in store
+                .then(response => { console.log(response) })
+                .catch(error => console.log(error))
         }
 
     },2000)

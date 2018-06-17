@@ -3,6 +3,15 @@ const generalReducer = (state = [], action) => {
 
     switch (action.type) {
 
+        case 'API_UPDATE_CS_ITEM':
+
+            let data = action.data
+            if (typeof data.id !== "undefined" && typeof data.template !== "undefined" && typeof data.template.general !== "undefined") {
+
+                return data.template.general
+            }
+            return state
+
         case 'PROPERTIES_FORM_CHANGED':
 
             const editOverlayFromForm = (initialState, inputName, inputValue) => {

@@ -13,6 +13,8 @@ import './styles/library.min.css'
 import './styles/mediaPanel.min.css'
 import './styles/sticker.min.css'
 import './styles/properties.min.css'
+import './styles/clip.min.css'
+
 import MediaPanelContainer from "./containers/central/MediaPanelContainer"
 import PropertiesContainer from "./containers/properties/PropertiesContainer"
 
@@ -21,7 +23,7 @@ class App extends Component {
     componentDidMount() {
         
         // FOR TEST PURPOSE
-        let fakeData = 1
+        let fakeData = 0
 
         // Get Symfony access token from url
         const query = this.props.location.search
@@ -44,7 +46,7 @@ class App extends Component {
 
                 // Call media information
                 if (fakeData) {
-                    store.dispatch(sendToReducersAction("API_UPDATE_CS_ITEM",JSON.parse('{"id":6,"media":{"src":"http://app.capteev.local:8888/uploads/media/cnv/media/d109cf08-6e54-11e8-ade9-005fda2a44d6.jpeg?v1.7.22","isVideo":false,"ext":"jpeg","fullScreen":true}}')))
+                    store.dispatch(sendToReducersAction("API_UPDATE_CS_ITEM",JSON.parse('{"id":6,"cnv_short_code":"6xen90","template":{"general":{"overlay":{"opacity":0.3,"color":"#000"}}},"media":{"src":"http://app.capteev.local:8888/uploads/media/cnv/media/d109cf08-6e54-11e8-ade9-005fda2a44d6.jpeg?v1.7.22","isVideo":false,"ext":"jpeg","fullScreen":false}}')))
                 } else {
                     request
                         .get("/cnv/clip/"+cnv_short_code+"/cs_items/"+cs_item_id)

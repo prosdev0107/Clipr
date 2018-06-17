@@ -14,7 +14,7 @@
   -ms-user-select: none;
   user-select: none;
 
-  .media-panel-layer, .media-panel-layer > div {
+  .media-panel-layer {
     position: absolute;
     top: 0;
     left: 0;
@@ -24,48 +24,7 @@
   }
 
   .media-panel-layer-media {
-
     z-index: 0;
-
-    .poster {
-      position: absolute;
-      width: auto;
-      height: auto;
-      z-index: -100;
-      background-size: cover;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-position: 50% 50%;
-      background-repeat: no-repeat;
-      border: 0;
-      background-color: transparent;
-    }
-
-    .poster-fit-screen {
-      max-width: 100%;
-      max-height:100%;
-      min-width: 100%;
-    }
-
-    .poster-full-screen {
-      min-width: 100%;
-      min-height: 100%;
-      background-position: top left;
-      background-repeat: no-repeat;
-      -webkit-background-size:cover;
-      -moz-background-size:cover;
-      -o-background-size:cover;
-      background-size:cover;
-    }
-
-    .poster-fill-height {
-      max-height: 100%;
-    }
-
-    .poster-fill-width {
-      max-width: 100%;
-    }
   }
 
   .media-panel-layer-overlay {

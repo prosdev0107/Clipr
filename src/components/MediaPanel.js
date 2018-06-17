@@ -2,7 +2,7 @@ import React from 'react'
 
 import StickerLayerContainer from '../containers/central/StickersLayerContainer'
 import {CsItemTypes, CsItemDefaults} from "./propTypes/CsItemTypes"
-import {OverlayTypes,OverlayDefaults} from "./propTypes/OverlayTypes";
+import {OverlayTypes} from "./propTypes/OverlayTypes";
 import {MEDIA_PANEL_ID} from "../constants/constants"
 
 /**
@@ -20,6 +20,20 @@ const MediaPanel = ({ cs_item, overlay }) => {
     let overlay_styles = {
         backgroundColor: overlay.color,
         opacity: overlay.opacity
+    }
+
+    const renderBlurBackground = (cs_item) => {
+
+        if (typeof cs_item.media !== "undefined") {
+
+            let blur_background_styles = {
+                backgroundImage: "url('"+(cs_item.media.thumbnail || cs_item.media.src)+"')"
+            }
+
+            return cs_item.media.fullScreen ?
+                "" : <div id="blur-background" className="blur-background absolute-center" style={blur_background_styles}/>
+        }
+        return ""
     }
 
     // Display image or video depending of media type
@@ -82,7 +96,11 @@ const MediaPanel = ({ cs_item, overlay }) => {
     return <div id={MEDIA_PANEL_ID} className="media-panel">
 
         <div className="media-panel-layer media-panel-layer-media">
+
+            {renderBlurBackground(cs_item)}
+
             {renderMedia(cs_item)}
+
         </div>
 
         <div className="media-panel-layer media-panel-layer-overlay" style={overlay_styles}>
@@ -106,7 +124,6 @@ MediaPanel.propTypes = {
 }
 MediaPanel.defaultProps = {
     cs_item: CsItemDefaults,
-    overlay: OverlayDefaults
 }
 
 

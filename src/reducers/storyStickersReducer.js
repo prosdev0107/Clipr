@@ -174,6 +174,19 @@ const storyStickersReducer = (state = [], action) => {
 
     switch (action.type) {
 
+        /******************/
+        /* INITIALIZATION */
+        /******************/
+
+        case 'API_UPDATE_CS_ITEM':
+
+            let data = action.data
+            if (typeof data.id !== "undefined" && typeof data.template !== "undefined" && typeof data.template.story_stickers !== "undefined") {
+
+                return data.template.story_stickers
+            }
+            return state
+
 
         /*******************/
         /* PREVENT DEFAULT */
