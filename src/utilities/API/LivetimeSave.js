@@ -22,14 +22,13 @@ const LivetimeSave = (new_state) => {
 
         // Step 2 : post data to API
         let cs_item = new_state.cs_item
-        console.log(cs_item)
         if (typeof cs_item.cnv_short_code !== "undefined" && cs_item.cnv_short_code.length > 0) {
 
             let request = api_client()
             request
                 .post("/cnv/clip/"+cs_item.cnv_short_code+"/cs_items/"+cs_item.id+"/update", {'template': template})
                 // Get response data and save in store
-                .then(response => { console.log(response) })
+                .then()
                 .catch(error => console.log(error))
         }
 

@@ -18,8 +18,9 @@ const findStickerWithId = (stickerId) => {
     let stickers = store.getState().stickers
 
     for (let stickerType in stickers) {
+
         let sticker = stickers[stickerType].find((obj) => { return obj.id === stickerId })
-        if (sticker !== null) {
+        if (typeof sticker !== "undefined" && sticker !== null) {
             return sticker
         }
     }
@@ -41,6 +42,7 @@ export const sendToReducersAction = (type, data) => {
 export const selectFromLibraryAction = (type, event) => {
 
     var target = event.target || event.srcElement
+
 
     // Event can be triggered on content inside the sticker
     // But we need to select the sticker container
@@ -64,12 +66,16 @@ export const selectFromLibraryAction = (type, event) => {
         // Get selected sticker info
         let sticker = findStickerWithId(target.getAttribute('data-sticker-id'))
 
+        // Original width of sticker compared to medial panel width
+        let init_width = Math.round(100*target.offsetWidth / mediaPanelSize.width)/100;
+
         return {
             type: type,
             event: event,
             target: target,
             sticker: sticker,
-            cursor_corner_position: cursor_corner_position
+            cursor_corner_position: cursor_corner_position,
+            init_width: init_width
         }
     }
     return {

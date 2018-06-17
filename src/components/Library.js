@@ -8,7 +8,7 @@ const Library = ({stickers, selectFromLibrary}) => {
     let svg = typeof stickers.svg !== "undefined" ? stickers.svg : []
 
     /**
-     * drag and drop et doublic clicl
+     * drag and drop et double click
      * refaire exactement pareil que v0 y a aucune difficulté
      * EN UTILISANT LES BEST PRACTISES
      * C'est le move où il faudra activer des events

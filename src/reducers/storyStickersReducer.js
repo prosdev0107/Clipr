@@ -31,15 +31,15 @@ const storyStickersReducer = (state = [], action) => {
      * @param corner_position   // Position of cursor relative to top left corner of element when dropped
      * @returns {*}
      */
-    const addstorySticker = (state, sticker, position, corner_position) => {
+    const addstorySticker = (state, sticker, init_width, position, corner_position) => {
 
         // Default position (ex : if added by double click)
-        let init_width = 0.2
+        init_width = init_width || 0.2
         let SSBox_position = {
             x: 0.5 - init_width/2,
             y: 0.5 - init_width/2,
             width: init_width,
-            ratio: sticker.ratio
+            ratio: sticker.ratio || 1
         }
 
         // Position in simulator
@@ -211,14 +211,29 @@ const storyStickersReducer = (state = [], action) => {
             action.event.dataTransfer.setData('pick_from_library',JSON.stringify({
                 cursor_corner_position: action.cursor_corner_position,
                 elementId: action.target.id,
-                sticker: action.sticker
+                sticker: action.sticker,
+                init_width: action.init_width
             }))
 
-            return state
+            // Deselect any selected object
+            console.log('DRAG GG')
+            return state.map(storySticker =>
+                (typeof storySticker.edit_info !== "undefined" && storySticker.edit_info.selected)
+                    ? {
+                        ...storySticker,
+                        edit_info: {
+                            ...storySticker.edit_info,
+                            selected: false,
+                            resized: false,
+                            rotated: false,
+                            translated: false
+                        }
+                    } : storySticker
+            )
 
         case 'LIBRARY_STICKER_DOUBLE_CLICK':
 
-            return addstorySticker(state, action.sticker)
+            return addstorySticker(state, action.sticker, action.init_width)
 
         /*********************************/
         /* STORY STICKER START SELECTION */
@@ -226,6 +241,7 @@ const storyStickersReducer = (state = [], action) => {
 
         // From library : start dragging sticker
         case 'STICKERS_LAYER_DRAG_START':
+            console.log('dtagstart')
 
             // Useless but needed to let onDragOver be triggered
             action.event.dataTransfer.setData('text',null)
@@ -251,7 +267,7 @@ const storyStickersReducer = (state = [], action) => {
 
         // From stickers layer : declare the story sticker as now selected
         case 'STICKERS_LAYER_MOUSE_DOWN':
-
+console.log('mouse down')
             // Save initial position of SSBox
             updateLastPosition(action.cursor_position,action.region)
 
@@ -328,6 +344,7 @@ const storyStickersReducer = (state = [], action) => {
                         return addstorySticker(
                             state,
                             elmtDroppedInfo.sticker,
+                            elmtDroppedInfo.init_width,
                             action.cursor_position,
                             elmtDroppedInfo.cursor_corner_position
                         )
@@ -375,8 +392,9 @@ const storyStickersReducer = (state = [], action) => {
                         position: position
                     }
 
-                } else if (inputName.indexOf('sticker_') === 0) {
+                } else {
 
+                    // Specific or CUSTOM field of sticker
                     let sticker = JSON.parse(JSON.stringify(initialState.sticker))
 
                     switch (inputName) {
@@ -408,8 +426,6 @@ const storyStickersReducer = (state = [], action) => {
                         sticker: sticker
                     }
 
-                } else {
-                    return initialState
                 }
             }
 
