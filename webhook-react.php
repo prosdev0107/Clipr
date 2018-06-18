@@ -129,7 +129,7 @@ sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX  /var/www/my/react_prod/
 sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX  /var/www/my/react_prod/var/cache/ /var/www/my/react_prod/var/logs/
         */
         shell_exec("
- 
+
         echo '======== SSH CONFIG ========'                                                 >> $deployLogLoc
         whoami                                                                              >> $deployLogLoc
         eval $(ssh-agent)                                                                   >> $deployLogLoc
@@ -139,11 +139,11 @@ sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX  /var/www/my/react_prod
         cd /var/www/my/react_prod/                                                          >> $deployLogLoc
         git reset --hard origin/master                                                      >> $deployLogLoc
         git pull origin master                                                              >> $deployLogLoc
-        npm run install                                                                     >> $deployLogLoc
+        npm install .                                                                       >> $deployLogLoc
         REACT_APP_STAGE=production npm run build                                            >> $deployLogLoc
         echo ''
         echo '======== END ========'                                                        >> $deployLogLoc
-        
+
         ");
 
     }
@@ -156,17 +156,19 @@ sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX  /var/www/my/react_stag
         */
 
         shell_exec("
-        
+
         echo '======== SSH CONFIG ========'                                                 >> $deployLogLoc
         whoami                                                                              >> $deployLogLoc
+        echo ''                                                                             >> $deployLogLoc
         eval $(ssh-agent)                                                                   >> $deployLogLoc
+        echo ''                                                                             >> $deployLogLoc
         ssh-add -k /var/www/.ssh/id_rsa_mcdeploy                                            >> $deployLogLoc
         echo ''                                                                             >> $deployLogLoc
         echo '======== GIT DEPLOY ========'                                                 >> $deployLogLoc
         cd /var/www/my/react_staging/                                                       >> $deployLogLoc
         git reset --hard origin/staging                                                     >> $deployLogLoc
         git pull origin staging                                                             >> $deployLogLoc
-        npm run install                                                                     >> $deployLogLoc
+        npm install .                                                                       >> $deployLogLoc
         REACT_APP_STAGE=staging npm run build                                               >> $deployLogLoc
         echo ''                                                                             >> $deployLogLoc
         echo '======== END ========'                                                        >> $deployLogLoc
