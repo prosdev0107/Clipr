@@ -129,7 +129,7 @@ sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX  /var/www/my/react_prod/
 sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX  /var/www/my/react_prod/var/cache/ /var/www/my/react_prod/var/logs/
         */
         shell_exec("
-        
+         
         echo '======== SSH CONFIG ========'                                                 >> $deployLogLoc
         whoami                                                                              >> $deployLogLoc
         eval $(ssh-agent)                                                                   >> $deployLogLoc
@@ -172,8 +172,6 @@ sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX  /var/www/my/react_stag
         echo '======== END ========'                                                        >> $deployLogLoc
         
         ");
-
-
     }
     fwrite($hooksLog, 'Shell command lines executed !'.PHP_EOL);
 
