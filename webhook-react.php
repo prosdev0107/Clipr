@@ -145,7 +145,7 @@ sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX  /var/www/my/react_prod
         
         ");
 
-    } 
+    }
     else if ($branch === 'refs/heads/staging')
     {
         /* Commandes ne pouvant être executées car sudo :
