@@ -127,7 +127,7 @@ if (
           HTTPDUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
 sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX  /var/www/my/react_prod/var/cache/ /var/www/my/react_prod/var/logs/
 sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX  /var/www/my/react_prod/var/cache/ /var/www/my/react_prod/var/logs/
-        */
+        */ 
         shell_exec("
         
         echo '======== SSH CONFIG ========'                                                 >> $deployLogLoc
