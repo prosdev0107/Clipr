@@ -136,10 +136,11 @@ sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX  /var/www/my/react_prod
         ssh-add -k /var/www/.ssh/id_rsa_mcdeploy                                            >> $deployLogLoc
         echo ''                                                                             >> $deployLogLoc
         echo '======== GIT DEPLOY ========'                                                 >> $deployLogLoc
-        cd /var/www/my/react_prod/                                                                >> $deployLogLoc
+        cd /var/www/my/react_prod/                                                          >> $deployLogLoc
         git reset --hard origin/master                                                      >> $deployLogLoc
         git pull origin master                                                              >> $deployLogLoc
-        echo ''                                                                             >> $deployLogLoc
+        npm run install                                                                     >> $deployLogLoc
+        REACT_APP_STAGE=production npm run build                                            >> $deployLogLoc
         echo ''
         echo '======== END ========'                                                        >> $deployLogLoc
         
@@ -162,9 +163,11 @@ sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX  /var/www/my/react_stag
         ssh-add -k /var/www/.ssh/id_rsa_mcdeploy                                            >> $deployLogLoc
         echo ''                                                                             >> $deployLogLoc
         echo '======== GIT DEPLOY ========'                                                 >> $deployLogLoc
-        cd /var/www/my/react_staging/                                                             >> $deployLogLoc
+        cd /var/www/my/react_staging/                                                       >> $deployLogLoc
         git reset --hard origin/staging                                                     >> $deployLogLoc
         git pull origin staging                                                             >> $deployLogLoc
+        npm run install                                                                     >> $deployLogLoc
+        REACT_APP_STAGE=staging npm run build                                               >> $deployLogLoc
         echo ''                                                                             >> $deployLogLoc
         echo '======== END ========'                                                        >> $deployLogLoc
         
