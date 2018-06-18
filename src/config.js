@@ -5,6 +5,13 @@ const dev = {
     }
 }
 
+const staging = {
+    api_clipr: {
+        API_BASE_URL: "http://app.clipr.co/fr/api",
+        TOKEN_ENDPOINT: "http://app.clipr.co/oauth/v2/token"
+    }
+}
+
 const prod = {
     api_clipr: {
         API_BASE_URL: "http://app.clipr.co/fr/api",
@@ -14,7 +21,7 @@ const prod = {
 
 const config = process.env.REACT_APP_STAGE === 'production'
     ? prod
-    : dev
+    : (process.env.REACT_APP_STAGE === 'staging' ? staging : dev)
 
 export default {
     // Add common config values here
