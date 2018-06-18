@@ -241,7 +241,6 @@ const storyStickersReducer = (state = [], action) => {
 
         // From library : start dragging sticker
         case 'STICKERS_LAYER_DRAG_START':
-            console.log('dtagstart')
 
             // Useless but needed to let onDragOver be triggered
             action.event.dataTransfer.setData('text',null)
@@ -267,7 +266,7 @@ const storyStickersReducer = (state = [], action) => {
 
         // From stickers layer : declare the story sticker as now selected
         case 'STICKERS_LAYER_MOUSE_DOWN':
-console.log('mouse down')
+
             // Save initial position of SSBox
             updateLastPosition(action.cursor_position,action.region)
 

@@ -7,22 +7,7 @@ import LivetimeSave from "./utilities/API/LivetimeSave"
 const initialState = {
     stickers: [],
     listen_drag_events: 0,
-    story_stickers: [{
-        id: "SSBox_1",
-        sticker: {
-            type: 'img',
-            ratio: 1,
-            source: {
-                src: 'https://www.vectorportal.com/thumb_new/logo-elements-44.jpg',
-            }
-        },
-        position: {
-            x: 0,
-            y: 0,
-            width: 0.5,
-            ratio: 2
-        }
-    }],
+    story_stickers: [],
     general: {
         overlay: {},
     },

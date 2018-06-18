@@ -6,20 +6,21 @@ const Sticker = ({sticker}) => {
 
     let {id, type, ratio, source, customize} = sticker
 
+    // WARNING : The real clip uses exactly the same script in main.js. Be careful about any modification.
     const customizeStickerOnPage = (svgId, svgPath, cssPath, customize) => {
 
         [svgPath, cssPath].forEach(function(filePath) {
 
             // Is file existing ?
-            if (typeof filePath !== "undefined" && filePath !== null) {
+            if (typeof filePath !== "undefined" && filePath !== null && filePath.length > 5) {
 
                 let type = filePath.indexOf('.css') >= 0 ? "css" : "svg"
                 let selector = type === "css" ? "link[href='"+filePath+"']" : "script[src='"+filePath+"']"
 
-                // Don't add content if al
+                // Don't add content if already on page
                 if (type === "svg" || (type === "css" && document.querySelector(selector) === null)) {
 
-                    // load document content
+                    // Load document content
                     axios.get(filePath).then((response) => {
 
                         let fileContent = response.data
