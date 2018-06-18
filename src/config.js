@@ -7,8 +7,8 @@ const dev = {
 
 const staging = {
     api_clipr: {
-        API_BASE_URL: "https://test.clipr.co/fr/api",
-        TOKEN_ENDPOINT: "https://test.clipr.co/oauth/v2/token"
+        API_BASE_URL: "https://test.clipr.co/app_staging.php/fr/api",
+        TOKEN_ENDPOINT: "https://test.clipr.co/app_staging.php/oauth/v2/token"
     }
 }
 
