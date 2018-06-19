@@ -1,6 +1,5 @@
 
 import {resizeBox, rotateBox} from "../utilities/maths";
-import transparent_px from '../images/transparent.png'
 
 let initialBoxPosition = {}
 
@@ -31,7 +30,7 @@ const storyStickersReducer = (state = [], action) => {
      * @param corner_position   // Position of cursor relative to top left corner of element when dropped
      * @returns {*}
      */
-    const addstorySticker = (state, sticker, init_width, position, corner_position) => {
+    const addStorySticker = (state, sticker, init_width, position, corner_position) => {
 
         // Default position (ex : if added by double click)
         init_width = init_width || 0.2
@@ -215,8 +214,13 @@ const storyStickersReducer = (state = [], action) => {
                 init_width: action.init_width
             }))
 
+            // Set sticker image as ghost image when dragging,
+            // Else there is no drag image at first drag
+            let dragImg = document.createElement("img")
+            dragImg.src = "../images/dashbox.png"
+            action.event.dataTransfer.setDragImage(dragImg, 25, 25)
+
             // Deselect any selected object
-            console.log('DRAG GG')
             return state.map(storySticker =>
                 (typeof storySticker.edit_info !== "undefined" && storySticker.edit_info.selected)
                     ? {
@@ -233,7 +237,7 @@ const storyStickersReducer = (state = [], action) => {
 
         case 'LIBRARY_STICKER_DOUBLE_CLICK':
 
-            return addstorySticker(state, action.sticker, action.init_width)
+            return addStorySticker(state, action.sticker, action.init_width)
 
         /*********************************/
         /* STORY STICKER START SELECTION */
@@ -247,8 +251,8 @@ const storyStickersReducer = (state = [], action) => {
 
             // Set a transparent image as ghost image when dragging,
             // because we are already moving original element at the same time
-            var img = document.createElement("img")
-            img.src = transparent_px.src
+            let img = document.createElement("img")
+            img.src = "../images/transparent.png"
             action.event.dataTransfer.setDragImage(img, 0, 0)
 
             // Update objects of simulator to declare which one is currently being dragged
@@ -340,7 +344,7 @@ const storyStickersReducer = (state = [], action) => {
                     if (elmtDroppedInfo != null && typeof elmtDroppedInfo.elementId !== "undefined") {
 
                         // Yes it is, add sticker to story stickers
-                        return addstorySticker(
+                        return addStorySticker(
                             state,
                             elmtDroppedInfo.sticker,
                             elmtDroppedInfo.init_width,

@@ -41,8 +41,23 @@ const generalReducer = (state = [], action) => {
                         overlay: overlay
                     }
 
-                } else {
-                    return initialState
+                } else if (inputName.indexOf('media_') === 0) {
+
+                    let media = JSON.parse(JSON.stringify(initialState.media))
+
+                    switch (inputName) {
+
+                        case "media_duration":
+                            media.duration = inputValue
+                            break
+                        default:
+                            break
+                    }
+
+                    return {
+                        ...initialState,
+                        media: media
+                    }
                 }
             }
 

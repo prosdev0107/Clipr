@@ -1,7 +1,10 @@
 
 import api_client from "./CliprRequest"
+import store from '../../store'
+import {sendToReducersAction} from "../../actions";
 
 var apiSaveTimeout
+var clearMessageTimeout
 
 // Send data directly to API
 const LivetimeSave = (new_state) => {
@@ -10,9 +13,10 @@ const LivetimeSave = (new_state) => {
     if (apiSaveTimeout) {
         clearTimeout(apiSaveTimeout)
     }
-
     // Program a new API call after a delay of 2 seconds
     apiSaveTimeout = setTimeout(function() {
+
+        updateSaveStatus(1)
 
         // Step 1 : reformat data from story_stickers
         let template = {
@@ -28,13 +32,39 @@ const LivetimeSave = (new_state) => {
             request
                 .post("/cnv/clip/"+cs_item.cnv_short_code+"/cs_items/"+cs_item.id+"/update", {'template': template})
                 // Get response data and save in store
-                .then()
-                .catch(error => console.log(error))
+                .then(response => updateSaveStatus(200))
+                .catch(error => updateSaveStatus(404,error.toString()))
         }
 
-    },2000)
+    },1200)
 
     return true
+}
+
+
+// Update save status text
+const updateSaveStatus = (status, text) => {
+
+    clearTimeout(clearMessageTimeout)
+
+    if (status === 1) {
+
+        store.dispatch(sendToReducersAction("API_UPDATE_SAVING"))
+
+    } else if (status === 200) {
+
+        store.dispatch(sendToReducersAction("API_UPDATE_SAVED"))
+
+        // Hide message after 2 sec
+        clearMessageTimeout = setTimeout(function() {
+            store.dispatch(sendToReducersAction("API_UPDATE_CLEAR_MESSAGE"))
+        },2000)
+
+    } else {
+
+        // Probably an error
+        store.dispatch(sendToReducersAction("API_UPDATE_FAILED",text))
+    }
 }
 
 export default LivetimeSave

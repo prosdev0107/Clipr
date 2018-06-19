@@ -4,19 +4,23 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: #999;
 }
 .App > .row {
   height: 100%;
+  background: #999;
 }
-.builder-sidebar,
-.builder-central {
-  width: 100%;
-  height: 100%;
+.page-loader-fullscreen {
+  z-index: 999;
+  background: white;
 }
-.builder-sidebar {
-  background-color: #444;
+.page-data-saving {
+  position: absolute;
+  top: 20px;
+  font-size: 18px;
   color: white;
+}
+.hidden {
+  display: none;
 }
 .width-full {
   width: 100%;

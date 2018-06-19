@@ -6,7 +6,11 @@ import LivetimeSave from "./utilities/API/LivetimeSave"
 // Init state structure
 const initialState = {
     stickers: [],
-    listen_drag_events: 0,
+    page_actions: {
+        page_is_loading: 1,
+        listen_drag_events: 0,
+        data_saving_status: 0
+    },
     story_stickers: [],
     general: {
         overlay: {},
@@ -24,7 +28,7 @@ const store = createStore(rootReducer, initialState)
 export const subscriber = initSubscriber(store)
 subscriber('story_stickers', state => {
     // Do not update if we are dragging an element ! too much lag !
-    if (!state.listen_drag_events) {
+    if (!state.page_actions.listen_drag_events) {
         LivetimeSave(state)
     }
 })

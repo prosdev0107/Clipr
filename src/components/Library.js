@@ -20,6 +20,9 @@ const Library = ({stickers, selectFromLibrary}) => {
                 onDoubleClick={(event) => selectFromLibrary('LIBRARY_STICKER_DOUBLE_CLICK',event)}
     >
 
+        {/* Preload dashbox image to get ghost image when dragging at first time */}
+        <img class="hidden" src="images/dashbox.png" alt="dashbox"/>
+
         {/* Images */}
         <div className="stickers-library-shelf">
             <Row>

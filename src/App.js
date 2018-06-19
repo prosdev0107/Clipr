@@ -17,6 +17,7 @@ import './styles/clip.min.css'
 
 import MediaPanelContainer from "./containers/central/MediaPanelContainer"
 import PropertiesContainer from "./containers/properties/PropertiesContainer"
+import ApplicationContainer from "./containers/ApplicationContainer";
 
 class App extends Component {
 
@@ -75,6 +76,8 @@ class App extends Component {
         return (
 
             <div className="App">
+
+                <ApplicationContainer />
 
                 <Row>
 

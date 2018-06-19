@@ -133,7 +133,7 @@ sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX  /var/www/my/react_prod
         echo '======== SSH CONFIG ========'                                                 >> $deployLogLoc
         whoami                                                                              >> $deployLogLoc
         eval $(ssh-agent)                                                                   >> $deployLogLoc
-        ssh-add -k /var/www/.ssh/id_rsa_mcdeploy                                            >> $deployLogLoc
+        ssh-add -k /var/www/.ssh/id_rsa                                                     >> $deployLogLoc
         echo ''                                                                             >> $deployLogLoc
         echo '======== GIT DEPLOY ========'                                                 >> $deployLogLoc
         cd /var/www/my/react_prod/                                                          >> $deployLogLoc
@@ -162,7 +162,7 @@ sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX  /var/www/my/react_stag
         echo ''                                                                             >> $deployLogLoc
         eval $(ssh-agent)                                                                   >> $deployLogLoc
         echo ''                                                                             >> $deployLogLoc
-        ssh-add -k /var/www/.ssh/id_rsa_mcdeploy                                            >> $deployLogLoc
+        ssh-add -k /var/www/.ssh/id_rsa                                                     >> $deployLogLoc
         echo ''                                                                             >> $deployLogLoc
         echo '======== GIT DEPLOY ========'                                                 >> $deployLogLoc
         cd /var/www/my/react_staging/                                                       >> $deployLogLoc

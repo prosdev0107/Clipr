@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import storyStickersReducer from './storyStickersReducer'
 import stickersReducer from './stickersReducer'
 import csItemReducer from './csItemReducer'
-import listenDragEventsReducer from './listenDragEventsReducer'
+import pageActionsReducer from './pageActionsReducer'
 import generalReducer from './generalReducer'
 
 export default combineReducers({
@@ -11,5 +11,5 @@ export default combineReducers({
     general: generalReducer,
     stickers: stickersReducer,
     cs_item: csItemReducer,
-    listen_drag_events: listenDragEventsReducer,
+    page_actions: pageActionsReducer,
 })
