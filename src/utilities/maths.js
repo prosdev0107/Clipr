@@ -1,4 +1,6 @@
 
+import {MEDIA_PANEL_REF_WIDTH} from "../constants/constants"
+
 /**
  * Compute angle between vector AB and AC (given ref_point as A)
  * Return angle in RADIAN
@@ -126,6 +128,8 @@ export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ra
         y: box_corners.nw.y,
         width: new_box_width,
         ratio: media_panel_ratio*new_box_height/new_box_width,
+        // Avoid huge stickers on large screen
+        maxWidth: Math.round(new_box_width * MEDIA_PANEL_REF_WIDTH) + "px"
     }
 }
 
@@ -139,17 +143,13 @@ export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ra
  * @param media_panel_ratio
  * @returns {{rotation: *}}
  */
-export const rotateBox = (initialCoord, x_init, y_init, x_delta, y_delta, media_panel_ratio) => {
+export const rotateBox = (initialCoord, x_init, y_init, x_delta, y_delta) => {
+
 
     // To get the rotation, we need to compute the angle between three points :
-    // box_center, as ref point, i.e. the original cursor position
-    let box_center = {
-        x: initialCoord.x + initialCoord.width/2,
-        y: initialCoord.y + (initialCoord.width*initialCoord.ratio/media_panel_ratio)/2,
-    }
     let angle = find_vector_angle(
-        box_center,
-        {x: x_init, y: y_init},                // rotatable circle center
+        {x: initialCoord.x, y: initialCoord.y}, // box_center, as ref point
+        {x: x_init, y: y_init},                 // rotatable circle center, i.e. the original cursor position
         {x: x_init+x_delta, y: y_init+y_delta}  // and new cursor position
 
     )

@@ -6,7 +6,8 @@ export let ItemPositionTypes = PropTypes.shape({
     y: PropTypes.number.isRequired,
     width: PropTypes.number,
     ratio: PropTypes.number,            // height/width
-    rotation: PropTypes.number          // radian !!!
+    rotation: PropTypes.number,         // radian !!!
+    maxWidth: PropTypes.string          // px
 })
 
 export let ItemPositionDefaults = {

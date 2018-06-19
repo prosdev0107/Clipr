@@ -55,14 +55,6 @@ export const selectFromLibraryAction = (type, event) => {
         // Get media panel dimensions
         let mediaPanelSize = getMediaPanelSize()
 
-        // Position of cursor relative to top left corner of story sticker
-        // And sized relative to media panel width and height
-        let rect = target.getBoundingClientRect()
-        let cursor_corner_position = {
-            x: Math.round(1000*(event.clientX - rect.left) / mediaPanelSize.width)/1000,
-            y: Math.round(1000*(event.clientY - rect.top) / mediaPanelSize.height)/1000
-        }
-
         // Get selected sticker info
         let sticker = findStickerWithId(target.getAttribute('data-sticker-id'))
 
@@ -74,7 +66,6 @@ export const selectFromLibraryAction = (type, event) => {
             event: event,
             target: target,
             sticker: sticker,
-            cursor_corner_position: cursor_corner_position,
             init_width: init_width
         }
     }

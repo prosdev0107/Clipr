@@ -1,5 +1,6 @@
 
-import {resizeBox, rotateBox} from "../utilities/maths";
+import {resizeBox, rotateBox} from "../utilities/maths"
+import {MEDIA_PANEL_REF_WIDTH} from "../constants/constants"
 
 let initialBoxPosition = {}
 
@@ -30,25 +31,15 @@ const storyStickersReducer = (state = [], action) => {
      * @param corner_position   // Position of cursor relative to top left corner of element when dropped
      * @returns {*}
      */
-    const addStorySticker = (state, sticker, init_width, position, corner_position) => {
+    const addStorySticker = (state, sticker, init_width, position) => {
 
         // Default position (ex : if added by double click)
         init_width = init_width || 0.2
         let SSBox_position = {
-            x: 0.5 - init_width/2,
-            y: 0.5 - init_width/2,
+            x: 0.5,
+            y: 0.5,
             width: init_width,
-            ratio: sticker.ratio || 1
-        }
-
-        // Position in simulator
-        if (typeof position !== "undefined" && position != null) {
-            SSBox_position.x = position.x
-            SSBox_position.y = position.y
-            if (typeof corner_position !== "undefined" && corner_position != null) {
-                SSBox_position.x -= corner_position.x
-                SSBox_position.y -= corner_position.y
-            }
+            ratio: sticker.ratio || 1,
         }
 
         if (typeof sticker.width !== "undefined") {
@@ -57,6 +48,15 @@ const storyStickersReducer = (state = [], action) => {
         if (typeof sticker.ratio !== "undefined") {
             SSBox_position.ratio = sticker.ratio
         }
+
+        // Position in media panel
+        if (typeof position !== "undefined" && position != null) {
+            SSBox_position.x = position.x
+            SSBox_position.y = position.y
+        }
+
+        // Avoid huge stickers on large screen
+        SSBox_position.maxWidth = Math.round(SSBox_position.width * MEDIA_PANEL_REF_WIDTH) + "px"
 
         // Add to simulator objects
         if (typeof sticker !== "undefined" && sticker !== null) {
@@ -130,8 +130,8 @@ const storyStickersReducer = (state = [], action) => {
                         position: {
                             ...storySticker.position,
                             // We can't move objects outside simulator
-                            x: Math.min(1 - margin, Math.max(margin - storySticker.position.width, storySticker.position.x + x_delta)),
-                            y: Math.min(1 - margin, Math.max(margin - media_panel_ratio*storySticker.position.ratio*storySticker.position.width, storySticker.position.y + y_delta))
+                            x: Math.max(0, Math.min(1, storySticker.position.x + x_delta)),
+                            y: Math.max(0, Math.min(1, storySticker.position.y + y_delta))
                         },
                         edit_info: !end_movement ? storySticker.edit_info : {
                             ...storySticker.edit_info,
@@ -151,7 +151,7 @@ const storyStickersReducer = (state = [], action) => {
                 (typeof storySticker.edit_info !== "undefined" && storySticker.edit_info.rotated === true)
                     ? {
                         ...storySticker,
-                        position: rotateBox(storySticker.position, initialBoxPosition.x, initialBoxPosition.y, x_delta, y_delta, media_panel_ratio)
+                        position: rotateBox(storySticker.position, initialBoxPosition.x, initialBoxPosition.y, x_delta, y_delta)
                     } : storySticker
             )
 
@@ -208,7 +208,6 @@ const storyStickersReducer = (state = [], action) => {
             // Set initial position of cursor in data transfer
             // Also save info about sticker content
             action.event.dataTransfer.setData('pick_from_library',JSON.stringify({
-                cursor_corner_position: action.cursor_corner_position,
                 elementId: action.target.id,
                 sticker: action.sticker,
                 init_width: action.init_width
@@ -348,8 +347,7 @@ const storyStickersReducer = (state = [], action) => {
                             state,
                             elmtDroppedInfo.sticker,
                             elmtDroppedInfo.init_width,
-                            action.cursor_position,
-                            elmtDroppedInfo.cursor_corner_position
+                            action.cursor_position
                         )
                     }
                 }

@@ -14,7 +14,11 @@ const StorySticker = ({
     let styles = {
         left:   position.x*100+'%',
         top:    position.y*100+'%',
-        width:  position.width*100+'%',
+        width:  position.width*100+'%'
+    }
+
+    if (typeof position.maxWidth !== "undefined" && position.maxWidth.length >= 3) {
+        styles.maxWidth = position.maxWidth
     }
 
     // paddingTop allows to keep sticker ratio whatever the screen ratio is
@@ -23,7 +27,7 @@ const StorySticker = ({
     }
 
     if (typeof position.rotation !== "undefined" && position.rotation != null) {
-        styles.transform= "rotate("+position.rotation+"rad)"
+        styles.transform= "translate(-50%,-50%) rotate("+position.rotation+"rad)"
     }
 
     return (
