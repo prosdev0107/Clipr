@@ -59,6 +59,7 @@ const generalReducer = (state = [], action) => {
                         media: media
                     }
                 }
+                return initialState
             }
 
             return editOverlayFromForm(state, action.name, action.value)

@@ -24,7 +24,7 @@ export const find_vector_angle = (ref_point,B,C) => {
 
 
 /**
- * Resize story sticker after a mouve movement
+ * Resize story sticker after a mouse movement
  * 
  * @param initialCoord          // Initial coord of story sticker
  * @param x_delta               // The x-diff between cursor end and begin positions
