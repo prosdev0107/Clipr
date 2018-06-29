@@ -24,12 +24,12 @@ class App extends Component {
     componentDidMount() {
         
         // FOR TEST PURPOSE
-        let fakeData = 0
+        let fakeData = 1
 
         // Get Symfony access token from url
         const query = this.props.location.search
         const access_token = UrlTools.getParameterByName('access_token',query)
-        if (access_token != null && access_token.length > 0) {
+        if (fakeData || (access_token != null && access_token.length > 0)) {
 
             // Initialize request instance with client information
             let request = api_client({

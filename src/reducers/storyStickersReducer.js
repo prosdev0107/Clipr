@@ -119,9 +119,6 @@ const storyStickersReducer = (state = [], action) => {
 
             // STORY STICKER IS BEING DRAGGED
 
-            // We can't move objects outside simulator
-            let margin = 0.1
-
             // Update the selected SSBox object to fit the new position
             return state.map(storySticker =>
                 (typeof storySticker.edit_info !== "undefined" && storySticker.edit_info.translated === true)

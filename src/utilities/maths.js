@@ -38,24 +38,30 @@ export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ra
     // The method consists in defining the new position of the 4 corners of the box
     // Depending on delta move and region selected
     // And relative to Media Panel dimensions
+    // AND CONSIDERING EACH STICKER IS TRANSLATED -50% -50%
+    let old_mid_width = initialCoord.width / 2
+    let old_mid_height = initialCoord.ratio*initialCoord.width/media_panel_ratio / 2
     let box_corners = {
         nw: {
-            x: initialCoord.x,
-            y: initialCoord.y
+            x: initialCoord.x - old_mid_width,
+            y: initialCoord.y - old_mid_height
         },
         ne: {
-            x: initialCoord.x+initialCoord.width,
-            y: initialCoord.y
+            x: initialCoord.x + old_mid_width,
+            y: initialCoord.y - old_mid_height
         },
         sw: {
-            x: initialCoord.x,
-            y: initialCoord.y+initialCoord.ratio*initialCoord.width/media_panel_ratio
+            x: initialCoord.x - old_mid_width,
+            y: initialCoord.y + old_mid_height
         },
         se: {
-            x: initialCoord.x+initialCoord.width,
-            y: initialCoord.y+initialCoord.ratio*initialCoord.width/media_panel_ratio
+            x: initialCoord.x + old_mid_width,
+            y: initialCoord.y + old_mid_height
         },
     }
+
+    // We need to keep the aspect ratio of the sticker
+    let image_ratio = initialCoord.ratio || 1
 
     // The delta made by user is applied to the ROTATED object
     // In order to get the new position of corners WITHOUT rotation,
@@ -66,21 +72,40 @@ export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ra
     let anti_rotated_x_delta = -y_delta*ang_sin + x_delta*ang_cos
     let anti_rotated_y_delta = y_delta*ang_cos + x_delta*ang_sin
 
+    // Depending on the region, we need to modify either x or y delta to keep the aspect ratio
+    if (region === "n" || region === "s") {
+
+        // Width should adapt to height change
+        anti_rotated_x_delta = 2*anti_rotated_y_delta / image_ratio
+
+    } else if (region === "w" || region === "e") {
+
+        // Height should adapt to width change
+        anti_rotated_y_delta = anti_rotated_x_delta * image_ratio / 2
+
+    } else {
+
+        // That's one of the corner move
+
+        // x position will follow the cursor movement
+        // And y position will adapt to this move
+
+        // Calculation of y direction change
+        let y_symbol = (anti_rotated_x_delta >= 0 && ['ne','sw'].indexOf(region) >= 0)
+        || (anti_rotated_x_delta <= 0 && ['nw','se'].indexOf(region) >= 0) ? -1 : 1
+
+        anti_rotated_y_delta = y_symbol * Math.abs(anti_rotated_x_delta) * image_ratio / 2
+    }
+
     // Also, the center of the box will move along the resize movement
     // So we need to translate each corner into that direction
-    // In case of n w s e resizable-handle, we should cancel one of the two components of anti-rotated delta vector
-    if (region === "n" || region === "s") {
-        anti_rotated_x_delta = 0
-    }
-    if (region === "w" || region === "e") {
-        anti_rotated_y_delta = 0
-    }
+
+    // So now let's compute the "real" delta vector, which will allow to move the center of the box
     ang_cos = Math.cos(initialCoord.rotation || 0)
     ang_sin = Math.sin(initialCoord.rotation || 0)
-    // So let's compute the "real" delta vector, which will allow to move the center of the box
     let real_delta = {
-        x: -anti_rotated_y_delta*ang_sin + anti_rotated_x_delta*ang_cos,
-        y: anti_rotated_y_delta*ang_cos + anti_rotated_x_delta*ang_sin
+        x: ['n','s'].indexOf(region) >= 0 ? 0 : -anti_rotated_y_delta*ang_sin + anti_rotated_x_delta*ang_cos,
+        y: ['w','e'].indexOf(region) >= 0 ? 0 : anti_rotated_y_delta*ang_cos + anti_rotated_x_delta*ang_sin
     }
 
     // Now we can update each corner position
@@ -88,6 +113,7 @@ export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ra
     // (i.e. fit to new box dimensions, KEEPING THE OLD CENTER)
     // and finally by translating them respecting the box center translation (given by center_delta)
     // (i.e. fit to new box position, KEEPING THE NEW DIMENSIONS)
+
     if (['nw','w','n','sw'].indexOf(region) >= 0) {
         // Move left border to the half distance of anti_rotated_x_delta
         box_corners.nw.x += (anti_rotated_x_delta + real_delta.x)/2
@@ -122,12 +148,12 @@ export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ra
     }
 
     // Return new coordinates of SSBox
+    // With a new translation according to real center of the sticker
     return {
         ...initialCoord,
-        x: box_corners.nw.x,
-        y: box_corners.nw.y,
+        x: box_corners.nw.x + 0.5*new_box_width,
+        y: box_corners.nw.y + 0.5*new_box_height,
         width: new_box_width,
-        ratio: media_panel_ratio*new_box_height/new_box_width,
         // Avoid huge stickers on large screen
         maxWidth: Math.round(new_box_width * MEDIA_PANEL_REF_WIDTH) + "px"
     }

@@ -21,7 +21,7 @@ const Library = ({stickers, selectFromLibrary}) => {
     >
 
         {/* Preload dashbox image to get ghost image when dragging at first time */}
-        <img class="hidden" src="images/dashbox.png" alt="dashbox"/>
+        <img className="hidden" src="images/dashbox.png" alt="dashbox"/>
 
         {/* Images */}
         <div className="stickers-library-shelf">
