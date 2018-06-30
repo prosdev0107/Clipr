@@ -2,10 +2,10 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import Input from './form/Input'
 import Select2 from './form/Select2'
-import { STICKER_FONT_SIZE_MIN, STICKER_FONT_SIZE_MAX, STICKER_FONT_FAMILIES } from '../constants/constants'
+import { STICKER_FONT_SIZE_MIN, STICKER_FONT_SIZE_MAX } from '../constants/constants'
 
 
-const PropertiesForm = ({story_sticker,formChanged}) => {
+const PropertiesForm = ({story_sticker,fonts,formChanged}) => {
 
     let sticker = story_sticker.sticker
 
@@ -14,8 +14,8 @@ const PropertiesForm = ({story_sticker,formChanged}) => {
     const validateFontSize = value => parseInt(value,10) < STICKER_FONT_SIZE_MIN || parseInt(value,10) > STICKER_FONT_SIZE_MAX ?
         'Between '+STICKER_FONT_SIZE_MIN+ ' & '+STICKER_FONT_SIZE_MAX : null
 
-    let fontFamilies = STICKER_FONT_FAMILIES.map( (value) => {
-        return { value: value, label: value }
+    let fontFamilies = fonts.map( (font) => {
+        return { value: font.name, label: font.name }
     })
 
 

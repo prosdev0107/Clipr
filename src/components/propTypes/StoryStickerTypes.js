@@ -5,8 +5,8 @@ import {ItemPositionTypes,ItemPositionDefaults} from './ItemPositionTypes'
 
 export let StoryStickerTypes = {
     id: PropTypes.string.isRequired,
-    sticker: StickerTypes.isRequired,
-    position: ItemPositionTypes.isRequired,
+    sticker: PropTypes.shape(StickerTypes).isRequired,
+    position: PropTypes.shape(ItemPositionTypes).isRequired,
     edit_info: PropTypes.shape({
         selected: PropTypes.bool,
         translated: PropTypes.bool,

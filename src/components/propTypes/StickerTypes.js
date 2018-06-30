@@ -10,16 +10,16 @@ export let StickerTypes = {
         svg: PropTypes.string,          // Case svg : link to svg content
         css: PropTypes.string,          // Case svg : link to CSS classes if html stylized
     }).isRequired,                      // Case image : link to image
-    /*customize: PropTypes.arrayOf(PropTypes.shape({      // Case svg : customizable content
+    customize: PropTypes.arrayOf(PropTypes.shape({      // Case svg : customizable content
         id: PropTypes.string,
         selector: PropTypes.string,                     // How to reach the element inside the svg
         property: PropTypes.string,                     // The property we want to make customizable
         value: PropTypes.string,                        // Default value of this property
-        input: {                                        // Configuration of the editable input
+        input: PropTypes.shape({                                        // Configuration of the editable input
             type: PropTypes.string,
             label: PropTypes.string
-        }
-    })),*/
+        })
+    }))
 }
 
 export let StickerDefaults = {

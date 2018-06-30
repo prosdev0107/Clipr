@@ -4,6 +4,7 @@ import StickerLayerContainer from '../containers/central/StickersLayerContainer'
 import {CsItemTypes, CsItemDefaults} from "./propTypes/CsItemTypes"
 import {OverlayTypes} from "./propTypes/OverlayTypes";
 import {MEDIA_PANEL_ID} from "../constants/constants"
+import PropTypes from 'prop-types'
 
 /**
  * The Media Panel is where we can customize media with content
@@ -119,8 +120,8 @@ const MediaPanel = ({ cs_item, overlay }) => {
 }
 
 MediaPanel.propTypes = {
-    cs_item: CsItemTypes,
-    overlay: OverlayTypes
+    cs_item: PropTypes.shape(CsItemTypes),
+    overlay: PropTypes.shape(OverlayTypes)
 }
 MediaPanel.defaultProps = {
     cs_item: CsItemDefaults,

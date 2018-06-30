@@ -1,14 +1,14 @@
 
 import PropTypes from 'prop-types'
 
-export let ItemPositionTypes = PropTypes.shape({
+export let ItemPositionTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     width: PropTypes.number,
     ratio: PropTypes.number,            // height/width
     rotation: PropTypes.number,         // radian !!!
     maxWidth: PropTypes.string          // px
-})
+}
 
 export let ItemPositionDefaults = {
     width: 0.2,

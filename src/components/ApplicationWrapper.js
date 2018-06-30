@@ -1,7 +1,7 @@
 import React from 'react'
+import { jss } from 'react-jss'
 
-
-const ApplicationWrapper = ({ page_is_loading, data_saving_status }) => {
+const ApplicationWrapper = ({ page_is_loading, data_saving_status, fonts }) => {
 
     const renderDataSavingStatus = (data_saving_status) => {
 
@@ -25,6 +25,29 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status }) => {
         }
 
 
+    }
+
+    // Add fonts
+    if (typeof fonts !== "undefined") {
+        for (let i=0; i < fonts.length; i++) {
+            let font = fonts[i]
+            let fontMeta = 'font_'+font.id
+
+            // Add font if not existing yet
+            if (document.querySelectorAll("[data-meta='"+fontMeta+"']").length === 0) {
+
+                let sources = "url('"+font.source+"') format('woff2'), url('"+font.source.replace('woff2','woff')+"') format('woff')"
+
+                jss.createStyleSheet({
+                    '@font-face': {
+                        fontFamily: font.name,
+                        fontWeight: 400,
+                        fontStyle: 'normal',
+                        src: sources,
+                    },
+                }, { meta: fontMeta }).attach()
+            }
+        }
     }
 
     return page_is_loading ?

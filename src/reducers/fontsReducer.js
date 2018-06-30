@@ -1,5 +1,5 @@
 
-const stickersReducer = (state = [], action) => {
+const fontsReducer = (state = [], action) => {
 
     switch (action.type) {
 
@@ -7,8 +7,8 @@ const stickersReducer = (state = [], action) => {
         case "API_UPDATE_LIBRARY":
 
             let data = action.data
-            if (typeof data.stickers !== "undefined" && typeof data.stickers.img !== "undefined") {
-                return data.stickers
+            if (typeof data.fonts !== "undefined" ) {
+                return data.fonts
             }
             return state
 
@@ -17,4 +17,4 @@ const stickersReducer = (state = [], action) => {
     }
 }
 
-export default stickersReducer
+export default fontsReducer

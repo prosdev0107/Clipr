@@ -1,7 +1,7 @@
 
 import PropTypes from 'prop-types'
 
-export let CsItemTypes = PropTypes.shape({
+export let CsItemTypes = {
     id: PropTypes.isRequired,
     media: PropTypes.shape({
         src: PropTypes.string.isRequired,
@@ -10,7 +10,7 @@ export let CsItemTypes = PropTypes.shape({
         fullScreen: PropTypes.bool.isRequired,
         isVideo: PropTypes.bool
     })
-})
+}
 
 export let CsItemDefaults = {
     media: {

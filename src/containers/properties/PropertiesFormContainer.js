@@ -4,7 +4,8 @@ import PropertiesForm from '../../components/PropertiesForm'
 import { propertiesFormChangedAction } from '../../actions'
 
 const mapStateToProps = (state,ownProps) => ({
-    ...ownProps
+    ...ownProps,
+    fonts: state.fonts
 })
 
 const mapDispatchToProps = (dispatch) => ({

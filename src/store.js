@@ -6,6 +6,7 @@ import LivetimeSave from "./utilities/API/LivetimeSave"
 // Init state structure
 const initialState = {
     stickers: [],
+    fonts: [],
     page_actions: {
         page_is_loading: 1,
         listen_drag_events: 0,

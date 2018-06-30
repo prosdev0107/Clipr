@@ -5,7 +5,7 @@ const StickersLayer = ({ story_stickers, listen_drag_events, transformStoryStick
 
     // Listen to drag over events only when one item starts to be dragged
     let onDragOverDo = listen_drag_events ? (event) => transformStorySticker('STICKERS_LAYER_DRAGGED',event) : null
-    let onMouseMoveDo = listen_drag_events ? (event) => transformStorySticker('STICKERS_LAYER_DRAGGED',event) : null
+    // let onMouseMoveDo = listen_drag_events ? (event) => transformStorySticker('STICKERS_LAYER_DRAGGED',event) : null
     let onDropDo = listen_drag_events ? (event) => transformStorySticker('STICKERS_LAYER_ON_DROP',event) : null
 
     // onDrop is also used when dragging & dropping a sticker into the story
@@ -15,7 +15,7 @@ const StickersLayer = ({ story_stickers, listen_drag_events, transformStoryStick
         onDragStart={(event) => transformStorySticker('STICKERS_LAYER_DRAG_START',event)}
 
         onDragOver={onDragOverDo}
-        onMouseMove={onMouseMoveDo}
+        // onMouseMove={onMouseMoveDo}
 
         onMouseUp={onDropDo}
         onMouseLeave={onDropDo}

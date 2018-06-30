@@ -6,6 +6,19 @@ let initialBoxPosition = {}
 
 const storyStickersReducer = (state = [], action) => {
 
+    // Get the index of the current selected stciker
+    const findSelectedIndex = (story_stickers) => {
+        for(let i = 0; i < story_stickers.length; i += 1) {
+            let story_sticker = story_stickers[i]
+            if (typeof story_sticker.edit_info !== "undefined" && story_sticker.edit_info.selected) {
+                return i
+            }
+        }
+        return -1
+    }
+
+
+
     /**
      * Save story sticker coordinated when movement begins
      *
@@ -167,6 +180,60 @@ const storyStickersReducer = (state = [], action) => {
         }
     }
 
+    const changeSelectedStickerOrder = (initialState, direction) => {
+
+        // Get current selected index
+        let oldIndex = findSelectedIndex(state)
+        let newIndex = 0
+
+        // Compute new position
+        switch (direction) {
+            case -2:
+                newIndex = 0
+                break
+            case -1:
+                newIndex = oldIndex-1
+                break
+            case 1:
+                newIndex = oldIndex+1
+                break
+            case 2:
+                newIndex = initialState.length-1
+                break
+            default:
+                newIndex = oldIndex
+                break
+        }
+
+        // Construct the new stickers array
+        if (newIndex >= 0 && newIndex < initialState.length && newIndex !== oldIndex) {
+
+            let stateReindexed = []
+
+            for (let i=0; i < initialState.length; i++) {
+
+                if (newIndex === i && newIndex < oldIndex) {
+
+                    // Move the selected sticker here, BEFORE the one here
+                    stateReindexed.push(initialState[oldIndex])
+                }
+                if (oldIndex !== i) {
+
+                    // Continue reindexing
+                    stateReindexed.push(initialState[i])
+                }
+                if (newIndex === i && newIndex > oldIndex) {
+
+                    // Move the selected sticker here, AFTER the one here
+                    stateReindexed.push(initialState[oldIndex])
+                }
+            }
+
+            return stateReindexed
+        }
+
+        return initialState
+    }
 
     switch (action.type) {
 
@@ -239,7 +306,7 @@ const storyStickersReducer = (state = [], action) => {
         /* STORY STICKER START SELECTION */
         /*********************************/
 
-        // From library : start dragging sticker
+        // From stickers layer : start dragging sticker
         case 'STICKERS_LAYER_DRAG_START':
 
             // Useless but needed to let onDragOver be triggered
@@ -437,7 +504,28 @@ const storyStickersReducer = (state = [], action) => {
 
             return state.filter(storySticker => (typeof storySticker.edit_info === "undefined" || !storySticker.edit_info.selected))
 
+        // Send sticker behind all other stickers
+        case 'PROPERTIES_BUTTON_SEND_FULL_BACK_SELECTED':
+
+            return changeSelectedStickerOrder(state,-2)
+
+        // Send sticker one step behind
+        case 'PROPERTIES_BUTTON_SEND_BACK_SELECTED':
+
+            return changeSelectedStickerOrder(state,-1)
+
+        // Send sticker one step front
+        case 'PROPERTIES_BUTTON_SEND_FRONT_SELECTED':
+
+            return changeSelectedStickerOrder(state,1)
+
+        // Send sticker in front of all other stickers
+        case 'PROPERTIES_BUTTON_SEND_FULL_FRONT_SELECTED':
+
+            return changeSelectedStickerOrder(state,2)
+
         default:
+
             return state
     }
 }

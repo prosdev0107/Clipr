@@ -78,6 +78,7 @@ export const selectFromLibraryAction = (type, event) => {
 // Manipulate story stickers on
 export const transformStoryStickerAction = (type, event) => {
 
+
     // Get media panel dimensions
     let mediaPanelSize = getMediaPanelSize()
 

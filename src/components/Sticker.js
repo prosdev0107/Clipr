@@ -1,6 +1,7 @@
 import React from 'react'
-import {StickerDefaults,StickerTypes} from "./propTypes/StickerTypes";
-import axios from "axios/index";
+import {StickerDefaults,StickerTypes} from "./propTypes/StickerTypes"
+import axios from "axios/index"
+import PropTypes from 'prop-types'
 
 const Sticker = ({sticker}) => {
 
@@ -137,7 +138,7 @@ const Sticker = ({sticker}) => {
 }
 
 Sticker.propTypes = {
-    sticker: StickerTypes
+    sticker: PropTypes.shape(StickerTypes)
 }
 
 Sticker.defaultProps = {
