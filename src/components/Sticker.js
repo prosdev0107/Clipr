@@ -39,31 +39,45 @@ const Sticker = ({sticker}) => {
                                 if (typeof customize !== "undefined" && customize != null) {
 
                                     // Some properties in this svg need to be updated
-                                    Object.entries(customize).map(([key, customField]) => {
+                                    Object.entries(customize).map(([fieldName, customField]) => {
 
                                         // Find the elements concerned about this custom field
-                                        var nodes = sticker.getElementsByClassName(customField.selector)
+                                        let nodes = sticker.querySelectorAll(customField.selector)
 
                                         Array.prototype.forEach.call(nodes,(node) => {
 
-                                            let property = customField.property
+                                            switch (customField.type) {
 
-                                            // Edit the property
-                                            if (property.indexOf('css_') === 0) {
+                                                case "css":
+                                                    if (customField.property !== "undefined") {
+                                                        node.style[customField.property] = customField.value;
+                                                    }
+                                                    break
 
-                                                // Edit css style rather than a specific attribute
-                                                let cssProperty = property.slice(4)
-                                                node.style[cssProperty] = customField.value
+                                                case "attribute":
+                                                    if (customField.property !== "undefined") {
+                                                        node.setAttribute(customField.property, customField.value)
+                                                    }
+                                                    break
 
-                                            } else if (property === 'content') {
+                                                case "text":
 
-                                                // Edit innerHTML
-                                                node.innerHTML = customField.value
+                                                    // Several properties to edit about text
+                                                    let attributes = customField.attributes
+                                                    if (typeof attributes !== "undefined" && attributes != null) {
 
-                                            } else {
+                                                        node.innerHTML = attributes.content
+                                                        node.style.fontFamily = attributes.family
+                                                        node.style.fontSize = attributes.size+"px"
+                                                        node.style.color = attributes.color
+                                                        node.setAttribute("fill",attributes.color)
+                                                        node.setAttribute("font-size",attributes.size)
+                                                    }
 
-                                                // Edit atttribute
-                                                node.setAttribute(property,customField.value)
+                                                    break
+
+                                                default:
+                                                    break
                                             }
                                         })
 

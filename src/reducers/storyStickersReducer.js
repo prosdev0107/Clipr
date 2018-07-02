@@ -433,24 +433,21 @@ const storyStickersReducer = (state = [], action) => {
                 // Else we would modify directly the state itself
                 // Which is an anti-pattern, React would consider state hasn't changed so no re-rendering
 
-                if (inputName.indexOf('position_') === 0) {
+                if (inputName.indexOf('ssbox_position_') === 0) {
 
                     let position = JSON.parse(JSON.stringify(initialState.position))
 
-                    switch (inputName) {
+                    // x, y , rotation...
+                    let field = inputName.replace('ssbox_position_','');
 
-                        case "position_x":
-                            position.x = parseFloat(inputValue)
-                            break
-                        case "position_y":
-                            position.y = parseFloat(inputValue)
-                            break
-                        case "position_rotation":
-                            position.rotation = parseFloat(inputValue)*Math.PI/180
-                            break
-                        default:
-                            break
+                    // Transform value if necessary
+                    if (field === "rotation") {
+
+                        // Transform to radians
+                        inputValue = parseFloat(inputValue)*Math.PI/180
                     }
+
+                    position[field] = parseFloat(inputValue)
 
                     return {
                         ...initialState,
@@ -459,31 +456,28 @@ const storyStickersReducer = (state = [], action) => {
 
                 } else {
 
-                    // Specific or CUSTOM field of sticker
+                    // Custom field of sticker
                     let sticker = JSON.parse(JSON.stringify(initialState.sticker))
 
-                    switch (inputName) {
+                    if (typeof sticker.customize !== "undefined") {
 
-                        case "text":
-                            sticker.text = inputValue
-                            break
-                        case "fontFamily":
-                            sticker.fontFamily = inputValue
-                            break
-                        case "fontSize":
-                            sticker.fontSize = parseInt(inputValue, 10)
-                            break
-                        case "color":
-                            sticker.color = inputValue
-                            break
-                        default:
-                            // That could be a custom field
-                            if (typeof sticker.customize !== "undefined"
-                                && typeof sticker.customize[inputName] !== "undefined") {
-                                sticker.customize[inputName].value = inputValue
+                        if (inputName.indexOf('custom_text_') === 0) {
+
+                            // content_{custom-field-id}, family_{custom-field-id}, size_{custom-field-id}, color_{custom-field-id}
+                            let attributeAndFieldName = inputName.replace('custom_text_','')
+                            let attribute = attributeAndFieldName.substr(0,attributeAndFieldName.indexOf('_'))
+                            let fieldName = attributeAndFieldName.substr(attributeAndFieldName.indexOf('_')+1)
+
+                            // That's one of the few fields that allow to customize text (content, color, font size...)
+                            if (typeof sticker.customize[fieldName] !== "undefined") {
+                                sticker.customize[fieldName]['attributes'][attribute] = inputValue
                             }
 
-                            break
+                        } else if (typeof sticker.customize[inputName] !== "undefined") {
+
+                            // Simple value
+                            sticker.customize[inputName]['value'] = inputValue
+                        }
                     }
 
                     return {
