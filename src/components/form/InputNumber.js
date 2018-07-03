@@ -4,10 +4,11 @@ const InputNumber = ({
                          input, label, defaultValue, step, min, max, forceValue,
                          meta: { touched, error },
                      }) => (
-    <div>
-        <label htmlFor={input.name}>{label}</label>
+    <div className="form-group form-material material-bordered">
+        {(label || "").length > 0 ? <label htmlFor={input.name}>{label}</label> : "" }
         <input
             {...input}
+            className="form-control"
             type="number"
             step={step || 1}
             min={min}

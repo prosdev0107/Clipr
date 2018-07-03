@@ -5,9 +5,13 @@ import LibraryContainer from "./containers/library/LibraryContainer"
 import {sendToReducersAction} from "./actions"
 import store from './store'
 
+// Theme css
 import {Row, Col} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/css/bootstrap-grid.min.css'
+import './styles/theme/bootstrap-extend.min.css'
+import './styles/theme/site.min.css'
+import './styles/theme/animate/animate.min.css'
 import './styles/main.min.css'
 import './styles/library.min.css'
 import './styles/mediaPanel.min.css'
@@ -38,6 +42,12 @@ class App extends Component {
                 refresh_token: UrlTools.getParameterByName('refresh_token',query),
                 client_id: UrlTools.getParameterByName('client_id',query)
             })
+
+            // Host url if any ?
+            let url_host = UrlTools.getParameterByName('url_host',query)
+            if (url_host != null) {
+                store.dispatch(sendToReducersAction("API_UPDATE_URL_HOST",url_host))
+            }
 
             // Now let's get information about media panel
             let cnv_short_code = UrlTools.getParameterByName('cnv', query)
@@ -79,21 +89,26 @@ class App extends Component {
 
                 <ApplicationContainer />
 
+                <LibraryContainer />
+
                 <Row>
 
                     <Col sm={4}>
-                        <LibraryContainer />
                     </Col>
 
                     <Col sm={4}>
+
                         <MediaPanelContainer />
+
                     </Col>
 
                     <Col sm={4}>
-                        <PropertiesContainer/>
+
                     </Col>
 
                 </Row>
+
+                <PropertiesContainer/>
 
             </div>
         )

@@ -39,7 +39,7 @@ const StorySticker = ({
         >
 
             {/* This sticker container allow us to keep the ratio w/h of the sticker */}
-            <div className={"width-100 relative"} style={container_styles}>
+            <div className={"width-full relative"} style={container_styles}>
                 {/* Render box content */}
                 <SimpleStickerContainer sticker={sticker}/>
             </div>

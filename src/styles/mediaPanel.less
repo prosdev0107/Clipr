@@ -1,146 +1,179 @@
-.media-panel {
 
-  height: 667px;
-  width: 350px;
+.media-panel-container {
+
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%,-50%);
-  background: purple;
+  transform: translate(-50%, -50%);
+  background: white;
   overflow: hidden;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  border: solid 2px #237eff;
+  border-radius: 3px;
 
-  .media-panel-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
+  -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, .18);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, .18);
+
+  .media-actions {
+
+    button {
+      width: 50%;
+      float: left;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border: none!important;
+      border-top: solid 2px #237eff !important;
+    }
+
+    button:first-child {
+      border-bottom-right-radius: 0;
+      border-right: solid 2px #237eff !important;
+    }
+    button:last-child {
+      border-bottom-left-radius: 0;
+    }
+
   }
 
-  .media-panel-layer-media {
-    z-index: 0;
-  }
+  .media-panel {
 
-  .media-panel-layer-overlay {
-    z-index: 1;
-  }
+    height: 571px;
+    width: 350px;
+    position: relative;
 
-  .media-panel-layer-stickers {
-    z-index: 1;
-
-    .story-sticker {
-
-      cursor: move;
+    .media-panel-layer {
       position: absolute;
-      content: '';
-      // The top and left positioning is relative to the center of element
-      transform: translate(-50%,-50%);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+    }
 
-      * {
-        pointer-events: none;
-      }
+    .media-panel-layer-media {
+      z-index: 0;
+    }
 
-      // Show which box is going to be selected with current cursor position
-      &:hover:not(.selected) {
-        border: dashed 2px red;
-      }
+    .media-panel-layer-overlay {
+      z-index: 1;
+    }
 
-      // Specific styles when user selects the box
-      &.selected {
+    .media-panel-layer-stickers {
+      z-index: 1;
 
-        @squareHalfWith: 4px;
-        @darkColor: #000;
-        @darkBorder: 2px dashed @darkColor;
-        @lightColor: #fff;
-        @lightBorder: 1px solid @lightColor;
-        @fiftyPercentCalc: calc(~"50% - "@squareHalfWith);
+      .story-sticker {
 
-        border: @darkBorder;
+        cursor: move;
+        position: absolute;
+        content: '';
+        // The top and left positioning is relative to the center of element
+        transform: translate(-50%, -50%);
 
-        .rotatable-handle {
+        * {
+          pointer-events: none;
+        }
 
-          position: absolute;
-          top: -25px;
-          left: @fiftyPercentCalc;
-          height: 25px;
-          width: 2*@squareHalfWith;
+        // Show which box is going to be selected with current cursor position
+        &:hover:not(.selected) {
+          border: dashed 2px red;
+        }
 
-          .rotatable-handle-bar {
+        // Specific styles when user selects the box
+        &.selected {
+
+          @squareHalfWith: 4px;
+          @darkColor: #000;
+          @darkBorder: 2px dashed @darkColor;
+          @lightColor: #fff;
+          @lightBorder: 1px solid @lightColor;
+          @fiftyPercentCalc: calc(~"50% - " @squareHalfWith);
+
+          border: @darkBorder;
+
+          .rotatable-handle {
+
             position: absolute;
-            left: ~"calc(50% - 1px)";
-            border: solid 1px #000;
-            height: 100%;
+            top: -25px;
+            left: @fiftyPercentCalc;
+            height: 25px;
+            width: 2*@squareHalfWith;
+
+            .rotatable-handle-bar {
+              position: absolute;
+              left: ~"calc(50% - 1px)";
+              border: solid 1px #000;
+              height: 100%;
+            }
+            .rotatable-handle-circle {
+              cursor: url("../images/rotate-icon.png") 12 12, row-resize;
+              pointer-events: auto;
+              position: absolute;;
+              width: 2*@squareHalfWith;
+              height: 2*@squareHalfWith;
+              border-radius: 50%;
+              background-color: @darkColor;
+              border: @lightBorder;
+            }
           }
-          .rotatable-handle-circle {
-            cursor: url("../images/rotate-icon.png") 12 12, row-resize;
-            pointer-events: auto;
-            position: absolute;;
+
+          .resizable-handle {
             width: 2*@squareHalfWith;
             height: 2*@squareHalfWith;
-            border-radius: 50%;
             background-color: @darkColor;
             border: @lightBorder;
+            position: absolute;
+            pointer-events: auto;
           }
-        }
 
-        .resizable-handle {
-          width: 2*@squareHalfWith;
-          height: 2*@squareHalfWith;
-          background-color: @darkColor;
-          border: @lightBorder;
-          position: absolute;
-          pointer-events: auto;
-        }
-
-        // First made through LESS loop but it's quite a mess for just saving 5-10 lines of code. Not worth it.
-        .resizable-nw {
-          left: -@squareHalfWith;
-          top: -@squareHalfWith;
-          cursor: nwse-resize;
-        }
-        .resizable-ne {
-          top: -@squareHalfWith;
-          right: -@squareHalfWith;
-          cursor: nesw-resize;
-        }
-        .resizable-sw {
-          bottom: -@squareHalfWith;
-          left: -@squareHalfWith;
-          cursor: nesw-resize;
-        }
-        .resizable-se {
-          bottom: -@squareHalfWith;
-          right:-@squareHalfWith;
-          cursor: nwse-resize;
-        }
-        .resizable-n {
-          top: -@squareHalfWith;
-          left: @fiftyPercentCalc;
-          cursor: ns-resize;
-        }
-        .resizable-s {
-          bottom: -@squareHalfWith;
-          left: @fiftyPercentCalc;
-          cursor: ns-resize;
-        }
-        .resizable-w {
-          left: -@squareHalfWith;
-          top: @fiftyPercentCalc;
-          cursor: ew-resize;
-        }
-        .resizable-e {
-          right: -@squareHalfWith;
-          top: @fiftyPercentCalc;
-          cursor: ew-resize;
+          // First made through LESS loop but it's quite a mess for just saving 5-10 lines of code. Not worth it.
+          .resizable-nw {
+            left: -@squareHalfWith;
+            top: -@squareHalfWith;
+            cursor: nwse-resize;
+          }
+          .resizable-ne {
+            top: -@squareHalfWith;
+            right: -@squareHalfWith;
+            cursor: nesw-resize;
+          }
+          .resizable-sw {
+            bottom: -@squareHalfWith;
+            left: -@squareHalfWith;
+            cursor: nesw-resize;
+          }
+          .resizable-se {
+            bottom: -@squareHalfWith;
+            right: -@squareHalfWith;
+            cursor: nwse-resize;
+          }
+          .resizable-n {
+            top: -@squareHalfWith;
+            left: @fiftyPercentCalc;
+            cursor: ns-resize;
+          }
+          .resizable-s {
+            bottom: -@squareHalfWith;
+            left: @fiftyPercentCalc;
+            cursor: ns-resize;
+          }
+          .resizable-w {
+            left: -@squareHalfWith;
+            top: @fiftyPercentCalc;
+            cursor: ew-resize;
+          }
+          .resizable-e {
+            right: -@squareHalfWith;
+            top: @fiftyPercentCalc;
+            cursor: ew-resize;
+          }
         }
       }
     }
+
   }
 
 }

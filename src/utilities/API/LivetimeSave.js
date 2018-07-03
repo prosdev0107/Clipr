@@ -5,6 +5,8 @@ import {sendToReducersAction} from "../../actions";
 
 var apiSaveTimeout
 var clearMessageTimeout
+// var saveTimeout = 1200 // For saving on live
+var saveTimeout = 0 // Instant saving
 
 // Send data directly to API
 const LivetimeSave = (new_state) => {
@@ -34,9 +36,11 @@ const LivetimeSave = (new_state) => {
                 // Get response data and save in store
                 .then(response => updateSaveStatus(200))
                 .catch(error => updateSaveStatus(404,error.toString()))
+        } else {
+            updateSaveStatus(404,"wrong short code")
         }
 
-    },1200)
+    },saveTimeout)
 
     return true
 }
@@ -64,6 +68,9 @@ const updateSaveStatus = (status, text) => {
 
         // Probably an error
         store.dispatch(sendToReducersAction("API_UPDATE_FAILED",text))
+        clearMessageTimeout = setTimeout(function() {
+            store.dispatch(sendToReducersAction("API_UPDATE_CLEAR_MESSAGE"))
+        },2000)
     }
 }
 

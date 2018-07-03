@@ -10,7 +10,10 @@ const initialState = {
     page_actions: {
         page_is_loading: 1,
         listen_drag_events: 0,
-        data_saving_status: 0
+        ask_for_data_saving: 0,
+        data_saving_status: 0,
+        stickers_menu_tab: 0,
+        url_host: ""
     },
     story_stickers: [],
     general: {
@@ -27,14 +30,11 @@ const store = createStore(rootReducer, initialState)
 
 // Subscribe to any change of story_stickers, so we can send new data to our APIs
 export const subscriber = initSubscriber(store)
-subscriber('story_stickers', state => {
-    // Do not update if we are dragging an element ! too much lag !
-    if (!state.page_actions.listen_drag_events) {
+subscriber('page_actions', state => {
+    // Update only if asked for
+    if (state.page_actions.ask_for_data_saving) {
         LivetimeSave(state)
     }
-})
-subscriber('general', state => {
-    LivetimeSave(state)
 })
 
 export default store

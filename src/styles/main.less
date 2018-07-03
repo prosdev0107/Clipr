@@ -9,7 +9,7 @@
 
 .App > .row {
   height: 100%;
-  background: #999;
+  background-color: #f3f4f5;
 }
 
 .page-loader-fullscreen {
@@ -60,4 +60,90 @@
   -webkit-transform: translateX(0%) translateY(-50%);
   -o-transform:translateX(0%) translateY(-50%);
   transform: translateX(0%) translateY(-50%);
+}
+
+table {
+
+  tr {
+
+    td {
+      padding: 10px 15px;
+    }
+
+    .form-group {
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  tr.table-separator {
+
+    color: white;
+    white-space: nowrap;
+
+    td {
+      padding: 2px 15px;
+    }
+  }
+}
+
+
+// Clipr colors
+
+.bg-indigo-500 {
+  background: -moz-linear-gradient(left, #4c49ff 0%, #00ccff 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, #4c49ff), color-stop(100%, #00ccff));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left, #4c49ff 0%, #00ccff 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left, #4c49ff 0%, #00ccff 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(left, #4c49ff 0%, #00ccff 100%);
+  /* IE10+ */
+  background: linear-gradient(left, #4c49ff 0%, #00ccff 100%);
+  /* W3C */
+}
+
+.bg-indigo-bottom-500 {
+  background: -moz-linear-gradient(top, #4c49ff 0%, #00ccff 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #4c49ff), color-stop(100%, #00ccff));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #4c49ff 0%, #00ccff 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #4c49ff 0%, #00ccff 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #4c49ff 0%, #00ccff 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #4c49ff 0%, #00ccff 100%);
+  /* W3C */
+}
+
+@colorActionGradient: left, #5675fc 0%, #00d7ff 100%;
+
+.btn-primary, .btn-success:not(.btn-floating), a.list-group-item.active {
+
+  background:         linear-gradient(@colorActionGradient)!important; /* Standard syntax; must be last */
+  background: -webkit-linear-gradient(@colorActionGradient)!important; /* For Chrome and Safari */
+  background:    -moz-linear-gradient(@colorActionGradient)!important; /* For old Fx (3.6 to 15) */
+  background:     -ms-linear-gradient(@colorActionGradient)!important; /* For pre-releases of IE 10*/
+  background:      -o-linear-gradient(@colorActionGradient)!important; /* For old Opera (11.1 to 12.0) */
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.btn-info, button.btn-default:not(.btn-floating)  {
+  background: #fff!important;
+  color: #237eff!important;
+  font-weight: 400!important;
+  border: solid 2px #237eff!important;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }

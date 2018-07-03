@@ -22,7 +22,7 @@ const Select2 = ({
 
     return (
         <div>
-            <label htmlFor={input.name}>{label}</label>
+            {(label || "").length > 0 ? <label htmlFor={input.name}>{label}</label> : "" }
             <Select
                 {...input}
                 value={selectedOption}

@@ -5,6 +5,7 @@ import {CsItemTypes, CsItemDefaults} from "./propTypes/CsItemTypes"
 import {OverlayTypes} from "./propTypes/OverlayTypes";
 import {MEDIA_PANEL_ID} from "../constants/constants"
 import PropTypes from 'prop-types'
+import {Button,Row,Col} from 'react-bootstrap'
 
 /**
  * The Media Panel is where we can customize media with content
@@ -16,7 +17,7 @@ import PropTypes from 'prop-types'
  * @returns {*}
  * @constructor
  */
-const MediaPanel = ({ cs_item, overlay }) => {
+const MediaPanel = ({ cs_item, overlay, data_saving_status, buttonClicked }) => {
 
     let overlay_styles = {
         backgroundColor: overlay.color,
@@ -94,27 +95,53 @@ const MediaPanel = ({ cs_item, overlay }) => {
         }
     }
 
-    return <div id={MEDIA_PANEL_ID} className="media-panel">
+    return <div  className="media-panel-container">
 
-        <div className="media-panel-layer media-panel-layer-media">
+            <div id={MEDIA_PANEL_ID} className="media-panel">
 
-            {renderBlurBackground(cs_item)}
+            <div className="media-panel-layer media-panel-layer-media">
 
-            {renderMedia(cs_item)}
+                {renderBlurBackground(cs_item)}
+
+                {renderMedia(cs_item)}
+
+            </div>
+
+            <div className="media-panel-layer media-panel-layer-overlay" style={overlay_styles}>
+
+            </div>
+
+            <div className="media-panel-layer media-panel-layer-stickers">
+                <StickerLayerContainer />
+            </div>
+
+            {/* <div className="media-panel-layer media-panel-layer-buttons">
+
+            </div> */}
+
+
 
         </div>
 
-        <div className="media-panel-layer media-panel-layer-overlay" style={overlay_styles}>
-
+        <div className="media-actions">
+            <Button
+                bsStyle="default"
+                disabled={data_saving_status !== 0 ? true : false}
+                className="inline-block"
+                onClick={(event) => buttonClicked('MEDIA_PANEL_SAVE_BTN_PRESSED',event)}
+            >
+                <b>
+                    { data_saving_status === 1 ? "Sauvegarde..." : (typeof data_saving_status === "string" ? data_saving_status : "Sauvegarder") }
+                </b>
+            </Button>
+            <Button
+                bsStyle="default"
+                className="inline-block"
+                onClick={(event) => buttonClicked('MEDIA_PANEL_DONE_BTN_PRESSED',event)}
+            >
+                Terminer
+            </Button>
         </div>
-
-        <div className="media-panel-layer media-panel-layer-stickers">
-            <StickerLayerContainer />
-        </div>
-
-        {/* <div className="media-panel-layer media-panel-layer-buttons">
-
-        </div> */}
 
     </div>
 }
