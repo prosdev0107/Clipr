@@ -20,8 +20,7 @@
   font-size: 24px;
   padding-bottom: 10px;
 }
-.stickers-library {
-  background-color: white;
+.stickers-library-container {
   position: absolute;
   top: 0;
   left: 100px;
@@ -29,17 +28,25 @@
   width: calc( 30% - 100px );
   min-width: 250px;
   z-index: 1;
+}
+.stickers-library-container .stickers-library {
+  background-color: white;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
 }
-.stickers-library .stickers-library-shelf .library-sticker-container {
+.stickers-library-container .stickers-library .stickers-library-shelf .library-sticker-container {
   padding: 10px 0px;
 }
-.stickers-library .stickers-library-shelf .library-sticker-container > div {
+.stickers-library-container .stickers-library .stickers-library-shelf .library-sticker-container > div {
   border: 2px dashed lightgray;
   border-radius: 5px;
 }
-.stickers-library .stickers-library-shelf .library-sticker-container .sticker > * {
+.stickers-library-container .stickers-library .stickers-library-shelf .library-sticker-container .sticker > * {
   height: auto;
   width: auto;
   max-width: 100%;
@@ -49,7 +56,7 @@
   margin: 0;
   padding: 0;
 }
-.stickers-library .stickers-library-shelf .library-sticker-container .sticker > img {
+.stickers-library-container .stickers-library .stickers-library-shelf .library-sticker-container .sticker > img {
   margin: auto;
 }
 /*# sourceMappingURL=library.css.map */

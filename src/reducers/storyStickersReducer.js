@@ -250,6 +250,22 @@ const storyStickersReducer = (state = [], action) => {
             }
             return state
 
+        case 'LIBRARY_TAB_SELECTED':
+
+            // Deselect sticker
+            return state.map(storySticker =>
+            (typeof storySticker.edit_info !== "undefined" && storySticker.edit_info.selected)
+                ? {
+                    ...storySticker,
+                    edit_info: {
+                        ...storySticker.edit_info,
+                        selected: false,
+                        resized: false,
+                        rotated: false,
+                        translated: false
+                    }
+                } : storySticker
+        )
 
         /*******************/
         /* PREVENT DEFAULT */

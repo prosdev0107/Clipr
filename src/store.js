@@ -22,7 +22,12 @@ const initialState = {
         id: "",
         cnv_short_code: "",
         cnv_type: "INPUT",
-        media: {}
+        media: {
+            src: "",
+            thumbnail: "",
+            ext: "",
+            isVideo: false
+        }
     },
     // Live status of some actions
     page_actions: {

@@ -12,6 +12,7 @@ const PropertiesForm = ({story_sticker,fonts,formChanged}) => {
         return { value: font.name, label: font.name }
     })
 
+
     // Transform radian to degree
     let rotationDeg = story_sticker.position.rotation*180/Math.PI
 
@@ -93,7 +94,7 @@ const PropertiesForm = ({story_sticker,fonts,formChanged}) => {
                     options: fontFamilies,
                     input: {
                         label: "Police",
-                        type: "select"
+                        type: "font"
                     }
                 },{
                     id: "custom_text_size_"+customField.id,

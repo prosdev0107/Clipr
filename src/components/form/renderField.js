@@ -8,7 +8,28 @@ import InputCheckbox from "./InputCheckbox"
 
 export const renderField = (properties, action) => {
 
+    const optionFontFamilyRenderer = (option) => {
+        console.log(option)
+        if (typeof option === "undefined") {
+            return <div>AAAOKOO</div>
+        }
+        let styles = {
+            fontFamily: option.label
+        }
+        return <span style={styles}>{option.label}</span>
+    }
+
     switch (properties.input.type) {
+
+        case "font":
+
+            // On change attribute needed on select tag !
+            return <Field name={properties.id}
+                          selectedOption={properties.value}
+                          component={Select2}
+                          options={(properties.options || {})}
+                          optionRenderer={optionFontFamilyRenderer}
+                          onChange={(event) => typeof action === "function" ? action(event) : null} />
 
         case "select":
 

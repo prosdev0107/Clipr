@@ -6,7 +6,7 @@ const pageActionsReducer = (state = [], action) => {
         case 'LIBRARY_TAB_SELECTED':
 
             // Navigate through the different stickers category
-            let tab = parseInt(action.data) || 0
+            let tab = parseInt(action.data,10) || 0
             return {
                 ...state,
                 stickers_menu_tab: tab

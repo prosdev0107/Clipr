@@ -125,7 +125,6 @@ const Sticker = ({sticker}) => {
                  *
                  * @type {string}
                  */
-
                 // Generate random id
                 let randomNb = id + "-" + Math.floor(Math.random() * Math.floor(1000))
                 return <div id={randomNb} onLoad={ customizeStickerOnPage(randomNb, source.svg, source.css, customize) }>

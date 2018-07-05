@@ -31,7 +31,7 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
     if (typeof theme_fonts !== "undefined") {
         for (let i=0; i < theme_fonts.length; i++) {
             let font = theme_fonts[i]
-            let fontMeta = 'theme_font_'+font.id
+            let fontMeta = 'font_'+font.id
 
             // Add font if not existing yet
             if (document.querySelectorAll("[data-meta='"+fontMeta+"']").length === 0) {

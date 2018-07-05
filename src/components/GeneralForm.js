@@ -52,7 +52,7 @@ const GeneralForm = ({general,params,formChanged}) => {
             options: select_fonts,
             input: {
                 label: "Police principale",
-                type: "select",
+                type: "font",
             }
         },
         {

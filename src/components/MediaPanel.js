@@ -98,9 +98,6 @@ const MediaPanel = ({ cs_item, general, params, data_saving_status, buttonClicke
     }
 
     let fake_interactions = ["interaction-timer","interaction-brand-name"]
-    let fake_text = {
-        "interaction-cta-title": "Lorem ipsum dolor sit amet"
-    }
     switch (cs_item.cnv_type || "INPUT") {
 
         case "REDEEM":

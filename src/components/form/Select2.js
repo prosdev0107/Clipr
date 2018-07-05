@@ -6,8 +6,8 @@ import 'react-select/dist/react-select.css'
 // Examples : https://jedwatson.github.io/react-select/
 
 const Select2 = ({
-                   input, options, selectedOption, label,           // common
-                   meta: { touched, error }                         // status
+                   input, options, selectedOption, label, optionRenderer,   // common
+                   meta: { touched, error } ,                               // status
                }) => {
 
     const onChange = (option, name) => {
@@ -20,6 +20,11 @@ const Select2 = ({
         })
     }
 
+    // Customize option appearance
+    optionRenderer = optionRenderer || function (option) {
+        console.log('THIS IS',option)
+        return option.label
+    }
 
     return (
         <div>
@@ -28,6 +33,7 @@ const Select2 = ({
                 {...input}
                 value={selectedOption}
                 options={options}
+                optionRenderer={(option) => optionRenderer(option)}
                 clearable={false}
                 onChange={(option) => onChange(option,input.name)}
                 onBlur={() => input.onBlur(input.value)}
