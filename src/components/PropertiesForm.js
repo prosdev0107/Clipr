@@ -1,9 +1,7 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
-import Input from './form/Input'
-import InputNumber from './form/InputNumber'
-import Select2 from './form/Select2'
+import { reduxForm } from 'redux-form'
 import { STICKER_FONT_SIZE_MIN, STICKER_FONT_SIZE_MAX } from '../constants/constants'
+import {renderField} from "./form/renderField"
 
 
 const PropertiesForm = ({story_sticker,fonts,formChanged}) => {
@@ -129,38 +127,6 @@ const PropertiesForm = ({story_sticker,fonts,formChanged}) => {
         separator: "Actions"
     })
 
-    const renderField = (properties) => {
-
-        switch (properties.input.type) {
-
-            case "select":
-
-                // On change attribute needed on select tag !
-                return <Field name={properties.id}
-                              selectedOption={properties.value}
-                              component={Select2}
-                              options={(properties.options || {})}
-                              onChange={(event) => formChanged(event)} />
-
-            case "number":
-
-                return <Field name={properties.id}
-                              component={InputNumber}
-                              step={(properties.input.step || 1)}
-                              min={properties.input.min}
-                              max={properties.input.max}
-                              forceValue={properties.value} />
-
-            default:
-
-                return <Field name={properties.id}
-                              component={Input}
-                              type={properties.input.type}
-                              forceValue={properties.value} />
-
-        }
-    }
-
     return (
         <form onChange={(event) => formChanged(event)}>
 
@@ -171,7 +137,7 @@ const PropertiesForm = ({story_sticker,fonts,formChanged}) => {
                 {Object.entries(rowInputInfo).map(([key, properties]) => {
 
                     if (typeof properties.separator !== "undefined") {
-                        return <tr key={key} className="table-separator bg-indigo-500">
+                        return <tr key={key} className="table-separator text-primary">
                             <td><b>{properties.separator}</b></td>
                             <td></td>
                         </tr>
@@ -180,7 +146,7 @@ const PropertiesForm = ({story_sticker,fonts,formChanged}) => {
                     return <tr key={key}>
                         <td>{properties.input.label}</td>
                         <td>
-                            {renderField(properties)}
+                            {renderField(properties,formChanged)}
                         </td>
                     </tr>
                 })}

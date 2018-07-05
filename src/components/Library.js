@@ -11,20 +11,16 @@ const Library = ({stickers, stickers_menu_tab, selectFromLibrary, changeTab}) =>
     // Which category to display ?
 
     let stickers_to_show = []
-    let title = "General"
     switch (stickers_menu_tab) {
 
         case 1:
             stickers_to_show = images
-            title = "Images"
             break
         case 2:
             stickers_to_show = images
-            title = "Textes"
             break;
         case 3:
             stickers_to_show = svg
-            title = "Animations"
             break
         default:
             break
@@ -70,7 +66,7 @@ const Library = ({stickers, stickers_menu_tab, selectFromLibrary, changeTab}) =>
      */
     return <div>
 
-        <div className="site-menubar bg-indigo-bottom-500">
+        <div className="site-menubar">
             <div className="site-menubar-body">
                 <ul className="site-menu">
 
@@ -125,10 +121,6 @@ const Library = ({stickers, stickers_menu_tab, selectFromLibrary, changeTab}) =>
              onDoubleClick={(event) => selectFromLibrary('LIBRARY_STICKER_DOUBLE_CLICK',event)}
         >
 
-
-
-            {/* Tab title */}
-            <h3 className="text-center text-primary margin-bottom-20">{title}</h3>
 
             {renderLibraryStickers(stickers_to_show)}
 

@@ -1,22 +1,66 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
-import Input from './form/Input'
-import InputNumber from './form/InputNumber'
-// import {ColorPicker} from 'react-color-input'
+import { reduxForm } from 'redux-form'
 import {OverlayTypes} from "./propTypes/OverlayTypes"
 import PropTypes from 'prop-types'
-import Select2 from "./form/Select2";
+import {renderField} from "./form/renderField"
 
-const GeneralForm = ({general,formChanged}) => {
+const GeneralForm = ({general,params,formChanged}) => {
+
+    // Constants
+    let img_animations = params.img_animations || []
+    let themes = params.themes
+    let theme_colors = themes.colors || {}, theme_fonts = themes.fonts || {}
+
+    let select_fonts = theme_fonts.map( (font) => {
+        return { value: font.name, label: font.name }
+    })
+
+    let select_colors = theme_colors.map( (color) => {
+        return { value: color, label: color }
+    })
+
+    let select_animations = img_animations.map( (anim) => {
+        return { value: anim, label: anim }
+    })
+
+    // Media params
+    let overlay = general.overlay || {}
+    let media_params = general.media || {}
+    let media_theme = general.theme || {}
+
 
 
     // Let's build the row data to be displayed
-    let rowInputInfo = [{
+    let rowInputInfo = [
+        {
+            'separator': 'Thème',
+        },
+        {
+            id: "theme_color",
+            value: media_theme.color || "#00000000",
+            type: "css",
+            options: select_colors,
+            input: {
+                label: "Couleur principale",
+                type: "select",
+            }
+        },
+        {
+            id: "theme_font",
+            value: media_theme.font || "",
+            type: "css",
+            options: select_fonts,
+            input: {
+                label: "Police principale",
+                type: "select",
+            }
+        },
+        {
         'separator': 'Overlay',
-    },
+        },
         {
             id: "overlay_color",
-            value: general.overlay.color || "#00000000",
+            value: overlay.color || "#00000000",
             type: "css",
             input: {
                 label: "Opacité",
@@ -25,7 +69,7 @@ const GeneralForm = ({general,formChanged}) => {
         },
         {
             id: "overlay_opacity",
-            value: general.overlay.opacity || 0,
+            value: overlay.opacity || 0,
             type: "css",
             input: {
                 label: "Opacité",
@@ -34,17 +78,27 @@ const GeneralForm = ({general,formChanged}) => {
                 min: 0,
                 max: 1
             }
+        },
+        {
+            'separator': 'Média',
+        },
+        {
+            id: "media_fit_screen",
+            // We are showing a checkbox as "enable full screen", the opposite of fit_screen value
+            value: !(media_params.fit_screen || 0),
+            type: "css",
+            input: {
+                label: "Affichage plein écran",
+                type: "checkbox",
+            }
         }
     ]
 
-    if (typeof general.media === "undefined" || !general.media.isVideo) {
+    if (!(media_params.isVideo || 0)) {
 
         rowInputInfo.push({
-                'separator': 'Média',
-            },
-            {
                 id: "media_duration",
-                value: typeof general.media === "undefined" || !general.media.duration  ? 5 : general.media.duration,
+                value: (media_params.duration || 5),
                 type: "css",
                 input: {
                     label: "Durée image",
@@ -53,40 +107,19 @@ const GeneralForm = ({general,formChanged}) => {
                     min: 2,
                     max: 20
                 }
-            })
+            },{
+            id: "media_animation",
+            value: media_params.animation || "",
+            type: "css",
+            options: select_animations,
+            input: {
+                label: "Animation",
+                type: "select",
+            }
+        })
     }
 
-    const renderField = (properties) => {
 
-        switch (properties.input.type) {
-
-            case "select":
-
-                // On change attribute needed on select tag !
-                return <Field name={properties.id}
-                              selectedOption={properties.value}
-                              component={Select2}
-                              options={(properties.options || {})}
-                              onChange={(event) => formChanged(event)} />
-
-            case "number":
-
-                return <Field name={properties.id}
-                              component={InputNumber}
-                              step={(properties.input.step || 1)}
-                              min={properties.input.min}
-                              max={properties.input.max}
-                              forceValue={properties.value} />
-
-            default:
-
-                return <Field name={properties.id}
-                              component={Input}
-                              type={properties.input.type}
-                              forceValue={properties.value} />
-
-        }
-    }
 
     return (
         <form onChange={(event) => formChanged(event)}>
@@ -98,7 +131,7 @@ const GeneralForm = ({general,formChanged}) => {
                 {Object.entries(rowInputInfo).map(([key, properties]) => {
 
                     if (typeof properties.separator !== "undefined") {
-                        return <tr key={key} className="table-separator bg-indigo-500">
+                        return <tr key={key} className="table-separator text-primary">
                             <td><b>{properties.separator}</b></td>
                             <td></td>
                         </tr>
@@ -107,7 +140,7 @@ const GeneralForm = ({general,formChanged}) => {
                     return <tr key={key}>
                         <td>{properties.input.label}</td>
                         <td>
-                            {renderField(properties)}
+                            {renderField(properties,formChanged)}
                         </td>
                     </tr>
                 })}

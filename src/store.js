@@ -5,8 +5,26 @@ import LivetimeSave from "./utilities/API/LivetimeSave"
 
 // Init state structure
 const initialState = {
-    stickers: [],
-    fonts: [],
+    // Constants that allow to build the view
+    params: {
+        stickers: [],
+        sticker_fonts: [],
+        img_animations: [],
+        themes: {
+            colors: [],
+            fonts: [],
+            default_font: "",
+            default_color: ""
+        },
+    },
+    // Params depending on chosen media
+    cs_item: {
+        id: "",
+        cnv_short_code: "",
+        cnv_type: "INPUT",
+        media: {}
+    },
+    // Live status of some actions
     page_actions: {
         page_is_loading: 1,
         listen_drag_events: 0,
@@ -15,13 +33,11 @@ const initialState = {
         stickers_menu_tab: 0,
         url_host: ""
     },
+    // Fields below define the new custom edition of the media
     story_stickers: [],
     general: {
         overlay: {},
-    },
-    cs_item: {
-        id: "",
-        cnv_short_code: ""
+        theme: {},
     }
 }
 

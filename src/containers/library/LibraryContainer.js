@@ -4,7 +4,7 @@ import Library from '../../components/Library'
 import {selectFromLibraryAction,sendToReducersAction} from "../../actions";
 
 const mapStateToProps = state => ({
-    stickers: state.stickers,
+    stickers: state.params.stickers,
     stickers_menu_tab: state.page_actions.stickers_menu_tab
 })
 

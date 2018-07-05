@@ -50,8 +50,14 @@
   -o-transform: translateX(0%) translateY(-50%);
   transform: translateX(0%) translateY(-50%);
 }
+/*****************/
+/***** Table *****/
+/*****************/
 table tr td {
   padding: 10px 15px;
+}
+table tr td .checkbox-custom {
+  margin: 0;
 }
 table tr .form-group {
   padding: 0;
@@ -62,8 +68,22 @@ table tr.table-separator {
   white-space: nowrap;
 }
 table tr.table-separator td {
-  padding: 2px 15px;
+  padding: 10px 15px 2px 15px;
 }
+/*****************/
+/***** Forms *****/
+/*****************/
+.checkbox-custom input[type="checkbox"]:checked + label::after,
+.checkbox-custom input[type="radio"]:checked + label::after {
+  font-family: 'FontAwesome';
+  content: "\f00c";
+}
+.checkbox-custom label::after {
+  padding-top: 0;
+}
+/************************/
+/***** Clipr colors *****/
+/************************/
 .bg-indigo-500 {
   background: -moz-linear-gradient(left, #4c49ff 0%, #00ccff 100%);
   /* FF3.6+ */

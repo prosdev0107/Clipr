@@ -20,6 +20,7 @@ const Select2 = ({
         })
     }
 
+
     return (
         <div>
             {(label || "").length > 0 ? <label htmlFor={input.name}>{label}</label> : "" }

@@ -28,6 +28,7 @@ const LivetimeSave = (new_state) => {
 
         // Step 2 : post data to API
         let cs_item = new_state.cs_item
+
         if (typeof cs_item.cnv_short_code !== "undefined" && cs_item.cnv_short_code.length > 0) {
 
             let request = api_client()

@@ -425,6 +425,47 @@ const storyStickersReducer = (state = [], action) => {
         /* PROPERTIES EDIT STORY STICKER */
         /*********************************/
 
+        case 'STICKERS_LAYER_ON_KEYDOWN':
+
+            // Edit with keyboards keys
+            if (typeof action.data === "undefined" || action.data < 37 || action.data > 40) {
+                return state;
+            }
+
+            let x_delta = 0, y_delta = 0
+            switch (action.data) {
+                case 37:
+                    // left
+                    x_delta = - 0.01
+                    break;
+                case 38:
+                    // up
+                    y_delta = - 0.01
+                    break;
+                case 39:
+                    // right
+                    x_delta = 0.01
+                    break;
+                case 40:
+                    // down
+                    y_delta = 0.01
+                    break;
+                default:
+                    break;
+            }
+
+            return state.map(storySticker =>
+                (typeof storySticker.edit_info === "undefined" || !storySticker.edit_info.selected) ?
+                    storySticker : {
+                        ...storySticker,
+                    position: {
+                        ...storySticker.position,
+                        x: Math.round(Math.max(0,Math.min(1,storySticker.position.x + x_delta))*100)/100,
+                        y: Math.round(Math.max(0,Math.min(1,storySticker.position.y + y_delta))*100)/100
+                    }
+                }
+            )
+
         case 'PROPERTIES_FORM_CHANGED':
 
             const editObjectFromForm = (initialState, inputName, inputValue) => {

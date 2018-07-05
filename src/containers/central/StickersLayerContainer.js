@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import StickersLayer from '../../components/StickersLayer'
-import { transformStoryStickerAction } from "../../actions"
+import {sendToReducersAction, transformStoryStickerAction} from "../../actions"
 
 
 const mapStateToProps = state => ({
@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
     transformStorySticker: (type, event) => dispatch(transformStoryStickerAction(type, event)),
+    sendToReducers: (type, data) => dispatch(sendToReducersAction(type, data)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(StickersLayer)

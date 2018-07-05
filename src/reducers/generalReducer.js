@@ -14,15 +14,36 @@ const generalReducer = (state = [], action) => {
 
         case 'PROPERTIES_FORM_CHANGED':
 
-            const editOverlayFromForm = (initialState, inputName, inputValue) => {
+            const editOverlayFromForm = (initialState, inputName, inputValue, target) => {
 
                 // First need to deep copy the original object
                 // Else we would modify directly the state itself
                 // Which is an anti-pattern, React would consider state hasn't changed so no re-rendering
 
-                if (inputName.indexOf('overlay_') === 0) {
+                if (inputName.indexOf('theme_') === 0) {
 
-                    let overlay = JSON.parse(JSON.stringify(initialState.overlay))
+                    let theme = JSON.parse(JSON.stringify(initialState.theme || {}))
+
+                    switch (inputName) {
+
+                        case "theme_color":
+                            theme.color = inputValue
+                            break
+                        case "theme_font":
+                            theme.font = inputValue
+                            break
+                        default:
+                            break
+                    }
+
+                    return {
+                        ...initialState,
+                        theme: theme
+                    }
+
+                } else if (inputName.indexOf('overlay_') === 0) {
+
+                    let overlay = JSON.parse(JSON.stringify(initialState.overlay || {}))
 
                     switch (inputName) {
 
@@ -43,12 +64,19 @@ const generalReducer = (state = [], action) => {
 
                 } else if (inputName.indexOf('media_') === 0) {
 
-                    let media = JSON.parse(JSON.stringify(initialState.media))
+                    let media = JSON.parse(JSON.stringify(initialState.media || {}))
 
                     switch (inputName) {
 
                         case "media_duration":
                             media.duration = inputValue
+                            break
+                        case "media_animation":
+                            media.animation = inputValue
+                            break
+                        case "media_fit_screen":
+                            // We are showing a checkbox as "enable full screen", the opposite of fit_screen value
+                            media.fit_screen = !target.checked
                             break
                         default:
                             break
@@ -62,7 +90,7 @@ const generalReducer = (state = [], action) => {
                 return initialState
             }
 
-            return editOverlayFromForm(state, action.name, action.value)
+            return editOverlayFromForm(state, action.name, action.value, action.target)
 
 
         default:

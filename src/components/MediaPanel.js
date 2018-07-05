@@ -5,7 +5,7 @@ import {CsItemTypes, CsItemDefaults} from "./propTypes/CsItemTypes"
 import {OverlayTypes} from "./propTypes/OverlayTypes";
 import {MEDIA_PANEL_ID} from "../constants/constants"
 import PropTypes from 'prop-types'
-import {Button,Row,Col} from 'react-bootstrap'
+import {Button} from 'react-bootstrap'
 
 /**
  * The Media Panel is where we can customize media with content
@@ -17,8 +17,10 @@ import {Button,Row,Col} from 'react-bootstrap'
  * @returns {*}
  * @constructor
  */
-const MediaPanel = ({ cs_item, overlay, data_saving_status, buttonClicked }) => {
+const MediaPanel = ({ cs_item, general, params, data_saving_status, buttonClicked }) => {
 
+    let overlay = general.overlay
+    let mediaParams = general.media || {}
     let overlay_styles = {
         backgroundColor: overlay.color,
         opacity: overlay.opacity
@@ -32,7 +34,7 @@ const MediaPanel = ({ cs_item, overlay, data_saving_status, buttonClicked }) => 
                 backgroundImage: "url('"+(cs_item.media.thumbnail || cs_item.media.src)+"')"
             }
 
-            return cs_item.media.fullScreen ?
+            return !(mediaParams.fit_screen || 0) ?
                 "" : <div id="blur-background" className="blur-background absolute-center" style={blur_background_styles}/>
         }
         return ""
@@ -46,7 +48,7 @@ const MediaPanel = ({ cs_item, overlay, data_saving_status, buttonClicked }) => 
         }
 
         // Full screen or fit screen with blurred background ?
-        let posterType = cs_item.media.fullScreen ? "poster-full-screen" : "poster-fit-screen"
+        let posterType = mediaParams.fit_screen || 0 ? "poster-fit-screen" : "poster-full-screen"
 
         if (cs_item.media.isVideo) {
 
@@ -95,10 +97,73 @@ const MediaPanel = ({ cs_item, overlay, data_saving_status, buttonClicked }) => 
         }
     }
 
+    let fake_interactions = ["interaction-timer","interaction-brand-name"]
+    let fake_text = {
+        "interaction-cta-title": "Lorem ipsum dolor sit amet"
+    }
+    switch (cs_item.cnv_type || "INPUT") {
+
+        case "REDEEM":
+            break
+
+        case "SHOPPER":
+            fake_interactions.push("interaction-shop-btn","interaction-cta-title-shopper","interaction-above-cta-button")
+            break
+
+        default:
+            fake_interactions.push("interaction-cta-title")
+            break
+    }
+
+    let interactions_styles = {}
+    let interactions_main_color = ""
+    let themes = params.themes || {} // For default font
+    if (typeof general.theme !== "undefined") {
+        let interactions_main_font = general.theme ? general.theme.font : (themes.default_font || "")
+        interactions_main_color = general.theme ? general.theme.color : (themes.default_color || "")
+        if (interactions_main_font != null && interactions_main_font.length > 0) {
+            interactions_styles.fontFamily = "theme_"+interactions_main_font
+            interactions_styles.fontWeight = 400
+        }
+    }
+
+    // Buld a div that render theme font and theme
+    const renderThemeSample = (type) => {
+        switch (cs_item.cnv_type || "INPUT") {
+
+            case "REDEEM":
+               return <div className="fake-interaction interaction-redeem-slider">
+
+                   <div className="interaction-redeem-slider-top-bar fill-gradient"></div>
+
+                   <div className="interaction-redeem-slider-bottom-bar text-gradient">
+                       <span className="absolute-center">Découvrir</span>
+                   </div>
+
+               </div>
+
+            case "SHOPPER":
+                return <div className="fake-interaction interaction-cta-button text-gradient border-gradient">
+                    <span className="absolute-center">Ajouter au panier</span>
+                </div>
+
+            case "INPUT":
+                return <div className="fake-interaction interaction-cta-button text-gradient border-gradient">
+                    <span className="absolute-center">Participer</span>
+                </div>
+
+            default:
+                return <div className="fake-interaction interaction-cta-button text-gradient border-gradient">
+                    <span className="absolute-center">Visiter le site</span>
+                </div>
+        }
+    }
+
     return <div  className="media-panel-container">
 
-            <div id={MEDIA_PANEL_ID} className="media-panel">
+        <div id={MEDIA_PANEL_ID} className="media-panel">
 
+            {/* Media layer */}
             <div className="media-panel-layer media-panel-layer-media">
 
                 {renderBlurBackground(cs_item)}
@@ -107,17 +172,28 @@ const MediaPanel = ({ cs_item, overlay, data_saving_status, buttonClicked }) => 
 
             </div>
 
+            {/* Overlay layer */}
             <div className="media-panel-layer media-panel-layer-overlay" style={overlay_styles}>
 
             </div>
 
+            {/* Stickers layer */}
             <div className="media-panel-layer media-panel-layer-stickers">
                 <StickerLayerContainer />
             </div>
 
-            {/* <div className="media-panel-layer media-panel-layer-buttons">
+            {/* Interactions layer */}
+            <div className={"media-panel-layer media-panel-layer-buttons theme-"+interactions_main_color} style={interactions_styles}>
 
-            </div> */}
+                {fake_interactions.map((text,idx) => (
+
+                    <div key={idx} className={"fake-interaction "+text}>
+                    </div>
+                ))}
+
+                {renderThemeSample(cs_item.cnv_type)}
+
+            </div>
 
 
 

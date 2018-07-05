@@ -6,7 +6,8 @@ import {sendToReducersAction} from "../../actions";
 
 const mapStateToProps = state => ({
     cs_item: state.cs_item,
-    overlay: state.general.overlay,
+    general: state.general,
+    params: state.params,
     data_saving_status: state.page_actions.data_saving_status
 })
 

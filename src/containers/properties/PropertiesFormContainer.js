@@ -5,7 +5,7 @@ import { propertiesFormChangedAction } from '../../actions'
 
 const mapStateToProps = (state,ownProps) => ({
     ...ownProps,
-    fonts: state.fonts
+    fonts: state.params.sticker_fonts
 })
 
 const mapDispatchToProps = (dispatch) => ({

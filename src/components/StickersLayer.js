@@ -1,12 +1,14 @@
 import React from 'react'
 import StoryStickerContainer from '../containers/central/StoryStickerContainer'
 
-const StickersLayer = ({ story_stickers, listen_drag_events, transformStorySticker }) => {
+const StickersLayer = ({ story_stickers, listen_drag_events, transformStorySticker, sendToReducers }) => {
 
     // Listen to drag over events only when one item starts to be dragged
     let onDragOverDo = listen_drag_events ? (event) => transformStorySticker('STICKERS_LAYER_DRAGGED',event) : null
     // let onMouseMoveDo = listen_drag_events ? (event) => transformStorySticker('STICKERS_LAYER_DRAGGED',event) : null
     let onDropDo = listen_drag_events ? (event) => transformStorySticker('STICKERS_LAYER_ON_DROP',event) : null
+
+    let onKeyDownDo = listen_drag_events ? null : (event) => sendToReducers('STICKERS_LAYER_ON_KEYDOWN',event.which)
 
     // onDrop is also used when dragging & dropping a sticker into the story
     return <div
@@ -20,6 +22,9 @@ const StickersLayer = ({ story_stickers, listen_drag_events, transformStoryStick
         onMouseUp={onDropDo}
         onMouseLeave={onDropDo}
         onDrop={onDropDo}
+
+        onKeyDown={onKeyDownDo}
+        tabIndex="0"
 
         className="width-full height-full"
     >

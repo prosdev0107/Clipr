@@ -4,7 +4,8 @@ import GeneralForm from '../../components/GeneralForm'
 import { propertiesFormChangedAction } from '../../actions'
 
 const mapStateToProps = state => ({
-    general: state.general
+    general: state.general,
+    params: state.params
 })
 
 const mapDispatchToProps = (dispatch) => ({

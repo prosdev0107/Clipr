@@ -3,6 +3,7 @@
   height: 100%;
   top: 0;
   z-index: 2;
+  background-color: #2a2e37;
   -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.18);
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.18);
 }
@@ -13,7 +14,7 @@
 .site-menubar .site-menu-item a.active,
 .site-menubar .site-menu-item a:hover {
   background-color: #f9f9f9;
-  color: #3f51b5;
+  color: #007bff;
 }
 .site-menubar .site-menu-item .fa {
   font-size: 24px;

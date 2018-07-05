@@ -15,7 +15,7 @@ const getMediaPanelSize = () => {
 
 const findStickerWithId = (stickerId) => {
 
-    let stickers = store.getState().stickers
+    let stickers = store.getState().params.stickers
 
     for (let stickerType in stickers) {
 
@@ -133,6 +133,7 @@ export const propertiesFormChangedAction = (event) => {
         // formData: data,
         name: inputName,
         value: inputValue,
+        target: target,
         type: "PROPERTIES_FORM_CHANGED"
     }
 }
