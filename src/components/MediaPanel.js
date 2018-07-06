@@ -158,6 +158,26 @@ const MediaPanel = ({ cs_item, general, params, data_saving_status, buttonClicke
 
     return <div  className="media-panel-container">
 
+        <div className="media-actions btn-group margin-bottom-20">
+            <Button
+                bsStyle="primary"
+                disabled={data_saving_status !== 0 ? true : false}
+                className="inline-block"
+                onClick={(event) => buttonClicked('MEDIA_PANEL_SAVE_BTN_PRESSED',event)}
+            >
+                <b>
+                    { data_saving_status === 1 ? "Sauvegarde..." : ( data_saving_status === 2 ? "Sauvegardé !" : (typeof data_saving_status === "string" ? data_saving_status : "Sauvegarder")) }
+                </b>
+            </Button>
+            <Button
+                bsStyle="default"
+                className="inline-block"
+                onClick={(event) => buttonClicked('MEDIA_PANEL_DONE_BTN_PRESSED',event)}
+            >
+                Terminer
+            </Button>
+        </div>
+
         <div id={MEDIA_PANEL_ID} className="media-panel">
 
             {/* Media layer */}
@@ -194,26 +214,6 @@ const MediaPanel = ({ cs_item, general, params, data_saving_status, buttonClicke
 
 
 
-        </div>
-
-        <div className="media-actions">
-            <Button
-                bsStyle="default"
-                disabled={data_saving_status !== 0 ? true : false}
-                className="inline-block"
-                onClick={(event) => buttonClicked('MEDIA_PANEL_SAVE_BTN_PRESSED',event)}
-            >
-                <b>
-                    { data_saving_status === 1 ? "Sauvegarde..." : (typeof data_saving_status === "string" ? data_saving_status : "Sauvegarder") }
-                </b>
-            </Button>
-            <Button
-                bsStyle="default"
-                className="inline-block"
-                onClick={(event) => buttonClicked('MEDIA_PANEL_DONE_BTN_PRESSED',event)}
-            >
-                Terminer
-            </Button>
         </div>
 
     </div>

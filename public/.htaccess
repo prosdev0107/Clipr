@@ -70,11 +70,11 @@ RewriteRule ^ index.html [QSA,L]
      ExpiresByType application/x-shockwave-flash "access plus 2678400 seconds"
 
      ExpiresByType application/vnd.ms-fontobject "access plus 2678400 seconds"
-       ExpiresByType application/x-font-ttf "access plus 2678400 seconds"
-       ExpiresByType application/x-font-opentype "access plus 2678400 seconds"
-       ExpiresByType application/x-font-woff "access plus 2678400 seconds"
-       ExpiresByType image/svg+xml "access plus 2678400 seconds"
-       ExpiresByType image/svg "access plus 2678400 seconds"
+     ExpiresByType application/x-font-ttf "access plus 2678400 seconds"
+     ExpiresByType application/x-font-opentype "access plus 2678400 seconds"
+     ExpiresByType application/x-font-woff "access plus 2678400 seconds"
+     ExpiresByType image/svg+xml "access plus 2678400 seconds"
+     ExpiresByType image/svg "access plus 2678400 seconds"
 
 </IfModule>
 # END Expire headers

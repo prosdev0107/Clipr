@@ -125,6 +125,7 @@ a.list-group-item.active {
   /* For old Opera (11.1 to 12.0) */
   background-color: rgba(0, 0, 0, 0);
   border: none;
+  line-height: 1.85;
 }
 .btn-primary:hover,
 .btn-success:not(.btn-floating):hover,

@@ -3,37 +3,26 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: white;
-  overflow: hidden;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  border: solid 2px #237eff;
-  border-radius: 3px;
-  -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+}
+.media-panel-container .media-actions {
+  width: 100%;
 }
 .media-panel-container .media-actions button {
   width: 50%;
   float: left;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border: none!important;
-  border-top: solid 2px #237eff !important;
-}
-.media-panel-container .media-actions button:first-child {
-  border-bottom-right-radius: 0;
-  border-right: solid 2px #237eff !important;
-}
-.media-panel-container .media-actions button:last-child {
-  border-bottom-left-radius: 0;
 }
 .media-panel-container .media-panel {
   height: 571px;
   width: 350px;
   position: relative;
+  background: white;
+  -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
 }
 .media-panel-container .media-panel .media-panel-layer {
   position: absolute;
