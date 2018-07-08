@@ -1,5 +1,8 @@
 import React from 'react'
 import { jss } from 'react-jss'
+import LibraryContainer from "../containers/library/LibraryContainer"
+import MediaPanelContainer from "../containers/central/MediaPanelContainer"
+import PropertiesContainer from "../containers/properties/PropertiesContainer"
 
 const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_fonts, theme_fonts }) => {
 
@@ -62,17 +65,30 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
     }
 
 
-
     return page_is_loading ?
 
-        // While page is initizalizing, we should display a loader
+        // While page is initializing, we should display a loader
         <div className="page-loader-fullscreen height-full width-full">
-            <div className="page-loader" />
+
+            <div className="page-loader absolute-center">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
         </div>
 
         :
 
-        null
+        <div>
+
+            <LibraryContainer />
+
+            <MediaPanelContainer />
+
+            <PropertiesContainer/>
+
+        </div>
 
 }
 

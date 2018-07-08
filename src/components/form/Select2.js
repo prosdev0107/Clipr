@@ -22,7 +22,6 @@ const Select2 = ({
 
     // Customize option appearance
     optionRenderer = optionRenderer || function (option) {
-        console.log('THIS IS',option)
         return option.label
     }
 
@@ -31,7 +30,7 @@ const Select2 = ({
             {(label || "").length > 0 ? <label htmlFor={input.name}>{label}</label> : "" }
             <Select
                 {...input}
-                value={selectedOption}
+                value={selectedOption || undefined}
                 options={options}
                 optionRenderer={(option) => optionRenderer(option)}
                 clearable={false}

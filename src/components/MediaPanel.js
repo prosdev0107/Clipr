@@ -6,6 +6,7 @@ import {OverlayTypes} from "./propTypes/OverlayTypes";
 import {MEDIA_PANEL_ID} from "../constants/constants"
 import PropTypes from 'prop-types'
 import {Button} from 'react-bootstrap'
+import ClipIframeContainer from '../containers/central/ClipIframeContainer'
 
 /**
  * The Media Panel is where we can customize media with content
@@ -97,66 +98,7 @@ const MediaPanel = ({ cs_item, general, params, data_saving_status, buttonClicke
         }
     }
 
-    let fake_interactions = ["interaction-timer","interaction-brand-name"]
-    switch (cs_item.cnv_type || "INPUT") {
-
-        case "REDEEM":
-            break
-
-        case "SHOPPER":
-            fake_interactions.push("interaction-shop-btn","interaction-cta-title-shopper","interaction-above-cta-button")
-            break
-
-        default:
-            fake_interactions.push("interaction-cta-title")
-            break
-    }
-
-    let interactions_styles = {}
-    let interactions_main_color = ""
-    let themes = params.themes || {} // For default font
-    if (typeof general.theme !== "undefined") {
-        let interactions_main_font = general.theme ? general.theme.font : (themes.default_font || "")
-        interactions_main_color = general.theme ? general.theme.color : (themes.default_color || "")
-        if (interactions_main_font != null && interactions_main_font.length > 0) {
-            interactions_styles.fontFamily = "theme_"+interactions_main_font
-            interactions_styles.fontWeight = 400
-        }
-    }
-
-    // Buld a div that render theme font and theme
-    const renderThemeSample = (type) => {
-        switch (cs_item.cnv_type || "INPUT") {
-
-            case "REDEEM":
-               return <div className="fake-interaction interaction-redeem-slider">
-
-                   <div className="interaction-redeem-slider-top-bar fill-gradient"></div>
-
-                   <div className="interaction-redeem-slider-bottom-bar text-gradient">
-                       <span className="absolute-center">Découvrir</span>
-                   </div>
-
-               </div>
-
-            case "SHOPPER":
-                return <div className="fake-interaction interaction-cta-button text-gradient border-gradient">
-                    <span className="absolute-center">Ajouter au panier</span>
-                </div>
-
-            case "INPUT":
-                return <div className="fake-interaction interaction-cta-button text-gradient border-gradient">
-                    <span className="absolute-center">Participer</span>
-                </div>
-
-            default:
-                return <div className="fake-interaction interaction-cta-button text-gradient border-gradient">
-                    <span className="absolute-center">Visiter le site</span>
-                </div>
-        }
-    }
-
-    return <div  className="media-panel-container">
+    return <div  className="media-panel-container absolute-center">
 
         <div className="media-actions btn-group margin-bottom-20">
             <Button
@@ -200,19 +142,11 @@ const MediaPanel = ({ cs_item, general, params, data_saving_status, buttonClicke
             </div>
 
             {/* Interactions layer */}
-            <div className={"media-panel-layer media-panel-layer-buttons theme-"+interactions_main_color} style={interactions_styles}>
+            <div className="media-panel-layer media-panel-layer-buttons">
 
-                {fake_interactions.map((text,idx) => (
-
-                    <div key={idx} className={"fake-interaction "+text}>
-                    </div>
-                ))}
-
-                {renderThemeSample(cs_item.cnv_type)}
+                <ClipIframeContainer />
 
             </div>
-
-
 
         </div>
 

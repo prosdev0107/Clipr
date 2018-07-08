@@ -12,7 +12,7 @@ const GeneralForm = ({general,params,formChanged}) => {
     let theme_colors = themes.colors || {}, theme_fonts = themes.fonts || {}
 
     let select_fonts = theme_fonts.map( (font) => {
-        return { value: font.name, label: font.name }
+        return { value: font.name, label: font.name, fontFamily: "theme_"+font.name  }
     })
 
     let select_colors = theme_colors.map( (color) => {
@@ -28,8 +28,6 @@ const GeneralForm = ({general,params,formChanged}) => {
     let media_params = general.media || {}
     let media_theme = general.theme || {}
 
-
-
     // Let's build the row data to be displayed
     let rowInputInfo = [
         {
@@ -37,7 +35,7 @@ const GeneralForm = ({general,params,formChanged}) => {
         },
         {
             id: "theme_color",
-            value: media_theme.color || "#00000000",
+            value: media_theme.color || "#000000",
             type: "css",
             options: select_colors,
             input: {
@@ -60,10 +58,10 @@ const GeneralForm = ({general,params,formChanged}) => {
         },
         {
             id: "overlay_color",
-            value: overlay.color || "#00000000",
+            value: overlay.color || "#000000",
             type: "css",
             input: {
-                label: "Opacité",
+                label: "Couleur",
                 type: "color",
             }
         },

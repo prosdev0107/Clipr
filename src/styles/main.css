@@ -1,3 +1,6 @@
+body {
+  background-color: #f3f4f5;
+}
 .App {
   position: fixed;
   top: 0;
@@ -7,7 +10,6 @@
 }
 .App > .row {
   height: 100%;
-  background-color: #f3f4f5;
 }
 .page-loader-fullscreen {
   z-index: 999;
@@ -142,5 +144,10 @@ button.btn-default:not(.btn-floating) {
 .btn-info:hover,
 button.btn-default:not(.btn-floating):hover {
   opacity: 0.8;
+}
+.btn-danger {
+  border: 2px solid #dc3545;
+  background-color: white;
+  color: #dc3545;
 }
 /*# sourceMappingURL=main.css.map */

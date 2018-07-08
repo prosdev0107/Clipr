@@ -1,12 +1,17 @@
 import React from 'react'
 import SimpleStickerContainer from "../containers/SimpleStickerContainer"
 import {Row, Col} from 'react-bootstrap'
+import {isSafari} from 'react-device-detect'
+import GiphySearchBarContainer from "../containers/library/GiphySearchBarContainer"
 
-const Library = ({stickers, stickers_menu_tab, selectFromLibrary, changeTab}) => {
+const Library = ({stickers, stickers_menu_tab, listen_drag_events, selectFromLibrary, changeTab}) => {
 
     let images = typeof stickers.img !== "undefined" ? stickers.img : []
     let texts = typeof stickers.text !== "undefined" ? stickers.text : []
     let svg = typeof stickers.svg !== "undefined" ? stickers.svg : []
+    let giphy_stickers = typeof stickers.giphy_stickers !== "undefined" ? stickers.giphy_stickers : []
+
+    let onDragOverDo = listen_drag_events && !isSafari ? (event) => selectFromLibrary('EVENT_PREVENT_DEFAULT',event) : null
 
     // Which category to display ?
     let stickers_to_show = []
@@ -21,9 +26,25 @@ const Library = ({stickers, stickers_menu_tab, selectFromLibrary, changeTab}) =>
         case 3:
             stickers_to_show = svg
             break
+        case 4:
+            stickers_to_show = giphy_stickers
+            break
         default:
             break
 
+    }
+
+    // Render a search bar to search through Image API
+    const renderSearchBar = (stickers_menu_tab) => {
+
+        switch (stickers_menu_tab) {
+
+            case 4:
+                return <GiphySearchBarContainer />
+
+            default:
+                return <div/>
+        }
     }
 
     const renderLibraryStickers = (stickers_to_show) => {
@@ -34,7 +55,7 @@ const Library = ({stickers, stickers_menu_tab, selectFromLibrary, changeTab}) =>
             return <div></div>
         }
 
-        return <div className="stickers-library-shelf padding-20">
+        return <div className="stickers-library-shelf height-full padding-20">
             <Row>
                 {stickers_to_show.map((sticker,index) =>
                     <Col
@@ -55,6 +76,17 @@ const Library = ({stickers, stickers_menu_tab, selectFromLibrary, changeTab}) =>
         </div>
     }
 
+    const handleScroll = (event) => {
+
+        var scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+        var scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
+        var clientHeight = document.documentElement.clientHeight || window.innerHeight;
+        var scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+
+        if (scrolledToBottom) {
+
+        }
+    }
 
     let hide_column = stickers_menu_tab === 0 ? "animate-hide-left" : ""
     return <div>
@@ -99,6 +131,14 @@ const Library = ({stickers, stickers_menu_tab, selectFromLibrary, changeTab}) =>
                     </li>
 
 
+                    <li className="site-menu-item">
+                        <a className={`animsition-link ${ stickers_menu_tab === 4 ? "active" : ""}`} href=""
+                           onClick={(e) => {e.preventDefault();changeTab(4);}} >
+                            <i className="site-menu-icon fa fa-star" aria-hidden="true"></i>
+                            <span className="site-menu-title">Gifs</span>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -108,13 +148,13 @@ const Library = ({stickers, stickers_menu_tab, selectFromLibrary, changeTab}) =>
         <img className="hidden" src="images/dashbox.png" alt="dashbox"/>
 
         <div className={"stickers-library-container"}>
-            <div className={"stickers-library padding-top-20 animate-left "+hide_column}
+            <div className={"stickers-library animate-left "+hide_column}
                  onDragStart={(event) => selectFromLibrary('LIBRARY_STICKER_DRAG_START',event)}
-                 onDragOver={(event) => selectFromLibrary('EVENT_PREVENT_DEFAULT',event)}
+                 onDragOver={onDragOverDo}
                  onDoubleClick={(event) => selectFromLibrary('LIBRARY_STICKER_DOUBLE_CLICK',event)}
             >
 
-
+                {renderSearchBar(stickers_menu_tab)}
 
                 {renderLibraryStickers(stickers_to_show)}
 

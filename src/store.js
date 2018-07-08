@@ -7,7 +7,12 @@ import LivetimeSave from "./utilities/API/LivetimeSave"
 const initialState = {
     // Constants that allow to build the view
     params: {
-        stickers: [],
+        stickers: {
+            img: [],
+            svg: [],
+            text: [],
+            giphy_stickers: []
+        },
         sticker_fonts: [],
         img_animations: [],
         themes: {
@@ -15,13 +20,14 @@ const initialState = {
             fonts: [],
             default_font: "",
             default_color: ""
-        },
+        }
     },
     // Params depending on chosen media
     cs_item: {
         id: "",
         cnv_short_code: "",
         cnv_type: "INPUT",
+        url: "",
         media: {
             src: "",
             thumbnail: "",

@@ -14,6 +14,7 @@ const csItemReducer = (state = [], action) => {
                     id: data.id,
                     cnv_short_code: data.cnv_short_code,
                     cnv_type: data.cnv_type,
+                    url: data.url,
                     media: {
                         ...state.media,
                         src: data.media.src,

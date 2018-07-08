@@ -36,6 +36,7 @@
   top: 0;
   bottom: 0;
   width: 100%;
+  overflow-y: auto;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
 }
@@ -58,5 +59,23 @@
 }
 .stickers-library-container .stickers-library .stickers-library-shelf .library-sticker-container .sticker > img {
   margin: auto;
+}
+.giphy-container {
+  margin-bottom: -20px;
+}
+.giphy-container .giphy-search-bar {
+  padding: 20px 10px 0 10px;
+}
+.giphy-container .giphy-search-bar .form-group {
+  margin-bottom: 0px;
+}
+.giphy-container .giphy-search-bar input {
+  text-align: center;
+}
+.giphy-container .giphy-search-bar p {
+  margin: 0;
+}
+.giphy-container .giphy-search-bar p small {
+  color: #b3b3b3;
 }
 /*# sourceMappingURL=library.css.map */

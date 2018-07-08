@@ -68,7 +68,7 @@ const Properties = ({story_sticker, stickers_menu_tab, propertiesButtonAction}) 
     // Hide column if nothing to show
     let hide_column = stickers_menu_tab > 0 && typeof story_sticker === "undefined" ? "animate-hide-right" : ""
     return <div className={"properties-sidebar-container"}>
-        <div className={"properties-sidebar padding-top-20 animate-left "+hide_column} >
+        <div className={"properties-sidebar padding-top-20 padding-bottom-20 absolute-center-vertical animate-left "+hide_column} >
             {renderPropertiesContent()}
         </div>
     </div>

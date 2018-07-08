@@ -10,6 +10,20 @@ const Sticker = ({sticker}) => {
     // WARNING : The real clip uses exactly the same script in main.js. Be careful about any modification.
     const customizeStickerOnPage = (svgId, svgPath, cssPath, customize) => {
 
+        function isSVGSecured (html) {
+
+            var htmlLower = html.toLowerCase()
+            var forbiddenTags = ['script', 'onload','onerror']
+            for (var i=0; i<forbiddenTags.length; i++) {
+                if (htmlLower.indexOf(forbiddenTags[i]) !== -1) {
+                    console.log("Sticker is invalid", html)
+                    return false
+                }
+            }
+
+            return true
+        }
+
         [svgPath, cssPath].forEach(function(filePath) {
 
             // Is file existing ?
@@ -26,64 +40,73 @@ const Sticker = ({sticker}) => {
 
                         let fileContent = response.data
 
-                        if (fileContent.length > 0) {
+                        if (fileContent.length > 0 && isSVGSecured(fileContent)) {
 
                             if (type === "svg") {
 
                                 // Get sticker location
                                 let sticker = document.getElementById(svgId)
 
-                                // Add content
-                                sticker.innerHTML = fileContent
+                                if (typeof sticker !== "undefined" && sticker != null) {
 
-                                if (typeof customize !== "undefined" && customize != null) {
+                                    // Add content
+                                    sticker.innerHTML = fileContent
 
-                                    // Some properties in this svg need to be updated
-                                    Object.entries(customize).map(([fieldName, customField]) => {
+                                    if (typeof customize !== "undefined" && customize != null) {
 
-                                        // Find the elements concerned about this custom field
-                                        let nodes = sticker.querySelectorAll(customField.selector)
+                                        // Some properties in this svg need to be updated
+                                        Object.keys(customize).forEach(function(key) {
 
-                                        Array.prototype.forEach.call(nodes,(node) => {
+                                            var customField = customize[key]
 
-                                            switch (customField.type) {
+                                            // Find the elements concerned about this custom field
+                                            let nodes = sticker.querySelectorAll(customField.selector)
 
-                                                case "css":
-                                                    if (customField.property !== "undefined") {
-                                                        node.style[customField.property] = customField.value;
-                                                    }
-                                                    break
+                                            Array.prototype.forEach.call(nodes,(node) => {
 
-                                                case "attribute":
-                                                    if (customField.property !== "undefined") {
-                                                        node.setAttribute(customField.property, customField.value)
-                                                    }
-                                                    break
+                                                switch (customField.type) {
 
-                                                case "text":
+                                                    case "css":
 
-                                                    // Several properties to edit about text
-                                                    let attributes = customField.attributes
-                                                    if (typeof attributes !== "undefined" && attributes != null) {
+                                                        if (customField.property !== "undefined") {
+                                                            node.style[customField.property] = customField.value;
+                                                        }
+                                                        break
 
-                                                        node.innerHTML = attributes.content
-                                                        node.style.fontFamily = attributes.family
-                                                        node.style.fontSize = attributes.size+"px"
-                                                        node.style.color = attributes.color
-                                                        node.setAttribute("fill",attributes.color)
-                                                        node.setAttribute("font-size",attributes.size)
-                                                    }
+                                                    case "attribute":
 
-                                                    break
+                                                        if (customField.property !== "undefined") {
+                                                            node.setAttribute(customField.property, customField.value)
+                                                        }
+                                                        break
 
-                                                default:
-                                                    break
-                                            }
+                                                    case "text":
+
+                                                        // Several properties to edit about text
+                                                        let attributes = customField.attributes
+                                                        if (typeof attributes !== "undefined" && attributes != null) {
+
+                                                            node.innerHTML = attributes.content
+                                                            node.style.fontFamily = attributes.family
+                                                            node.style.fontSize = attributes.size+"px"
+                                                            node.style.color = attributes.color
+                                                            node.setAttribute("fill",attributes.color)
+                                                            node.setAttribute("font-size",attributes.size)
+                                                        }
+
+                                                        break
+
+                                                    default:
+                                                        break
+                                                }
+                                            })
+
+                                            return 0
                                         })
-
-                                        return 0
-                                    })
+                                    }
                                 }
+
+
 
                             } else if (type === "css") {
 

@@ -9,7 +9,7 @@ const PropertiesForm = ({story_sticker,fonts,formChanged}) => {
     let sticker = story_sticker.sticker
 
     let fontFamilies = fonts.map( (font) => {
-        return { value: font.name, label: font.name }
+        return { value: font.name, label: font.name, fontFamily: font.name }
     })
 
 
@@ -27,30 +27,6 @@ const PropertiesForm = ({story_sticker,fonts,formChanged}) => {
         }]
 
     // Add the common field
-    rowInputInfo.push({
-        id: "ssbox_position_x",
-        value: story_sticker.position.x || 0,
-        type: "attribute",
-        input: {
-            label: "X",
-            type: "number",
-            step: 0.01,
-            min: 0,
-            max: 1
-        }
-    })
-    rowInputInfo.push({
-        id: "ssbox_position_y",
-        value: story_sticker.position.y || 0,
-        type: "attribute",
-        input: {
-            label: "Y",
-            type: "number",
-            step: 0.01,
-            min: 0,
-            max: 1
-        }
-    })
     rowInputInfo.push({
         id: "ssbox_position_rotation",
         value: Math.round(rotationDeg*10)/10 || 0,

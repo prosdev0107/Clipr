@@ -1,9 +1,9 @@
 
 import {resizeBox, rotateBox} from "../utilities/maths"
 import {MEDIA_PANEL_REF_WIDTH} from "../constants/constants"
+import {isSafari} from 'react-device-detect'
 
 let initialBoxPosition = {}
-
 const storyStickersReducer = (state = [], action) => {
 
     // Get the index of the current selected stciker
@@ -287,7 +287,7 @@ const storyStickersReducer = (state = [], action) => {
 
             // Set initial position of cursor in data transfer
             // Also save info about sticker content
-            action.event.dataTransfer.setData('pick_from_library',JSON.stringify({
+            action.event.dataTransfer.setData('text/plain',JSON.stringify({
                 elementId: action.target.id,
                 sticker: action.sticker,
                 init_width: action.init_width
@@ -295,9 +295,11 @@ const storyStickersReducer = (state = [], action) => {
 
             // Set sticker image as ghost image when dragging,
             // Else there is no drag image at first drag
-            let dragImg = document.createElement("img")
-            dragImg.src = "../images/dashbox.png"
-            action.event.dataTransfer.setDragImage(dragImg, 25, 25)
+            if (!isSafari) {
+                let dragImg = document.createElement("img")
+                dragImg.src = "../images/dashbox.png"
+                action.event.dataTransfer.setDragImage(dragImg, 25, 25)
+            }
 
             // Deselect any selected object
             return state.map(storySticker =>
@@ -326,7 +328,7 @@ const storyStickersReducer = (state = [], action) => {
         case 'STICKERS_LAYER_DRAG_START':
 
             // Useless but needed to let onDragOver be triggered
-            action.event.dataTransfer.setData('text',null)
+            action.event.dataTransfer.setData('text/plain',null)
 
             // Set a transparent image as ghost image when dragging,
             // because we are already moving original element at the same time
@@ -417,21 +419,22 @@ const storyStickersReducer = (state = [], action) => {
 
             // If just dropped a sticker from library, add it to story
             if (typeof action.event.dataTransfer !== "undefined") {
-                let elmtDroppedInfoJSON = action.event.dataTransfer.getData('pick_from_library')
+                let elmtDroppedInfoJSON = action.event.dataTransfer.getData('text/plain')
                 if (elmtDroppedInfoJSON != null && elmtDroppedInfoJSON.length > 0) {
-                    let elmtDroppedInfo = JSON.parse(elmtDroppedInfoJSON)
-                    if (elmtDroppedInfo != null && typeof elmtDroppedInfo.elementId !== "undefined") {
+                    let info = JSON.parse(elmtDroppedInfoJSON)
+                    if (info != null) {
 
                         // Yes it is, add sticker to story stickers
                         return addStorySticker(
                             state,
-                            elmtDroppedInfo.sticker,
-                            elmtDroppedInfo.init_width,
+                            info.sticker,
+                            info.init_width,
                             action.cursor_position
                         )
                     }
                 }
             }
+
 
             // Whatever the dropped element is, its movement ends so must flag as currently not moving
             // Also need to finish transformation of the box (ex : case mouse leave)

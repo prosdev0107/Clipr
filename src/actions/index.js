@@ -21,6 +21,7 @@ const findStickerWithId = (stickerId) => {
 
         let sticker = stickers[stickerType].find((obj) => { return obj.id === stickerId })
         if (typeof sticker !== "undefined" && sticker !== null) {
+
             return sticker
         }
     }
@@ -77,7 +78,6 @@ export const selectFromLibraryAction = (type, event) => {
 
 // Manipulate story stickers on
 export const transformStoryStickerAction = (type, event) => {
-
 
     // Get media panel dimensions
     let mediaPanelSize = getMediaPanelSize()
