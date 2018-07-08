@@ -24,7 +24,7 @@ const GiphySearchBar = ({gifsLoaded}) => {
         let query = text.length > 0 ? "search?q="+text : "trending"
         query = query.indexOf("?") === -1 ? query+"?api_key="+giphy_api_key :  query+"&api_key="+giphy_api_key;
 
-        axios.get(`http://api.giphy.com/v1/${type}/${query}`).then((response) => {
+        axios.get(`https://api.giphy.com/v1/${type}/${query}`).then((response) => {
 
             var gifData = response.data.data
             if (typeof gifData !== "undefined" && gifData != null) {
