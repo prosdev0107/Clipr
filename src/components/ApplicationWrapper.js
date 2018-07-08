@@ -40,7 +40,7 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
             if (document.querySelectorAll("[data-meta='"+fontMeta+"']").length === 0) {
 
                 let sources_regular = "url('"+font.source+"') format('woff2'), url('"+font.source.replace('woff2','woff')+"') format('woff')"
-                let src_medium = font.source.replace('-regular','-medium')
+                let src_medium = font.source.replace('-Regular','-Medium')
                 let sources_medium = "url('"+src_medium+"') format('woff2'), url('"+src_medium.replace('woff2','woff')+"') format('woff')"
 
                 jss.createStyleSheet({
