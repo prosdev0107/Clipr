@@ -3,15 +3,6 @@ const pageActionsReducer = (state = [], action) => {
 
     switch (action.type) {
 
-        case 'LIBRARY_TAB_SELECTED':
-
-            // Navigate through the different stickers category
-            let tab = parseInt(action.data,10) || 0
-            return {
-                ...state,
-                stickers_menu_tab: tab
-            }
-
         case 'LIBRARY_STICKER_DRAG_START':
 
             // A sticker start to be dragged from library : we need to listen drag over events
@@ -60,7 +51,7 @@ const pageActionsReducer = (state = [], action) => {
                 url_host: action.data
             }
 
-        case 'MEDIA_PANEL_SAVE_BTN_PRESSED':
+        case 'SAVE_MENU_SAVE_BTN_PRESSED':
 
             // Show user data is currently saving
             if (state.data_saving_status !== 0) {
@@ -75,7 +66,7 @@ const pageActionsReducer = (state = [], action) => {
                 ask_for_data_saving: 1
             }
 
-        case 'MEDIA_PANEL_DONE_BTN_PRESSED':
+        case 'SAVE_MENU_DONE_BTN_PRESSED':
 
             // Send a message to parent frame to close the window
             if (state.url_host.length > 0 && window && window.parent) {
@@ -86,11 +77,18 @@ const pageActionsReducer = (state = [], action) => {
 
             return state
 
+        case 'API_DATA_UNSAVED':
+
+            return {
+                ...state,
+                data_unsaved: 1
+            }
+
         case 'API_UPDATE_CLEAR_MESSAGE':
 
             return {
                 ...state,
-                data_saving_status: 0
+                data_saving_status: 0,
             }
 
         case 'API_UPDATE_SAVING':
@@ -107,7 +105,8 @@ const pageActionsReducer = (state = [], action) => {
             // Show user data is successfully saved
             return {
                 ...state,
-                data_saving_status: 2
+                data_saving_status: 2,
+                data_unsaved: 0
             }
 
         case 'API_UPDATE_FAILED':
@@ -115,8 +114,9 @@ const pageActionsReducer = (state = [], action) => {
             // Show user data there was an error
             return {
                 ...state,
-                data_saving_status: action.data
+                data_saving_status: action.data,
             }
+
 
 
         default:

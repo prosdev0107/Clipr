@@ -26,9 +26,15 @@ class InputColor extends React.Component {
         })
     }
 
-    componentWillMount() {
+    componentWillMount(){
 
         let { defaultValue, forceValue } = this.props
+        this.setState({ color: forceValue || (defaultValue || "#fff") })
+    }
+
+    componentWillReceiveProps(nextProps){
+
+        let { defaultValue, forceValue } = nextProps
         this.setState({ color: forceValue || (defaultValue || "#fff") })
     }
 
@@ -82,8 +88,10 @@ class InputColor extends React.Component {
                         onChange={ this.handleChange }
                         color={ this.state.color }
                     />
+
                 </div> : null }
-            </div>
+
+                </div>
         )
     }
 }

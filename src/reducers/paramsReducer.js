@@ -13,12 +13,12 @@ const paramsReducer = (state = [], action) => {
             return state
 
         // Suggest GIF when search input changes
-        case "LIBRARY_GIPHY_GIFS_LOADED":
+        case "LIBRARY_EXTERNAL_CONTENT_LOADED":
 
             // Let's format gifs data from giphy into our classic sticker data
             // So we can render them as simple sticker
 
-            let giphy_gifs = action.data
+            let giphy_gifs = action.data.gifs
             let giphy_stickers = giphy_gifs.map(gif => {
 
                 if (typeof gif.images === "undefined" || typeof gif.images.downsized === "undefined") {
@@ -37,12 +37,17 @@ const paramsReducer = (state = [], action) => {
                 }
             })
 
+            // If no reinitialize, append to previous data
+            let new_stickers = action.data.reinitialize ?  giphy_stickers : [
+                ...state.stickers.giphy_stickers,
+                ...giphy_stickers
+            ]
 
             return  {
                 ...state,
                 stickers: {
                     ...state.stickers,
-                    giphy_stickers: giphy_stickers
+                    giphy_stickers: new_stickers
                 }
             }
 

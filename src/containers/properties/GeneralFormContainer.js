@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import GeneralForm from '../../components/GeneralForm'
-import { propertiesFormChangedAction } from '../../actions'
+import {propertiesFormChangedAction, sendToReducersAction} from '../../actions'
 
 const mapStateToProps = state => ({
     general: state.general,
@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
     formChanged: (event) => dispatch(propertiesFormChangedAction(event)),
+    preventEnterKeySubmit: (event) => dispatch(sendToReducersAction("FORM_PREVENT_ENTER_KEY_SUBMIT", event))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(GeneralForm)

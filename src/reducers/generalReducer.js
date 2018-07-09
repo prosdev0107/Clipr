@@ -12,6 +12,19 @@ const generalReducer = (state = [], action) => {
             }
             return state
 
+        case "FORM_PREVENT_ENTER_KEY_SUBMIT":
+
+            console.log('PREVENT SUBMIT')
+            // Disable form submit when enter key is pressed
+            let event = action.data
+            let keyCode = event.which || event.keyCode || event.code || 0
+            if (keyCode === 13) {
+                // That's enter key !
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            return state
+
         case 'PROPERTIES_FORM_CHANGED':
 
             const editOverlayFromForm = (initialState, inputName, inputValue, target) => {
@@ -27,11 +40,25 @@ const generalReducer = (state = [], action) => {
                     switch (inputName) {
 
                         case "theme_color":
-                            theme.color = inputValue
+
+                            // Need to find the full info about the color (inputValue is the color id)
+                            let params_colors = action.params.themes.colors
+                            let full_color_info = params_colors.find((obj) => { return obj.id === inputValue })
+
+                            theme.color = full_color_info
                             break
+
+                        case "theme_color_is_gradient":
+
+                            // Should we now use static or gradient color for backgrounds ?
+                            theme.use_static_color = !target.checked
+
+                            break
+
                         case "theme_font":
                             theme.font = inputValue
                             break
+
                         default:
                             break
                     }

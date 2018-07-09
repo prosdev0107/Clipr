@@ -60,22 +60,22 @@
 .stickers-library-container .stickers-library .stickers-library-shelf .library-sticker-container .sticker > img {
   margin: auto;
 }
-.giphy-container {
+.search-api-bar-container {
   margin-bottom: -20px;
 }
-.giphy-container .giphy-search-bar {
+.search-api-bar-container .search-api-bar {
   padding: 20px 10px 0 10px;
 }
-.giphy-container .giphy-search-bar .form-group {
+.search-api-bar-container .search-api-bar .form-group {
   margin-bottom: 0px;
 }
-.giphy-container .giphy-search-bar input {
+.search-api-bar-container .search-api-bar input {
   text-align: center;
 }
-.giphy-container .giphy-search-bar p {
+.search-api-bar-container .search-api-bar p {
   margin: 0;
 }
-.giphy-container .giphy-search-bar p small {
+.search-api-bar-container .search-api-bar p small {
   color: #b3b3b3;
 }
 /*# sourceMappingURL=library.css.map */

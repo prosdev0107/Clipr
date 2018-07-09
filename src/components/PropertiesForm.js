@@ -4,7 +4,7 @@ import { STICKER_FONT_SIZE_MIN, STICKER_FONT_SIZE_MAX } from '../constants/const
 import {renderField} from "./form/renderField"
 
 
-const PropertiesForm = ({story_sticker,fonts,formChanged}) => {
+const PropertiesForm = ({story_sticker,fonts,formChanged, preventEnterKeySubmit}) => {
 
     let sticker = story_sticker.sticker
 
@@ -105,7 +105,9 @@ const PropertiesForm = ({story_sticker,fonts,formChanged}) => {
     })
 
     return (
-        <form onChange={(event) => formChanged(event)}>
+        <form onChange={(event) => formChanged(event)}
+            // Prevent submit on enter key
+              onKeyPress={(event) => preventEnterKeySubmit(event)} >
 
             <table className="width-full">
 

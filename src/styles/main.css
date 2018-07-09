@@ -95,6 +95,18 @@ table tr.table-separator td {
 .checkbox-custom label::after {
   padding-top: 0;
 }
+/*********************/
+/***** Save Menu *****/
+/*********************/
+.save-menu {
+  z-index: 10;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.save-menu .btn-floating {
+  font-size: 20px;
+}
 /************************/
 /***** Clipr colors *****/
 /************************/

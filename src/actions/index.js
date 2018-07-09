@@ -134,7 +134,7 @@ export const propertiesFormChangedAction = (event) => {
         name: inputName,
         value: inputValue,
         target: target,
+        params: store.getState().params,
         type: "PROPERTIES_FORM_CHANGED"
     }
 }
-

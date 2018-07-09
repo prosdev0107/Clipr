@@ -5,7 +5,6 @@ import {CsItemTypes, CsItemDefaults} from "./propTypes/CsItemTypes"
 import {OverlayTypes} from "./propTypes/OverlayTypes";
 import {MEDIA_PANEL_ID} from "../constants/constants"
 import PropTypes from 'prop-types'
-import {Button} from 'react-bootstrap'
 import ClipIframeContainer from '../containers/central/ClipIframeContainer'
 
 /**
@@ -18,9 +17,10 @@ import ClipIframeContainer from '../containers/central/ClipIframeContainer'
  * @returns {*}
  * @constructor
  */
-const MediaPanel = ({ cs_item, general, params, data_saving_status, buttonClicked }) => {
+const MediaPanel = ({ cs_item, general }) => {
 
-    let overlay = general.overlay
+    console.log("general is",general)
+    let overlay = general.overlay || {}
     let mediaParams = general.media || {}
     let overlay_styles = {
         backgroundColor: overlay.color,
@@ -99,26 +99,6 @@ const MediaPanel = ({ cs_item, general, params, data_saving_status, buttonClicke
     }
 
     return <div  className="media-panel-container absolute-center">
-
-        <div className="media-actions btn-group margin-bottom-20">
-            <Button
-                bsStyle="primary"
-                disabled={data_saving_status !== 0 ? true : false}
-                className="inline-block"
-                onClick={(event) => buttonClicked('MEDIA_PANEL_SAVE_BTN_PRESSED',event)}
-            >
-                <b>
-                    { data_saving_status === 1 ? "Sauvegarde..." : ( data_saving_status === 2 ? "Sauvegardé !" : (typeof data_saving_status === "string" ? data_saving_status : "Sauvegarder")) }
-                </b>
-            </Button>
-            <Button
-                bsStyle="default"
-                className="inline-block"
-                onClick={(event) => buttonClicked('MEDIA_PANEL_DONE_BTN_PRESSED',event)}
-            >
-                Terminer
-            </Button>
-        </div>
 
         <div id={MEDIA_PANEL_ID} className="media-panel">
 

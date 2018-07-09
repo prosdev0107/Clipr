@@ -9,13 +9,6 @@
   -ms-user-select: none;
   user-select: none;
 }
-.media-panel-container .media-actions {
-  width: 100%;
-}
-.media-panel-container .media-actions button {
-  width: 50%;
-  float: left;
-}
 .media-panel-container .media-panel {
   height: 571px;
   width: 350px;

@@ -3,6 +3,7 @@ import { jss } from 'react-jss'
 import LibraryContainer from "../containers/library/LibraryContainer"
 import MediaPanelContainer from "../containers/central/MediaPanelContainer"
 import PropertiesContainer from "../containers/properties/PropertiesContainer"
+import SaveMenuContainer from "../containers/SaveMenuContainer";
 
 const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_fonts, theme_fonts }) => {
 
@@ -87,6 +88,8 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
             <MediaPanelContainer />
 
             <PropertiesContainer/>
+
+            <SaveMenuContainer />
 
         </div>
 

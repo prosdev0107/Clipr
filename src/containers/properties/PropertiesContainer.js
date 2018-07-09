@@ -5,7 +5,7 @@ import {sendToReducersAction} from "../../actions";
 
 const mapStateToProps = state => ({
     // Find the selected story sticker
-    stickers_menu_tab: state.page_actions.stickers_menu_tab,
+    stickers_menu_tab: state.library_dynamic.stickers_menu_tab,
     story_sticker: state.story_stickers.find((obj) => {
         return typeof obj.edit_info !== "undefined" && obj.edit_info.selected === true
     })

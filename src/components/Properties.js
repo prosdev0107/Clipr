@@ -46,6 +46,7 @@ const Properties = ({story_sticker, stickers_menu_tab, propertiesButtonAction}) 
                     <p className="margin-0 margin-bottom-5 padding-top-15">Autre</p>
                     <Button
                         bsStyle="danger"
+                        className="btn-round"
                         data-story-sticker-id={story_sticker.id}
                         onClick={(event) => propertiesButtonAction('PROPERTIES_BUTTON_REMOVE_SELECTED',event)}
                     >
