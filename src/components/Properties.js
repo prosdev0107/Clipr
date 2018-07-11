@@ -12,10 +12,10 @@ const Properties = ({story_sticker, stickers_menu_tab, propertiesButtonAction}) 
             // Settings about a specific sticker
             let directions = ['SEND_FULL_BACK','SEND_BACK','SEND_FRONT','SEND_FULL_FRONT']
             let directions_translations = {
-                'SEND_FULL_BACK' : "fa-backward",
-                'SEND_BACK' : "fa-caret-left",
-                'SEND_FRONT' : "fa-caret-right",
-                'SEND_FULL_FRONT' : "fa-forward"
+                'SEND_FULL_BACK' : "icon-custom icon-send-full-back",
+                'SEND_BACK' : "icon-custom icon-send-back",
+                'SEND_FRONT' : "icon-custom icon-send-front",
+                'SEND_FULL_FRONT' : "icon-custom icon-send-full-front"
             }
 
             return <div>
@@ -33,10 +33,10 @@ const Properties = ({story_sticker, stickers_menu_tab, propertiesButtonAction}) 
                                 <Button
                                     bsStyle="default"
                                     data-story-sticker-id={story_sticker.id}
-                                    className="inline-block"
+                                    className="inline-block padding-5"
                                     onClick={(event) => propertiesButtonAction('PROPERTIES_BUTTON_'+direction+'_SELECTED',event)}
                                 >
-                                    <i className={ "fa " + directions_translations[direction] } />
+                                    <i className={ directions_translations[direction] } />
                                 </Button>
                             </Col>
                         }) }
@@ -44,14 +44,20 @@ const Properties = ({story_sticker, stickers_menu_tab, propertiesButtonAction}) 
 
                     {/* Remove story sticker from stickers layer */}
                     <p className="margin-0 margin-bottom-5 padding-top-15">Autre</p>
-                    <Button
-                        bsStyle="danger"
-                        className="btn-round"
-                        data-story-sticker-id={story_sticker.id}
-                        onClick={(event) => propertiesButtonAction('PROPERTIES_BUTTON_REMOVE_SELECTED',event)}
-                    >
-                        Supprimer
-                    </Button>
+                    <Row>
+
+                        <Col sm={12} className="text-center">
+                            <Button
+                                bsStyle="danger"
+                                className="btn-round center-block"
+                                data-story-sticker-id={story_sticker.id}
+                                onClick={(event) => propertiesButtonAction('PROPERTIES_BUTTON_REMOVE_SELECTED',event)}
+                            >
+                                Supprimer
+                            </Button>
+                        </Col>
+
+                    </Row>
 
                 </div>
 

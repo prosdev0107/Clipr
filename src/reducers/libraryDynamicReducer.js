@@ -7,7 +7,7 @@ const libraryDynamicReducer = (state = [], action) => {
 
             let tab = parseInt(action.data,10) || 0
             // API call needed ?
-            let willLoadData = tab === 4
+            let willLoadData = (tab === 4 || tab === 1)
 
             return {
                 ...state,

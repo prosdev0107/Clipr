@@ -1,9 +1,15 @@
 import React from 'react'
 import {Button} from 'react-bootstrap'
+import SweetAlert from 'react-bootstrap-sweetalert'
 
-const SaveMenu = ({ data_unsaved, data_saving_status, buttonClicked }) => {
 
-    const renderSaveButton = (data_unsaved,data_saving_status) => {
+class SaveMenu extends React.Component {
+
+    state = {
+        swal_show: false
+    }
+
+    renderSaveButton = (data_unsaved,data_saving_status) => {
 
         if (data_unsaved && data_saving_status === 0) {
 
@@ -12,7 +18,7 @@ const SaveMenu = ({ data_unsaved, data_saving_status, buttonClicked }) => {
                 bsStyle="primary"
                 disabled={data_saving_status !== 0}
                 className="inline-block btn-round"
-                onClick={(event) => buttonClicked('SAVE_MENU_SAVE_BTN_PRESSED',event)}
+                onClick={(event) => this.props.buttonClicked('SAVE_MENU_SAVE_BTN_PRESSED',event)}
             >
                 <b>
                     { data_saving_status === 1 ? "Sauvegarde..." : ( data_saving_status === 2 ? "Sauvegardé !" : (typeof data_saving_status === "string" ? data_saving_status : "Sauvegarder")) }
@@ -32,31 +38,60 @@ const SaveMenu = ({ data_unsaved, data_saving_status, buttonClicked }) => {
         return <div/>
     }
 
-    const closeWindow = (event) => {
-
-        if (data_unsaved > 0) {
+    closeButtonPressed = (event) => {
+        if (this.props.data_unsaved > 0) {
 
             // Ask if users really wants to close window without saving data
+            this.setState({ swal_show: true })
 
         } else {
 
             // Directly closes window
-            buttonClicked('SAVE_MENU_DONE_BTN_PRESSED',event)
+            this.closeWindow(event)
         }
     }
 
-    return <div className="save-menu margin-bottom-20">
+    closeWithoutSaving = (event) => {
+        this.setState({swal_show: false});
+        this.closeWindow(event);
+    }
 
-        { renderSaveButton(data_unsaved,data_saving_status) }
+    closeWindow = (event) => {
+        // Directly closes window
+        this.props.buttonClicked('SAVE_MENU_DONE_BTN_PRESSED',event)
+    }
 
-        <Button
-            bsStyle="danger"
-            className="inline-block btn-floating btn-sm margin-left-20"
-            onClick={(event) => closeWindow(event)}
-        >
-            <i className="fa fa-times"></i>
-        </Button>
-    </div>
+    render() {
+
+        return <div className="save-menu margin-bottom-20">
+
+            {this.renderSaveButton(this.props.data_unsaved, this.props.data_saving_status)}
+
+            <Button
+                bsStyle="danger"
+                className="inline-block btn-floating btn-sm margin-left-20"
+                onClick={(event) => this.closeButtonPressed(event)}
+            >
+                <i className="fa fa-times"></i>
+            </Button>
+
+            <SweetAlert
+                warning
+                showCancel
+                show={this.state.swal_show}
+                confirmBtnText="Quitter sans sauvegarder"
+                confirmBtnBsStyle="danger"
+                cancelBtnText="Non"
+                cancelBtnBsStyle="default"
+                title="Voulez vraiment quitter sans sauvegarder ?"
+                onConfirm={(event) => { this.closeWithoutSaving(event) }}
+                onCancel={() => this.setState({swal_show: false})}
+            >
+                Cette opération est irréversible !
+            </SweetAlert>
+
+        </div>
+    }
 }
 
 export default SaveMenu

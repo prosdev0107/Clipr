@@ -90,6 +90,7 @@ const Sticker = ({sticker}) => {
                                                             node.style.fontFamily = attributes.family
                                                             node.style.fontSize = attributes.size+"px"
                                                             node.style.color = attributes.color
+                                                            node.style.fill = attributes.color
                                                             node.setAttribute("fill",attributes.color)
                                                             node.setAttribute("font-size",attributes.size)
                                                         }

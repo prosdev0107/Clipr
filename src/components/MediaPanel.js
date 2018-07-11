@@ -19,7 +19,6 @@ import ClipIframeContainer from '../containers/central/ClipIframeContainer'
  */
 const MediaPanel = ({ cs_item, general }) => {
 
-    console.log("general is",general)
     let overlay = general.overlay || {}
     let mediaParams = general.media || {}
     let overlay_styles = {

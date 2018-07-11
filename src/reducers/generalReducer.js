@@ -14,7 +14,6 @@ const generalReducer = (state = [], action) => {
 
         case "FORM_PREVENT_ENTER_KEY_SUBMIT":
 
-            console.log('PREVENT SUBMIT')
             // Disable form submit when enter key is pressed
             let event = action.data
             let keyCode = event.which || event.keyCode || event.code || 0
@@ -78,7 +77,7 @@ const generalReducer = (state = [], action) => {
                             overlay.color = inputValue
                             break
                         case "overlay_opacity":
-                            overlay.opacity = parseFloat(inputValue)
+                            overlay.opacity = Math.round(parseFloat(inputValue))/100
                             break
                         default:
                             break

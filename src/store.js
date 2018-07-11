@@ -9,10 +9,10 @@ const initialState = {
     // Constants that allow to build the view
     params: {
         stickers: {
-            img: [],
+            pixabay: [],
             svg: [],
             text: [],
-            giphy_stickers: []
+            giphy: []
         },
         sticker_fonts: [],
         img_animations: [],
@@ -68,6 +68,7 @@ const initialState = {
 const store = createStore(rootReducer, initialState)
 
 // Subscribe to any change of story_stickers, so we can send new data to our APIs
+// https://github.com/ivantsov/redux-subscriber
 export const subscriber = initSubscriber(store)
 subscriber('page_actions', state => {
     // Update only if asked for

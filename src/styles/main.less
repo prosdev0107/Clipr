@@ -189,10 +189,51 @@ table {
   &:hover {
     opacity: 0.8;
   }
+
+  &:focus, &:hover, &:active {
+    background-color: #237eff!important;
+    border-color: #237eff;
+    color: white!important;
+  }
 }
 
 .btn-danger {
   border: 2px solid #dc3545;
   background-color: white;
   color: #dc3545;
+
+  &:focus, &:hover, &:active {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+  }
+}
+
+/************************/
+/***** Others *****/
+/************************/
+
+.sweet-alert {
+  display: block !important;
+}
+
+.icon-custom {
+  background-repeat: no-repeat;
+  display: inline-block;
+  background-size: 100%;
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align:middle;
+}
+.icon-send-full-back {
+  background-image: url('../images/move_back_full.svg');
+}
+.icon-send-back {
+  background-image: url('../images/move_back.svg');
+}
+.icon-send-front {
+  background-image: url('../images/move_front.svg');
+}
+.icon-send-full-front {
+  background-image: url('../images/move_front_full.svg');
 }

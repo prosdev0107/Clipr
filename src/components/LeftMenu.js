@@ -34,13 +34,13 @@ const LeftMenu = ({stickers_menu_tab, changeTab}) => {
                 </li>
 
 
-                <li className="site-menu-item">
+                {/* <li className="site-menu-item">
                     <a className={`animsition-link ${ stickers_menu_tab === 3 ? "active" : ""}`} href=""
                        onClick={(e) => {e.preventDefault();changeTab(3);}} >
                         <i className="site-menu-icon fa fa-star" aria-hidden="true"></i>
                         <span className="site-menu-title">Animations</span>
                     </a>
-                </li>
+                </li> */}
 
 
                 <li className="site-menu-item">

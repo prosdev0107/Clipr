@@ -157,9 +157,52 @@ button.btn-default:not(.btn-floating) {
 button.btn-default:not(.btn-floating):hover {
   opacity: 0.8;
 }
+.btn-info:focus,
+button.btn-default:not(.btn-floating):focus,
+.btn-info:hover,
+button.btn-default:not(.btn-floating):hover,
+.btn-info:active,
+button.btn-default:not(.btn-floating):active {
+  background-color: #237eff!important;
+  border-color: #237eff;
+  color: white!important;
+}
 .btn-danger {
   border: 2px solid #dc3545;
   background-color: white;
   color: #dc3545;
+}
+.btn-danger:focus,
+.btn-danger:hover,
+.btn-danger:active {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+/************************/
+/***** Others *****/
+/************************/
+.sweet-alert {
+  display: block !important;
+}
+.icon-custom {
+  background-repeat: no-repeat;
+  display: inline-block;
+  background-size: 100%;
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align: middle;
+}
+.icon-send-full-back {
+  background-image: url('../images/move_back_full.svg');
+}
+.icon-send-back {
+  background-image: url('../images/move_back.svg');
+}
+.icon-send-front {
+  background-image: url('../images/move_front.svg');
+}
+.icon-send-full-front {
+  background-image: url('../images/move_front_full.svg');
 }
 /*# sourceMappingURL=main.css.map */

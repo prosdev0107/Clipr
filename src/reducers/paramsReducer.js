@@ -15,39 +15,25 @@ const paramsReducer = (state = [], action) => {
         // Suggest GIF when search input changes
         case "LIBRARY_EXTERNAL_CONTENT_LOADED":
 
+            let api_source = action.data.api_source
+
             // Let's format gifs data from giphy into our classic sticker data
             // So we can render them as simple sticker
-
-            let giphy_gifs = action.data.gifs
-            let giphy_stickers = giphy_gifs.map(gif => {
-
-                if (typeof gif.images === "undefined" || typeof gif.images.downsized === "undefined") {
-                    return null
-                }
-
-                let imageData = gif.images.downsized
-
-                return {
-                    id: gif.id,
-                    type: 'img',
-                    ratio: Math.round(1000*imageData.height / imageData.width)/1000,
-                    source: {
-                        src: imageData.url,
-                    }
-                }
-            })
+            let stickers = action.data.stickers
+            let old_stickers = typeof state.stickers[api_source] === "undefined" ? [] : state.stickers[api_source]
 
             // If no reinitialize, append to previous data
-            let new_stickers = action.data.reinitialize ?  giphy_stickers : [
-                ...state.stickers.giphy_stickers,
-                ...giphy_stickers
+            let new_stickers = action.data.reinitialize || typeof old_stickers === "undefined" ?  stickers : [
+                ...old_stickers,
+                ...stickers
             ]
 
             return  {
                 ...state,
                 stickers: {
                     ...state.stickers,
-                    giphy_stickers: new_stickers
+                    giphy: api_source === "giphy" ? new_stickers : state.stickers.giphy,
+                    pixabay: api_source === "pixabay" ? new_stickers : state.stickers.pixabay
                 }
             }
 

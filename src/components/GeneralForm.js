@@ -81,14 +81,14 @@ const GeneralForm = ({general,params,formChanged, preventEnterKeySubmit}) => {
         },
         {
             id: "overlay_opacity",
-            value: overlay.opacity || 0,
+            value: Math.round(100*overlay.opacity) || 0,
             type: "css",
             input: {
                 label: "Opacité",
                 type: "number",
-                step: 0.01,
+                step: 1,
                 min: 0,
-                max: 1
+                max: 100
             }
         },
         {

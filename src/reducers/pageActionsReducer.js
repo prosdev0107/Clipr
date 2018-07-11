@@ -35,7 +35,7 @@ const pageActionsReducer = (state = [], action) => {
                 listen_drag_events: false
             }
 
-        case 'API_UPDATE_LIBRARY':
+        case 'API_LOADING_ENDED':
 
             // We can consider page has finished loading
             return {
@@ -81,7 +81,7 @@ const pageActionsReducer = (state = [], action) => {
 
             return {
                 ...state,
-                data_unsaved: 1
+                data_unsaved: true
             }
 
         case 'API_UPDATE_CLEAR_MESSAGE':
@@ -106,7 +106,7 @@ const pageActionsReducer = (state = [], action) => {
             return {
                 ...state,
                 data_saving_status: 2,
-                data_unsaved: 0
+                data_unsaved: false
             }
 
         case 'API_UPDATE_FAILED':

@@ -9,7 +9,7 @@ const LibraryContent = ({tab,stickers, is_loading_stickers}) => {
     switch (tab) {
 
         case 1:
-            stickers_to_show =  typeof stickers.img !== "undefined" ? stickers.img : []
+            stickers_to_show =  typeof stickers.pixabay !== "undefined" ? stickers.pixabay : []
             break
         case 2:
             stickers_to_show = typeof stickers.text !== "undefined" ? stickers.text : []
@@ -18,7 +18,7 @@ const LibraryContent = ({tab,stickers, is_loading_stickers}) => {
             stickers_to_show = typeof stickers.svg !== "undefined" ? stickers.svg : []
             break
         case 4:
-            stickers_to_show = typeof stickers.giphy_stickers !== "undefined" ? stickers.giphy_stickers : []
+            stickers_to_show = typeof stickers.giphy !== "undefined" ? stickers.giphy : []
             break
         default:
             break
@@ -39,8 +39,8 @@ const LibraryContent = ({tab,stickers, is_loading_stickers}) => {
             {stickers_to_show.map((sticker,index) =>
                 <Col
                     key={index}
-                    lg={4}
-                    xs={6}
+                    lg={tab === 2 ? 6 : 4}
+                    sm={tab === 2 ? 12 : 6}
                     className="padding-5"
                 >
                     <div className="library-sticker-container width-full relative">

@@ -13,5 +13,5 @@ export default combineReducers({
     params: paramsReducer,
     cs_item: csItemReducer,
     page_actions: pageActionsReducer,
-    library_dynamic: libraryDynamicReducer,
+    library_dynamic: libraryDynamicReducer
 })

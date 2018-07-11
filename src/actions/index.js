@@ -19,10 +19,13 @@ const findStickerWithId = (stickerId) => {
 
     for (let stickerType in stickers) {
 
-        let sticker = stickers[stickerType].find((obj) => { return obj.id === stickerId })
-        if (typeof sticker !== "undefined" && sticker !== null) {
+        if (typeof stickers[stickerType] !== "undefined" && stickers[stickerType]  !== null) {
 
-            return sticker
+            let sticker = stickers[stickerType].find((obj) => { return obj.id === stickerId })
+            if (typeof sticker !== "undefined" && sticker !== null) {
+
+                return sticker
+            }
         }
     }
 

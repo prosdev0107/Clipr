@@ -11,14 +11,11 @@ const Library = ({stickers, stickers_menu_tab, listen_drag_events, selectFromLib
     // Render a search bar to search through Image API
     const renderSearchBar = (stickers_menu_tab) => {
 
-        switch (stickers_menu_tab) {
-
-            case 4:
-                return <GiphySearchContainer />
-
-            default:
-                return <div/>
+        if (stickers_menu_tab === 4 || stickers_menu_tab === 1) {
+            return <GiphySearchContainer />
         }
+
+        return <div/>
     }
 
     const handleScroll = (event) => {

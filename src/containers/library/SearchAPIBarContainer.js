@@ -11,10 +11,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
     formChanged: (text) => dispatch(sendToReducersAction("LIBRARY_API_SEARCH_BAR_CHANGED", text)),
-    gifsLoaded: (gifs,pagination,reinitialize) => dispatch(sendToReducersAction("LIBRARY_EXTERNAL_CONTENT_LOADED", {
-        gifs: gifs,
-        pagination: pagination,
-        reinitialize: reinitialize
+    stickersLoaded: (stickers,api_source,pagination, reinitialize) => dispatch(sendToReducersAction("LIBRARY_EXTERNAL_CONTENT_LOADED", {
+        stickers,
+        api_source,
+        pagination,
+        reinitialize
     })),
     preventEnterKeySubmit: (event) => dispatch(sendToReducersAction("FORM_PREVENT_ENTER_KEY_SUBMIT", event))
 })
