@@ -10,6 +10,7 @@ Do NOT develop onto this one to keep the same behavior as reality
   z-index: -200;
   display: block;
   background-size: cover;
+  background-position: center;
   min-width: calc(120%);
   /* So we can't see blurred effect */
   min-height: calc(120%);

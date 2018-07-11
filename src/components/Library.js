@@ -7,6 +7,8 @@ import GiphySearchContainer from "../containers/library/SearchAPIBarContainer"
 const Library = ({stickers, stickers_menu_tab, listen_drag_events, selectFromLibrary, loadMoreStickers}) => {
 
     let onDragOverDo = listen_drag_events && !isSafari ? (event) => selectFromLibrary('EVENT_PREVENT_DEFAULT',event) : null
+    let onMouseMoveDo = listen_drag_events && isSafari ? (event) => selectFromLibrary('EVENT_PREVENT_DEFAULT',event) : null
+    let onDropDo = (event) => selectFromLibrary('EVENT_PREVENT_DEFAULT',event)
 
     // Render a search bar to search through Image API
     const renderSearchBar = (stickers_menu_tab) => {
@@ -45,7 +47,9 @@ const Library = ({stickers, stickers_menu_tab, listen_drag_events, selectFromLib
             <div className={"stickers-library animate-left "+hide_column}
                  onDragStart={(event) => selectFromLibrary('LIBRARY_STICKER_DRAG_START',event)}
                  onDragOver={onDragOverDo}
+                 onMouseMove={onMouseMoveDo}
                  onDoubleClick={(event) => selectFromLibrary('LIBRARY_STICKER_DOUBLE_CLICK',event)}
+                 onDrop={onDropDo}
                  onScroll={(event) => handleScroll(event)}
             >
                 {/* Search tool dedicated to the selected stickers category */}

@@ -24,7 +24,7 @@ const Sticker = ({sticker}) => {
             return true
         }
 
-        [svgPath, cssPath].forEach(function(filePath) {
+        [cssPath, svgPath].forEach(function(filePath) {
 
             // Is file existing ?
             if (typeof filePath !== "undefined" && filePath !== null && filePath.length > 5) {

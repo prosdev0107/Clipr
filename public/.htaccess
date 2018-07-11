@@ -64,7 +64,7 @@ RewriteRule ^ index.html [QSA,L]
      ExpiresByType image/svg+xml "access plus 2678400 seconds"
      ExpiresByType text/css "access plus 2678400 seconds"
      ExpiresByType text/javascript "access plus 2678400 seconds"
-     ExpiresByType application/xhtml+xml "access plus 7200 seconds"
+     ExpiresByType application/xhtml+xml "access plus 3600 seconds"
      ExpiresByType application/javascript A2592000
      ExpiresByType application/x-javascript "access plus 2678400 seconds"
      ExpiresByType application/x-shockwave-flash "access plus 2678400 seconds"
@@ -92,7 +92,7 @@ RewriteRule ^ index.html [QSA,L]
   <FilesMatch ".(x?html?|php)$">
     Header set Cache-Control "private, must-revalidate"
   </FilesMatch>
-    <FilesMatch "\\.(eot|ttf|otf|woff|woff2|svg|css)$">
+    <FilesMatch "\\.(eot|ttf|otf|woff|woff2|svg|css|gif)$">
     	Header set Access-Control-Allow-Origin "*"
     </FilesMatch>
     <FilesMatch "\.(csv|xml|pdf)$">
