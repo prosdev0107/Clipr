@@ -20,8 +20,12 @@ const GeneralForm = ({general,params,formChanged, preventEnterKeySubmit}) => {
         return { value: color.id, label: color.name }
     })
 
+    let animations_label = {
+        'zoom-in' : "Zoom in",
+        'zoom-out' : "Zoom out"
+    }
     let select_animations = img_animations.map( (anim) => {
-        return { value: anim, label: anim }
+        return { value: anim, label: animations_label[anim] }
     })
 
     // Media params

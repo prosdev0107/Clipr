@@ -64,6 +64,9 @@ body {
 .animate-hide-right {
   left: 100% !important;
 }
+.uppercase {
+  text-transform: uppercase;
+}
 /*****************/
 /***** Table *****/
 /*****************/
@@ -72,6 +75,9 @@ table tr td {
 }
 table tr td .checkbox-custom {
   margin: 0;
+}
+table tr td:last-child {
+  min-width: 150px;
 }
 table tr .form-group {
   padding: 0;

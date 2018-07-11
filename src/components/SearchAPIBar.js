@@ -38,7 +38,7 @@ const SearchAPIBar = ({search, is_loading_stickers, tab, formChanged, stickersLo
                     }
                 }) }
 
-                <p className="text-center"><small>Powered By GIPHY</small></p>
+                <p className="text-center"><small>Powered By <span className="uppercase">{ api_source }</span></small></p>
 
             </form>
         </div>

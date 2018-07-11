@@ -81,9 +81,9 @@ class SaveMenu extends React.Component {
                 show={this.state.swal_show}
                 confirmBtnText="Quitter sans sauvegarder"
                 confirmBtnBsStyle="danger"
-                cancelBtnText="Non"
+                cancelBtnText="Annuler"
                 cancelBtnBsStyle="default"
-                title="Voulez vraiment quitter sans sauvegarder ?"
+                title="Voulez-vous vraiment quitter sans sauvegarder ?"
                 onConfirm={(event) => { this.closeWithoutSaving(event) }}
                 onCancel={() => this.setState({swal_show: false})}
             >
