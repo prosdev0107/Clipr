@@ -17,6 +17,7 @@
     "react-device-detect": "^1.5.8",
     "react-dom": "^16.4.0",
     "react-input-color": "^1.7.2",
+    "react-input-slider": "^4.0.1",
     "react-jss": "^8.6.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",

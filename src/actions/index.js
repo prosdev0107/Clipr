@@ -35,6 +35,7 @@ const findStickerWithId = (stickerId) => {
 // A simple action to transfer data to reducer without any edit
 export const sendToReducersAction = (type, data) => {
 
+    console.log('send to reducers',type)
     // Format and return
     return {
         type: type,
@@ -45,6 +46,7 @@ export const sendToReducersAction = (type, data) => {
 // Select some sticker from library
 export const selectFromLibraryAction = (type, event) => {
 
+    console.log('from library',type,event.type)
     var target = event.target || event.srcElement
 
 
@@ -82,6 +84,7 @@ export const selectFromLibraryAction = (type, event) => {
 // Manipulate story stickers on
 export const transformStoryStickerAction = (type, event) => {
 
+    console.log('from stickers layer',type,event.type, event.dataTransfer ? event.dataTransfer.getData('text/plain') : null)
     // Get media panel dimensions
     let mediaPanelSize = getMediaPanelSize()
 

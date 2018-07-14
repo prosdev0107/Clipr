@@ -1,3 +1,4 @@
+import axios from "axios/index";
 
 const paramsReducer = (state = [], action) => {
 
@@ -8,9 +9,32 @@ const paramsReducer = (state = [], action) => {
 
             let data = action.data
             if (typeof data.params !== "undefined" && typeof data.params.stickers !== "undefined") {
+
+                // Add css file that include all svg styles
+                let stylesheetLink = data.params.sticker_css
+                if (stylesheetLink.length > 0) {
+
+                    axios.get(stylesheetLink).then((response) => {
+
+                        let fileContent = response.data
+
+                        if (fileContent.length > 0) {
+                            // Create stylesheet
+                            let svg_style = document.createElement("style")
+                            svg_style.type = "text/css"
+                            svg_style.appendChild(document.createTextNode(fileContent))
+
+                            // Add to DOM
+                            let head = document.head || document.getElementsByTagName('head')[0]
+                            head.appendChild(svg_style)
+                        }
+                    })
+                }
+
                 return data.params
             }
             return state
+
 
         // Suggest GIF when search input changes
         case "LIBRARY_EXTERNAL_CONTENT_LOADED":

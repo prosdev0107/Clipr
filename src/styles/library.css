@@ -47,6 +47,9 @@
   border: 2px dashed lightgray;
   border-radius: 5px;
 }
+.stickers-library-container .stickers-library .stickers-library-shelf .library-sticker-container .sticker {
+  cursor: pointer;
+}
 .stickers-library-container .stickers-library .stickers-library-shelf .library-sticker-container .sticker > * {
   height: auto;
   width: auto;

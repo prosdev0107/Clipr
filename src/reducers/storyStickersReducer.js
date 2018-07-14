@@ -1,6 +1,6 @@
 
 import {resizeBox, rotateBox} from "../utilities/maths"
-import {MEDIA_PANEL_REF_WIDTH} from "../constants/constants"
+import {MEDIA_PANEL_REF_WIDTH, STICKER_FONT_SIZE_MIN} from "../constants/constants"
 import {isSafari} from 'react-device-detect'
 
 let initialBoxPosition = {}
@@ -46,6 +46,9 @@ const storyStickersReducer = (state = [], action) => {
      */
     const addStorySticker = (state, sticker, init_width, position) => {
 
+        // Generate a unique id
+        let newId = "SSBox_"+(state.length+1)
+
         // Default position (ex : if added by double click)
         init_width = init_width || 0.2
         let SSBox_position = {
@@ -76,7 +79,7 @@ const storyStickersReducer = (state = [], action) => {
 
             return [
                 ...state, {
-                    id: "SSBox_"+(state.length+1),
+                    id: newId,
                     sticker: sticker,
                     position: SSBox_position
                 }
@@ -234,6 +237,7 @@ const storyStickersReducer = (state = [], action) => {
 
         return initialState
     }
+
 
     switch (action.type) {
 
@@ -468,7 +472,7 @@ const storyStickersReducer = (state = [], action) => {
                 case 40:
                     // down
                     y_delta = 0.01
-                    break;
+                       break;
                 default:
                     break;
             }
@@ -530,7 +534,12 @@ const storyStickersReducer = (state = [], action) => {
 
                             // That's one of the few fields that allow to customize text (content, color, font size...)
                             if (typeof sticker.customize[fieldName] !== "undefined") {
-                                sticker.customize[fieldName]['attributes'][attribute] = inputValue
+                                if (attribute === "size") {
+                                    sticker.customize[fieldName]['attributes'][attribute] = Math.max(STICKER_FONT_SIZE_MIN,inputValue || 0).toString()
+                                } else {
+                                    sticker.customize[fieldName]['attributes'][attribute] = inputValue
+                                }
+
                             }
 
                         } else if (typeof sticker.customize[inputName] !== "undefined") {
@@ -540,11 +549,11 @@ const storyStickersReducer = (state = [], action) => {
                         }
                     }
 
+
                     return {
                         ...initialState,
                         sticker: sticker
                     }
-
                 }
             }
 

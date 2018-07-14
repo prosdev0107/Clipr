@@ -6,6 +6,7 @@ import {OverlayTypes} from "./propTypes/OverlayTypes";
 import {MEDIA_PANEL_ID} from "../constants/constants"
 import PropTypes from 'prop-types'
 import ClipIframeContainer from '../containers/central/ClipIframeContainer'
+import {isSafari} from 'react-device-detect'
 
 /**
  * The Media Panel is where we can customize media with content
@@ -17,7 +18,7 @@ import ClipIframeContainer from '../containers/central/ClipIframeContainer'
  * @returns {*}
  * @constructor
  */
-const MediaPanel = ({ cs_item, general }) => {
+const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
 
     let overlay = general.overlay || {}
     let mediaParams = general.media || {}
@@ -97,7 +98,7 @@ const MediaPanel = ({ cs_item, general }) => {
         }
     }
 
-    return <div  className="media-panel-container absolute-center">
+    return <div className="media-panel-container absolute-center">
 
         <div id={MEDIA_PANEL_ID} className="media-panel">
 
@@ -121,7 +122,9 @@ const MediaPanel = ({ cs_item, general }) => {
             </div>
 
             {/* Interactions layer */}
-            <div className="media-panel-layer media-panel-layer-buttons">
+            {/* On Safari, iframe CONTENT cannot be set entirely to pointer-event none, so will receive the drag over and on drop events */}
+            {/* That's why we need to deactivate it while dragging elements */}
+            <div className={"media-panel-layer media-panel-layer-buttons "+(isSafari && listen_drag_events ? "hidden" : "")} >
 
                 <ClipIframeContainer />
 

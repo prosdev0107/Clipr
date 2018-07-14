@@ -101,6 +101,16 @@ table {
       &:last-child {
         min-width: 150px;
       }
+
+      .input-number-container {
+
+        position: relative;
+        .slider {
+          width: ~'calc(100% - 30px)';
+          position: absolute;
+          right: 0;
+        }
+      }
     }
 
     .form-group {

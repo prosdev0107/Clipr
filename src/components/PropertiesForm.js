@@ -54,43 +54,51 @@ const PropertiesForm = ({story_sticker,fonts,formChanged, preventEnterKeySubmit}
                 // Need to render several input to customize text
                 rowInputInfo.push({
                     separator: "Texte intérieur"
-                })
-                rowInputInfo.push({
-                    id: "custom_text_content_"+customField.id,
+                }, {
+                    id: "custom_text_content_" + customField.id,
                     value: customField.attributes.content || "",
                     type: "attribute",
                     input: {
                         label: "Texte",
                         type: "text"
                     }
-                },{
-                    id: "custom_text_family_"+customField.id,
-                    value: customField.attributes.family || "",
-                    type: "css",
-                    options: fontFamilies,
-                    input: {
-                        label: "Police",
-                        type: "font"
-                    }
-                },{
-                    id: "custom_text_size_"+customField.id,
-                    value: customField.attributes.size || ( (STICKER_FONT_SIZE_MIN + STICKER_FONT_SIZE_MAX) /2 ),
-                    type: "css",
-                    input: {
-                        label: "Taille",
-                        type: "number",
-                        min: STICKER_FONT_SIZE_MIN,
-                        max: STICKER_FONT_SIZE_MAX
-                    }
-                },{
-                    id: "custom_text_color_"+customField.id,
-                    value: customField.attributes.color || "",
-                    type: "css",
-                    input: {
-                        label: "Couleur",
-                        type: "color"
-                    }
                 })
+                if (typeof customField.attributes.family !== "undefined" && customField.attributes.family.length > 0) {
+                    rowInputInfo.push({
+                        id: "custom_text_family_"+customField.id,
+                        value: customField.attributes.family,
+                        type: "css",
+                        options: fontFamilies,
+                        input: {
+                            label: "Police",
+                            type: "font"
+                        }
+                    })
+                }
+                if (typeof customField.attributes.size !== "undefined" && customField.attributes.size >= 0) {
+                    rowInputInfo.push({
+                        id: "custom_text_size_"+customField.id,
+                        value: Math.max(STICKER_FONT_SIZE_MIN,customField.attributes.size || 0),
+                        type: "css",
+                        input: {
+                            label: "Taille",
+                            type: "number_slider",
+                            min: STICKER_FONT_SIZE_MIN,
+                            max: STICKER_FONT_SIZE_MAX
+                        }
+                    })
+                }
+                if (typeof customField.attributes.color !== "undefined" && customField.attributes.color.length > 0) {
+                    rowInputInfo.push({
+                        id: "custom_text_color_"+customField.id,
+                        value: customField.attributes.color,
+                        type: "css",
+                        input: {
+                            label: "Couleur",
+                            type: "color"
+                        }
+                    })
+                }
 
             } else {
 

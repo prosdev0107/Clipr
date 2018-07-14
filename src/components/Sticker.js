@@ -8,7 +8,8 @@ const Sticker = ({sticker}) => {
     let {id, type, ratio, source, customize} = sticker
 
     // WARNING : The real clip uses exactly the same script in main.js. Be careful about any modification.
-    const customizeStickerOnPage = (svgId, svgPath, cssPath, customize) => {
+    // WARNING BIS : this one is no containing the CSS insertion script, they are already all included
+    const customizeStickerOnPage = (svgId, svgPath, ratio, customize) => {
 
         function isSVGSecured (html) {
 
@@ -23,114 +24,91 @@ const Sticker = ({sticker}) => {
 
             return true
         }
+        
+        // Is file existing ?
+        if (typeof svgPath !== "undefined" && svgPath !== null && svgPath.length > 5) {
+            
+            // Load document content
+            axios.get(svgPath).then((response) => {
 
-        [cssPath, svgPath].forEach(function(filePath) {
+                let fileContent = response.data
 
-            // Is file existing ?
-            if (typeof filePath !== "undefined" && filePath !== null && filePath.length > 5) {
+                if (fileContent.length > 0 && isSVGSecured(fileContent)) {
 
-                let type = filePath.indexOf('.css') >= 0 ? "css" : "svg"
-                let selector = type === "css" ? "link[href='"+filePath+"']" : "script[src='"+filePath+"']"
+                    if (type === "svg") {
 
-                // Don't add content if already on page
-                if (type === "svg" || (type === "css" && document.querySelector(selector) === null)) {
+                        // Get sticker location
+                        let sticker = document.getElementById(svgId)
 
-                    // Load document content
-                    axios.get(filePath).then((response) => {
+                        if (typeof sticker !== "undefined" && sticker != null) {
 
-                        let fileContent = response.data
+                            // Add content
+                            sticker.innerHTML = fileContent
 
-                        if (fileContent.length > 0 && isSVGSecured(fileContent)) {
+                            if (typeof customize !== "undefined" && customize != null) {
 
-                            if (type === "svg") {
+                                // Some properties in this svg need to be updated
+                                Object.keys(customize).forEach(function (key) {
 
-                                // Get sticker location
-                                let sticker = document.getElementById(svgId)
+                                    var customField = customize[key]
 
-                                if (typeof sticker !== "undefined" && sticker != null) {
+                                    // Find the elements concerned about this custom field
+                                    let nodes = sticker.querySelectorAll(customField.selector)
 
-                                    // Add content
-                                    sticker.innerHTML = fileContent
+                                    Array.prototype.forEach.call(nodes, (node) => {
 
-                                    if (typeof customize !== "undefined" && customize != null) {
+                                        switch (customField.type) {
 
-                                        // Some properties in this svg need to be updated
-                                        Object.keys(customize).forEach(function(key) {
+                                            case "css":
 
-                                            var customField = customize[key]
-
-                                            // Find the elements concerned about this custom field
-                                            let nodes = sticker.querySelectorAll(customField.selector)
-
-                                            Array.prototype.forEach.call(nodes,(node) => {
-
-                                                switch (customField.type) {
-
-                                                    case "css":
-
-                                                        if (customField.property !== "undefined") {
-                                                            node.style[customField.property] = customField.value;
-                                                        }
-                                                        break
-
-                                                    case "attribute":
-
-                                                        if (customField.property !== "undefined") {
-                                                            node.setAttribute(customField.property, customField.value)
-                                                        }
-                                                        break
-
-                                                    case "text":
-
-                                                        // Several properties to edit about text
-                                                        let attributes = customField.attributes
-                                                        if (typeof attributes !== "undefined" && attributes != null) {
-
-                                                            node.innerHTML = attributes.content
-                                                            node.style.fontFamily = attributes.family
-                                                            node.style.fontSize = attributes.size+"px"
-                                                            node.style.color = attributes.color
-                                                            node.style.fill = attributes.color
-                                                            node.setAttribute("fill",attributes.color)
-                                                            node.setAttribute("font-size",attributes.size)
-                                                        }
-
-                                                        break
-
-                                                    default:
-                                                        break
+                                                if (customField.property !== "undefined") {
+                                                    node.style[customField.property] = customField.value;
                                                 }
-                                            })
+                                                break
 
-                                            return 0
-                                        })
-                                    }
-                                }
+                                            case "attribute":
 
+                                                if (customField.property !== "undefined") {
+                                                    node.setAttribute(customField.property, customField.value)
+                                                }
+                                                break
 
+                                            case "text":
 
-                            } else if (type === "css") {
+                                                // Several properties to edit about text
+                                                let attributes = customField.attributes
+                                                if (typeof attributes !== "undefined" && attributes != null) {
 
-                                // Create tag
-                                let svg_style = document.createElement("style")
-                                svg_style.type = "text/css"
-                                if (svg_style.styleSheet){
-                                    svg_style.styleSheet.cssText = fileContent
-                                } else {
-                                    svg_style.appendChild(document.createTextNode(fileContent))
-                                }
+                                                    node.innerHTML = attributes.content
+                                                    if (typeof attributes.family !== "undefined" && attributes.family.length > 0) {
+                                                        node.style.fontFamily = attributes.family
+                                                    }
+                                                    if (typeof attributes.color !== "undefined" && attributes.color.length > 0) {
+                                                        node.style.color = attributes.color
+                                                        node.style.fill = attributes.color
+                                                        node.setAttribute("fill", attributes.color)
+                                                    }
+                                                    if (typeof attributes.size !== "undefined" && attributes.size.length > 0) {
+                                                        node.style.fontSize = attributes.size + "px"
+                                                        node.setAttribute("font-size", attributes.size)
+                                                    }
+                                                }
 
-                                // Add to DOM
-                                let head = document.head || document.getElementsByTagName('head')[0]
-                                head.appendChild(svg_style)
+                                                break
 
+                                            default:
+                                                break
+                                        }
+                                    })
+
+                                    return 0
+                                })
                             }
                         }
-                    })
-
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 
     const renderSticker = (id, type, ratio, source, customize)  => {
@@ -151,7 +129,7 @@ const Sticker = ({sticker}) => {
                  */
                 // Generate random id
                 let randomNb = id + "-" + Math.floor(Math.random() * Math.floor(1000))
-                return <div id={randomNb} onLoad={ customizeStickerOnPage(randomNb, source.svg, source.css, customize) }>
+                return <div id={randomNb} onLoad={ customizeStickerOnPage(randomNb, source.svg, ratio, customize) }>
                     </div>
 
             default:

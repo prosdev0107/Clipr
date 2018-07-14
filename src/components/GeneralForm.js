@@ -89,7 +89,7 @@ const GeneralForm = ({general,params,formChanged, preventEnterKeySubmit}) => {
             type: "css",
             input: {
                 label: "Opacité",
-                type: "number",
+                type: "number_slider",
                 step: 1,
                 min: 0,
                 max: 100
@@ -117,7 +117,7 @@ const GeneralForm = ({general,params,formChanged, preventEnterKeySubmit}) => {
                 value: (media_params.duration || 5),
                 type: "css",
                 input: {
-                    label: "Durée image",
+                    label: "Durée image (s)",
                     type: "number",
                     step: 0.1,
                     min: 2,

@@ -12,6 +12,7 @@ const StickersLayer = ({ story_stickers, listen_drag_events, transformStoryStick
     let onKeyDownDo = listen_drag_events ? null : (event) => sendToReducers('STICKERS_LAYER_ON_KEYDOWN',event.which)
 
     // onDrop is also used when dragging & dropping a sticker into the story
+    // !! WARNING !! If scroll is not working, be sure to
     return <div
 
         onMouseDown={(event) => transformStorySticker('STICKERS_LAYER_MOUSE_DOWN',event)}

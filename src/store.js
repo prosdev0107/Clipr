@@ -15,6 +15,7 @@ const initialState = {
             giphy: []
         },
         sticker_fonts: [],
+        sticker_css: "", // link to css file that include all svg styles
         img_animations: [],
         themes: {
             colors: [],

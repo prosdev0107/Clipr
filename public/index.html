@@ -82,5 +82,14 @@
 
     <script src="https://use.fontawesome.com/d566771723.js"></script>
 
+  <script>
+
+      // Prevent back button action to avoid losing unsaved data
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+          history.go(1);
+      };
+  </script>
+
   </body>
 </html>

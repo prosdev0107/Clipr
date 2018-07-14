@@ -79,6 +79,14 @@ table tr td .checkbox-custom {
 table tr td:last-child {
   min-width: 150px;
 }
+table tr td .input-number-container {
+  position: relative;
+}
+table tr td .input-number-container .slider {
+  width: calc(100% - 30px);
+  position: absolute;
+  right: 0;
+}
 table tr .form-group {
   padding: 0;
   margin: 0;
