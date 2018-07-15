@@ -5,6 +5,7 @@ export let StickerTypes = {
     id: PropTypes.string.isRequired,
     type: PropTypes.oneOf(['svg','img']).isRequired,
     ratio: PropTypes.number,
+    keepRatio: PropTypes.number,        // Force to preserve aspect ratio when editing
     source: PropTypes.shape({
         src: PropTypes.string,          // Case image : link to image
         svg: PropTypes.string,          // Case svg : link to svg content
@@ -23,5 +24,6 @@ export let StickerTypes = {
 }
 
 export let StickerDefaults = {
-    ratio: 1
+    ratio: 1,
+    keepRatio: 1
 }

@@ -30,11 +30,14 @@ export const find_vector_angle = (ref_point,B,C) => {
  * @param x_delta               // The x-diff between cursor end and begin positions
  * @param y_delta               // The y-diff between cursor end and begin positions
  * @param region                // Which of the 8 resize handler has been selected ?
- * @param media_panel_ratio     // media_panel height/width 
+ * @param media_panel_ratio     // media_panel height/width
+ * @param keepRatio             // Should keep ratio when user drags only one side
  * @returns {*}
  */
-export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ratio) => {
+export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ratio, keepRatio) => {
 
+    keepRatio = typeof keepRatio === "undefined" ? 1 : keepRatio
+    console.log('RESIZE',keepRatio)
     // The method consists in defining the new position of the 4 corners of the box
     // Depending on delta move and region selected
     // And relative to Media Panel dimensions
@@ -76,12 +79,12 @@ export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ra
     if (region === "n" || region === "s") {
 
         // Width should adapt to height change
-        anti_rotated_x_delta = 2*anti_rotated_y_delta / image_ratio
+        anti_rotated_x_delta = keepRatio ? 2*anti_rotated_y_delta / image_ratio : 0
 
     } else if (region === "w" || region === "e") {
 
         // Height should adapt to width change
-        anti_rotated_y_delta = anti_rotated_x_delta * image_ratio / 2
+        anti_rotated_y_delta = keepRatio ? anti_rotated_x_delta * image_ratio / 2 : 0
 
     } else {
 
@@ -147,12 +150,16 @@ export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ra
         return initialCoord
     }
 
+    // Final aspect ratio ? (warning, new_box_height is relative to panel height !)
+    let newRatio = keepRatio ? 1 : (new_box_height * media_panel_ratio) / new_box_width
+
     // Return new coordinates of SSBox
     // With a new translation according to real center of the sticker
     return {
         ...initialCoord,
         x: box_corners.nw.x + 0.5*new_box_width,
         y: box_corners.nw.y + 0.5*new_box_height,
+        ratio: newRatio,
         width: new_box_width,
         // Avoid huge stickers on large screen
         maxWidth: Math.round(new_box_width * MEDIA_PANEL_REF_WIDTH) + "px"

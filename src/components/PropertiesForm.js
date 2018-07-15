@@ -33,14 +33,12 @@ const PropertiesForm = ({story_sticker,fonts,formChanged, preventEnterKeySubmit}
         type: "attribute",
         input: {
             label: "Rotation",
-            type: "number",
+            type: "number_slider",
             step: 1,
             min: 0,
             max: 360
         }
     })
-
-
 
     // Add the custom fields
     if (typeof sticker.customize  !== "undefined" && Object.keys(sticker.customize).length > 0) {

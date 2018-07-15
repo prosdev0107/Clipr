@@ -23,13 +23,13 @@ class InputNumberSlider extends React.Component {
     componentWillMount(){
 
         let { defaultValue, forceValue } = this.props
-        this.setState({ number: forceValue || (defaultValue || "#fff") })
+        this.setState({ number: forceValue || (defaultValue || 0) })
     }
 
     componentWillReceiveProps(nextProps){
 
         let { defaultValue, forceValue } = nextProps
-        this.setState({ number: forceValue || (defaultValue || "#fff") })
+        this.setState({ number: forceValue || (defaultValue || 0) })
     }
 
     render() {
