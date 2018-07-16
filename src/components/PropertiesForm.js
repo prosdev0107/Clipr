@@ -29,7 +29,7 @@ const PropertiesForm = ({story_sticker,fonts,formChanged, preventEnterKeySubmit}
     // Add the common field
     rowInputInfo.push({
         id: "ssbox_position_rotation",
-        value: Math.round(rotationDeg*10)/10 || 0,
+        value: Math.round(rotationDeg) || 0,
         type: "attribute",
         input: {
             label: "Rotation",

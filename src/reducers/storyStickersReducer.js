@@ -17,7 +17,15 @@ const storyStickersReducer = (state = [], action) => {
         return -1
     }
 
-
+    // Prevent actions like image opening
+    function eventPDefault(event) {
+        if(event.preventDefault) {
+            event.preventDefault()
+        }
+        if (event.stopPropagation) {
+            event.stopPropagation()
+        }
+    }
 
     /**
      * Save story sticker coordinated when movement begins
@@ -46,8 +54,9 @@ const storyStickersReducer = (state = [], action) => {
      */
     const addStorySticker = (state, sticker, init_width, position) => {
 
-        // Generate a unique id
-        let newId = "SSBox_"+(state.length+1)
+        // Generate a unique id (need to add a random string because this function call is NOT synchronous !
+        let randomNumber =  100000 + Math.round(Math.random() * 900000)
+        let newId = "SSBox_"+(state.length+1)+"_"+randomNumber
 
         // Default position (ex : if added by double click)
         init_width = init_width || 0.2
@@ -279,7 +288,7 @@ const storyStickersReducer = (state = [], action) => {
         case 'EVENT_PREVENT_DEFAULT':
 
             // Prevent things like image opening
-            action.event.preventDefault()
+            eventPDefault(action.event)
 
             return state
 
@@ -288,7 +297,6 @@ const storyStickersReducer = (state = [], action) => {
         /*********************/
 
         case 'LIBRARY_STICKER_DRAG_START':
-
 
             // Set initial position of cursor in data transfer
             // Also save info about sticker content
@@ -391,7 +399,7 @@ const storyStickersReducer = (state = [], action) => {
         // Resize, rotate or translate the story sticker
         case 'STICKERS_LAYER_DRAGGED':
 
-            action.event.preventDefault()
+            eventPDefault(action.event)
 
             return tranformStorySticker(state, action)
 
@@ -420,7 +428,7 @@ const storyStickersReducer = (state = [], action) => {
 
         case 'STICKERS_LAYER_ON_DROP':
 
-            action.event.preventDefault()
+            eventPDefault(action.event)
 
             // If just dropped a sticker from library, add it to story
             if (typeof action.event.dataTransfer !== "undefined") {
