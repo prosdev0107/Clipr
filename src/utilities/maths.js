@@ -37,7 +37,7 @@ export const find_vector_angle = (ref_point,B,C) => {
 export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ratio, keepRatio) => {
 
     keepRatio = typeof keepRatio === "undefined" ? 1 : keepRatio
-    console.log('RESIZE',keepRatio)
+console.log("aaa",initialCoord)
     // The method consists in defining the new position of the 4 corners of the box
     // Depending on delta move and region selected
     // And relative to Media Panel dimensions
@@ -151,7 +151,7 @@ export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ra
     }
 
     // Final aspect ratio ? (warning, new_box_height is relative to panel height !)
-    let newRatio = keepRatio ? 1 : (new_box_height * media_panel_ratio) / new_box_width
+    let newRatio = keepRatio ? image_ratio : (new_box_height * media_panel_ratio) / new_box_width
 
     // Return new coordinates of SSBox
     // With a new translation according to real center of the sticker

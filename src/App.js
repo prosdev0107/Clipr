@@ -7,6 +7,7 @@ import store from './store'
 // Theme css
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/css/bootstrap-grid.min.css'
+import './styles/bootstrapXL.min.css'
 import './styles/theme/bootstrap-extend.min.css'
 import './styles/theme/site.min.css'
 import './styles/theme/animate/animate.min.css'

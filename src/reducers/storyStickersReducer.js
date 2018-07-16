@@ -182,7 +182,6 @@ const storyStickersReducer = (state = [], action) => {
             // STORY STICKER IS BEING RESIZED
 
             // Update box size according to user move
-            console.log(state)
             return state.map(storySticker =>
                 (typeof storySticker.edit_info !== "undefined" && storySticker.edit_info.resized === true)
                     ? {
