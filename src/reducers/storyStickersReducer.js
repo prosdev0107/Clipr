@@ -74,6 +74,12 @@ const storyStickersReducer = (state = [], action) => {
             SSBox_position.ratio = sticker.ratio
         }
 
+        // If is text, need to lock width to 100% so ratio = 0.5
+        if (sticker.type === "text_svg") {
+            SSBox_position.width = 1
+            SSBox_position.ratio = 0.25
+        }
+
         // Position in media panel
         if (typeof position !== "undefined" && position != null) {
             SSBox_position.x = position.x

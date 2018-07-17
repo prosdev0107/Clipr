@@ -41,6 +41,7 @@ const initialState = {
         cnv_short_code: "",
         cnv_type: "INPUT",
         url: "",
+        thumbnail: "",
         media: {
             src: "",
             thumbnail: "",

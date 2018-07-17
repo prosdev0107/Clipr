@@ -6,6 +6,7 @@ const csItemReducer = (state = [], action) => {
         case 'API_UPDATE_CS_ITEM':
 
             let data = action.data
+            console.log(data)
 
             if (typeof data.id !== "undefined" && typeof data.media !== "undefined") {
 
@@ -18,6 +19,7 @@ const csItemReducer = (state = [], action) => {
                     media: {
                         ...state.media,
                         src: data.media.src,
+                        thumbnail: data.media.thumbnail,
                         isVideo: data.media.isVideo,
                         ext: data.media.ext
                     }

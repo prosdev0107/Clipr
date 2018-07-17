@@ -51,6 +51,20 @@ const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
         // Full screen or fit screen with blurred background ?
         let posterType = mediaParams.fit_screen || 0 ? "poster-fit-screen" : "poster-full-screen"
 
+        // Get thumbnail static image if video
+        let mediaToImg = cs_item.media.isVideo ? cs_item.media.thumbnail : cs_item.media.src;
+
+        return <img
+            className={`poster absolute-center ${posterType}`}
+            src={mediaToImg}
+            alt="media"
+            onLoad={(event) => fillMediaMethod(event)}
+        />
+
+        /*
+
+        ON LOAD EVENT NOT WORKING ON VIDEO
+        As a result, neither poster-fill-height nor poster-fill-width can be added
         if (cs_item.media.isVideo) {
 
             let src_mp4 = cs_item.media.src.replace(cs_item.ext,'-comp.mp4')
@@ -58,7 +72,7 @@ const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
 
             return <video
                 className={`poster  absolute-center ${posterType}`}
-                webkit-playsinline="true" playsinline="true"
+                webkit-playsinline="true" defaultMuted muted autoplay="autoplay" playsinline="true"
                 onLoad={(event) => fillMediaMethod(event)}
             >
                 <source src={src_mp4} type='video/mp4'/>
@@ -73,7 +87,7 @@ const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
                 alt="media"
                 onLoad={(event) => fillMediaMethod(event)}
             />
-        }
+        }*/
     }
 
     // Adapt to height or width depending of media dimensions
@@ -95,6 +109,8 @@ const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
             } else {
                 media.classList.add('poster-fill-width')
             }
+        } else {
+            media.classList.add('poster-fill-width')
         }
     }
 

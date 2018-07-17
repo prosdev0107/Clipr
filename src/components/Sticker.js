@@ -35,7 +35,7 @@ const Sticker = ({sticker}) => {
 
                 if (fileContent.length > 0 && isSVGSecured(fileContent)) {
 
-                    if (type === "svg") {
+                    if (type === "svg" || type === "text_svg") {
 
                         // Get sticker location
                         let sticker = document.getElementById(svgId)
@@ -119,6 +119,7 @@ const Sticker = ({sticker}) => {
 
                 return <img src={source.src} alt="sticker"/>
 
+            case 'text_svg':
             case 'svg':
 
                 /**

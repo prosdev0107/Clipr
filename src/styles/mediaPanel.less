@@ -50,24 +50,29 @@
         // The top and left positioning is relative to the center of element
         transform: translate(-50%, -50%);
 
+        &.story-sticker-text_svg {
+          cursor: text;
+        }
+
         * {
           pointer-events: none;
         }
 
-        // Show which box is going to be selected with current cursor position
-        &:hover:not(.selected) {
-          border: dashed 2px red;
+        @squareHalfWith: 4px;
+        @darkColor: #000;
+        @darkBorder: 2px dashed @darkColor;
+        @lightColor: #fff;
+        @lightBorder: 1px solid @lightColor;
+        @fiftyPercentCalc: calc(~"50% - " @squareHalfWith);
+
+        &.selected.story-sticker-text_svg {
+          cursor: move;
+          border-top: @darkBorder;
+          border-bottom: @darkBorder;
         }
 
         // Specific styles when user selects the box
-        &.selected {
-
-          @squareHalfWith: 4px;
-          @darkColor: #000;
-          @darkBorder: 2px dashed @darkColor;
-          @lightColor: #fff;
-          @lightBorder: 1px solid @lightColor;
-          @fiftyPercentCalc: calc(~"50% - " @squareHalfWith);
+        &.selected:not(.story-sticker-text_svg) {
 
           border: @darkBorder;
 

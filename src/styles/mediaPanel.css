@@ -40,29 +40,34 @@
   content: '';
   transform: translate(-50%, -50%);
 }
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.story-sticker-text_svg {
+  cursor: text;
+}
 .media-panel-container .media-panel .media-panel-layer-stickers .story-sticker * {
   pointer-events: none;
 }
-.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker:hover:not(.selected) {
-  border: dashed 2px red;
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected.story-sticker-text_svg {
+  cursor: move;
+  border-top: 2px dashed #000;
+  border-bottom: 2px dashed #000;
 }
-.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected {
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected:not(.story-sticker-text_svg) {
   border: 2px dashed #000;
 }
-.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected .rotatable-handle {
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected:not(.story-sticker-text_svg) .rotatable-handle {
   position: absolute;
   top: -25px;
   left: calc(50% -  4px);
   height: 25px;
   width: 8px;
 }
-.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected .rotatable-handle .rotatable-handle-bar {
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected:not(.story-sticker-text_svg) .rotatable-handle .rotatable-handle-bar {
   position: absolute;
   left: calc(50% - 1px);
   border: solid 1px #000;
   height: 100%;
 }
-.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected .rotatable-handle .rotatable-handle-circle {
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected:not(.story-sticker-text_svg) .rotatable-handle .rotatable-handle-circle {
   cursor: url("../images/rotate-icon.png") 12 12, row-resize;
   pointer-events: auto;
   position: absolute;
@@ -72,7 +77,7 @@
   background-color: #000;
   border: 1px solid #fff;
 }
-.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected .resizable-handle {
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected:not(.story-sticker-text_svg) .resizable-handle {
   width: 8px;
   height: 8px;
   background-color: #000;
@@ -80,42 +85,42 @@
   position: absolute;
   pointer-events: auto;
 }
-.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected .resizable-nw {
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected:not(.story-sticker-text_svg) .resizable-nw {
   left: -4px;
   top: -4px;
   cursor: nwse-resize;
 }
-.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected .resizable-ne {
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected:not(.story-sticker-text_svg) .resizable-ne {
   top: -4px;
   right: -4px;
   cursor: nesw-resize;
 }
-.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected .resizable-sw {
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected:not(.story-sticker-text_svg) .resizable-sw {
   bottom: -4px;
   left: -4px;
   cursor: nesw-resize;
 }
-.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected .resizable-se {
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected:not(.story-sticker-text_svg) .resizable-se {
   bottom: -4px;
   right: -4px;
   cursor: nwse-resize;
 }
-.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected .resizable-n {
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected:not(.story-sticker-text_svg) .resizable-n {
   top: -4px;
   left: calc(50% -  4px);
   cursor: ns-resize;
 }
-.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected .resizable-s {
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected:not(.story-sticker-text_svg) .resizable-s {
   bottom: -4px;
   left: calc(50% -  4px);
   cursor: ns-resize;
 }
-.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected .resizable-w {
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected:not(.story-sticker-text_svg) .resizable-w {
   left: -4px;
   top: calc(50% -  4px);
   cursor: ew-resize;
 }
-.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected .resizable-e {
+.media-panel-container .media-panel .media-panel-layer-stickers .story-sticker.selected:not(.story-sticker-text_svg) .resizable-e {
   right: -4px;
   top: calc(50% -  4px);
   cursor: ew-resize;

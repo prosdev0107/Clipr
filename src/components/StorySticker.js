@@ -33,7 +33,7 @@ const StorySticker = ({
     return (
         <div id={id}
              data-component="story-sticker"
-             className={edit_info.selected ? "story-sticker selected" : "story-sticker"}
+             className={"story-sticker-"+sticker.type+(edit_info.selected ? " story-sticker selected " : " story-sticker ")}
              draggable={true}
              style={styles}
         >

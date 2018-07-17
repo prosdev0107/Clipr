@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 export let StickerTypes = {
     id: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(['svg','img']).isRequired,
+    type: PropTypes.oneOf(['svg','img','text_svg']).isRequired,
     ratio: PropTypes.number,
     keepRatio: PropTypes.number,        // Force to preserve aspect ratio when editing
     source: PropTypes.shape({
