@@ -55,10 +55,12 @@ const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
         let mediaToImg = cs_item.media.isVideo ? cs_item.media.thumbnail : cs_item.media.src
 
         // If image already loaded, need to call function manually to adapt media size depending on full screen on/off
-        fillMediaMethod()
+        // Because of asynchronous rendering, we need to add class from there
+        // TODO : do it a cleaner way using a local state
+        let additionalClass = fillMediaMethod()
 
         return <img
-            className={`poster absolute-center ${posterType}`}
+            className={`poster absolute-center ${posterType} ${additionalClass}`}
             src={mediaToImg}
             alt="media"
             onLoad={() => fillMediaMethod()}
@@ -110,12 +112,17 @@ const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
 
                 // Make video full screen : fill panelWidth if width too big, else fill width
                 if (mediaWidth/mediaHeight > panelWidth/panelHeight) {
+                    media.classList.remove('poster-fill-width')
                     media.classList.add('poster-fill-height')
+                    return 'poster-fill-height'
                 } else {
+                    media.classList.remove('poster-fill-height')
                     media.classList.add('poster-fill-width')
+                    return 'poster-fill-width'
                 }
             }
         }
+        return ""
     }
 
     return <div className="media-panel-container absolute-center">
