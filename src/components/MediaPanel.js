@@ -52,13 +52,16 @@ const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
         let posterType = mediaParams.fit_screen || 0 ? "poster-fit-screen" : "poster-full-screen"
 
         // Get thumbnail static image if video
-        let mediaToImg = cs_item.media.isVideo ? cs_item.media.thumbnail : cs_item.media.src;
+        let mediaToImg = cs_item.media.isVideo ? cs_item.media.thumbnail : cs_item.media.src
+
+        // If image already loaded, need to call function manually to adapt media size depending on full screen on/off
+        fillMediaMethod()
 
         return <img
             className={`poster absolute-center ${posterType}`}
             src={mediaToImg}
             alt="media"
-            onLoad={(event) => fillMediaMethod(event)}
+            onLoad={() => fillMediaMethod()}
         />
 
         /*
@@ -91,26 +94,27 @@ const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
     }
 
     // Adapt to height or width depending of media dimensions
-    const fillMediaMethod = (event) => {
+    const fillMediaMethod = () => {
 
-        let media = event.target
-        let mediaPanelRect = document.getElementById(MEDIA_PANEL_ID).getBoundingClientRect()
-        if (typeof media !== "undefined") {
+        let panel = document.getElementById(MEDIA_PANEL_ID)
+        if (panel != null) {
+            let mediaPanelRect = panel.getBoundingClientRect()
+            let media = panel.querySelector(".media-panel-layer-media .poster")
+            if (typeof media !== "undefined" && media !== null && (media.videoWidth || media.width)) {
 
-            let isVideo = typeof media.videoWidth !== "undefined" && media.videoWidth != null;
-            let mediaWidth = isVideo ? media.videoWidth : media.width,
-                mediaHeight = isVideo ? media.videoHeight : media.height,
-                panelWidth = mediaPanelRect.width,
-                panelHeight = mediaPanelRect.height
+                let isVideo = typeof media.videoWidth !== "undefined" && media.videoWidth != null;
+                let mediaWidth = isVideo ? media.videoWidth : media.width,
+                    mediaHeight = isVideo ? media.videoHeight : media.height,
+                    panelWidth = mediaPanelRect.width,
+                    panelHeight = mediaPanelRect.height
 
-            // Make video full screen : fill panelWidth if width too big, else fill width
-            if (mediaWidth/mediaHeight > panelWidth/panelHeight) {
-                media.classList.add('poster-fill-height')
-            } else {
-                media.classList.add('poster-fill-width')
+                // Make video full screen : fill panelWidth if width too big, else fill width
+                if (mediaWidth/mediaHeight > panelWidth/panelHeight) {
+                    media.classList.add('poster-fill-height')
+                } else {
+                    media.classList.add('poster-fill-width')
+                }
             }
-        } else {
-            media.classList.add('poster-fill-width')
         }
     }
 
