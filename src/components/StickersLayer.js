@@ -11,6 +11,30 @@ const StickersLayer = ({ story_stickers, listen_drag_events, transformStoryStick
 
     let onKeyDownDo = listen_drag_events ? null : (event) => sendToReducers('STICKERS_LAYER_ON_KEYDOWN',event.which)
 
+    // Alignment lines that help user positioning stickers
+    // By default they are hidden
+    let showVerticalLine = false
+    let showHorizontalLine = false
+
+
+    // Get the current selected sticker
+    let selected_sticker = story_stickers.find((obj) => {
+        return typeof obj.edit_info !== "undefined" && obj.edit_info.selected === true
+    })
+
+    if (typeof selected_sticker !== "undefined") {
+
+        let margin = 0.005
+
+        // If center close to vertical-center, show vertical line
+        showVerticalLine = Math.abs(selected_sticker.position.x - 0.5) < margin ? 0.5 : false
+
+        // If center close to horizontal-center, show vertical line
+        showHorizontalLine = Math.abs(selected_sticker.position.y - 0.5) < margin ? 0.5 : false
+    }
+
+    // Current stciker dragged
+
     // onDrop is also used when dragging & dropping a sticker into the story
     // !! WARNING !! If scroll is not working, be sure to
     return <div
@@ -31,6 +55,12 @@ const StickersLayer = ({ story_stickers, listen_drag_events, transformStoryStick
 
         className="width-full height-full"
     >
+
+        {/* Vertical align that indicates sticker alignment */}
+        <div className={"alignment-line alignment-line-vertical absolute-center-horizontal "+(showVerticalLine ? "" : "hidden")}/>
+
+        {/* Horizontal align that indicates sticker alignment */}
+        <div className={"alignment-line alignment-line-horizontal absolute-center-vertical "+(showHorizontalLine ? "" : "hidden")}/>
 
         {story_stickers.map((story_sticker,index) =>
             <div key={index}>

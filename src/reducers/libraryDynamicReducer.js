@@ -1,3 +1,4 @@
+import {TAB_IMAGE, TAB_GIF, TAB_GENERAL} from "../constants/constants"
 
 const libraryDynamicReducer = (state = [], action) => {
 
@@ -5,13 +6,14 @@ const libraryDynamicReducer = (state = [], action) => {
 
         case 'LIBRARY_TAB_SELECTED':
 
-            let tab = parseInt(action.data,10) || 0
-            // API call needed ?
-            let willLoadData = (tab === 4 || tab === 1)
+            let tab = action.data
+
+            // API call needed to load library content ?
+            let willLoadData = (tab === TAB_GIF || tab === TAB_IMAGE)
 
             return {
                 ...state,
-                stickers_menu_tab: parseInt(action.data,10) || 0,
+                stickers_menu_tab: action.data || TAB_GENERAL,
                 is_loading_stickers: willLoadData,
                 search: {
                     ...state.search,

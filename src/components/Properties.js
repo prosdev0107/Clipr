@@ -2,6 +2,7 @@ import React from 'react'
 import PropertiesFormContainer from "../containers/properties/PropertiesFormContainer"
 import GeneralFormContainer from "../containers/properties/GeneralFormContainer"
 import {Button,Row,Col} from 'react-bootstrap'
+import {TAB_GENERAL} from "../constants/constants"
 
 const Properties = ({story_sticker, stickers_menu_tab, propertiesButtonAction}) => {
 
@@ -64,7 +65,7 @@ const Properties = ({story_sticker, stickers_menu_tab, propertiesButtonAction}) 
 
 
             </div>
-        } else if (stickers_menu_tab === 0)  {
+        } else if (stickers_menu_tab === TAB_GENERAL)  {
 
             // Settings for general tab
             return <GeneralFormContainer />
@@ -73,7 +74,7 @@ const Properties = ({story_sticker, stickers_menu_tab, propertiesButtonAction}) 
     }
 
     // Hide column if nothing to show
-    let hide_column = stickers_menu_tab > 0 && typeof story_sticker === "undefined" ? "animate-hide-right" : ""
+    let hide_column = stickers_menu_tab !== TAB_GENERAL && typeof story_sticker === "undefined" ? "animate-hide-right" : ""
     return <div className={"properties-sidebar-container"}>
         <div className={"properties-sidebar padding-top-20 padding-bottom-20 absolute-center-vertical animate-left "+hide_column} >
             {renderPropertiesContent()}

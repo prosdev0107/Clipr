@@ -3,6 +3,8 @@ import {isSafari} from 'react-device-detect'
 import LeftMenuContainer from "../containers/library/LeftMenuContainer"
 import LibraryContentContainer from "../containers/library/LibraryContentContainer"
 import GiphySearchContainer from "../containers/library/SearchAPIBarContainer"
+import LibraryImgFiltersContainer from "../containers/library/LibraryImgFiltersContainer"
+import {TAB_FILTER, TAB_GENERAL, TAB_GIF, TAB_IMAGE, TAB_TEXT} from "../constants/constants"
 
 const Library = ({stickers, stickers_menu_tab, listen_drag_events, selectFromLibrary, loadMoreStickers}) => {
 
@@ -10,10 +12,49 @@ const Library = ({stickers, stickers_menu_tab, listen_drag_events, selectFromLib
     let onMouseMoveDo = listen_drag_events && isSafari ? (event) => selectFromLibrary('EVENT_PREVENT_DEFAULT',event) : null
     let onDropDo = (event) => selectFromLibrary('EVENT_PREVENT_DEFAULT',event)
 
+    // Render library content to display depending on chosen tab
+    const renderLibrayContent = (stickers_menu_tab) => {
+
+        let hide_column = stickers_menu_tab === TAB_GENERAL ? "animate-hide-left" : ""
+
+        if (stickers_menu_tab === TAB_FILTER) {
+
+            return  <div className={"stickers-library-container"} >
+                <div className={"stickers-library animate-left "+hide_column}>
+                    <LibraryImgFiltersContainer />
+                </div>
+            </div>
+
+        } else if (stickers_menu_tab === TAB_IMAGE || stickers_menu_tab === TAB_GIF || stickers_menu_tab === TAB_TEXT) {
+
+            // Render stickers content
+            return <div className={"stickers-library-container"} >
+                <div className={"stickers-library animate-left "+hide_column}
+                     onDragStart={(event) => selectFromLibrary('LIBRARY_STICKER_DRAG_START',event)}
+                     onDragOver={onDragOverDo}
+                     onMouseMove={onMouseMoveDo}
+                     onDoubleClick={(event) => selectFromLibrary('LIBRARY_STICKER_DOUBLE_CLICK',event)}
+                     onDrop={onDropDo}
+                     onScroll={(event) => handleScroll(event)}
+                >
+                    {/* Search tool dedicated to the selected stickers category */}
+                    {renderSearchBar(stickers_menu_tab)}
+
+                    {/* Stickers found for that search */}
+                    <LibraryContentContainer />
+
+                </div>
+            </div>
+        }
+
+        return <div/>
+
+    }
+
     // Render a search bar to search through Image API
     const renderSearchBar = (stickers_menu_tab) => {
 
-        if (stickers_menu_tab === 4 || stickers_menu_tab === 1) {
+        if (stickers_menu_tab === TAB_GIF || stickers_menu_tab === TAB_IMAGE) {
             return <GiphySearchContainer />
         }
 
@@ -33,33 +74,16 @@ const Library = ({stickers, stickers_menu_tab, listen_drag_events, selectFromLib
         }
     }
 
-    let hide_column = stickers_menu_tab === 0 ? "animate-hide-left" : ""
     return <div>
 
-        {/* Left sidebar menu to switch from stickers category */}
+        {/* Left sidebar menu to switch from tab*/}
         <LeftMenuContainer />
 
         {/* Preload dashbox image to get ghost image when dragging at first time */}
         <img className="hidden" src="images/dashbox.png" alt="dashbox"/>
 
-        {/* Stickers container */}
-        <div className={"stickers-library-container"} >
-            <div className={"stickers-library animate-left "+hide_column}
-                 onDragStart={(event) => selectFromLibrary('LIBRARY_STICKER_DRAG_START',event)}
-                 onDragOver={onDragOverDo}
-                 onMouseMove={onMouseMoveDo}
-                 onDoubleClick={(event) => selectFromLibrary('LIBRARY_STICKER_DOUBLE_CLICK',event)}
-                 onDrop={onDropDo}
-                 onScroll={(event) => handleScroll(event)}
-            >
-                {/* Search tool dedicated to the selected stickers category */}
-                {renderSearchBar(stickers_menu_tab)}
-
-                {/* Stickers found for that search */}
-                <LibraryContentContainer />
-
-            </div>
-        </div>
+        {/* Render library content to display depending on chosen tab  */}
+        {renderLibrayContent(stickers_menu_tab)}
 
     </div>
 }

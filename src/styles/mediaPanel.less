@@ -42,6 +42,23 @@
     .media-panel-layer-stickers {
       z-index: 2;
 
+      .alignment-line {
+
+        position: absolute;
+        border: solid 1px yellow;
+        -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, .18);
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, .18);
+
+        &.alignment-line-vertical {
+          height: 100%;
+        }
+
+        &.alignment-line-horizontal {
+          width: 100%;
+        }
+      }
+
+
       .story-sticker {
 
         cursor: move;

@@ -34,6 +34,18 @@
 .media-panel-container .media-panel .media-panel-layer-stickers {
   z-index: 2;
 }
+.media-panel-container .media-panel .media-panel-layer-stickers .alignment-line {
+  position: absolute;
+  border: solid 1px yellow;
+  -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+}
+.media-panel-container .media-panel .media-panel-layer-stickers .alignment-line.alignment-line-vertical {
+  height: 100%;
+}
+.media-panel-container .media-panel .media-panel-layer-stickers .alignment-line.alignment-line-horizontal {
+  width: 100%;
+}
 .media-panel-container .media-panel .media-panel-layer-stickers .story-sticker {
   cursor: move;
   position: absolute;

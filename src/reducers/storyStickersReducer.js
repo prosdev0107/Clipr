@@ -1,5 +1,5 @@
 
-import {resizeBox, rotateBox} from "../utilities/maths"
+import {resizeBox, rotateBox, moveBox} from "../utilities/maths"
 import {MEDIA_PANEL_REF_WIDTH, STICKER_FONT_SIZE_MIN} from "../constants/constants"
 import {isSafari} from 'react-device-detect'
 
@@ -155,12 +155,7 @@ const storyStickersReducer = (state = [], action) => {
                 (typeof storySticker.edit_info !== "undefined" && storySticker.edit_info.translated === true)
                     ? {
                         ...storySticker,
-                        position: {
-                            ...storySticker.position,
-                            // We can't move objects outside simulator
-                            x: Math.max(0, Math.min(1, storySticker.position.x + x_delta)),
-                            y: Math.max(0, Math.min(1, storySticker.position.y + y_delta))
-                        },
+                        position: moveBox(storySticker.position, x_delta, y_delta ),
                         edit_info: !end_movement ? storySticker.edit_info : {
                             ...storySticker.edit_info,
                             dragged: false,
@@ -495,11 +490,7 @@ const storyStickersReducer = (state = [], action) => {
                 (typeof storySticker.edit_info === "undefined" || !storySticker.edit_info.selected) ?
                     storySticker : {
                         ...storySticker,
-                    position: {
-                        ...storySticker.position,
-                        x: Math.round(Math.max(0,Math.min(1,storySticker.position.x + x_delta))*100)/100,
-                        y: Math.round(Math.max(0,Math.min(1,storySticker.position.y + y_delta))*100)/100
-                    }
+                    position: moveBox(storySticker.position, x_delta, y_delta )
                 }
             )
 

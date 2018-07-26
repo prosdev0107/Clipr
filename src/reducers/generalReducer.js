@@ -12,6 +12,15 @@ const generalReducer = (state = [], action) => {
             }
             return state
 
+        case "LIBRARY_CHANGE_FILTER_CLASS":
+
+            // Change css filter class to be apply on media
+            return {
+                ...state,
+                img_filter_class: action.data
+            }
+
+
         case "FORM_PREVENT_ENTER_KEY_SUBMIT":
 
             // Disable form submit when enter key is pressed

@@ -106,7 +106,6 @@ const pageActionsReducer = (state = [], action) => {
 
             // Last data sent to server ?
             let lastDataSaved = action.data
-            console.log('update OK, lets record : ',lastDataSaved)
 
             // Show user data is successfully saved
             return {

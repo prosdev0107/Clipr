@@ -2,6 +2,7 @@ import { createStore } from 'redux'
 import rootReducer from './reducers'
 import initSubscriber from 'redux-subscriber'
 import LivetimeSave from "./utilities/API/LivetimeSave"
+import {TAB_GENERAL} from "./constants/constants"
 
 // Init state structure
 const initialState = {
@@ -13,8 +14,10 @@ const initialState = {
             text: [],
             giphy: []
         },
+        img_filters: [], // Filters to modify media rendering
+        img_filters_css: "", // Link to css file that include all css filters styles
         sticker_fonts: [],
-        sticker_css: "", // link to css file that include all svg styles
+        sticker_css: "", // Link to css file that include all svg styles
         img_animations: [],
         themes: {
             colors: [],
@@ -26,7 +29,7 @@ const initialState = {
     },
     // Params about loaded content through library tabs
     library_dynamic: {
-        stickers_menu_tab: 0,
+        stickers_menu_tab: TAB_GENERAL,
         stickers_to_show: [],
         is_loading_stickers: false,
         search: {
@@ -40,7 +43,6 @@ const initialState = {
         cnv_short_code: "",
         cnv_type: "INPUT",
         url: "",
-        thumbnail: "",
         media: {
             src: "",
             thumbnail: "",
@@ -70,6 +72,7 @@ const initialState = {
     general: {
         overlay: {},
         theme: {},
+        img_filter_class: "",
     }
 }
 

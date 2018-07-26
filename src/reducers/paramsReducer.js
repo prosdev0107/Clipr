@@ -10,10 +10,8 @@ const paramsReducer = (state = [], action) => {
             let data = action.data
             if (typeof data.params !== "undefined" && typeof data.params.stickers !== "undefined") {
 
-                // Add css file that include all svg styles
-                let stylesheetLink = data.params.sticker_css
-                if (stylesheetLink.length > 0) {
-
+                // Add css file that include all sticker styles and all filters styles
+                [data.params.sticker_css, data.params.img_filters_css].forEach((stylesheetLink) => {
                     axios.get(stylesheetLink).then((response) => {
 
                         let fileContent = response.data
@@ -29,7 +27,7 @@ const paramsReducer = (state = [], action) => {
                             head.appendChild(svg_style)
                         }
                     })
-                }
+                })
 
                 return data.params
             }

@@ -22,7 +22,11 @@ const GeneralForm = ({general,params,formChanged, preventEnterKeySubmit}) => {
 
     let animations_label = {
         'zoom-in' : "Zoom in",
-        'zoom-out' : "Zoom out"
+        'zoom-out' : "Zoom out",
+        'move-from-left': "Vers la droite",
+        'move-from-right': "Vers la gauche",
+        'move-from-top': "Vers le bas",
+        'move-from-bottom': "Vers le haut"
     }
     let select_animations = img_animations.map( (anim) => {
         return { value: anim, label: animations_label[anim] }

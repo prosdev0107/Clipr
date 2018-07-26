@@ -130,7 +130,7 @@ const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
         <div id={MEDIA_PANEL_ID} className="media-panel">
 
             {/* Media layer */}
-            <div className="media-panel-layer media-panel-layer-media">
+            <div className={"media-panel-layer media-panel-layer-media "+general.img_filter_class}>
 
                 {renderBlurBackground(cs_item)}
 

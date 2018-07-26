@@ -1,4 +1,5 @@
 import React from 'react'
+import {TAB_GENERAL, TAB_FILTER, TAB_IMAGE, TAB_TEXT, TAB_GIF} from "../constants/constants"
 
 const LeftMenu = ({stickers_menu_tab, changeTab}) => {
 
@@ -8,8 +9,8 @@ const LeftMenu = ({stickers_menu_tab, changeTab}) => {
             <ul className="site-menu">
 
                 <li className="site-menu-item">
-                    <a className={`animsition-link ${ stickers_menu_tab === 0 ? "active" : ""}`} href=""
-                       onClick={(e) => {e.preventDefault();changeTab(0);}} >
+                    <a className={`animsition-link ${ stickers_menu_tab === TAB_GENERAL ? "active" : ""}`} href=""
+                       onClick={(e) => {e.preventDefault();changeTab(TAB_GENERAL);}} >
                         <i className="site-menu-icon fa fa-mobile" aria-hidden="true"></i>
                         <span className="site-menu-title">Général</span>
                     </a>
@@ -17,8 +18,17 @@ const LeftMenu = ({stickers_menu_tab, changeTab}) => {
 
 
                 <li className="site-menu-item">
-                    <a className={`animsition-link ${ stickers_menu_tab === 1 ? "active" : ""}`} href=""
-                       onClick={(e) => {e.preventDefault();changeTab(1);}} >
+                    <a className={`animsition-link ${ stickers_menu_tab === TAB_FILTER ? "active" : ""}`} href=""
+                       onClick={(e) => {e.preventDefault();changeTab(TAB_FILTER);}} >
+                        <i className="site-menu-icon fa fa-magic" aria-hidden="true"></i>
+                        <span className="site-menu-title">Filtres</span>
+                    </a>
+                </li>
+
+
+                <li className="site-menu-item">
+                    <a className={`animsition-link ${ stickers_menu_tab === TAB_IMAGE ? "active" : ""}`} href=""
+                       onClick={(e) => {e.preventDefault();changeTab(TAB_IMAGE);}} >
                         <i className="site-menu-icon fa fa-image" aria-hidden="true"></i>
                         <span className="site-menu-title">Images</span>
                     </a>
@@ -26,26 +36,24 @@ const LeftMenu = ({stickers_menu_tab, changeTab}) => {
 
 
                 <li className="site-menu-item">
-                    <a className={`animsition-link ${ stickers_menu_tab === 2 ? "active" : ""}`} href=""
-                       onClick={(e) => {e.preventDefault();changeTab(2);}} >
+                    <a className={`animsition-link ${ stickers_menu_tab === TAB_TEXT ? "active" : ""}`} href=""
+                       onClick={(e) => {e.preventDefault();changeTab(TAB_TEXT);}} >
                         <i className="site-menu-icon fa fa-font" aria-hidden="true"></i>
                         <span className="site-menu-title">Textes</span>
                     </a>
                 </li>
 
-
                 {/* <li className="site-menu-item">
-                    <a className={`animsition-link ${ stickers_menu_tab === 3 ? "active" : ""}`} href=""
-                       onClick={(e) => {e.preventDefault();changeTab(3);}} >
+                    <a className={`animsition-link ${ stickers_menu_tab === TAB_ANIMATION ? "active" : ""}`} href=""
+                       onClick={(e) => {e.preventDefault();changeTab(TAB_ANIMATION);}} >
                         <i className="site-menu-icon fa fa-star" aria-hidden="true"></i>
                         <span className="site-menu-title">Animations</span>
                     </a>
                 </li> */}
 
-
                 <li className="site-menu-item">
-                    <a className={`animsition-link ${ stickers_menu_tab === 4 ? "active" : ""}`} href=""
-                       onClick={(e) => {e.preventDefault();changeTab(4);}} >
+                    <a className={`animsition-link ${ stickers_menu_tab === TAB_GIF ? "active" : ""}`} href=""
+                       onClick={(e) => {e.preventDefault();changeTab(TAB_GIF);}} >
                         <i className="site-menu-icon fa fa-star" aria-hidden="true"></i>
                         <span className="site-menu-title">Gifs</span>
                     </a>

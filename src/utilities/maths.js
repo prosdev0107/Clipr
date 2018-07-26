@@ -37,7 +37,7 @@ export const find_vector_angle = (ref_point,B,C) => {
 export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ratio, keepRatio) => {
 
     keepRatio = typeof keepRatio === "undefined" ? 1 : keepRatio
-console.log("aaa",initialCoord)
+
     // The method consists in defining the new position of the 4 corners of the box
     // Depending on delta move and region selected
     // And relative to Media Panel dimensions
@@ -191,5 +191,27 @@ export const rotateBox = (initialCoord, x_init, y_init, x_delta, y_delta) => {
     return {
         ...initialCoord,
         rotation: ((initialCoord.rotation || 0) + angle) % (2*Math.PI)
+    }
+}
+
+
+export const moveBox = (initialCoord, x_delta, y_delta) => {
+
+    // Compute new coordinates - center can't move out of borders
+    let new_x_pos = Math.round(Math.max(0,Math.min(1,initialCoord.x + x_delta))*100)/100
+    let new_y_pos =  Math.round(Math.max(0,Math.min(1,initialCoord.y + y_delta))*100)/100
+
+    let margin = 0.005
+
+    // If center close to vertical-center, help user positioning at center
+    new_x_pos = Math.abs(new_x_pos - 0.5) < margin ? 0.5 : new_x_pos
+
+    // If center close to horizontal-center, help user positioning at center
+    new_y_pos = Math.abs(new_y_pos - 0.5) < margin ? 0.5 : new_y_pos
+
+    return {
+        ...initialCoord,
+        x: new_x_pos,
+        y: new_y_pos
     }
 }

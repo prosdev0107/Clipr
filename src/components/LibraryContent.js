@@ -1,6 +1,7 @@
 import React from 'react'
 import SimpleStickerContainer from "../containers/SimpleStickerContainer"
 import {Row, Col} from 'react-bootstrap'
+import {TAB_ANIMATION, TAB_GIF, TAB_IMAGE, TAB_TEXT} from "../constants/constants";
 
 const LibraryContent = ({tab,stickers, is_loading_stickers}) => {
 
@@ -8,16 +9,16 @@ const LibraryContent = ({tab,stickers, is_loading_stickers}) => {
 
     switch (tab) {
 
-        case 1:
+        case TAB_IMAGE:
             stickers_to_show =  typeof stickers.pixabay !== "undefined" ? stickers.pixabay : []
             break
-        case 2:
+        case TAB_TEXT:
             stickers_to_show = typeof stickers.text !== "undefined" ? stickers.text : []
             break;
-        case 3:
+        case TAB_ANIMATION:
             stickers_to_show = typeof stickers.svg !== "undefined" ? stickers.svg : []
             break
-        case 4:
+        case TAB_GIF:
             stickers_to_show = typeof stickers.giphy !== "undefined" ? stickers.giphy : []
             break
         default:
@@ -39,9 +40,9 @@ const LibraryContent = ({tab,stickers, is_loading_stickers}) => {
             {stickers_to_show.map((sticker,index) =>
                 <Col
                     key={index}
-                    lg={tab === 2 ? 12 : 4}
-                    sm={tab === 2 ? 12 : 6}
-                    className={"padding-5 "+(tab === 2 ? "col-xlg-6" : "col-xlg-3")}
+                    lg={tab === TAB_TEXT ? 12 : 4}
+                    sm={tab === TAB_TEXT ? 12 : 6}
+                    className={"padding-5 "+(tab === TAB_TEXT ? "col-xlg-6" : "col-xlg-3")}
                 >
                     <div className="library-sticker-container width-full relative">
                         <div className={"width-full relative"} style={ {paddingTop: (Math.min(100,Math.round(sticker.ratio*1000)/10))+"%" } }>
