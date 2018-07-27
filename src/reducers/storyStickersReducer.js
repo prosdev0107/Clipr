@@ -264,6 +264,26 @@ const storyStickersReducer = (state = [], action) => {
             }
             return state
 
+        case 'APP_CONTAINER_CLICK':
+
+            // Deselect sticker if click on editor background)
+            if (typeof action.data.target !== "undefined" && parseInt(action.data.target.getAttribute("data-isbodywrapper"))) {
+                return state.map(storySticker =>
+                    (typeof storySticker.edit_info !== "undefined" && storySticker.edit_info.selected)
+                        ? {
+                            ...storySticker,
+                            edit_info: {
+                                ...storySticker.edit_info,
+                                selected: false,
+                                resized: false,
+                                rotated: false,
+                                translated: false
+                            }
+                        } : storySticker)
+            }
+
+            return state
+
         case 'LIBRARY_TAB_SELECTED':
 
             // Deselect sticker

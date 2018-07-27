@@ -6,8 +6,8 @@ import 'react-select/dist/react-select.css'
 // Examples : https://jedwatson.github.io/react-select/
 
 const Select2 = ({
-                   input, options, selectedOption, label, optionRenderer,   // common
-                   meta: { touched, error } ,                               // status
+                   input, options, selectedOption, label, optionRenderer, selectUp,     // common
+                   meta: { touched, error } ,                                           // status
                }) => {
 
     const onChange = (option, name) => {
@@ -26,7 +26,7 @@ const Select2 = ({
     }
 
     return (
-        <div>
+        <div className={ (selectUp ? "select-up" : "")}>
             {(label || "").length > 0 ? <label htmlFor={input.name}>{label}</label> : "" }
             <Select
                 {...input}

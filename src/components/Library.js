@@ -4,7 +4,7 @@ import LeftMenuContainer from "../containers/library/LeftMenuContainer"
 import LibraryContentContainer from "../containers/library/LibraryContentContainer"
 import GiphySearchContainer from "../containers/library/SearchAPIBarContainer"
 import LibraryImgFiltersContainer from "../containers/library/LibraryImgFiltersContainer"
-import {TAB_FILTER, TAB_GENERAL, TAB_GIF, TAB_IMAGE, TAB_TEXT} from "../constants/constants"
+import {TAB_GENERAL, TAB_GIF, TAB_IMAGE, TAB_TEXT} from "../constants/constants"
 
 const Library = ({stickers, stickers_menu_tab, listen_drag_events, selectFromLibrary, loadMoreStickers}) => {
 
@@ -15,12 +15,13 @@ const Library = ({stickers, stickers_menu_tab, listen_drag_events, selectFromLib
     // Render library content to display depending on chosen tab
     const renderLibrayContent = (stickers_menu_tab) => {
 
-        let hide_column = stickers_menu_tab === TAB_GENERAL ? "animate-hide-left" : ""
+        // let hide_column = stickers_menu_tab === TAB_GENERAL ? "animate-hide-left" : ""
+        let hide_column = ""
 
-        if (stickers_menu_tab === TAB_FILTER) {
+        if (stickers_menu_tab === TAB_GENERAL) {
 
             return  <div className={"stickers-library-container"} >
-                <div className={"stickers-library animate-left "+hide_column}>
+                <div className={"stickers-library animate-left"}>
                     <LibraryImgFiltersContainer />
                 </div>
             </div>

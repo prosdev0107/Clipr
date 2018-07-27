@@ -201,7 +201,7 @@ export const moveBox = (initialCoord, x_delta, y_delta) => {
     let new_x_pos = Math.round(Math.max(0,Math.min(1,initialCoord.x + x_delta))*100)/100
     let new_y_pos =  Math.round(Math.max(0,Math.min(1,initialCoord.y + y_delta))*100)/100
 
-    let margin = 0.005
+    let margin = 0.009
 
     // If center close to vertical-center, help user positioning at center
     new_x_pos = Math.abs(new_x_pos - 0.5) < margin ? 0.5 : new_x_pos

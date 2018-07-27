@@ -1,5 +1,5 @@
 import React from 'react'
-import {TAB_GENERAL, TAB_FILTER, TAB_IMAGE, TAB_TEXT, TAB_GIF} from "../constants/constants"
+import {TAB_GENERAL, TAB_IMAGE, TAB_TEXT, TAB_GIF} from "../constants/constants"
 
 const LeftMenu = ({stickers_menu_tab, changeTab}) => {
 
@@ -13,15 +13,6 @@ const LeftMenu = ({stickers_menu_tab, changeTab}) => {
                        onClick={(e) => {e.preventDefault();changeTab(TAB_GENERAL);}} >
                         <i className="site-menu-icon fa fa-mobile" aria-hidden="true"></i>
                         <span className="site-menu-title">Général</span>
-                    </a>
-                </li>
-
-
-                <li className="site-menu-item">
-                    <a className={`animsition-link ${ stickers_menu_tab === TAB_FILTER ? "active" : ""}`} href=""
-                       onClick={(e) => {e.preventDefault();changeTab(TAB_FILTER);}} >
-                        <i className="site-menu-icon fa fa-magic" aria-hidden="true"></i>
-                        <span className="site-menu-title">Filtres</span>
                     </a>
                 </li>
 

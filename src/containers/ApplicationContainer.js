@@ -1,6 +1,7 @@
 
 import { connect } from 'react-redux'
 import ApplicationWrapper from '../components/ApplicationWrapper'
+import {sendToReducersAction} from "../actions";
 
 const mapStateToProps = state => ({
     page_is_loading: state.page_actions.page_is_loading,
@@ -9,4 +10,8 @@ const mapStateToProps = state => ({
     theme_fonts: state.params.themes.fonts
 })
 
-export default connect(mapStateToProps)(ApplicationWrapper)
+const mapDispatchToProps = (dispatch) => ({
+    clickAppContainer: (event) => dispatch(sendToReducersAction("APP_CONTAINER_CLICK",event)),
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(ApplicationWrapper)

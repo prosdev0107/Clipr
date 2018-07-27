@@ -135,6 +135,7 @@ const GeneralForm = ({general,params,formChanged, preventEnterKeySubmit}) => {
             input: {
                 label: "Animation",
                 type: "select",
+                selectUp: true
             }
         })
     }

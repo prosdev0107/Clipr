@@ -5,7 +5,7 @@ import MediaPanelContainer from "../containers/central/MediaPanelContainer"
 import PropertiesContainer from "../containers/properties/PropertiesContainer"
 import SaveMenuContainer from "../containers/SaveMenuContainer";
 
-const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_fonts, theme_fonts }) => {
+const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_fonts, theme_fonts, clickAppContainer }) => {
 
 
     // Add stickers fonts
@@ -81,7 +81,7 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
 
         :
 
-        <div>
+        <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
 
             <LibraryContainer />
 

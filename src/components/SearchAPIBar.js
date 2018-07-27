@@ -2,13 +2,14 @@ import React from 'react'
 import {renderField} from "./form/renderField"
 import {reduxForm} from "redux-form";
 import {vectorSourcing} from "../utilities/API/VectorSourcing";
+import {TAB_GIF} from "../constants/constants";
 
 const SearchAPIBar = ({search, is_loading_stickers, tab, formChanged, stickersLoaded, preventEnterKeySubmit}) => {
 
     // Each time the search text changed, this component is reloaded
 
     // Which api should we call ?
-    let api_source = tab === 4 ? "giphy" : "pixabay"
+    let api_source = tab === TAB_GIF ? "giphy" : "pixabay"
 
     // Init with saved params
     if (is_loading_stickers) {

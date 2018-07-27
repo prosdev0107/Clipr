@@ -35,6 +35,7 @@ export const renderField = (properties, action) => {
             return <Field {...common}
                           selectedOption={properties.value}
                           component={Select2}
+                          selectUp={properties.input.selectUp || false}
                           options={(properties.options || {})}
                           optionRenderer={optionFontFamilyRenderer}
                           onChange={(event) => typeof action === "function" ? action(event) : null} />
@@ -45,6 +46,7 @@ export const renderField = (properties, action) => {
             return <Field {...common}
                           selectedOption={properties.value}
                           component={Select2}
+                          selectUp={properties.input.selectUp || false}
                           options={(properties.options || {})}
                           onChange={(event) => typeof action === "function" ? action(event) : null} />
 

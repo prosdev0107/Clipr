@@ -24,7 +24,7 @@ const StickersLayer = ({ story_stickers, listen_drag_events, transformStoryStick
 
     if (typeof selected_sticker !== "undefined") {
 
-        let margin = 0.005
+        let margin = 0.009
 
         // If center close to vertical-center, show vertical line
         showVerticalLine = Math.abs(selected_sticker.position.x - 0.5) < margin ? 0.5 : false
