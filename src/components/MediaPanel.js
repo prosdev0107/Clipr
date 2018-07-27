@@ -122,7 +122,8 @@ const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
                 }
             }
         }
-        return ""
+        // Default is fill height because full screen by default
+        return 'poster-fill-height'
     }
 
     return <div className="media-panel-container absolute-center">

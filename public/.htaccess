@@ -84,7 +84,7 @@ RewriteRule ^ index.html [QSA,L]
 # Don't forget to enable this mod on server : a2enmod headers
 <IfModule mod_headers.c>
     <FilesMatch "\\.(gif|jpe?g|png|svg|mp4|webm|ico|swf|eot|ttf|otf|woff|woff2|js)$">
-        Header set Cache-Control "max-age=2678400, public"
+        Header set Cache-Control "max-age=604800, public"
     </FilesMatch>
     <FilesMatch "\\.(svg|css)$">
             Header set Cache-Control "max-age=86400, public"
