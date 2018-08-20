@@ -37,10 +37,13 @@ With action_origin as the element where the event has been fired
 
 ## Wording
 
-
+- GeneralForm : Render form to custom general aspect of current media
 - Library : Left sidebar where items can enrich the story
-- MediaPanel : The central window where clip medias can be designed by adding and styling stickers
-- Sticker : A component (text, svg, image...) that can be used in Library or MediaPanel 
-- MediaPanelSticker : A sticker container inside the MediaPanel
+- LibraryContent : items to display on left sidebar depending of chosen tab
+- MediaPanel : The central window where clip medias can be designed by adding and styling stickers. Contains 4 layers : media layer, overlay layer, story stickers layer and finally buttons layer
+- PropertiesForm : Render form to custom aspect of selected story sticker
+- Sticker : A component (text, svg, image...) that can be used in Library or MediaPanel
+- StickersLayer : Layer from MediaPanel containing all story stickers added by the user to the media
+- StorySticker : A sticker container inside the story stickers layer of MediaPanel
 
 
