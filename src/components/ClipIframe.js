@@ -38,7 +38,6 @@ const CliprIframe = ({theme, params, url_clip}) => {
             iframe.contentWindow.postMessage({
                 key: "EDIT_FROM_TEMPLATE_EDITOR",
                 color: theme.color,
-                use_static_color: theme.use_static_color,xz
                 font: theme.font,
                 fontSource: fontSource.source
             }, iframe.src)
