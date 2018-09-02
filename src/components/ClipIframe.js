@@ -38,7 +38,7 @@ const CliprIframe = ({theme, params, url_clip}) => {
             iframe.contentWindow.postMessage({
                 key: "EDIT_FROM_TEMPLATE_EDITOR",
                 color: theme.color,
-                use_static_color: theme.use_static_color,
+                use_static_color: theme.use_static_color,xz
                 font: theme.font,
                 fontSource: fontSource.source
             }, iframe.src)
@@ -47,7 +47,7 @@ const CliprIframe = ({theme, params, url_clip}) => {
 
     return <iframe
         id="Clip_Iframe"
-        src={url_clip+"&onlyNative=1"}
+        src={url_clip+"&only_native=1"}
         title="Clip buttons only preview"
         allowtransparency="true"
         onLoad={(event) => tranformIframe(event)} />
