@@ -7,9 +7,9 @@ WORKDIR /var/app/current
 # install and cache app dependencies
 COPY package.json /var/app/current/package.json
 RUN npm install -g --silent
-# RUN npm install -g npm-install-peers --silent
+RUN npm install -g npm-install-peers --silent
 
-EXPOSE 80
+EXPOSE 3000
 
 CMD [ "npm", "start" ]
 
