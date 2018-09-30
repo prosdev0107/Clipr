@@ -62,6 +62,13 @@
       }
     </style>
 
+    <!-- Sentry bug tracking -->
+    <script src="https://cdn.ravenjs.com/3.26.4/raven.min.js"
+            crossorigin="anonymous"></script>
+    <script>
+      Raven.config('https://f37a7241359542149f662ed7c14c108a@sentry.io/1283548').install();
+    </script>
+
   </head>
   <body>
     <noscript>
@@ -82,7 +89,8 @@
 
     <script src="https://use.fontawesome.com/d566771723.js"></script>
 
-  <script>
+
+    <script>
 
       // Prevent back button action to avoid losing unsaved data
       history.pushState(null, null, location.href);

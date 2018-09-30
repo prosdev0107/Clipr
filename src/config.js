@@ -3,14 +3,16 @@ const dev = {
     api_clipr: {
         API_BASE_URL: "http://app.clipr.local:8888/app_dev.php/fr/api",
         TOKEN_ENDPOINT: "http://app.clipr.local:8888/app_dev.php/oauth/v2/token"
-    }
+    },
+    aws_cdn: "http://app.clipr.local:8888"
 }
 
 const staging = {
     api_clipr: {
-        API_BASE_URL: "https://test.clipr.co/app_staging.php/fr/api",
-        TOKEN_ENDPOINT: "https://test.clipr.co/app_staging.php/oauth/v2/token"
-    }
+        API_BASE_URL: "https://my.aws.clipr.co/app_staging.php/fr/api",
+        TOKEN_ENDPOINT: "https://my.aws.clipr.co/app_staging.php/oauth/v2/token"
+    },
+    aws_cdn: "https://dee78mez9gquu.cloudfront.net"
 }
 
 const prod = {
@@ -47,7 +49,8 @@ const prod = {
             empty: "/?image_type=vector&q=like",
             stickers: "/?image_type=vector"
         }
-    }
+    },
+    aws_cdn: "https://d2fzf01co41kzj.cloudfront.net"
 }
 
 const config = process.env.REACT_APP_STAGE === 'production'

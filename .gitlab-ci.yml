@@ -15,19 +15,19 @@ stages:
   - production
 
 Deploy Staging:
-  stage: staging
   only:
       - staging
+  image: php:7.1-fpm
+  stage: staging
+  environment: staging
+  variables:
+    S3_BUCKET_NAME: "bucket-clipr-code"
+  before_script:
+      - apt-get -y update
+      - apt-get -y install zip unzip awscli libpng-dev
   script:
-    - ssh $SERVER_USER@$SERVER_HOSTNAME 'eval `ssh-agent -s`
-            && ssh-add -k ~/.ssh/id_rsa_gitlab
-            && cd /var/www/my/react_staging
-            && git reset --hard
-            && git pull origin staging
-            && REACT_APP_STAGE=staging CI=true npm run build
-            && rm -rf public
-            && mv build public
-            && rm .gitlab-ci.yml'
+    - zip -r front-staging.zip ./
+    - aws s3 cp front-staging.zip s3://$S3_BUCKET_NAME
 
 Deploy Production:
   stage: production
