@@ -1,20 +1,15 @@
 # Use the docker image node:9.4
-FROM node:alpine
+FROM node:9.6.1
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /var/app/current
 
-# Install app dependencies
-COPY package.json .
-# For npm@5 or later, copy package-lock.json as well
-# COPY package.json package-lock.json .
+# install and cache app dependencies
+COPY package.json /var/app/current/package.json
+RUN npm install -g --silent
+# RUN npm install -g npm-install-peers --silent
 
-RUN npm install -g npm-install-peers
-
-# Bundle app source
-COPY . .
-
-EXPOSE 3000
+EXPOSE 80
 
 CMD [ "npm", "start" ]
 
