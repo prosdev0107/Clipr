@@ -1,3 +1,7 @@
+
+# DOCKER ANNULE
+# on prend un serveur node AWS
+
 # Use the docker image node:9.4
 FROM node:9.6.1 as builder
 
@@ -22,31 +26,10 @@ FROM nginx:1.15
 # Move app to nginx working directory
 COPY --from=builder /app/build/ /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 3000
 
 CMD ["nginx", "-g", "daemon off;"]
 
-
-# Copy the default nginx.conf provided by tiangolo/node-frontend
-# COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf
-
-
-
-# CMD [ "npm", "start" ]
-
-
-# Run npm install
-#RUN npm install -g npm-install-peers
-
-# Build
-#RUN REACT_APP_STAGE=staging CI=true npm run build --bind localhost
-
-# Start the app.
-#RUN rm -rf public
-#RUN mv /var/app/current/build /var/app/current/public
-
-# Expose the port of the app thats running in the container.
-#EXPOSE 3000
-
 # docker build -t cliprfront .
 # docker run -d -it -p 3000:3000 cliprfront /bin/bash
+# docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <CONTAINER_ID>
