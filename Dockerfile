@@ -11,8 +11,11 @@ COPY package*.json /app/
 RUN npm install -g --silent
 RUN npm install -g npm-install-peers --silent
 
+# Copy source code
+COPY ./ /app/
+
 # Build app
-RUN REACT_APP_STAGE=staging CI=true npm run build --bind localhost
+RUN REACT_APP_STAGE=staging CI=true npm run build
 
 # Move app to nginx working directory
 COPY --from=build-stage /app/build/ /var/app/current/html
