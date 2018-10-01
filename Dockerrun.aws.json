@@ -2,7 +2,8 @@
   "AWSEBDockerrunVersion": "1",
   "Image": {
     "Name": "clipr/frontend",
-    "Update": "true"
+    "Update": "true",
+    "pull":"true"
   },
   "Ports": [
     {

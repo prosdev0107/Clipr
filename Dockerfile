@@ -1,5 +1,5 @@
 # Use the docker image node:9.4
-FROM node:9.6.1 as build-stage
+FROM node:9.6.1 as builder
 
 # Create app directory
 WORKDIR /app
@@ -15,16 +15,22 @@ RUN npm install -g npm-install-peers --silent
 COPY ./ /app/
 
 # Build app
-RUN REACT_APP_STAGE=staging CI=true npm run build
+RUN REACT_APP_STAGE=staging CI=true npm run build && ls
+
+FROM nginx:1.15
 
 # Move app to nginx working directory
-COPY --from=build-stage /app/build/ /var/app/current/html
+COPY --from=builder /app/build/ /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+
 
 # Copy the default nginx.conf provided by tiangolo/node-frontend
 # COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf
 
 
-# EXPOSE 3000
 
 # CMD [ "npm", "start" ]
 
