@@ -19,7 +19,7 @@ RUN npm install -g npm-install-peers --silent
 COPY ./ /app/
 
 # Build app
-RUN REACT_APP_STAGE=staging CI=true npm run build && ls
+RUN REACT_APP_STAGE=staging CI=true npm run build
 
 FROM nginx:1.15
 
