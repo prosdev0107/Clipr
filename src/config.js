@@ -9,8 +9,8 @@ const dev = {
 
 const staging = {
     api_clipr: {
-        API_BASE_URL: "https://my.aws.clipr.co/app_staging.php/fr/api",
-        TOKEN_ENDPOINT: "https://my.aws.clipr.co/app_staging.php/oauth/v2/token"
+        API_BASE_URL: "https://app.aws.clipr.co/app_staging.php/fr/api",
+        TOKEN_ENDPOINT: "https://app.aws.clipr.co/app_staging.php/oauth/v2/token"
     },
     aws_cdn: "https://dee78mez9gquu.cloudfront.net"
 }
@@ -19,6 +19,7 @@ const prod = {
     api_clipr: {
         API_BASE_URL: "https://app.clipr.co/fr/api",
         TOKEN_ENDPOINT: "https://app.clipr.co/oauth/v2/token"
+
     },
     api_giphy: {
         // Sandbox mode : 20k request per day
