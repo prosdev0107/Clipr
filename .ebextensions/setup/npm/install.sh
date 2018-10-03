@@ -13,13 +13,13 @@ then
     # Install node
     yum -y install nodejs
 
-    # Install npm
-    npm install npm@latest -g
-
     # Tell wkhtmltopdf where to find lib
     LD_LIBRARY_PATH=/usr/lib:/usr/lib64:/usr/local/lib
     export LD_LIBRARY_PATH
 
 fi
 
+
+# Update npm
+npm install npm@latest -g
 
