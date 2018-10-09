@@ -15,21 +15,6 @@ stages:
   - staging_deploy
   - production
 
-Deploy Staging00:
-  only:
-      - staging00
-  image: php:7.1-fpm
-  stage: staging00
-  environment: staging
- variables:
-     S3_BUCKET_NAME: "bucket-clipr-code"
-   before_script:
-       - apt-get -y update
-       - apt-get -y install zip unzip awscli libpng-dev curl
-   script:
-     - zip -r front-staging.zip ./
-     - aws s3 cp front-staging.zip s3://$S3_BUCKET_NAME
-
 Build Staging:
   only:
       - staging
