@@ -24,8 +24,12 @@ Deploy Staging:
     S3_BUCKET_NAME: "bucket-clipr-code"
   before_script:
       - apt-get -y update
-      - apt-get -y install zip unzip awscli libpng-dev
+      - apt-get -y install zip unzip awscli libpng-dev curl
+      - curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+      - apt-get install -y nodejs build-essential
   script:
+    - npm install npm-install-peers --silent --save
+    - REACT_APP_STAGE=staging CI=true npm run build
     - zip -r front-staging.zip ./
     - aws s3 cp front-staging.zip s3://$S3_BUCKET_NAME
 
