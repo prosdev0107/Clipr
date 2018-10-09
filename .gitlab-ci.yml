@@ -25,7 +25,7 @@ Deploy Staging:
   before_script:
       - apt-get -y update
       - apt-get -y install zip unzip awscli libpng-dev curl
-      - curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+      - curl -sL https://deb.nodesource.com/setup_10.x | bash -
       - apt-get install -y nodejs build-essential
   script:
     - npm install npm-install-peers --silent --save
