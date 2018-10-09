@@ -40,7 +40,10 @@ Deploy Staging:
       - apt-get -y update
       - apt-get -y install zip unzip awscli libpng-dev curl
   script:
-    - zip -r front-staging.zip ./build
+    - rm -rf public
+    - mv build public
+    - ls
+    - zip -r front-staging.zip build
     - aws s3 cp front-staging.zip s3://$S3_BUCKET_NAME
 
 Deploy Production:
