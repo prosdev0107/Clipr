@@ -1,16 +1,16 @@
 
 const dev = {
     api_clipr: {
-        API_BASE_URL: "http://app.clipr.local:8888/app_dev.php/fr/api",
-        TOKEN_ENDPOINT: "http://app.clipr.local:8888/app_dev.php/oauth/v2/token"
+        API_BASE_URL: "http://app.clipr.local:8888/fr/api",
+        TOKEN_ENDPOINT: "http://app.clipr.local:8888/oauth/v2/token"
     },
     aws_cdn: "http://app.clipr.local:8888"
 }
 
 const staging = {
     api_clipr: {
-        API_BASE_URL: "https://app.aws.clipr.co/app_staging.php/fr/api",
-        TOKEN_ENDPOINT: "https://app.aws.clipr.co/app_staging.php/oauth/v2/token"
+        API_BASE_URL: "https://app.aws.clipr.co/fr/api",
+        TOKEN_ENDPOINT: "https://app.aws.clipr.co/oauth/v2/token"
     },
     aws_cdn: "https://dee78mez9gquu.cloudfront.net"
 }
