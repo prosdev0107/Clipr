@@ -9,3 +9,5 @@ then
     /opt/elasticbeanstalk/bin/healthd-restart
     echo "nginx" > /var/elasticbeanstalk/healthd/current_proxy_server
 fi
+
+echo "app deploy 02 ok " >> /tmp/front.log
