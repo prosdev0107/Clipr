@@ -33,7 +33,7 @@ Build Staging:
     - REACT_APP_STAGE=staging CI=true npm run build
     - rm -rf public
     - mv build public
-    - zip -r front-staging.zip public
+    - zip -r front-staging.zip public .ebextensions
     - aws s3 cp front-staging.zip s3://$S3_BUCKET_NAME
 
 
