@@ -23,4 +23,3 @@ fi
 # Update npm
 npm install npm@latest -g
 
-echo "npm updated " >> /tmp/front.log

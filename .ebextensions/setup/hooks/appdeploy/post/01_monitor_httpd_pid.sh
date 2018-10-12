@@ -6,4 +6,3 @@ set -xe
 
 /opt/elasticbeanstalk/bin/healthd-track-pidfile --proxy nginx || true
 
-echo "app deploy 01 ok " >> /tmp/front.log
