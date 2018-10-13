@@ -39,7 +39,7 @@ Build Staging:
 
 Deploy Production:
   only:
-      - production
+      - master
   image: node:8.11.3
   stage: production
   environment: production
