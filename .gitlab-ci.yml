@@ -59,3 +59,4 @@ Deploy Production:
     - zip -r front-prod.zip public .ebextensions
     - aws s3 cp front-prod.zip s3://$S3_BUCKET_NAME
 
+ 
