@@ -5,8 +5,8 @@ import {sendToReducersAction} from "../../actions";
 
 const mapStateToProps = state => ({
     img_filters: state.params.img_filters,
-    current_filter_class: state.general.img_filter_class,
-    media_thumbnail: state.cs_item.media.thumbnail
+    current_filter_class: state.cs_item_edited_general.img_filter_class,
+    media_thumbnail: state.cs_item_edited.media.thumbnail
 })
 
 const mapDispatchToProps = (dispatch) => ({

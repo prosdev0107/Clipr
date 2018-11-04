@@ -5,7 +5,7 @@ import {sendToReducersAction, transformStoryStickerAction} from "../../actions"
 
 
 const mapStateToProps = state => ({
-    story_stickers: state.story_stickers,
+    story_stickers: state.cs_item_edited_story_stickers,
     listen_drag_events: state.page_actions.listen_drag_events
 })
 

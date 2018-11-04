@@ -4,7 +4,7 @@ const dev = {
         API_BASE_URL: "http://app.clipr.local:8888/fr/api",
         TOKEN_ENDPOINT: "http://app.clipr.local:8888/oauth/v2/token"
     },
-    aws_cdn: "http://app.clipr.local:8888"
+    aws_cdn: "http://app.landing.local:8888"
 }
 
 const staging = {

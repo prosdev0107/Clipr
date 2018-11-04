@@ -1,14 +1,32 @@
 
 const generalReducer = (state = [], action) => {
 
+    let data
+
     switch (action.type) {
 
         case 'API_UPDATE_CS_ITEM':
 
-            let data = action.data
+            data = action.data
             if (typeof data.id !== "undefined" && typeof data.template !== "undefined" && typeof data.template.general !== "undefined") {
 
-                return data.template.general
+                return {
+                    ...state,
+                    overlay: data.template.overlay,
+                    img_filter_class: data.template.img_filter_class
+                }
+            }
+            return state
+
+        case 'API_UPDATE_CLIP':
+
+            data = action.data
+            if (typeof data.id !== "undefined" && typeof data.theme !== "undefined") {
+
+                return {
+                    ...state,
+                    theme: data.theme
+                }
             }
             return state
 

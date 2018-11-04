@@ -3,6 +3,7 @@ import api_client from "./CliprRequest"
 import store from '../../store'
 import {sendToReducersAction} from "../../actions";
 import isEqual from 'lodash/isEqual'
+import data_providers from '../../api_endpoints.js'
 
 var apiSaveTimeout
 var clearMessageTimeout
@@ -11,7 +12,6 @@ var saveTimeout = 0 // Instant saving
 
 // Send data directly to API
 const LivetimeSave = (new_state) => {
-
 
     // Extract data to save
     let template = extractDataToSaveFromState(new_state)
@@ -32,13 +32,13 @@ const LivetimeSave = (new_state) => {
             updateSaveStatus(1)
 
             // Post data to API
-            let cs_item = new_state.cs_item
+            let cs_item = new_state.cs_item_edited
 
             if (typeof cs_item.cnv_short_code !== "undefined" && cs_item.cnv_short_code.length > 0) {
 
                 let request = api_client()
                 request
-                    .post("/cnv/clip/"+cs_item.cnv_short_code+"/cs_items/"+cs_item.id+"/update", {'template': template})
+                    .post(data_providers.cs_item.update(cs_item.cnv_short_code,cs_item.id), {'template': template})
                     // Get response data and save in store
                     .then(response => updateSaveStatus(200,null,template))
                     .catch(error => updateSaveStatus(404,error.toString()))
@@ -56,10 +56,10 @@ const LivetimeSave = (new_state) => {
 const extractDataToSaveFromState = (state) => ({
 
     // We always need to save the whole content of general
-    general: state.general,
+    general: state.cs_item_edited_general,
 
     // Some fields of story stickers are useless, we need to remove them
-    story_stickers: state.story_stickers.map(storySticker => ({
+    story_stickers: state.cs_item_edited_story_stickers.map(storySticker => ({
         position: {
             maxWidth: storySticker.position.maxWidth || 0,
             ratio: storySticker.position.ratio || 0,

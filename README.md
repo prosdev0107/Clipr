@@ -34,7 +34,6 @@ With action_origin as the element where the event has been fired
 - Use "data-xxxx" instead
 - If need to use element with specific ID, define this ID inside constants params
 
-
 ## Wording
 
 - GeneralForm : Render form to custom general aspect of current media

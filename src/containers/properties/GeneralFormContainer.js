@@ -4,7 +4,7 @@ import GeneralForm from '../../components/GeneralForm'
 import {propertiesFormChangedAction, sendToReducersAction} from '../../actions'
 
 const mapStateToProps = state => ({
-    general: state.general,
+    general: state.cs_item_edited_general,
     params: state.params
 })
 

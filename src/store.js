@@ -37,18 +37,30 @@ const initialState = {
             length: 0
         }
     },
-    // Params depending on chosen media
-    cs_item: {
+    // Basic info about clip
+    clip: {
         id: "",
         cnv_short_code: "",
         cnv_type: "INPUT",
-        url: "",
+        url_preview: ""
+    },
+    // List of all cs_items data, order by display order
+    cs_items: {},
+    // State of cs_item currently edited
+    cs_item_edited: {
+        id: "",
         media: {
             src: "",
             thumbnail: "",
             ext: "",
             isVideo: false
-        }
+        },
+    },
+    cs_item_edited_story_stickers: [],
+    cs_item_edited_general: {
+        overlay: {},
+        theme: {},
+        img_filter_class: "",
     },
     // Live status of some actions
     page_actions: {
@@ -67,13 +79,7 @@ const initialState = {
         // Host of eb page which is running this editor through iframe
         url_host: ""
     },
-    // Fields below define the new custom edition of the media
-    story_stickers: [],
-    general: {
-        overlay: {},
-        theme: {},
-        img_filter_class: "",
-    }
+
 }
 
 
@@ -89,10 +95,10 @@ subscriber('page_actions', state => {
         LivetimeSave(state)
     }
 })
-subscriber('general', state => {
+subscriber('cs_item_edited_general', state => {
     LivetimeSave(state)
 })
-subscriber('story_stickers', state => {
+subscriber('cs_item_edited_story_stickers', state => {
     LivetimeSave(state)
 })
 

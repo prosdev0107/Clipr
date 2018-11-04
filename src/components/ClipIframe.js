@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CliprIframe = ({theme, params, url_clip}) => {
+const CliprIframe = ({theme, params, url_preview}) => {
 
     // Find path to font source
     let theme_fonts = params.themes.fonts || {}
@@ -47,7 +47,7 @@ const CliprIframe = ({theme, params, url_clip}) => {
 
     return <iframe
         id="Clip_Iframe"
-        src={url_clip+"&only_native=1"}
+        src={url_preview+"&only_native=1"}
         title="Clip buttons only preview"
         allowtransparency="true"
         onLoad={(event) => tranformIframe(event)} />
