@@ -3,7 +3,8 @@ const data_providers = {
         list: "/cnv/stickers"
     },
     clip: {
-        read:   (cnv_short_code) => "/cnv/clip/"+cnv_short_code
+        read:   (cnv_short_code) => "/cnv/clip/"+cnv_short_code,
+        update: (cnv_short_code) => "/cnv/clip/"+cnv_short_code+"/update"
     },
     cs_item: {
         list:   (cnv_short_code) => "/cnv/clip/"+cnv_short_code+"/cs_items",
@@ -11,6 +12,9 @@ const data_providers = {
         read:   (cnv_short_code, cs_item_id) => "/cnv/clip/"+cnv_short_code+"/cs_items/"+cs_item_id,
         update: (cnv_short_code, cs_item_id) => "/cnv/clip/"+cnv_short_code+"/cs_items/"+cs_item_id+"/update",
         delete: (cnv_short_code, cs_item_id) => "/cnv/clip/"+cnv_short_code+"/cs_items/"+cs_item_id+"/delete"
+    },
+    cs_items: {
+        update: (cnv_short_code) => "/cnv/clip/"+cnv_short_code+"/cs_items/update"
     }
 }
 

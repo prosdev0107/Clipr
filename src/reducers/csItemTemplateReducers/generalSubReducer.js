@@ -1,34 +1,11 @@
 
-const generalReducer = (state = [], action) => {
+// !!!! WARNING !!!!
+// That's not a real reducer. It's used by csItemsReducer.
+// If returns false, no event was activated.
 
-    let data
+const generalSubReducer = (state = [], action) => {
 
     switch (action.type) {
-
-        case 'API_UPDATE_CS_ITEM':
-
-            data = action.data
-            if (typeof data.id !== "undefined" && typeof data.template !== "undefined" && typeof data.template.general !== "undefined") {
-
-                return {
-                    ...state,
-                    overlay: data.template.overlay,
-                    img_filter_class: data.template.img_filter_class
-                }
-            }
-            return state
-
-        case 'API_UPDATE_CLIP':
-
-            data = action.data
-            if (typeof data.id !== "undefined" && typeof data.theme !== "undefined") {
-
-                return {
-                    ...state,
-                    theme: data.theme
-                }
-            }
-            return state
 
         case "LIBRARY_CHANGE_FILTER_CLASS":
 
@@ -59,42 +36,7 @@ const generalReducer = (state = [], action) => {
                 // Else we would modify directly the state itself
                 // Which is an anti-pattern, React would consider state hasn't changed so no re-rendering
 
-                if (inputName.indexOf('theme_') === 0) {
-
-                    let theme = JSON.parse(JSON.stringify(initialState.theme || {}))
-
-                    switch (inputName) {
-
-                        case "theme_color":
-
-                            // Need to find the full info about the color (inputValue is the color id)
-                            let params_colors = action.params.themes.colors
-                            let full_color_info = params_colors.find((obj) => { return obj.id === inputValue })
-
-                            theme.color = full_color_info
-                            break
-
-                        case "theme_color_is_gradient":
-
-                            // Should we now use static or gradient color for backgrounds ?
-                            theme.use_static_color = !target.checked
-
-                            break
-
-                        case "theme_font":
-                            theme.font = inputValue
-                            break
-
-                        default:
-                            break
-                    }
-
-                    return {
-                        ...initialState,
-                        theme: theme
-                    }
-
-                } else if (inputName.indexOf('overlay_') === 0) {
+                if (inputName.indexOf('overlay_') === 0) {
 
                     let overlay = JSON.parse(JSON.stringify(initialState.overlay || {}))
 
@@ -145,10 +87,9 @@ const generalReducer = (state = [], action) => {
 
             return editOverlayFromForm(state, action.name, action.value, action.target)
 
-
         default:
-            return state
+            return false
     }
 }
 
-export default generalReducer
+export default generalSubReducer

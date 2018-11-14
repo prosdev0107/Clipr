@@ -1,10 +1,14 @@
 
-import {resizeBox, rotateBox, moveBox} from "../utilities/maths"
-import {MEDIA_PANEL_REF_WIDTH, STICKER_FONT_SIZE_MIN} from "../constants/constants"
+import {resizeBox, rotateBox, moveBox} from "../../utilities/maths"
+import {MEDIA_PANEL_REF_WIDTH, STICKER_FONT_SIZE_MIN} from "../../constants/constants"
 import {isSafari} from 'react-device-detect'
 
+// !!!! WARNING !!!!
+// That's not a real reducer. It's used by csItemsReducer.
+// If returns false, no event was activated.
+
 let initialBoxPosition = {}
-const storyStickersReducer = (state = [], action) => {
+const storyStickersSubReducer = (state = [], action) => {
 
     // Get the index of the current selected stciker
     const findSelectedIndex = (story_stickers) => {
@@ -248,26 +252,17 @@ const storyStickersReducer = (state = [], action) => {
         return initialState
     }
 
-
     switch (action.type) {
 
-        /******************/
-        /* INITIALIZATION */
-        /******************/
 
-        case 'API_UPDATE_CS_ITEM':
-
-            let data = action.data
-            if (typeof data.id !== "undefined" && typeof data.template !== "undefined" && typeof data.template.story_stickers !== "undefined") {
-
-                return data.template.story_stickers
-            }
-            return state
+        /***************/
+        /* DESELECTION */
+        /***************/
 
         case 'APP_CONTAINER_CLICK':
 
             // Deselect sticker if click on editor background)
-            if (typeof action.data.target !== "undefined" && parseInt(action.data.target.getAttribute("data-isbodywrapper"),1)) {
+            if (typeof action.data.target !== "undefined" && parseInt(action.data.target.getAttribute("data-isbodywrapper"),0)) {
                 return state.map(storySticker =>
                     (typeof storySticker.edit_info !== "undefined" && storySticker.edit_info.selected)
                         ? {
@@ -317,6 +312,8 @@ const storyStickersReducer = (state = [], action) => {
         /*********************/
 
         case 'LIBRARY_STICKER_DRAG_START':
+
+            console.log("LIB DRAG START")
 
             // Set initial position of cursor in data transfer
             // Also save info about sticker content
@@ -614,8 +611,8 @@ const storyStickersReducer = (state = [], action) => {
 
         default:
 
-            return state
+            return false
     }
 }
 
-export default storyStickersReducer
+export default storyStickersSubReducer

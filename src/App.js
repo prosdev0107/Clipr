@@ -15,6 +15,7 @@ import './styles/theme/animate/animate.min.css'
 import './styles/main.min.css'
 import './styles/library.min.css'
 import './styles/mediaPanel.min.css'
+import './styles/mediasSwitcher.min.css'
 import './styles/sticker.min.css'
 import './styles/properties.min.css'
 import './styles/clip.min.css'
@@ -50,6 +51,7 @@ class App extends Component {
                 store.dispatch(sendToReducersAction("API_UPDATE_URL_HOST",url_host))
             }
 
+
             // Now let's get information about media panel
             let cnv_short_code = UrlTools.getParameterByName('cnv', query)
             if (cnv_short_code != null) {
@@ -70,10 +72,6 @@ class App extends Component {
                         // Get response data and save in store
                         .then(response => {
                             store.dispatch(sendToReducersAction("API_UPDATE_CS_ITEMS",response.data))
-                            if (response.data.length > 0) {
-                                // Also choose the first cs_item as the one to be currently edited
-                                store.dispatch(sendToReducersAction("API_UPDATE_CS_ITEM",response.data[0]))
-                            }
                         })
                         .catch(error => console.log(error))
                 }

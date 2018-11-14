@@ -1,10 +1,10 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
-import {OverlayTypes} from "./propTypes/OverlayTypes"
-import PropTypes from 'prop-types'
 import {renderField} from "./form/renderField"
+import {ClipTypes} from "./propTypes/ClipTypes";
+import PropTypes from "prop-types";
 
-const GeneralForm = ({general,params,formChanged, preventEnterKeySubmit}) => {
+const GeneralForm = ({cs_item_general,clip,params,formChanged, preventEnterKeySubmit}) => {
 
     // Constants
     let img_animations = params.img_animations || []
@@ -33,9 +33,9 @@ const GeneralForm = ({general,params,formChanged, preventEnterKeySubmit}) => {
     })
 
     // Media params
-    let overlay = general.overlay || {}
-    let media_params = general.media || {}
-    let media_theme = general.theme || {}
+    let overlay = cs_item_general.overlay || {}
+    let media_params = cs_item_general.media || {}
+    let media_theme = clip.theme || {}
 
     // media_theme_color contains full information about the theme color, like static and gradient colors components
     let media_theme_color = media_theme.color || {}
@@ -177,9 +177,7 @@ const GeneralForm = ({general,params,formChanged, preventEnterKeySubmit}) => {
 }
 
 GeneralForm.propTypes = {
-    general: PropTypes.shape({
-        overlay: PropTypes.shape(OverlayTypes)
-    })
+    clip: PropTypes.shape(ClipTypes)
 }
 
 export default reduxForm({

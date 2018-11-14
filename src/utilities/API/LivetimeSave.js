@@ -10,14 +10,18 @@ var clearMessageTimeout
 // var saveTimeout = 1200 // For saving on live
 var saveTimeout = 0 // Instant saving
 
+
 // Send data directly to API
 const LivetimeSave = (new_state) => {
 
     // Extract data to save
-    let template = extractDataToSaveFromState(new_state)
+    let dataToSave = {
+        cs_items: new_state.cs_items,
+        clip: new_state.clip
+    }
 
     // Should we make save btn appeared ?
-    hasDataChanged(new_state,template)
+    hasDataChanged(new_state,dataToSave)
 
     // If people pressed the button, send to API
     if (new_state.page_actions.ask_for_data_saving) {
@@ -31,17 +35,28 @@ const LivetimeSave = (new_state) => {
 
             updateSaveStatus(1)
 
-            // Post data to API
-            let cs_item = new_state.cs_item_edited
+            // Post data to API, all items at a time
+            let clip = dataToSave.clip
 
-            if (typeof cs_item.cnv_short_code !== "undefined" && cs_item.cnv_short_code.length > 0) {
+            if (typeof clip.cnv_short_code !== "undefined" && clip.cnv_short_code.length > 0) {
 
                 let request = api_client()
+
+                // Step 1 : update clip main info
                 request
-                    .post(data_providers.cs_item.update(cs_item.cnv_short_code,cs_item.id), {'template': template})
-                    // Get response data and save in store
-                    .then(response => updateSaveStatus(200,null,template))
+                    .post(data_providers.clip.update(clip.cnv_short_code), {'clip': dataToSave.clip})
+                    .then(response => {
+
+                        // Step 2 : update cs items data
+                        request
+                            .post(data_providers.cs_items.update(clip.cnv_short_code), {'items': dataToSave.cs_items})
+                            // Step 3 : done ! Hide save button
+                            .then(response => updateSaveStatus(200,null,dataToSave))
+                            .catch(error => updateSaveStatus(404,error.toString()))
+
+                    })
                     .catch(error => updateSaveStatus(404,error.toString()))
+
             } else {
                 updateSaveStatus(404,"wrong short code")
             }
@@ -51,28 +66,6 @@ const LivetimeSave = (new_state) => {
 
     return true
 }
-
-// Clean data before saving
-const extractDataToSaveFromState = (state) => ({
-
-    // We always need to save the whole content of general
-    general: state.cs_item_edited_general,
-
-    // Some fields of story stickers are useless, we need to remove them
-    story_stickers: state.cs_item_edited_story_stickers.map(storySticker => ({
-        position: {
-            maxWidth: storySticker.position.maxWidth || 0,
-            ratio: storySticker.position.ratio || 0,
-            rotation: storySticker.position.rotation || 0,
-            width: storySticker.position.width || 0,
-            x: storySticker.position.x || 0,
-            y: storySticker.position.y || 0,
-        },
-        sticker: storySticker.sticker,
-        id: storySticker.id
-    }))
-})
-
 
 // Test if data to save is different from old one
 // We can't do that directly in reducer, else this would be an infinite loop
@@ -96,6 +89,7 @@ const hasDataChanged = (state, dataToSave) => {
 
         // Data has changed since last api call, need to show user he should save
         if (state.page_actions.data_unsaved !== true) {
+
             // Just call reducer if data changed
             store.dispatch(sendToReducersAction("API_RECORD_LAST_SAVED_DATA",{
                 data_unsaved: true
@@ -116,7 +110,7 @@ const hasDataChanged = (state, dataToSave) => {
 
 
 // Update save status text
-const updateSaveStatus = (status, text,template) => {
+const updateSaveStatus = (status, text, dataSaved) => {
 
     clearTimeout(clearMessageTimeout)
 
@@ -127,7 +121,7 @@ const updateSaveStatus = (status, text,template) => {
     } else if (status === 200) {
 
         // Edit saving status, also record last saved data
-        store.dispatch(sendToReducersAction("API_UPDATE_SAVED",template))
+        store.dispatch(sendToReducersAction("API_UPDATE_SAVED",dataSaved))
 
         // Hide message after 2 sec
         clearMessageTimeout = setTimeout(function() {

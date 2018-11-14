@@ -37,6 +37,7 @@ export const sendToReducersAction = (type, data) => {
 
     // Format and return
     return {
+        cs_item_index_editing: store.getState().cs_item_index_editing,
         type: type,
         data: data || {}
     }
@@ -66,6 +67,7 @@ export const selectFromLibraryAction = (type, event) => {
         let init_width = Math.round(100*target.offsetWidth / mediaPanelSize.width)/100;
 
         return {
+            cs_item_index_editing: store.getState().cs_item_index_editing,
             type: type,
             event: event,
             target: target,
@@ -74,6 +76,7 @@ export const selectFromLibraryAction = (type, event) => {
         }
     }
     return {
+        cs_item_index_editing: store.getState().cs_item_index_editing,
         type: "DO_NOTHING",
         target: null
     }
@@ -106,6 +109,7 @@ export const transformStoryStickerAction = (type, event) => {
     if (target !== null) {
         // Format and return
         return {
+            cs_item_index_editing: store.getState().cs_item_index_editing,
             type: type,
             event: event,
             target: target,
@@ -132,6 +136,7 @@ export const propertiesFormChangedAction = (event) => {
     let inputName = target.name, inputValue = target.value
 
     return {
+        cs_item_index_editing: store.getState().cs_item_index_editing,
         event: event,
         // formData: data,
         name: inputName,

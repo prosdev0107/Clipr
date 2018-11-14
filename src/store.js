@@ -37,31 +37,6 @@ const initialState = {
             length: 0
         }
     },
-    // Basic info about clip
-    clip: {
-        id: "",
-        cnv_short_code: "",
-        cnv_type: "INPUT",
-        url_preview: ""
-    },
-    // List of all cs_items data, order by display order
-    cs_items: {},
-    // State of cs_item currently edited
-    cs_item_edited: {
-        id: "",
-        media: {
-            src: "",
-            thumbnail: "",
-            ext: "",
-            isVideo: false
-        },
-    },
-    cs_item_edited_story_stickers: [],
-    cs_item_edited_general: {
-        overlay: {},
-        theme: {},
-        img_filter_class: "",
-    },
     // Live status of some actions
     page_actions: {
         // Is page currently initializing
@@ -79,7 +54,17 @@ const initialState = {
         // Host of eb page which is running this editor through iframe
         url_host: ""
     },
-
+    // Basic info about clip (CONSTANT one editor is open)
+    clip: {
+        id: "",
+        cnv_short_code: "",
+        cnv_type: "INPUT",
+        url_preview: ""
+    },
+    // List of all cs_items data, order by display order (DATA WILL VARY)
+    cs_items: [], // Check utilities/csItemFromList to get schema of ONE cs item
+    // Index of current cs_item being edited
+    cs_item_index_editing: 0
 }
 
 
@@ -95,12 +80,13 @@ subscriber('page_actions', state => {
         LivetimeSave(state)
     }
 })
-subscriber('cs_item_edited_general', state => {
-    LivetimeSave(state)
-})
-subscriber('cs_item_edited_story_stickers', state => {
-    LivetimeSave(state)
-})
+subscriber('cs_items', state => {
 
+    LivetimeSave(state)
+})
+subscriber('clip', state => {
+
+    LivetimeSave(state)
+})
 
 export default store

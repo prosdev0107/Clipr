@@ -192,7 +192,9 @@ button.btn-default:not(.btn-floating):focus,
 .btn-info:hover,
 button.btn-default:not(.btn-floating):hover,
 .btn-info:active,
-button.btn-default:not(.btn-floating):active {
+button.btn-default:not(.btn-floating):active,
+.btn-info.btn-active,
+button.btn-default:not(.btn-floating).btn-active {
   background-color: #237eff!important;
   border-color: #237eff;
   color: white!important;
@@ -204,7 +206,8 @@ button.btn-default:not(.btn-floating):active {
 }
 .btn-danger:focus,
 .btn-danger:hover,
-.btn-danger:active {
+.btn-danger:active,
+.btn-danger.btn-active {
   background-color: #dc3545;
   border-color: #dc3545;
   color: white;

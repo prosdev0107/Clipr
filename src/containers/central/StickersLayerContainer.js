@@ -2,10 +2,11 @@
 import { connect } from 'react-redux'
 import StickersLayer from '../../components/StickersLayer'
 import {sendToReducersAction, transformStoryStickerAction} from "../../actions"
+import currentCsItemEdited from "../../utilities/csItemFromList"
 
 
 const mapStateToProps = state => ({
-    story_stickers: state.cs_item_edited_story_stickers,
+    story_stickers: currentCsItemEdited(state).template.story_stickers,
     listen_drag_events: state.page_actions.listen_drag_events
 })
 

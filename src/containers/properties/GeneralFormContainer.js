@@ -2,9 +2,11 @@
 import { connect } from 'react-redux'
 import GeneralForm from '../../components/GeneralForm'
 import {propertiesFormChangedAction, sendToReducersAction} from '../../actions'
+import currentCsItemEdited from "../../utilities/csItemFromList"
 
 const mapStateToProps = state => ({
-    general: state.cs_item_edited_general,
+    cs_item_general: currentCsItemEdited(state).template.general,
+    clip: state.clip,
     params: state.params
 })
 

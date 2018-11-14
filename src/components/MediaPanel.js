@@ -1,10 +1,7 @@
 import React from 'react'
 
 import StickerLayerContainer from '../containers/central/StickersLayerContainer'
-import {CsItemTypes, CsItemDefaults} from "./propTypes/CsItemTypes"
-import {OverlayTypes} from "./propTypes/OverlayTypes";
 import {MEDIA_PANEL_ID} from "../constants/constants"
-import PropTypes from 'prop-types'
 import ClipIframeContainer from '../containers/central/ClipIframeContainer'
 import {isSafari} from 'react-device-detect'
 
@@ -18,33 +15,29 @@ import {isSafari} from 'react-device-detect'
  * @returns {*}
  * @constructor
  */
-const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
+const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events }) => {
 
-    let overlay = general.overlay || {}
-    let mediaParams = general.media || {}
+    let overlay = cs_item_general.overlay || {}
+    let mediaParams = cs_item_general.media || {}
     let overlay_styles = {
         backgroundColor: overlay.color,
         opacity: overlay.opacity
     }
 
-    const renderBlurBackground = (cs_item) => {
+    const renderBlurBackground = () => {
 
-        if (typeof cs_item.media !== "undefined") {
-
-            let blur_background_styles = {
-                backgroundImage: "url('"+(cs_item.media.thumbnail || cs_item.media.src)+"')"
-            }
-
-            return !(mediaParams.fit_screen || 0) ?
-                "" : <div id="blur-background" className="blur-background absolute-center" style={blur_background_styles}/>
+        let blur_background_styles = {
+            backgroundImage: "url('"+(cs_item_media.thumbnail || cs_item_media.src)+"')"
         }
-        return ""
+
+        return !(mediaParams.fit_screen || 0) ?
+            "" : <div id="blur-background" className="blur-background absolute-center" style={blur_background_styles}/>
     }
 
     // Display image or video depending of media type
-    const renderMedia = (cs_item) => {
+    const renderMedia = () => {
 
-        if (typeof cs_item === "undefined" || typeof cs_item.media === "undefined") {
+        if (typeof cs_item_media === "undefined") {
             return null
         }
 
@@ -52,7 +45,7 @@ const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
         let posterType = mediaParams.fit_screen || 0 ? "poster-fit-screen" : "poster-full-screen"
 
         // Get thumbnail static image if video
-        let mediaToImg = cs_item.media.isVideo ? cs_item.media.thumbnail : cs_item.media.src
+        let mediaToImg = cs_item_media.isVideo ? cs_item_media.thumbnail : cs_item_media.src
 
         // If image already loaded, need to call function manually to adapt media size depending on full screen on/off
         // Because of asynchronous rendering, we need to add class from there
@@ -131,11 +124,11 @@ const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
         <div id={MEDIA_PANEL_ID} className="media-panel">
 
             {/* Media layer */}
-            <div className={"media-panel-layer media-panel-layer-media "+general.img_filter_class}>
+            <div className={"media-panel-layer media-panel-layer-media "+cs_item_general.img_filter_class}>
 
-                {renderBlurBackground(cs_item)}
+                {renderBlurBackground()}
 
-                {renderMedia(cs_item)}
+                {renderMedia()}
 
             </div>
 
@@ -161,14 +154,6 @@ const MediaPanel = ({ cs_item, general, listen_drag_events }) => {
         </div>
 
     </div>
-}
-
-MediaPanel.propTypes = {
-    cs_item: PropTypes.shape(CsItemTypes),
-    overlay: PropTypes.shape(OverlayTypes)
-}
-MediaPanel.defaultProps = {
-    cs_item: CsItemDefaults,
 }
 
 

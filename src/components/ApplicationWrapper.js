@@ -4,6 +4,7 @@ import LibraryContainer from "../containers/library/LibraryContainer"
 import MediaPanelContainer from "../containers/central/MediaPanelContainer"
 import PropertiesContainer from "../containers/properties/PropertiesContainer"
 import SaveMenuContainer from "../containers/SaveMenuContainer";
+import MediasSwitcherContainer from "../containers/central/MediasSwitcherContainer";
 
 const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_fonts, theme_fonts, clickAppContainer }) => {
 
@@ -82,6 +83,8 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
         :
 
         <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
+
+            <MediasSwitcherContainer />
 
             <LibraryContainer />
 
