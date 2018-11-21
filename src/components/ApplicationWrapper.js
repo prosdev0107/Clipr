@@ -6,7 +6,7 @@ import PropertiesContainer from "../containers/properties/PropertiesContainer"
 import SaveMenuContainer from "../containers/SaveMenuContainer";
 import MediasSwitcherContainer from "../containers/central/MediasSwitcherContainer";
 
-const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_fonts, theme_fonts, clickAppContainer }) => {
+const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_fonts, theme_fonts, has_items, clickAppContainer }) => {
 
 
     // Add stickers fonts
@@ -80,7 +80,7 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
 
         </div>
 
-        :
+        : ( has_items ?
 
         <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
 
@@ -94,7 +94,19 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
 
             <SaveMenuContainer />
 
-        </div>
+        </div> :
+
+            <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
+
+                <MediasSwitcherContainer />
+
+                <MediaPanelContainer />
+
+                <SaveMenuContainer />
+
+            </div>
+
+        )
 
 }
 
