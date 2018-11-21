@@ -47,6 +47,10 @@ const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events }) => {
         // Get thumbnail static image if video
         let mediaToImg = cs_item_media.isVideo ? cs_item_media.thumbnail : cs_item_media.src
 
+        if (mediaToImg.length < 5) {
+            return null
+        }
+
         // If image already loaded, need to call function manually to adapt media size depending on full screen on/off
         // Because of asynchronous rendering, we need to add class from there
         // TODO : do it a cleaner way using a local state

@@ -14,6 +14,23 @@ const csItemIndexEditingReducer = (state = [], action) => {
 
             return state
 
+        case 'MEDIA_SWITCHER_DELETE_MEDIA':
+
+            // Every time a media is deleted, we switch index back to 0
+            // in order to avoid an index bigger than number of medias after removal
+            return 0
+
+        case 'PROPERTIES_FORM_CHANGED':
+
+            if (action.name === "media_display_order") {
+
+                // User asks to change media position, so current cs item index needs to be switched
+
+                // Now let's change array items order
+                return action.value
+            }
+            break
+
         default:
             return state
     }

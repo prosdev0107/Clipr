@@ -3,4 +3,17 @@
   border: solid 1px gray;
   background: white;
 }
+.medias-switcher .media-switchbox-btn-container {
+  position: relative;
+}
+.medias-switcher .media-switchbox-btn-container .media-switchbox-delete {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateX(50%) translateY(-50%);
+  display: none;
+}
+.medias-switcher .media-switchbox-btn-container:hover .media-switchbox-delete {
+  display: block;
+}
 /*# sourceMappingURL=mediasSwitcher.css.map */

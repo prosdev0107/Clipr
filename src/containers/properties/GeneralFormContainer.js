@@ -6,6 +6,8 @@ import currentCsItemEdited from "../../utilities/csItemFromList"
 
 const mapStateToProps = state => ({
     cs_item_general: currentCsItemEdited(state).template.general,
+    cs_item_index_editing: state.cs_item_index_editing,
+    cs_items_length: state.cs_items.length,
     clip: state.clip,
     params: state.params
 })

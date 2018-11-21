@@ -30,7 +30,7 @@ const Select2 = ({
             {(label || "").length > 0 ? <label htmlFor={input.name}>{label}</label> : "" }
             <Select
                 {...input}
-                value={selectedOption || undefined}
+                value={selectedOption}
                 options={options}
                 optionRenderer={(option) => optionRenderer(option)}
                 clearable={false}

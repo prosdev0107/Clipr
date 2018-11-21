@@ -16,6 +16,46 @@ const csItemsReducer = (state = [], action) => {
             }
             return state
 
+        case 'MEDIA_SWITCHER_DELETE_MEDIA':
+
+            // Remove item from cs_items list
+            // delete API is not called here, we will call it once user pressed "save" button
+            let mediaIndexToDelete = action.data.index
+
+            if (typeof mediaIndexToDelete !== "undefined") {
+
+                // Remove from store
+                return state.filter((elt,index) => index !== mediaIndexToDelete);
+            }
+            return state
+
+        case 'PROPERTIES_FORM_CHANGED':
+
+            if (action.name === "media_display_order") {
+
+                // User asks to change media position
+
+                // Current position of selected media
+                let oldMediaPosition = action.cs_item_index_editing
+
+                // Destination user wishes
+                let newMediaPosition = action.value
+
+                function swapArrayElemts(arr, oldPosition, newPosition) {
+
+                    if (oldPosition !== newPosition && oldPosition < arr.length && newPosition < arr.length) {
+                        let temp = arr[newPosition]
+                        arr[newPosition] = arr[oldPosition]
+                        arr[oldPosition] = temp
+                    }
+                    return arr
+                }
+
+                // Now let's change array items order
+                return swapArrayElemts(state, oldMediaPosition, newMediaPosition)
+            }
+            break
+
         default:
             break
     }

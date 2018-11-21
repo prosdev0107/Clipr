@@ -4,7 +4,7 @@ import {renderField} from "./form/renderField"
 import {ClipTypes} from "./propTypes/ClipTypes";
 import PropTypes from "prop-types";
 
-const GeneralForm = ({cs_item_general,clip,params,formChanged, preventEnterKeySubmit}) => {
+const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip,params,formChanged, preventEnterKeySubmit}) => {
 
     // Constants
     let img_animations = params.img_animations || []
@@ -39,6 +39,15 @@ const GeneralForm = ({cs_item_general,clip,params,formChanged, preventEnterKeySu
 
     // media_theme_color contains full information about the theme color, like static and gradient colors components
     let media_theme_color = media_theme.color || {}
+
+    // Generate choices for display orders, knowing total number of available cs_items
+    let display_order_choices = []
+    for (let i=0; i < cs_items_length; i++) {
+        display_order_choices.push({
+            value: i,
+            label: i+1
+        })
+    }
 
     // Let's build the row data to be displayed
     let rowInputInfo = [
@@ -101,6 +110,16 @@ const GeneralForm = ({cs_item_general,clip,params,formChanged, preventEnterKeySu
         },
         {
             'separator': 'Média',
+        },
+        {
+            id: "media_display_order",
+            value: cs_item_index_editing || 0,
+            type: "css",
+            options: display_order_choices,
+            input: {
+                label: "Ordre d'affichage",
+                type: "select",
+            }
         },
         {
             id: "media_fit_screen",
