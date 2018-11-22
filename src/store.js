@@ -52,9 +52,15 @@ const initialState = {
         // 1 means saving in progress, 2 means saving has succeeded. If string, that's an error
         data_saving_status: 0,
         // Host of eb page which is running this editor through iframe
-        url_host: ""
+        url_host: "",
     },
-    // Basic info about clip (CONSTANT one editor is open)
+    import_media: {
+        // Display new/edit media modal
+        show_modal: false,
+        // Path to uploaded file
+        uploaded_file: null,
+    },
+    // Basic info about clip (CONSTANT once editor is opened)
     clip: {
         id: "",
         cnv_short_code: "",

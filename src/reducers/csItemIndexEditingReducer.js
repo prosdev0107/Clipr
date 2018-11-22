@@ -31,6 +31,11 @@ const csItemIndexEditingReducer = (state = [], action) => {
             }
             break
 
+        case "IMPORT_MEDIA_CREATE_FROM_FILE":
+
+            // This allow MediaSwitcher to switch to new media once created
+            return action.new_item_index
+
         default:
             return state
     }

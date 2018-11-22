@@ -1,6 +1,8 @@
 
 import {MEDIA_PANEL_ID} from "../constants/constants";
 import store from '../store'
+import axios from 'axios'
+import data_providers from '../api_endpoints'
 
 const getMediaPanelSize = () => {
     var mediaPanel = document.getElementById(MEDIA_PANEL_ID)

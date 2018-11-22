@@ -24,6 +24,10 @@ body {
 .hidden {
   display: none;
 }
+.disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}
 .width-full {
   width: 100%;
 }

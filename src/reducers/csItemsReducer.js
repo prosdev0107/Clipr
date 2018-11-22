@@ -56,6 +56,16 @@ const csItemsReducer = (state = [], action) => {
             }
             break
 
+        case 'API_CREATE_CS_ITEM':
+
+            let new_item = action.data
+
+            // Append this item to current items array
+            return [
+                ...state,
+                new_item
+            ]
+
         default:
             break
     }

@@ -47,7 +47,7 @@ const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events }) => {
         // Get thumbnail static image if video
         let mediaToImg = cs_item_media.isVideo ? cs_item_media.thumbnail : cs_item_media.src
 
-        if (mediaToImg.length < 5) {
+        if (typeof mediaToImg === "undefined" || mediaToImg.length < 5) {
             return null
         }
 

@@ -1,7 +1,7 @@
 
 import api_client from "./CliprRequest"
 import store from '../../store'
-import {sendToReducersAction} from "../../actions";
+import {sendToReducersAction} from "../../actions"
 import isEqual from 'lodash/isEqual'
 import data_providers from '../../api_endpoints.js'
 

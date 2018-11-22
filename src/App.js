@@ -72,6 +72,10 @@ class App extends Component {
                         // Get response data and save in store
                         .then(response => {
                             store.dispatch(sendToReducersAction("API_UPDATE_CS_ITEMS",response.data))
+                            if (response.data.length === 0) {
+                                // There is no items to display -> show upload media modal
+                                store.dispatch(sendToReducersAction("SHOW_IMPORT_MEDIA_MODAL",response.data))
+                            }
                         })
                         .catch(error => console.log(error))
                 }

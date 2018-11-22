@@ -4,20 +4,26 @@
   border: solid 1px gray;
   background: white;
 
-  .media-switchbox-btn-container {
+  .media-switchbox {
 
-    position: relative;
+    text-align: center;
 
-    .media-switchbox-delete {
-      position: absolute;
-      right: 0;
-      top: 0;
-      transform: translateX(50%) translateY(-50%);
-      display: none;
-    }
+    .media-switchbox-btn-container {
 
-    &:hover .media-switchbox-delete {
-      display: block;
+      position: relative;
+      display: inline-block;
+
+      .media-switchbox-delete {
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: translateX(50%) translateY(-50%);
+        display: none;
+      }
+
+      &:hover .media-switchbox-delete {
+        display: block;
+      }
     }
   }
 }

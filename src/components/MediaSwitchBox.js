@@ -9,7 +9,7 @@ const MediaSwitchBox = ({index, selected, cs_item, mediasSwitchBoxAction}) => {
             return <div>
                     <button
                     className={"btn btn-info btn-sm btn-floating "}
-                    onClick={(event) => mediasSwitchBoxAction('MEDIA_SWITCHER_NEW_MEDIA')}
+                    onClick={(event) => mediasSwitchBoxAction('SHOW_IMPORT_MEDIA_MODAL')}
                 >+</button>
             </div>
         }
