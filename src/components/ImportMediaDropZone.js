@@ -106,7 +106,7 @@ class ImportMediaDropZone extends React.Component {
             <video src={this.state.encoded} controls alt="preview"/> :
             <img src={this.state.encoded} alt="preview" />
 
-        let progressText= <span>En cours de transfert - {this.props.uploading_file_progress}%</span>
+        let progressText= <span className={"infoProgress"}>En cours de transfert - {this.props.uploading_file_progress}%</span>
         let progressBar = <Line percent={this.props.uploading_file_progress} strokeWidth={4} trailWidth={4} strokeColor="#00D9EA" />
 
         return <div className={"media-preview-wrapper"}>
@@ -114,8 +114,6 @@ class ImportMediaDropZone extends React.Component {
             <div className={"media-preview-container absolute-center"}>
 
                 {mediaPreview}
-
-                <br />
 
                 {progressText}
 

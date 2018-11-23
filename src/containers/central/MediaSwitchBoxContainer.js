@@ -6,7 +6,8 @@ import {sendToReducersAction} from "../../actions";
 const mapStateToProps = (state, ownProps) => ({
     index: ownProps.index,
     selected: ownProps.selected,
-    cs_item: ownProps.cs_item
+    cs_item: ownProps.cs_item,
+    cs_items_length: state.cs_items.length
 })
 
 const mapDispatchToProps = (dispatch) => ({

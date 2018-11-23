@@ -40,7 +40,10 @@
 .import-media-modal .media-preview-wrapper .media-preview-container > img,
 .import-media-modal .media-preview-wrapper .media-preview-container > span,
 .import-media-modal .media-preview-wrapper .media-preview-container > video {
-  display: block;
+  display: inline-block;
+}
+.import-media-modal .media-preview-wrapper .media-preview-container .infoProgress {
+  margin-top: 10px;
 }
 .import-media-modal .media-preview-wrapper .media-preview-container img,
 .import-media-modal .media-preview-wrapper .media-preview-container video {

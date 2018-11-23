@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MediaSwitchBox = ({index, selected, cs_item, mediasSwitchBoxAction}) => {
+const MediaSwitchBox = ({index, selected, cs_item, cs_items_length, mediasSwitchBoxAction}) => {
 
     function renderButtonContent() {
 
@@ -17,11 +17,16 @@ const MediaSwitchBox = ({index, selected, cs_item, mediasSwitchBoxAction}) => {
         return <div className={"media-switchbox-btn-container"}>
             <button
                 className={"btn btn-info btn-sm btn-floating "+(selected ? "btn-active" : "")}
-                onClick={(event) => mediasSwitchBoxAction('MEDIA_SWITCHER_CHANGE_INDEX',{'new_index': index})}
+                onClick={(event) => mediasSwitchBoxAction('MEDIA_SWITCHER_CHANGE_INDEX',{
+                    new_index: index
+                })}
             >{index+1}</button>
             <button
                 className={"btn btn-danger btn-xs btn-floating media-switchbox-delete"}
-                onClick={(event) => mediasSwitchBoxAction('MEDIA_SWITCHER_DELETE_MEDIA',{'index': index})}
+                onClick={(event) => mediasSwitchBoxAction('MEDIA_SWITCHER_DELETE_MEDIA',{
+                    index: index,
+                    items_length: cs_items_length
+                })}
             >D</button>
         </div>
     }

@@ -42,6 +42,16 @@ const pageActionsReducer = (state = [], action) => {
                 uploading_file_progress: 0
             }
 
+        case 'MEDIA_SWITCHER_DELETE_MEDIA':
+
+            // If there is no media left, display media import modal
+            if (action.data.items_length <= 1) {
+                return {
+                    ...state,
+                    show_modal: true
+                }
+            }
+            return state
 
         default:
             return state
