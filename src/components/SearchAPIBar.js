@@ -2,21 +2,18 @@ import React from 'react'
 import {renderField} from "./form/renderField"
 import {reduxForm} from "redux-form";
 import {vectorSourcing} from "../utilities/API/VectorSourcing";
-import {TAB_GIF} from "../constants/constants";
 
-const SearchAPIBar = ({search, is_loading_stickers, tab, formChanged, stickersLoaded, preventEnterKeySubmit}) => {
+const SearchAPIBar = ({api_source, type, searchText, searchResultsLength, is_loading_medias, formChanged, stickersLoaded, preventEnterKeySubmit}) => {
 
     // Each time the search text changed, this component is reloaded
 
-    // Which api should we call ?
-    let api_source = tab === TAB_GIF ? "giphy" : "pixabay"
-
     // Init with saved params
-    if (is_loading_stickers) {
+    if (is_loading_medias) {
         vectorSourcing(
             api_source,
-            search.text || "",
-            search.length || 0,
+            type,
+            searchText,
+            searchResultsLength,
             stickersLoaded
         )
     }
@@ -25,7 +22,11 @@ const SearchAPIBar = ({search, is_loading_stickers, tab, formChanged, stickersLo
 
         <div className="search-api-bar">
 
-            <form onChange={(event) => formChanged(event.target.value || "")}
+            <form onChange={(event) => formChanged({
+                        text: event.target.value || "",
+                        source: api_source,
+                        type: type
+                    })}
                   // Prevent submit on enter key
                   onKeyPress={(event) => preventEnterKeySubmit(event)} >
 
@@ -35,7 +36,7 @@ const SearchAPIBar = ({search, is_loading_stickers, tab, formChanged, stickersLo
                     placeholder: "Rechercher par mots-clés...",
                     input: {
                         type: "text",
-                        value: search.text || ""
+                        value: searchText || ""
                     }
                 }) }
 
@@ -49,5 +50,5 @@ const SearchAPIBar = ({search, is_loading_stickers, tab, formChanged, stickersLo
 }
 
 export default reduxForm({
-    form: 'giphyForm'
+    form: 'searchMediaForm'
 })(SearchAPIBar)

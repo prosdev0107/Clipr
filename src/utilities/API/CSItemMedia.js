@@ -9,14 +9,20 @@ import data_providers from '../../api_endpoints.js'
 const createCSItemFromFile = (file) => {
 
     let cnvShortCode = store.getState().clip.cnv_short_code
+    let postData
 
     // Initialize state
     store.dispatch(sendToReducersAction("API_CREATE_CS_ITEM_BEGIN"))
 
     // When creating a new media, we must submit file to server
     // So we can generate compressed media and create a new cs_item
-    var postData = new FormData()
-    postData.append('file', file)
+    if (typeof file === "string") {
+        // That's a URL string. Server will download it by itself
+        postData = {file: file}
+    } else {
+        postData = new FormData()
+        postData.append('file', file)
+    }
 
     // Get and store progress status of upload
     let config = {
@@ -33,8 +39,11 @@ const createCSItemFromFile = (file) => {
         .post(data_providers.cs_item.create(cnvShortCode), postData, config)
         .then(response => {
 
-            // Server returns the news cs_item, we just need to append it to our cs_items array
-            store.dispatch(sendToReducersAction("API_CREATE_CS_ITEM_END",response.data))
+            // Server returns the new cs_item, we just need to append it to our cs_items array
+            store.dispatch(sendToReducersAction("API_CREATE_CS_ITEM_END",{
+                ...response.data,
+                new_items_length: store.getState().cs_items.length +1
+            }))
 
             // Also close media import modal
             store.dispatch(sendToReducersAction("HIDE_IMPORT_MEDIA_MODAL",response.data))

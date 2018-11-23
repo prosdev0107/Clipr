@@ -1,33 +1,41 @@
 
 import config from "../../config"
-import axios from "axios/index";
+import axios from "axios/index"
 
-export function vectorSourcing (source, text, offset, callback) {
+export function vectorSourcing (source, type, text, offset, callback) {
 
     let source_info = config['api_'+source]
 
     // Endpoint ?
-    let endpoint = (text || "").length > 0 ? source_info.endpoint.stickers : source_info.endpoint.empty
+    let endpoint
+    if ((text || "").length > 0) {
+        endpoint = source_info.endpoint[type]
+    } else {
+        // No search text, so we made a custom query to provide content instead of an empty page
+        endpoint = source_info.endpoint_default[type]
+    }
 
     // Build full endpoint url
     let endpoint_url = source_info.BASE_URL+endpoint+"&"+source_info.API_KEY
 
-    const formatStickers = (stickers_original) =>  {
+    const formatMedias = (medias_original) =>  {
+
+        let formatted_data = []
 
         switch (source) {
 
             case "giphy": {
 
-                return stickers_original.map((sticker) => {
+                formatted_data = medias_original.map((media) => {
 
-                    if (typeof sticker.images === "undefined" || typeof sticker.images.downsized === "undefined") {
+                    if (typeof media.images === "undefined" || typeof media.images.downsized === "undefined") {
                         return undefined
                     }
 
-                    let imageData = sticker.images.downsized
+                    let imageData = media.images.downsized
 
                     return {
-                        id: "giphy_"+sticker.id,
+                        id: "giphy_"+media.id,
                         type: 'img',
                         ratio: Math.round(1000*imageData.height / imageData.width)/1000,
                         source: {
@@ -35,30 +43,60 @@ export function vectorSourcing (source, text, offset, callback) {
                         }
                     }
                 })
+
+                break
             }
 
             case "pixabay": {
 
-                return stickers_original.map((sticker) => {
+                formatted_data = medias_original.map((media) => {
 
-                    if (typeof sticker.webformatURL === "undefined" || typeof sticker.webformatHeight === "undefined") {
+                    if (type === 'video') {
+
+
+                        // Take biggest format available
+                        let videoFormat = media.videos[Object.keys(media.videos)[0]]
+
+                        // If file is too big, do not display
+                        if (videoFormat.height <= 0 || videoFormat.size > config.MAX_UPLOAD_MEDIA_SIZE) {
+                            return undefined
+                        }
+
+                        return {
+                            id: "pixabay_"+media.id,
+                            type: 'video',
+                            ratio: Math.round(1000*videoFormat.height / videoFormat.width)/1000,
+                            source: {
+                                src: videoFormat.url
+                            }
+                        }
+                    }
+
+                    if (typeof media.webformatURL === "undefined" || typeof media.webformatHeight === "undefined") {
                         return undefined
                     }
 
                     return {
-                        id: "pixabay_"+sticker.id,
+                        id: "pixabay_"+media.id,
                         type: 'img',
-                        ratio: Math.round(1000*sticker.webformatHeight / sticker.webformatWidth)/1000,
+                        ratio: Math.round(1000*media.webformatHeight / media.webformatWidth)/1000,
                         source: {
-                            src: sticker.webformatURL,
+                            src: media.webformatURL,
                         }
                     }
                 })
+
+                break
             }
 
             default:
-                return []
+                break
         }
+
+        // Remove null and undefined values and return results
+        return formatted_data.filter(function (el) {
+            return typeof el !== "undefined" && el !== null;
+        })
     }
 
     // Launch search
@@ -78,18 +116,19 @@ export function vectorSourcing (source, text, offset, callback) {
 
     axios.get(url).then((response) => {
 
-        var stickersData = response.data[source_info.pagination.dataKey]
+        var mediasData = response.data[source_info.pagination.dataKey]
 
-        if (typeof stickersData !== "undefined" && stickersData != null) {
+        if (typeof mediasData !== "undefined" && mediasData != null) {
 
             let shouldReinitializeContent = offset === 0
 
             // Also need to indicate pagination data here data because of asynchronous calls
             let paginationData = {
-                count: stickersData.length,
+                count: mediasData.length,
                 offset: offset,
             }
-            callback(formatStickers(stickersData), source, paginationData, shouldReinitializeContent)
+            console.log(formatMedias(mediasData))
+            callback(formatMedias(mediasData), source, type, paginationData, shouldReinitializeContent)
         }
     })
 }

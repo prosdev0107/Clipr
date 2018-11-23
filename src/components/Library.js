@@ -2,15 +2,16 @@ import React from 'react'
 import {isSafari} from 'react-device-detect'
 import LeftMenuContainer from "../containers/library/LeftMenuContainer"
 import LibraryContentContainer from "../containers/library/LibraryContentContainer"
-import GiphySearchContainer from "../containers/library/SearchAPIBarContainer"
+import SearchAPIBarContainer from "../containers/library/SearchAPIBarContainer"
 import LibraryImgFiltersContainer from "../containers/library/LibraryImgFiltersContainer"
 import {TAB_GENERAL, TAB_GIF, TAB_IMAGE, TAB_TEXT} from "../constants/constants"
 
-const Library = ({stickers, stickers_menu_tab, listen_drag_events, selectFromLibrary, loadMoreStickers}) => {
+const Library = ({stickers_menu_tab, listen_drag_events, selectFromLibrary, loadMoreStickers}) => {
 
     let onDragOverDo = listen_drag_events && !isSafari ? (event) => selectFromLibrary('EVENT_PREVENT_DEFAULT',event) : null
     let onMouseMoveDo = listen_drag_events && isSafari ? (event) => selectFromLibrary('EVENT_PREVENT_DEFAULT',event) : null
     let onDropDo = (event) => selectFromLibrary('EVENT_PREVENT_DEFAULT',event)
+    let api_source = stickers_menu_tab === TAB_GIF ? "giphy" : "pixabay"
 
     // Render library content to display depending on chosen tab
     const renderLibrayContent = (stickers_menu_tab) => {
@@ -42,7 +43,7 @@ const Library = ({stickers, stickers_menu_tab, listen_drag_events, selectFromLib
                     {renderSearchBar(stickers_menu_tab)}
 
                     {/* Stickers found for that search */}
-                    <LibraryContentContainer />
+                    <LibraryContentContainer source={api_source} type={"sticker"}/>
 
                 </div>
             </div>
@@ -55,8 +56,10 @@ const Library = ({stickers, stickers_menu_tab, listen_drag_events, selectFromLib
     // Render a search bar to search through Image API
     const renderSearchBar = (stickers_menu_tab) => {
 
+
         if (stickers_menu_tab === TAB_GIF || stickers_menu_tab === TAB_IMAGE) {
-            return <GiphySearchContainer />
+
+            return <SearchAPIBarContainer source={api_source} type={"sticker"} />
         }
 
         return <div/>

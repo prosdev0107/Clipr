@@ -3,17 +3,26 @@ import { connect } from 'react-redux'
 import SearchAPIBar from '../../components/SearchAPIBar'
 import {sendToReducersAction} from "../../actions";
 
-const mapStateToProps = state => ({
-    search: state.library_dynamic.search,
-    tab: state.library_dynamic.stickers_menu_tab,
-    is_loading_stickers: state.library_dynamic.is_loading_stickers
-})
+const mapStateToProps = (state, ownProps) => {
+
+    // Retrieve state fi-ir this specific search bar
+    let searchInfo = state.library_dynamic.search[ownProps.source+"_"+ownProps.type] || {}
+
+    return {
+        api_source: ownProps.source,                    // API Provider : Giphy, Pixabay
+        type: ownProps.type,                            // Media type : sticker, image, video
+        searchText: searchInfo.text || "",              // Search text that filters API result
+        searchResultsLength: searchInfo.length || 0,    // Offset needed when querying next pages
+        is_loading_medias: state.library_dynamic.is_loading_medias
+    }
+}
 
 const mapDispatchToProps = (dispatch) => ({
-    formChanged: (text) => dispatch(sendToReducersAction("LIBRARY_API_SEARCH_BAR_CHANGED", text)),
-    stickersLoaded: (stickers,api_source,pagination, reinitialize) => dispatch(sendToReducersAction("LIBRARY_EXTERNAL_CONTENT_LOADED", {
-        stickers,
+    formChanged: (data) => dispatch(sendToReducersAction("LIBRARY_API_SEARCH_BAR_CHANGED", data)),
+    stickersLoaded: (medias,api_source,type,pagination, reinitialize) => dispatch(sendToReducersAction("LIBRARY_EXTERNAL_CONTENT_LOADED", {
+        medias,
         api_source,
+        type,
         pagination,
         reinitialize
     })),

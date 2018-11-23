@@ -32,8 +32,11 @@ const prod = {
             per_page: 25,
         },
         endpoint: {
-            empty: "/stickers/trending?",
-            stickers: "/stickers/search?"
+            sticker: "/stickers/search?"
+        },
+        endpoint_default: {
+            // When no search text provided
+            sticker: "/stickers/trending?"
         }
     },
     api_pixabay: {
@@ -47,8 +50,15 @@ const prod = {
             per_page: 20,
         },
         endpoint: {
-            empty: "/?image_type=vector&q=like",
-            stickers: "/?image_type=vector"
+            sticker: "/?image_type=vector",
+            image: "/?image_type=photo&orientation=vertical",
+            video: "/videos/?video_type=film"
+        },
+        endpoint_default: {
+            // When no search text provided
+            sticker: "/?image_type=vector&q=like",
+            image: "/?image_type=photo&orientation=vertical&q=city",
+            video: "/videos/?video_type=film&q=city"
         }
     },
     aws_cdn: "https://d2fzf01co41kzj.cloudfront.net"
@@ -61,6 +71,6 @@ const config = process.env.REACT_APP_STAGE === 'production'
 
 export default {
     // Add common config values here
-    MAX_ATTACHMENT_SIZE: 5000000,
+    MAX_UPLOAD_MEDIA_SIZE: 25000000,
     ...config
 }

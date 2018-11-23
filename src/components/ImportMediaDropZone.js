@@ -2,6 +2,7 @@ import React from 'react'
 import Dropzone from 'react-dropzone'
 import createCSItemFromFile from '../utilities/API/CSItemMedia'
 import { Line } from 'rc-progress';
+import config from "../config";
 
 class ImportMediaDropZone extends React.Component {
 
@@ -69,7 +70,7 @@ class ImportMediaDropZone extends React.Component {
                 onDropRejected={this.onDropRejected.bind(this)}
                 multiple={false}
                 accept={"image/jpeg, image/png, video/*"}
-                maxSize={25000000}
+                maxSize={config.MAX_UPLOAD_MEDIA_SIZE}
                 style={this.dropzoneStyle}
             >
                 <p className={"infoText absolute-center"}>{this.renderDropZoneText()}</p>
@@ -103,7 +104,7 @@ class ImportMediaDropZone extends React.Component {
         }
 
         let mediaPreview = this.state.file.isVideo ?
-            <video src={this.state.encoded} controls alt="preview"/> :
+            <video src={this.state.encoded} controls /> :
             <img src={this.state.encoded} alt="preview" />
 
         let progressText= <span className={"infoProgress"}>En cours de transfert - {this.props.uploading_file_progress}%</span>

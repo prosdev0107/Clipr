@@ -9,10 +9,8 @@ const initialState = {
     // Constants that allow to build the view
     params: {
         stickers: {
-            pixabay: [],
             svg: [],
             text: [],
-            giphy: []
         },
         img_filters: [], // Filters to modify media rendering
         img_filters_css: "", // Link to css file that include all css filters styles
@@ -31,11 +29,17 @@ const initialState = {
     library_dynamic: {
         stickers_menu_tab: TAB_GENERAL,
         stickers_to_show: [],
-        is_loading_stickers: false,
+        is_loading_medias: false,
         search: {
-            text: "",
-            length: 0
-        }
+            // Length and text of each search type (pixabay, giphy, sticker, video...) will be stored there
+            // ex :
+            // pixabay_sticker : {
+            //      text: "boat",
+            //      length: 30,
+            //      medias: []
+            // }
+        },
+
     },
     // Live status of some actions
     page_actions: {
