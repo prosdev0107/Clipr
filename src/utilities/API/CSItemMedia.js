@@ -10,20 +10,31 @@ const createCSItemFromFile = (file) => {
 
     let cnvShortCode = store.getState().clip.cnv_short_code
 
+    // Initialize state
+    store.dispatch(sendToReducersAction("API_CREATE_CS_ITEM_BEGIN"))
+
     // When creating a new media, we must submit file to server
     // So we can generate compressed media and create a new cs_item
     var postData = new FormData()
     postData.append('file', file)
 
+    // Get and store progress status of upload
+    let config = {
+        onUploadProgress: progressEvent => {
+            // Store progress status in global state
+            let percentCompleted = Math.min(100,Math.max(0,Math.floor((progressEvent.loaded * 100) / progressEvent.total)));
+            store.dispatch(sendToReducersAction("IMPORT_MEDIA_PROGRESS_PERCENT",percentCompleted))
+        }
+    }
+
     // Call create API asynchronously
     let request = api_client()
     request
-        .post(data_providers.cs_item.create(cnvShortCode), postData)
+        .post(data_providers.cs_item.create(cnvShortCode), postData, config)
         .then(response => {
-            console.log(response)
 
             // Server returns the news cs_item, we just need to append it to our cs_items array
-            store.dispatch(sendToReducersAction("API_CREATE_CS_ITEM",response.data))
+            store.dispatch(sendToReducersAction("API_CREATE_CS_ITEM_END",response.data))
 
             // Also close media import modal
             store.dispatch(sendToReducersAction("HIDE_IMPORT_MEDIA_MODAL",response.data))

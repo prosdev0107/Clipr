@@ -1,0 +1,49 @@
+.import-media-modal button.close {
+  padding: 0;
+  padding-right: 10px;
+}
+.import-media-modal ul.nav-tabs {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.import-media-modal ul.nav-tabs > li.active > a {
+  color: #446CB3;
+  background-color: transparent;
+  border-color: #446CB3;
+  border-bottom-color: white;
+}
+.import-media-modal ul.nav-tabs > li > a:hover {
+  text-decoration: none;
+}
+.import-media-modal .dropzone > div {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  border: dashed 2px #666666;
+  border-radius: 5px;
+}
+.import-media-modal .dropzone > div .infoText {
+  position: absolute;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+}
+.import-media-modal .media-preview-wrapper {
+  min-height: 350px;
+  position: relative;
+}
+.import-media-modal .media-preview-wrapper .media-preview-container {
+  position: absolute;
+  padding: 10px;
+  text-align: center;
+}
+.import-media-modal .media-preview-wrapper .media-preview-container > img,
+.import-media-modal .media-preview-wrapper .media-preview-container > span,
+.import-media-modal .media-preview-wrapper .media-preview-container > video {
+  display: block;
+}
+.import-media-modal .media-preview-wrapper .media-preview-container img,
+.import-media-modal .media-preview-wrapper .media-preview-container video {
+  max-height: 250px;
+}
+/*# sourceMappingURL=mediaImportModal.css.map */

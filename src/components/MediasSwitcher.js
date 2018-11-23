@@ -6,11 +6,14 @@ const MediasSwitcher = ({cs_items, cs_item_index_editing}) => {
 
     // First render as many buttons as number of medias
     // Then add "add new media" button
+
+    let col_length = 12/Math.min(4,1+cs_items.length)
+
     return <div className="medias-switcher absolute-center-horizontal">
 
         <Row>
             {cs_items.map((cs_item,index) =>
-                <Col key={index} sm={3}>
+                <Col key={index} sm={col_length}>
                     <MediaSwitchBoxContainer
                         index={index}
                         cs_item={cs_item}
@@ -19,7 +22,7 @@ const MediasSwitcher = ({cs_items, cs_item_index_editing}) => {
                 </Col>
             )}
 
-            <Col sm={3}>
+            <Col sm={col_length}>
 
                 <MediaSwitchBoxContainer
                     cs_item={null}

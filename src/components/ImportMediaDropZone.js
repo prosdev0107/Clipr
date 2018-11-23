@@ -1,6 +1,7 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
 import createCSItemFromFile from '../utilities/API/CSItemMedia'
+import { Line } from 'rc-progress';
 
 class ImportMediaDropZone extends React.Component {
 
@@ -11,18 +12,10 @@ class ImportMediaDropZone extends React.Component {
         isUploading: false
     }
 
-    // Show preview of image/video while it's uploaded to the server
-    renderPreview = () => {
-
-        if (this.state.encoded.length === 0) {
-            return <div/>
-        } else if (this.state.file.isVideo) {
-            return <video src={this.state.encoded} width={200} controls alt="preview"/>
-        } else {
-            return <img src={this.state.encoded} alt="preview" width={200}/>
-        }
+    // Cancel dropzone default inline style by setting an empty object
+    // Style is set with CSS
+    dropzoneStyle = {
     }
-
 
     onDrop = acceptedFiles => {
 
@@ -63,6 +56,28 @@ class ImportMediaDropZone extends React.Component {
         })
     }
 
+    renderDropZone = () => {
+
+        // Hide dropzone when media is uploading
+        if (this.state.infoUpload === "UPLOADING_FILE") {
+            return null
+        }
+
+        return <div className={"dropzone"}>
+            <Dropzone
+                onDrop={this.onDrop.bind(this)}
+                onDropRejected={this.onDropRejected.bind(this)}
+                multiple={false}
+                accept={"image/jpeg, image/png, video/*"}
+                maxSize={25000000}
+                style={this.dropzoneStyle}
+            >
+                <p className={"infoText absolute-center"}>{this.renderDropZoneText()}</p>
+            </Dropzone>
+        </div>
+
+    }
+
     renderDropZoneText = () => {
 
         switch (this.state.infoUpload) {
@@ -73,37 +88,51 @@ class ImportMediaDropZone extends React.Component {
             case "WRONG_FILE":
                 return <span className='orange-a400'>Le fichier doit être une image format .png ou .jpg, ou une vidéo format mp4, mkv, mov, flv ou webm, et ne peut excéder 25 Mo.</span>
 
-            case "UPLOADING_FILE":
-                return <span className='green-a400'>En cours de transfert...</span>
-
             default:
                 return null
 
         }
     }
 
+
+    renderPreviewZone = () => {
+
+        // Show zone only when media is uploading
+        if (this.state.infoUpload !== "UPLOADING_FILE" || this.state.encoded.length === 0) {
+            return null
+        }
+
+        let mediaPreview = this.state.file.isVideo ?
+            <video src={this.state.encoded} controls alt="preview"/> :
+            <img src={this.state.encoded} alt="preview" />
+
+        let progressText= <span>En cours de transfert - {this.props.uploading_file_progress}%</span>
+        let progressBar = <Line percent={this.props.uploading_file_progress} strokeWidth={4} trailWidth={4} strokeColor="#00D9EA" />
+
+        return <div className={"media-preview-wrapper"}>
+
+            <div className={"media-preview-container absolute-center"}>
+
+                {mediaPreview}
+
+                <br />
+
+                {progressText}
+
+                {progressBar}
+
+            </div>
+
+        </div>
+
+    }
     render() {
 
-        return <div className={"dropzone "+ (this.state.isUploading ? "disabled" : "")}>
+        return <div>
 
-            <Dropzone
-                onDrop={this.onDrop.bind(this)}
-                onDropRejected={this.onDropRejected.bind(this)}
-                multiple={false}
-                accept={"image/jpeg, image/png, video/*"}
-                maxSize={25000000}
-            >
-                <p>{this.renderDropZoneText()}</p>
-            </Dropzone>
+            {this.renderDropZone()}
 
-            {this.renderPreview()}
-
-            <aside>
-                <h2>Dropped files</h2>
-                <ul>
-                    <li key={this.state.file.name}>{this.state.file.name} - {this.state.file.size} bytes</li>
-                </ul>
-            </aside>
+            {this.renderPreviewZone()}
 
         </div>
     }

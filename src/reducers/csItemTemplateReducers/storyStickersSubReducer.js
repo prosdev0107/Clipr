@@ -313,8 +313,6 @@ const storyStickersSubReducer = (state = [], action) => {
 
         case 'LIBRARY_STICKER_DRAG_START':
 
-            console.log("LIB DRAG START")
-
             // Set initial position of cursor in data transfer
             // Also save info about sticker content
             action.event.dataTransfer.setData('text/plain',JSON.stringify({

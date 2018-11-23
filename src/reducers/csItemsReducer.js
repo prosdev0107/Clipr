@@ -56,7 +56,7 @@ const csItemsReducer = (state = [], action) => {
             }
             break
 
-        case 'API_CREATE_CS_ITEM':
+        case 'API_CREATE_CS_ITEM_END':
 
             let new_item = action.data
 

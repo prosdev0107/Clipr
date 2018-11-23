@@ -1,8 +1,8 @@
 import React from 'react'
 import ImportMediaDropZoneContainer from "../containers/import/ImportMediaDropZoneContainer"
-import {Button} from 'react-bootstrap'
+import {Tabs, Tab} from 'react-bootstrap'
 
-const ImportMediaLibrary = ({}) => {
+const ImportMediaLibrary = () => {
 
     /* We can import a media in 3 ways :
      * 1) Import owned media
@@ -12,7 +12,23 @@ const ImportMediaLibrary = ({}) => {
 
     return <div>
 
-        <ImportMediaDropZoneContainer />
+        <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
+
+            <Tab eventKey={1} title="Templates">
+                Coming soon !
+            </Tab>
+            <Tab eventKey={2} title="Import file">
+                <ImportMediaDropZoneContainer />
+            </Tab>
+            <Tab eventKey={3} title="Bibli Images">
+                api img
+            </Tab>
+            <Tab eventKey={4} title="Bibli Video">
+                api video
+            </Tab>
+
+        </Tabs>
+
 
 
     </div>

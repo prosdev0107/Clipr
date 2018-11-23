@@ -1,0 +1,64 @@
+.import-media-modal {
+
+  button.close {
+    padding: 0;
+    padding-right: 10px;
+  }
+
+  ul.nav-tabs {
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    & > li {
+
+      &.active > a {
+        color: #446CB3;
+        background-color: transparent;
+        border-color: #446CB3;
+        border-bottom-color: white;
+      }
+
+      & > a:hover {
+        text-decoration: none;
+      }
+    }
+
+  }
+
+  .dropzone > div {
+
+    position: relative;
+    width: 100%;
+    min-height: 200px;
+    border: dashed 2px rgb(102, 102, 102);
+    border-radius: 5px;
+
+    & .infoText {
+      position: absolute;
+      padding: 10px;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .media-preview-wrapper {
+
+    min-height: 350px;
+    position: relative;
+
+    .media-preview-container {
+      position: absolute;
+      padding: 10px;
+      text-align: center;
+
+      & > img, & > span, & > video {
+        display: block;
+      }
+
+      img, video {
+        max-height: 250px;
+      }
+    }
+  }
+}

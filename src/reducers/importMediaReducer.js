@@ -19,13 +19,27 @@ const pageActionsReducer = (state = [], action) => {
                 show_modal: false
             }
 
-        case "IMPORT_MEDIA_CREATE_FROM_FILE":
-
-            let file = action.data
+        case 'API_CREATE_CS_ITEM_BEGIN':
 
             return {
                 ...state,
-                uploaded_file: file.name
+                uploading_file_progress: 0
+            }
+
+        case "IMPORT_MEDIA_PROGRESS_PERCENT":
+
+            // Progress status (scale 0-100) of current uploading file
+            return {
+                ...state,
+                uploading_file_progress: action.data
+            }
+
+        case "API_CREATE_CS_ITEM_END":
+
+            // Progress status (scale 0-100) of current uploading file
+            return {
+                ...state,
+                uploading_file_progress: 0
             }
 
 

@@ -57,8 +57,8 @@ const initialState = {
     import_media: {
         // Display new/edit media modal
         show_modal: false,
-        // Path to uploaded file
-        uploaded_file: null,
+        // Progress (scale 0-100) of current file uploading
+        uploading_file_progress: 0,
     },
     // Basic info about clip (CONSTANT once editor is opened)
     clip: {

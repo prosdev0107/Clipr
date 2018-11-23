@@ -1,12 +1,9 @@
 import React from 'react'
 // import LibraryContainer from "../containers/import/LibraryContainer"
-import {Button} from 'react-bootstrap'
 
-const ImportMediaResizer = ({}) => {
+const ImportMediaResizer = () => {
 
-    return <div>
-
-    </div>
+    return <div/>
 
 }
 

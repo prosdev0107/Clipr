@@ -1,5 +1,5 @@
 import React from 'react'
-import {Modal, Button} from 'react-bootstrap'
+import {Modal} from 'react-bootstrap'
 import ImportMediaLibraryContainer from "../containers/import/ImportMediaLibraryContainer"
 import ImportMediaResizerContainer from "../containers/import/ImportMediaResizerContainer"
 
@@ -9,6 +9,7 @@ const ImportMediaModal = ({modal_show, closeModal}) => {
         setTimeout(function() {
 
             // TODO We have some problems with react bootstrap modal
+            // Or maybe conflict with css files ?
             // We need to fire show event by ourselves
             document.querySelectorAll(".modal-open div.fade.in").forEach((elmt) => {
                 elmt.classList.add("show")
@@ -16,16 +17,25 @@ const ImportMediaModal = ({modal_show, closeModal}) => {
         },50)
     }
 
-    return <div>
+    return <div className={"import-media-modal"}>
         <Modal
             show={modal_show}
             onHide={() => closeModal()}
             bsSize={"lg"}
+            className={"import-media-modal"}
         >
-            <Modal.Header closeButton>
+            <Modal.Header>
+
                 <Modal.Title>
                     Import Media
                 </Modal.Title>
+
+                {/* TODO : utiliser propriété closeButton dans tag Modal.Title, mais avant faut loader le bon bootstrap CSS (3.3.7 ?) */}
+                <button type="button" className="close" onClick={() => closeModal()}>
+                    <span aria-hidden="true">×</span>
+                    <span className="sr-only">Close</span>
+                </button>
+
             </Modal.Header>
             <Modal.Body>
 
@@ -34,9 +44,6 @@ const ImportMediaModal = ({modal_show, closeModal}) => {
                 <ImportMediaResizerContainer />
 
             </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={() => closeModal()}>Close</Button>
-            </Modal.Footer>
         </Modal>
     </div>
 

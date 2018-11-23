@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import ImportMediaLibrary from '../../components/ImportMediaLibrary'
-import {sendToReducersAction} from "../../actions";
+// import {sendToReducersAction} from "../../actions";
 
 const mapStateToProps = state => ({
 })

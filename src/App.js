@@ -20,6 +20,7 @@ import './styles/sticker.min.css'
 import './styles/properties.min.css'
 import './styles/clip.min.css'
 import './styles/fake-interactions.css'
+import './styles/mediaImportModal.css'
 
 import ApplicationContainer from "./containers/ApplicationContainer";
 
