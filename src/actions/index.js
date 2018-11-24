@@ -29,6 +29,20 @@ const findStickerWithId = (stickerId) => {
         }
     }
 
+    // If not found, search in stickers loaded from API (pixabay, giphy)
+    stickers = store.getState().library_dynamic.search
+
+    for (let mediaKey in stickers) {
+
+        if (mediaKey.indexOf('sticker') !== -1 && typeof stickers[mediaKey] !== "undefined" && stickers[mediaKey]  !== null) {
+
+            let sticker = stickers[mediaKey].medias.find((obj) => { return obj.id === stickerId })
+            if (typeof sticker !== "undefined" && sticker !== null) {
+                return sticker
+            }
+        }
+    }
+
     return null
 }
 
