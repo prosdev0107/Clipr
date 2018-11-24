@@ -57,6 +57,8 @@ const initialState = {
         data_saving_status: 0,
         // Host of eb page which is running this editor through iframe
         url_host: "",
+        // Switch between editor and preview mode
+        is_preview_mode: false
     },
     import_media: {
         // Display new/edit media modal

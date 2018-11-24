@@ -10,6 +10,7 @@ const mapStateToProps = state => {
     return {
         cs_item_general: cs_item.template.general,
         cs_item_media: cs_item.media,
+        is_preview_mode: state.page_actions.is_preview_mode,
         listen_drag_events: state.page_actions.listen_drag_events
     }
 }

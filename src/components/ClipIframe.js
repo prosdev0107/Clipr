@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CliprIframe = ({theme, params, url_preview}) => {
+const CliprIframe = ({theme, params, url_preview, is_preview}) => {
 
     // Find path to font source
     let theme_fonts = params.themes.fonts || {}
@@ -25,7 +25,7 @@ const CliprIframe = ({theme, params, url_preview}) => {
 
         // Show iframe (with short timeout to let new CSS added to be executed)
         setTimeout(function() {
-            iframe.style.opacity=1.0
+            iframe.style.opacity=1.0;
         },1000)
     }
 
@@ -45,12 +45,22 @@ const CliprIframe = ({theme, params, url_preview}) => {
         }
     }
 
-    return <iframe
-        id="Clip_Iframe"
-        src={url_preview+"&only_native=1"}
-        title="Clip buttons only preview"
-        allowtransparency="true"
-        onLoad={(event) => tranformIframe(event)} />
+    return is_preview ?
+
+        <iframe
+        id="Clip_Iframe_Preview"
+        src={url_preview}
+        title="Simulator"
+        />
+
+        :
+
+        <iframe
+            id="Clip_Iframe"
+            src={url_preview + "&only_native=1"}
+            title="Clip buttons only preview"
+            allowtransparency="true"
+            onLoad={(event) => tranformIframe(event)}/>
 }
 
 export default CliprIframe

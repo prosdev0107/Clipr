@@ -123,6 +123,13 @@ const pageActionsReducer = (state = [], action) => {
                 data_saving_status: action.data,
             }
 
+        case 'PREVIEW_SWITCHER_CHANGE_PREVIEW_MODE':
+
+            // Switch between editor and simulator mode
+            return {
+                ...state,
+                is_preview_mode: action.data === true,
+            }
 
         default:
             return state

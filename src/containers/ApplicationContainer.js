@@ -8,6 +8,7 @@ const mapStateToProps = state => ({
     data_saving_status: state.page_actions.data_saving_status,
     stickers_fonts: state.params.sticker_fonts,
     theme_fonts: state.params.themes.fonts,
+    is_preview_mode: state.page_actions.is_preview_mode,
     has_items: state.cs_items.length > 0
 })
 

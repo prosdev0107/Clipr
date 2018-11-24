@@ -4,6 +4,7 @@ import StickerLayerContainer from '../containers/central/StickersLayerContainer'
 import {MEDIA_PANEL_ID} from "../constants/constants"
 import ClipIframeContainer from '../containers/central/ClipIframeContainer'
 import {isSafari} from 'react-device-detect'
+import PreviewSwitcherContainer from "../containers/central/PreviewSwitcherContainer"
 
 /**
  * The Media Panel is where we can customize media with content
@@ -15,7 +16,7 @@ import {isSafari} from 'react-device-detect'
  * @returns {*}
  * @constructor
  */
-const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events }) => {
+const MediaPanel = ({ cs_item_general, cs_item_media, is_preview_mode, listen_drag_events }) => {
 
     let overlay = cs_item_general.overlay || {}
     let mediaParams = cs_item_general.media || {}
@@ -128,7 +129,7 @@ const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events }) => {
         <div id={MEDIA_PANEL_ID} className="media-panel">
 
             {/* Media layer */}
-            <div className={"media-panel-layer media-panel-layer-media "+cs_item_general.img_filter_class}>
+            <div className={is_preview_mode ? "hidden" : "media-panel-layer media-panel-layer-media "+cs_item_general.img_filter_class}>
 
                 {renderBlurBackground()}
 
@@ -137,25 +138,35 @@ const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events }) => {
             </div>
 
             {/* Overlay layer */}
-            <div className="media-panel-layer media-panel-layer-overlay" style={overlay_styles}>
+            <div className={is_preview_mode ? "hidden" : "media-panel-layer media-panel-layer-overlay"} style={overlay_styles}>
 
             </div>
 
             {/* Stickers layer */}
-            <div className="media-panel-layer media-panel-layer-stickers">
+            <div className={is_preview_mode ? "hidden" : "media-panel-layer media-panel-layer-stickers"} >
                 <StickerLayerContainer />
             </div>
 
-            {/* Interactions layer */}
+            {/* Native elements layer or preview mode */}
             {/* On Safari, iframe CONTENT cannot be set entirely to pointer-event none, so will receive the drag over and on drop events */}
             {/* That's why we need to deactivate it while dragging elements */}
-            <div className={"media-panel-layer media-panel-layer-buttons "+(isSafari && listen_drag_events ? "hidden" : "")} >
+            <div className={is_preview_mode ? "hidden" : "media-panel-layer media-panel-layer-buttons "
+                +(isSafari && listen_drag_events ? "hidden" : "")} >
 
-                <ClipIframeContainer />
+                <ClipIframeContainer is_preview={0} />
 
             </div>
 
+
+            {/* Iframe that displays clipr preview */}
+            <div className={is_preview_mode ? "media-panel-layer media-panel-layer-buttons" : "hidden"}>
+
+                <ClipIframeContainer is_preview={1}/>
+
+            </div>
         </div>
+
+        <PreviewSwitcherContainer />
 
     </div>
 }

@@ -7,7 +7,7 @@ import SaveMenuContainer from "../containers/SaveMenuContainer"
 import MediasSwitcherContainer from "../containers/central/MediasSwitcherContainer"
 import ImportMediaModalContainer from "../containers/import/ImportMediaModalContainer"
 
-const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_fonts, theme_fonts, has_items, clickAppContainer }) => {
+const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_fonts, theme_fonts, is_preview_mode, has_items, clickAppContainer }) => {
 
 
     // Add stickers fonts
@@ -68,6 +68,52 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
     }
 
 
+    const renderAppWithItemsContent = () => {
+
+        if (is_preview_mode) {
+            return <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
+
+                <MediaPanelContainer />
+
+                <SaveMenuContainer />
+
+            </div>
+        }
+
+        return <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
+
+            <ImportMediaModalContainer />
+
+            <MediasSwitcherContainer />
+
+            <LibraryContainer />
+
+            <MediaPanelContainer />
+
+            <PropertiesContainer/>
+
+            <SaveMenuContainer />
+
+
+        </div>
+    }
+
+    const renderAppWithNoItemsContent = () => {
+
+        return <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
+
+            <ImportMediaModalContainer />
+
+            <MediasSwitcherContainer />
+
+            <MediaPanelContainer />
+
+            <SaveMenuContainer />
+
+        </div>
+    }
+
+
     return page_is_loading ?
 
         // While page is initializing, we should display a loader
@@ -83,33 +129,13 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
 
         : ( has_items ?
 
-        <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
+                <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
 
-            <ImportMediaModalContainer />
+                    { renderAppWithItemsContent() }
 
-            <MediasSwitcherContainer />
+                </div> :
 
-            <LibraryContainer />
-
-            <MediaPanelContainer />
-
-            <PropertiesContainer/>
-
-            <SaveMenuContainer />
-
-        </div> :
-
-            <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
-
-                <ImportMediaModalContainer />
-
-                <MediasSwitcherContainer />
-
-                <MediaPanelContainer />
-
-                <SaveMenuContainer />
-
-            </div>
+                renderAppWithNoItemsContent()
 
         )
 

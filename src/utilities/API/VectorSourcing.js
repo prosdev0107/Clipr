@@ -118,7 +118,7 @@ export function vectorSourcing (source, type, text, offset, callback) {
     }
 
     // How many results should be returned at max ?
-    if (source_info.pagination.per_page || 0 > 0) {
+    if (source_info.pagination.per_page > 0) {
         query = "&per_page="+source_info.pagination.per_page
     }
 

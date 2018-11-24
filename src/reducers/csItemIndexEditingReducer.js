@@ -29,7 +29,7 @@ const csItemIndexEditingReducer = (state = [], action) => {
                 // Now let's change array items order
                 return action.value
             }
-            break
+            return state
 
         case "API_CREATE_CS_ITEM_END":
 
