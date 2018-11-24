@@ -1,4 +1,4 @@
-import {TAB_IMAGE, TAB_GIF, TAB_GENERAL} from "../constants/constants"
+import {TAB_GENERAL} from "../constants/constants"
 
 const libraryDynamicReducer = (state = [], action) => {
 

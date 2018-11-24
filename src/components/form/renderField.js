@@ -21,12 +21,11 @@ export const renderField = (properties, action) => {
     }
 
     let common = {
-        name: properties.id,
+        name: properties.input.name || properties.id,
         nonMaterial: properties.nonMaterial,
         placeholder: properties.placeholder,
         type: properties.input.type
     }
-
     switch (properties.input.type || "text") {
 
         case "font":

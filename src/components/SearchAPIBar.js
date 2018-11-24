@@ -1,7 +1,7 @@
 import React from 'react'
 import {renderField} from "./form/renderField"
-import {reduxForm} from "redux-form";
-import {vectorSourcing} from "../utilities/API/VectorSourcing";
+import {reduxForm} from "redux-form"
+import {vectorSourcing} from "../utilities/API/VectorSourcing"
 
 const SearchAPIBar = ({api_source, type, searchText, searchResultsLength, is_loading, formChanged, stickersLoaded, preventEnterKeySubmit}) => {
 
@@ -31,11 +31,12 @@ const SearchAPIBar = ({api_source, type, searchText, searchResultsLength, is_loa
                   onKeyPress={(event) => preventEnterKeySubmit(event)} >
 
                 { renderField({
-                    id: "search_api_bar",
+                    id: api_source+"_"+type+"_searchBar",
                     nonMaterial: true,
                     placeholder: "Rechercher par mots-clés...",
                     input: {
                         type: "text",
+                        name: api_source+"_"+type+"_search",
                         value: searchText || ""
                     }
                 }) }

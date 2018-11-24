@@ -59,7 +59,16 @@ const Library = ({stickers_menu_tab, listen_drag_events, selectFromLibrary, load
 
         if (stickers_menu_tab === TAB_GIF || stickers_menu_tab === TAB_IMAGE) {
 
-            return <SearchAPIBarContainer source={api_source} type={"sticker"} />
+            // Here we render one form per search type
+            // So that search bears can evolve independently
+            return  <div>
+                <div className={stickers_menu_tab === TAB_GIF ? "hidden" : ""}>
+                    <SearchAPIBarContainer source={"pixabay"} type={"sticker"} />
+                </div>
+                <div className={stickers_menu_tab === TAB_IMAGE ? "hidden" : ""}>
+                    <SearchAPIBarContainer source={"giphy"} type={"sticker"} />
+                </div>
+            </div>
         }
 
         return <div/>
