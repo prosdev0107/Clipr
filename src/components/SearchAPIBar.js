@@ -7,8 +7,9 @@ const SearchAPIBar = ({api_source, type, searchText, searchResultsLength, is_loa
 
     // Each time the search text changed, this component is reloaded
 
-    // Init with saved params
-    if (is_loading) {
+    // Launch search with current text
+    console.log(searchText.length,searchResultsLength)
+    if (is_loading || (searchText.length === 0 && searchResultsLength === 0)) {
         vectorSourcing(
             api_source,
             type,
