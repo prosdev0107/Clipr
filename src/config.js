@@ -29,7 +29,7 @@ const prod = {
             dataKey: "data",        // Key name of response data containing the results
             param: "offset",        // The param name to use in query
             type: "length",         // Means we should query "from the Xth sticker"
-            per_page: 25,
+            per_page: 24,
         },
         endpoint: {
             sticker: "/stickers/search?"
@@ -47,7 +47,7 @@ const prod = {
             dataKey: "hits",        // Key name of response data containing the results
             param: "page",          // The param name to use in query
             type: "page",           // Means we should query "from the Xth page"
-            per_page: 20,
+            per_page: 24,
         },
         endpoint: {
             sticker: "/?image_type=vector",

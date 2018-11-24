@@ -54,7 +54,7 @@ const libraryDynamicReducer = (state = [], action) => {
                     // Update total length of elements already updated
                     [api_state_key]: {
                         ...state.search[api_state_key],
-                        is_loading: false
+                        is_loading: true
                     }
                 },
             }

@@ -5,9 +5,9 @@ const ImportAPIMedia = ({media}) => {
 
     const renderMedia = () => {
         if (media.type === "img") {
-            return <img className={"width-full"} src={media.source.src} alt="..." />
+            return <img className={"width-full"} src={media.source.preview} alt="..." />
         }
-        return <video className={"width-full"} src={media.source.src} controls />
+        return <video className={"width-full"} src={media.source.preview} controls />
     }
 
     const clickMedia = () => {

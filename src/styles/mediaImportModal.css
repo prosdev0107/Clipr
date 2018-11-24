@@ -1,3 +1,7 @@
+.import-media-modal .modal-content {
+  overflow-y: auto;
+  max-height: 900px;
+}
 .import-media-modal .overlay {
   position: absolute;
   width: 100%;

@@ -53,9 +53,13 @@ export function vectorSourcing (source, type, text, offset, callback) {
 
                     if (type === 'video') {
 
+                        let allVideoFormats = Object.keys(media.videos)
 
                         // Take biggest format available
-                        let videoFormat = media.videos[Object.keys(media.videos)[0]]
+                        let videoFormat = media.videos[allVideoFormats[0]]
+
+                        // Also take lowest available for preview
+                        let previewVideoFormat = media.videos[allVideoFormats[allVideoFormats.length-1]]
 
                         // If file is too big, do not display
                         if (videoFormat.height <= 0 || videoFormat.size > config.MAX_UPLOAD_MEDIA_SIZE) {
@@ -67,7 +71,8 @@ export function vectorSourcing (source, type, text, offset, callback) {
                             type: 'video',
                             ratio: Math.round(1000*videoFormat.height / videoFormat.width)/1000,
                             source: {
-                                src: videoFormat.url
+                                src: videoFormat.url,
+                                preview: previewVideoFormat.url
                             }
                         }
                     }
@@ -82,6 +87,7 @@ export function vectorSourcing (source, type, text, offset, callback) {
                         ratio: Math.round(1000*media.webformatHeight / media.webformatWidth)/1000,
                         source: {
                             src: media.webformatURL,
+                            preview: media.previewURL
                         }
                     }
                 })
@@ -109,6 +115,11 @@ export function vectorSourcing (source, type, text, offset, callback) {
     let query = ""
     if (text.length > 0) {
         query = "&q="+text
+    }
+
+    // How many results should be returned at max ?
+    if (source_info.pagination.per_page || 0 > 0) {
+        query = "&per_page="+source_info.pagination.per_page
     }
 
     // Build final url to query

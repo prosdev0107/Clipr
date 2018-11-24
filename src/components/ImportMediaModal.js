@@ -3,7 +3,7 @@ import {Modal} from 'react-bootstrap'
 import ImportMediaLibraryContainer from "../containers/import/ImportMediaLibraryContainer"
 import ImportMediaResizerContainer from "../containers/import/ImportMediaResizerContainer"
 
-const ImportMediaModal = ({modal_show, uploading_file, closeModal}) => {
+const ImportMediaModal = ({modal_show, uploading_file, closeModal, loadMoreMedias}) => {
 
     if (modal_show) {
         setTimeout(function() {
@@ -32,12 +32,51 @@ const ImportMediaModal = ({modal_show, uploading_file, closeModal}) => {
         </div>
     )
 
+    const handleScroll = (event) => {
+
+        // Load more mediaif we reached the bottom of modal content
+
+        let scrollTop = event.target.scrollTop
+        let libraryHeight = event.target.offsetHeight
+        let scrollHeight = event.target.scrollHeight
+
+        let scrolledToBottom = Math.ceil(scrollTop + libraryHeight + 50) >= scrollHeight
+
+        if (scrolledToBottom) {
+
+            // What is the current tab ?
+            let currentTab = document.querySelector('.import-media-modal .nav-tabs > li.active > a')
+
+            if (currentTab != null) {
+
+                if (currentTab.id.indexOf("-tab-3") !== -1) {
+
+                    // Load more image
+                    loadMoreMedias({
+                        api_source: "pixabay",
+                        type: "image"
+                    })
+
+                } else if (currentTab.id.indexOf("-tab-4") !== -1) {
+
+                    // Load more videos
+                    loadMoreMedias({
+                        api_source: "pixabay",
+                        type: "video"
+                    })
+                }
+            }
+
+        }
+    }
+
     return <div className={"import-media-modal"}>
         <Modal
             show={modal_show}
             onHide={() => closeModal()}
             bsSize={"lg"}
             className={"import-media-modal"}
+            onScroll={(event) => handleScroll(event)}
         >
             <Modal.Header>
 

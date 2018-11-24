@@ -80,7 +80,7 @@ const Library = ({stickers_menu_tab, listen_drag_events, selectFromLibrary, load
         let libraryHeight = event.target.offsetHeight
         let scrollHeight = event.target.scrollHeight
 
-        let scrolledToBottom = Math.ceil(scrollTop + libraryHeight + 50) >= scrollHeight;
+        let scrolledToBottom = Math.ceil(scrollTop + libraryHeight + 50) >= scrollHeight
 
         if (scrolledToBottom) {
             loadMoreStickers({
