@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
         type: ownProps.type,                            // Media type : sticker, image, video
         searchText: searchInfo.text || "",              // Search text that filters API result
         searchResultsLength: searchInfo.length || 0,    // Offset needed when querying next pages
-        is_loading_medias: state.library_dynamic.is_loading_medias
+        is_loading: searchInfo.is_loading || false
     }
 }
 

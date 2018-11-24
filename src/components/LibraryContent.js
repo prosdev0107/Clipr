@@ -3,14 +3,14 @@ import SimpleStickerContainer from "../containers/SimpleStickerContainer"
 import {Row, Col} from 'react-bootstrap'
 import {TAB_TEXT} from "../constants/constants";
 
-const LibraryContent = ({tab,stickers, is_loading_medias}) => {
+const LibraryContent = ({tab,stickers, is_loading}) => {
 
     if (stickers.length === 0) {
 
         // Empty
         return <div>
             <p className="text-center margin-top-50">
-                { is_loading_medias ? "Loading..." : "Aucun contenu trouvé !" }
+                { is_loading ? "Loading..." : "Aucun contenu trouvé !" }
                 </p>
         </div>
     }
@@ -35,7 +35,7 @@ const LibraryContent = ({tab,stickers, is_loading_medias}) => {
         </Row>
 
         <p className="text-center margin-30">
-            { is_loading_medias ? "Loading..." : "" }
+            { is_loading ? "Loading..." : "" }
         </p>
 
     </div>

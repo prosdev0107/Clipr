@@ -2,21 +2,15 @@ import {TAB_IMAGE, TAB_GIF, TAB_GENERAL} from "../constants/constants"
 
 const libraryDynamicReducer = (state = [], action) => {
 
-    let api_source, type
+    let api_source, type, api_state_key
 
     switch (action.type) {
 
         case 'LIBRARY_TAB_SELECTED':
 
-            let tab = action.data
-
-            // API call needed to load library content ?
-            let willLoadData = (tab === TAB_GIF || tab === TAB_IMAGE)
-
             return {
                 ...state,
                 stickers_menu_tab: action.data || TAB_GENERAL,
-                is_loading_medias: willLoadData
             }
 
         case 'LIBRARY_API_SEARCH_BAR_CHANGED':
@@ -31,12 +25,12 @@ const libraryDynamicReducer = (state = [], action) => {
             // Edit info at this location
             let newSearchInfo = {
                 text: searchText,
-                length: 0           // Reset offset to 0
+                length: 0,           // Reset offset to 0,
+                is_loading: true
             }
 
             return {
                 ...state,
-                is_loading_medias: true,
                 search: {
                     ...state.search,
                     [api_source+"_"+type]: newSearchInfo
@@ -45,12 +39,24 @@ const libraryDynamicReducer = (state = [], action) => {
 
         case 'LIBRARY_SCROLL_LOAD_MORE':
 
+            // Identify search bar that has just been used
+            api_source = action.data.api_source
+            type = action.data.type
+            api_state_key = api_source+"_"+type
+
             // Load more content into library when scrolling down
-            // We already know what have been loaded, so just need to pass is_loading_medias to true
+            // We already know what have been loaded, so just need to pass is_loading to true
             // And SearchApiBar component will launch the load more process
             return {
                 ...state,
-                is_loading_medias: true
+                search: {
+                    ...state.search,
+                    // Update total length of elements already updated
+                    [api_state_key]: {
+                        ...state.search[api_state_key],
+                        is_loading: false
+                    }
+                },
             }
 
         case 'LIBRARY_EXTERNAL_CONTENT_LOADED':
@@ -58,7 +64,7 @@ const libraryDynamicReducer = (state = [], action) => {
             // Identify search bar that has just been used
             api_source = action.data.api_source
             type = action.data.type
-            let api_state_key = api_source+"_"+type
+            api_state_key = api_source+"_"+type
 
             // Let's format gifs data from giphy into our classic sticker data
             // So we can render them as simple sticker
@@ -75,14 +81,14 @@ const libraryDynamicReducer = (state = [], action) => {
             // Compute new pagination parameters
             return {
                 ...state,
-                is_loading_medias: false,
                 search: {
                     ...state.search,
                     // Update total length of elements already updated
                     [api_state_key]: {
                         ...state.search[api_state_key],
                         length: new_medias.length,
-                        medias: new_medias
+                        medias: new_medias,
+                        is_loading: false
                     }
                 },
             }

@@ -5,13 +5,11 @@ import ImportMediaContent from '../../components/ImportMediaContent'
 const mapStateToProps = (state,ownProps) => {
 
     let mediasStateKey = ownProps.source+"_"+ownProps.type
-    let medias =
-        typeof state.library_dynamic.search[mediasStateKey] !== "undefined" ?
-            state.library_dynamic.search[mediasStateKey].medias || [] : []
+    let mediasSearch = state.library_dynamic.search[mediasStateKey] || {}
 
     return {
-        medias: medias,
-        is_loading_medias: state.library_dynamic.is_loading_medias
+        medias: mediasSearch.medias || [],
+        is_loading: mediasSearch.is_loading || false
     }
 }
 export default connect(mapStateToProps)(ImportMediaContent)

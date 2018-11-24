@@ -2,14 +2,14 @@ import React from 'react'
 import ImportMediaAPIMediaContainer from "../containers/import/ImportMediaAPIMediaContainer"
 import {Row, Col} from 'react-bootstrap'
 
-const ImportMediaContent = ({medias, is_loading_medias}) => {
+const ImportMediaContent = ({medias, is_loading}) => {
 
     if (medias.length === 0) {
 
         // Empty
         return <div>
             <p className="text-center margin-top-50">
-                { is_loading_medias ? "Loading..." : "Aucun contenu trouvé !" }
+                { is_loading ? "Loading..." : "Aucun contenu trouvé !" }
                 </p>
         </div>
     }
@@ -31,7 +31,7 @@ const ImportMediaContent = ({medias, is_loading_medias}) => {
         </Row>
 
         <p className="text-center margin-30">
-            { is_loading_medias ? "Loading..." : "" }
+            { is_loading ? "Loading..." : "" }
         </p>
 
     </div>

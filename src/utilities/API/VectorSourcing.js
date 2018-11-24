@@ -127,7 +127,6 @@ export function vectorSourcing (source, type, text, offset, callback) {
                 count: mediasData.length,
                 offset: offset,
             }
-            console.log(formatMedias(mediasData))
             callback(formatMedias(mediasData), source, type, paginationData, shouldReinitializeContent)
         }
     })

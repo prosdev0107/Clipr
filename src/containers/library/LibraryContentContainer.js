@@ -12,14 +12,12 @@ const mapStateToProps = (state,ownProps) => {
         // Content is stored in library_dynamic state
 
         let mediasStateKey = ownProps.source+"_"+ownProps.type
-        let medias =
-            typeof state.library_dynamic.search[mediasStateKey] !== "undefined" ?
-                state.library_dynamic.search[mediasStateKey].medias || [] : []
+        let mediasSearch = state.library_dynamic.search[mediasStateKey] || {}
 
         return {
             tab: selected_tab,
-            stickers: medias,
-            is_loading_medias: state.library_dynamic.is_loading_medias
+            stickers: mediasSearch.medias || [],
+            is_loading: mediasSearch.is_loading || false
         }
 
     }
@@ -30,7 +28,7 @@ const mapStateToProps = (state,ownProps) => {
     return {
         tab: selected_tab,
         stickers: state.params.stickers[stickersStateKey] || [],
-        is_loading_medias: state.library_dynamic.is_loading_medias
+        is_loading: false
     }
 }
 

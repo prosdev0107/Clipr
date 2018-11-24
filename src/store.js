@@ -29,14 +29,14 @@ const initialState = {
     library_dynamic: {
         stickers_menu_tab: TAB_GENERAL,
         stickers_to_show: [],
-        is_loading_medias: false,
         search: {
             // Length and text of each search type (pixabay, giphy, sticker, video...) will be stored there
             // ex :
             // pixabay_sticker : {
             //      text: "boat",
             //      length: 30,
-            //      medias: []
+            //      medias: [],
+            //      is_loading: true
             // }
         },
 

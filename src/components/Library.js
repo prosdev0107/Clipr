@@ -14,7 +14,7 @@ const Library = ({stickers_menu_tab, listen_drag_events, selectFromLibrary, load
     let api_source = stickers_menu_tab === TAB_GIF ? "giphy" : "pixabay"
 
     // Render library content to display depending on chosen tab
-    const renderLibrayContent = (stickers_menu_tab) => {
+    const renderLibraryContent = (stickers_menu_tab) => {
 
         // let hide_column = stickers_menu_tab === TAB_GENERAL ? "animate-hide-left" : ""
         let hide_column = ""
@@ -74,7 +74,10 @@ const Library = ({stickers_menu_tab, listen_drag_events, selectFromLibrary, load
         let scrolledToBottom = Math.ceil(scrollTop + libraryHeight + 50) >= scrollHeight;
 
         if (scrolledToBottom) {
-            loadMoreStickers()
+            loadMoreStickers({
+                api_source: api_source,
+                type: "sticker"
+            })
         }
     }
 
@@ -87,7 +90,7 @@ const Library = ({stickers_menu_tab, listen_drag_events, selectFromLibrary, load
         <img className="hidden" src="images/dashbox.png" alt="dashbox"/>
 
         {/* Render library content to display depending on chosen tab  */}
-        {renderLibrayContent(stickers_menu_tab)}
+        {renderLibraryContent(stickers_menu_tab)}
 
     </div>
 }

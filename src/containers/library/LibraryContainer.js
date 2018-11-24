@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
     selectFromLibrary: (type, event) => dispatch(selectFromLibraryAction(type, event)),
-    loadMoreStickers: () => dispatch(sendToReducersAction("LIBRARY_SCROLL_LOAD_MORE")),
+    loadMoreStickers: (data) => dispatch(sendToReducersAction("LIBRARY_SCROLL_LOAD_MORE",data)),
 })
 
 

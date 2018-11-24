@@ -3,12 +3,12 @@ import {renderField} from "./form/renderField"
 import {reduxForm} from "redux-form";
 import {vectorSourcing} from "../utilities/API/VectorSourcing";
 
-const SearchAPIBar = ({api_source, type, searchText, searchResultsLength, is_loading_medias, formChanged, stickersLoaded, preventEnterKeySubmit}) => {
+const SearchAPIBar = ({api_source, type, searchText, searchResultsLength, is_loading, formChanged, stickersLoaded, preventEnterKeySubmit}) => {
 
     // Each time the search text changed, this component is reloaded
 
     // Init with saved params
-    if (is_loading_medias) {
+    if (is_loading) {
         vectorSourcing(
             api_source,
             type,
