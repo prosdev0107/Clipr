@@ -4,7 +4,8 @@ import ImportMediaModal from '../../components/ImportMediaModal'
 import {sendToReducersAction} from "../../actions";
 
 const mapStateToProps = state => ({
-    modal_show: state.import_media.show_modal
+    modal_show: state.import_media.show_modal,
+    uploading_file: state.import_media.uploading_file
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -23,7 +23,8 @@ const pageActionsReducer = (state = [], action) => {
 
             return {
                 ...state,
-                uploading_file_progress: 0
+                uploading_file_progress: 0,
+                uploading_file: true
             }
 
         case "IMPORT_MEDIA_PROGRESS_PERCENT":
@@ -39,7 +40,8 @@ const pageActionsReducer = (state = [], action) => {
             // Progress status (scale 0-100) of current uploading file
             return {
                 ...state,
-                uploading_file_progress: 0
+                uploading_file_progress: 0,
+                uploading_file: false
             }
 
         case 'MEDIA_SWITCHER_DELETE_MEDIA':

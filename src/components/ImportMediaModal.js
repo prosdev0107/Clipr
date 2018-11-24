@@ -3,7 +3,7 @@ import {Modal} from 'react-bootstrap'
 import ImportMediaLibraryContainer from "../containers/import/ImportMediaLibraryContainer"
 import ImportMediaResizerContainer from "../containers/import/ImportMediaResizerContainer"
 
-const ImportMediaModal = ({modal_show, closeModal}) => {
+const ImportMediaModal = ({modal_show, uploading_file, closeModal}) => {
 
     if (modal_show) {
         setTimeout(function() {
@@ -16,6 +16,21 @@ const ImportMediaModal = ({modal_show, closeModal}) => {
             })
         },50)
     }
+
+
+    const renderOverlay = () => (
+        <div className={uploading_file ? "overlay" : "hidden"}>
+            <div className={"loader-container absolute-center"}>
+                <div className="page-loader absolute-center-horizontal">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+                <p>Création du média en cours...</p>
+            </div>
+        </div>
+    )
 
     return <div className={"import-media-modal"}>
         <Modal
@@ -44,6 +59,9 @@ const ImportMediaModal = ({modal_show, closeModal}) => {
                 <ImportMediaResizerContainer />
 
             </Modal.Body>
+
+            { renderOverlay() }
+
         </Modal>
     </div>
 

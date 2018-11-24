@@ -63,6 +63,7 @@ const initialState = {
         show_modal: false,
         // Progress (scale 0-100) of current file uploading
         uploading_file_progress: 0,
+        uploading_file: false,
     },
     // Basic info about clip (CONSTANT once editor is opened)
     clip: {

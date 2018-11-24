@@ -12,7 +12,7 @@ const ImportMediaLibrary = () => {
      * 3) Select from video api library
      */
 
-    return <div>
+    return <div className={"import-media-library-tabs"}>
 
         <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
 
@@ -32,8 +32,6 @@ const ImportMediaLibrary = () => {
             </Tab>
 
         </Tabs>
-
-
 
     </div>
 

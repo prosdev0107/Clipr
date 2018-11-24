@@ -2,11 +2,6 @@
 import { connect } from 'react-redux'
 import ImportMediaLibrary from '../../components/ImportMediaLibrary'
 
-const mapStateToProps = state => ({
+const mapStateToProps = () => ({
 })
-
-const mapDispatchToProps = (dispatch) => ({
-})
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(ImportMediaLibrary)
+export default connect(mapStateToProps)(ImportMediaLibrary)
