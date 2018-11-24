@@ -148,8 +148,14 @@
   width: 100%;
   height: 100%;
   border: none;
-}
-#Clip_Iframe {
   opacity: 0;
+}
+.media-panel-container .media-panel .media-panel-layer-simulator {
+  z-index: 4;
+}
+.media-panel-container .media-panel .media-panel-layer-simulator iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 /*# sourceMappingURL=mediaPanel.css.map */

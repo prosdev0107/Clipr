@@ -1,9 +1,10 @@
 import React from 'react'
 import {Modal} from 'react-bootstrap'
+import { Line } from 'rc-progress';
 import ImportMediaLibraryContainer from "../containers/import/ImportMediaLibraryContainer"
 import ImportMediaResizerContainer from "../containers/import/ImportMediaResizerContainer"
 
-const ImportMediaModal = ({modal_show, uploading_file, closeModal, loadMoreMedias}) => {
+const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, closeModal, loadMoreMedias}) => {
 
     if (modal_show) {
         setTimeout(function() {
@@ -18,8 +19,15 @@ const ImportMediaModal = ({modal_show, uploading_file, closeModal, loadMoreMedia
     }
 
 
-    const renderOverlay = () => (
-        <div className={uploading_file ? "overlay" : "hidden"}>
+    const renderOverlay = () => {
+
+        let progressPercent = uploading_file_progress > 0 ? " "+uploading_file_progress+"%" : ""
+        let progressText= <span className={"infoProgress"}>Création du média en cours...{progressPercent}</span>
+        let progressBar = uploading_file_progress === 0 ?  <div /> : <div className={"loader-progress-bar absolute-center-horizontal"}>
+            <Line percent={uploading_file_progress} strokeWidth={4} trailWidth={4} strokeColor="#00D9EA" />
+        </div>
+
+        return <div className={uploading_file ? "overlay" : "hidden"}>
             <div className={"loader-container absolute-center"}>
                 <div className="page-loader absolute-center-horizontal">
                     <div></div>
@@ -27,10 +35,15 @@ const ImportMediaModal = ({modal_show, uploading_file, closeModal, loadMoreMedia
                     <div></div>
                 </div>
 
-                <p>Création du média en cours...</p>
+                <p>{progressText}</p>
+
+                {progressBar}
+
             </div>
         </div>
-    )
+    }
+
+
 
     const handleScroll = (event) => {
 

@@ -159,7 +159,7 @@ const MediaPanel = ({ cs_item_general, cs_item_media, is_preview_mode, listen_dr
 
 
             {/* Iframe that displays clipr preview */}
-            <div className={is_preview_mode ? "media-panel-layer media-panel-layer-buttons" : "hidden"}>
+            <div className={is_preview_mode ? "media-panel-layer media-panel-layer-simulator " : "hidden"}>
 
                 <ClipIframeContainer is_preview={1}/>
 

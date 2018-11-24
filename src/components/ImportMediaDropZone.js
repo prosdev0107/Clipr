@@ -1,7 +1,6 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
 import createCSItemFromFile from '../utilities/API/CSItemMedia'
-import { Line } from 'rc-progress';
 import config from "../config";
 
 class ImportMediaDropZone extends React.Component {
@@ -107,18 +106,11 @@ class ImportMediaDropZone extends React.Component {
             <video src={this.state.encoded} controls /> :
             <img src={this.state.encoded} alt="preview" />
 
-        let progressText= <span className={"infoProgress"}>En cours de transfert - {this.props.uploading_file_progress}%</span>
-        let progressBar = <Line percent={this.props.uploading_file_progress} strokeWidth={4} trailWidth={4} strokeColor="#00D9EA" />
-
         return <div className={"media-preview-wrapper"}>
 
             <div className={"media-preview-container absolute-center"}>
 
                 {mediaPreview}
-
-                {progressText}
-
-                {progressBar}
 
             </div>
 
