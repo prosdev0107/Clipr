@@ -22,7 +22,7 @@ const createCSItemFromFile = (file, cropped_zone) => {
     } else {
         postData = new FormData()
         postData.append('file', file)
-        postData.append('cropped_zone', cropped_zone)
+        postData.append('cropped_zone', JSON.stringify(cropped_zone))
     }
 
     // Get and store progress status of upload
