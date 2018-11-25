@@ -52,7 +52,7 @@ class SaveMenu extends React.Component {
     }
 
     closeWithoutSaving = (event) => {
-        this.setState({swal_show: false});
+        this.setState({swal_show: false})
         this.closeWindow(event);
     }
 

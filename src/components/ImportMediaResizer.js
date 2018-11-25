@@ -21,7 +21,9 @@ class ImportMediaResizer extends React.Component {
             // Get the final cropping area
             // Cropping is executed server-side
             let imgRect = this.editor.getCroppingRect()
-            this.state.cropped_zone = imgRect
+            this.setState({
+                cropped_zone: imgRect
+            })
 
             // Also save in global state
             this.props.formChanged({
