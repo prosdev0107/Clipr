@@ -114,12 +114,12 @@ export function vectorSourcing (source, type, text, offset, callback) {
     // Query text ?
     let query = ""
     if (text.length > 0) {
-        query = "&q="+text
+        query += "&q="+text
     }
 
     // How many results should be returned at max ?
     if (source_info.pagination.per_page > 0) {
-        query = "&per_page="+source_info.pagination.per_page
+        query += "&per_page="+source_info.pagination.per_page
     }
 
     // Build final url to query
