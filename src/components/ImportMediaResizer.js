@@ -24,14 +24,6 @@ class ImportMediaResizer extends React.Component {
             this.setState({
                 cropped_zone: imgRect
             })
-
-            // Also save in global state
-            this.props.formChanged({
-                target: {
-                    name: 'resizer_input_cropping',
-                    value: imgRect
-                }
-            })
         }
     }
 
@@ -39,6 +31,14 @@ class ImportMediaResizer extends React.Component {
 
         // Send to server with the final cropping area and create the item
         createCSItemFromFile(this.props.file, this.state.cropped_zone)
+
+        // Also save cropped zone in parameters
+        /*this.props.formChanged({
+            target: {
+                name: 'resizer_input_cropping',
+                value: imgRect
+            }
+        })*/
     }
 
 
@@ -77,7 +77,7 @@ class ImportMediaResizer extends React.Component {
                         height={489}
                         border={50}
                         scale={this.props.zoom}
-                        onImageChange={this.onImageChange()}
+                        onImageChange={() => this.onImageChange()}
                     />
 
                 </div>
