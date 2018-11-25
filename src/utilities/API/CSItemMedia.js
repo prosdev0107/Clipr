@@ -6,7 +6,7 @@ import data_providers from '../../api_endpoints.js'
 
 
 // Create a CS Item from uploaded file
-const createCSItemFromFile = (file) => {
+const createCSItemFromFile = (file, cropped_zone) => {
 
     let cnvShortCode = store.getState().clip.cnv_short_code
     let postData
@@ -18,10 +18,11 @@ const createCSItemFromFile = (file) => {
     // So we can generate compressed media and create a new cs_item
     if (typeof file === "string") {
         // That's a URL string. Server will download it by itself
-        postData = {file: file}
+        postData = {file: file, cropped_zone: cropped_zone}
     } else {
         postData = new FormData()
         postData.append('file', file)
+        postData.append('cropped_zone', cropped_zone)
     }
 
     // Get and store progress status of upload

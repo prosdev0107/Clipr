@@ -10,6 +10,7 @@
     "prop-types": "^15.6.1",
     "rc-progress": "^2.2.6",
     "react": "^16.4.0",
+    "react-avatar-editor": "^11.0.4",
     "react-axios": "^2.0.0",
     "react-bootstrap": "^0.32.1",
     "react-bootstrap-sweetalert": "^4.4.1",

@@ -4,7 +4,7 @@ import { Line } from 'rc-progress';
 import ImportMediaLibraryContainer from "../containers/import/ImportMediaLibraryContainer"
 import ImportMediaResizerContainer from "../containers/import/ImportMediaResizerContainer"
 
-const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, closeModal, loadMoreMedias}) => {
+const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, display_resizer, closeModal, loadMoreMedias}) => {
 
     if (modal_show) {
         setTimeout(function() {
@@ -47,7 +47,7 @@ const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, 
 
     const handleScroll = (event) => {
 
-        // Load more mediaif we reached the bottom of modal content
+        // Load more media if we reached the bottom of modal content
 
         let scrollTop = event.target.scrollTop
         let libraryHeight = event.target.offsetHeight
@@ -106,9 +106,13 @@ const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, 
             </Modal.Header>
             <Modal.Body>
 
-                <ImportMediaLibraryContainer />
+                <div className={display_resizer ? "hidden" : ""}>
+                    <ImportMediaLibraryContainer />
+                </div>
 
-                <ImportMediaResizerContainer />
+                <div className={display_resizer ? "" : "hidden"}>
+                    <ImportMediaResizerContainer />
+                </div>
 
             </Modal.Body>
 

@@ -44,7 +44,9 @@ class InputNumberSlider extends React.Component {
                     value={this.state.number}
                 />
 
-                <span>{this.state.number}</span>
+                <div className={this.props.hideValue ? "hidden" : ""}>
+                    <span>{this.state.number}</span>
+                </div>
 
                 <InputSlider
                     className="slider slider-x absolute-center-vertical"

@@ -1,6 +1,5 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
-import createCSItemFromFile from '../utilities/API/CSItemMedia'
 import config from "../config";
 
 class ImportMediaDropZone extends React.Component {
@@ -28,8 +27,10 @@ class ImportMediaDropZone extends React.Component {
                 isVideo: file.type.indexOf("video") !== -1
             }
 
+            // Ask for image resize
+            this.props.showResizer(file)
+
             // Launch file upload
-            createCSItemFromFile(file)
 
             // Read file locally to show a preview to user while uploading data to the server
             const reader  =  new FileReader()

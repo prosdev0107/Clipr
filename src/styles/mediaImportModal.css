@@ -79,6 +79,12 @@
   transition: all 100ms ease-in;
   transform: scale(1);
 }
+.import-media-modal .api-library .api-library-media button.select-video {
+  width: 100%;
+  border-top: none !important;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
 .import-media-modal .api-library .api-library-media:hover {
   -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);

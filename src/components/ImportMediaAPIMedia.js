@@ -1,18 +1,30 @@
 import React from 'react'
-import createCSItemFromFile from "../utilities/API/CSItemMedia";
+import createCSItemFromFile from '../utilities/API/CSItemMedia'
 
-const ImportAPIMedia = ({media}) => {
+const ImportAPIMedia = ({media, showResizer}) => {
 
     const renderMedia = () => {
         if (media.type === "img") {
-            return <img className={"width-full"} src={media.source.preview} alt="..." />
+            return <div onClick={() => clickImage()}>
+                <img className={"width-full"} src={media.source.preview} alt="..." />
+            </div>
         }
-        return <video className={"width-full"} src={media.source.preview} controls />
+        return <div>
+            <video className={"width-full"} src={media.source.preview} controls />
+            <button className={"btn btn-default select-video"} onClick={() => clickVideo()}>Choisir</button>
+        </div>
     }
 
-    const clickMedia = () => {
+    const clickImage = () => {
 
-        // Ask for item creation from media url
+        // Ask for image resize before upload
+        showResizer(media.source.src)
+
+    }
+
+    const clickVideo = () => {
+
+        // Directly upload video
         createCSItemFromFile(media.source.src)
 
     }
@@ -20,7 +32,6 @@ const ImportAPIMedia = ({media}) => {
     return (
         <div
             className="api-library-media relative"
-            onClick={() => clickMedia()}
         >
 
             {renderMedia()}

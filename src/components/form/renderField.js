@@ -24,6 +24,7 @@ export const renderField = (properties, action) => {
         name: properties.input.name || properties.id,
         nonMaterial: properties.nonMaterial,
         placeholder: properties.placeholder,
+        hideValue: properties.hideValue || false, // Ex : slider number : display slider but not the number
         type: properties.input.type
     }
     switch (properties.input.type || "text") {

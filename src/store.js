@@ -39,7 +39,6 @@ const initialState = {
             //      is_loading: true
             // }
         },
-
     },
     // Live status of some actions
     page_actions: {
@@ -63,7 +62,14 @@ const initialState = {
     import_media: {
         // Display new/edit media modal
         show_modal: false,
-        // Progress (scale 0-100) of current file uploading
+        // File that has been chosen for import. Could be a file object, or a url
+        file_to_upload: null,
+        resizer: {
+            display: false,
+            cropped_zone: {},
+            zoom: 1
+        },
+        // Progress (scale 0-100) of current file uploading to server
         uploading_file_progress: 0,
         uploading_file: false,
     },

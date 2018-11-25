@@ -16,8 +16,58 @@ const pageActionsReducer = (state = [], action) => {
 
             return {
                 ...state,
-                show_modal: false
+                show_modal: false,
+                resizer: {
+                    display: false,
+                    crop_zone: {},
+                    zoom: 1
+                },
             }
+
+        case 'IMPORT_MEDIA_LAUNCH_RESIZER':
+
+            // User has chosen his media to import, let's suggest him to resize/crop it
+            return {
+                ...state,
+                file_to_upload: action.data.file,
+                resizer:  {
+                    ...state.resizer,
+                    display: true
+                }
+            }
+
+        case 'IMPORT_MEDIA_RESIZER_CHANGE_PROPERTY':
+
+            let event = action.data
+            let target = event.target
+            let fieldName = target.name
+            let fieldValue = target.value
+
+            if (typeof fieldName !== "undefined" && typeof fieldName !== "undefined") {
+
+                if (fieldName === "resizer_input_zoom") {
+
+                    return {
+                        ...state,
+                        resizer: {
+                            ...state.resizer,
+                            zoom: fieldValue
+                        }
+                    }
+                } else if (fieldName === "resizer_input_cropping") {
+
+                    return {
+                        ...state,
+                        resizer: {
+                            ...state.resizer,
+                            cropped_zone: fieldValue
+                        }
+                    }
+                }
+
+            }
+
+            return state
 
         case 'API_CREATE_CS_ITEM_BEGIN':
 
@@ -41,7 +91,13 @@ const pageActionsReducer = (state = [], action) => {
             return {
                 ...state,
                 uploading_file_progress: 0,
-                uploading_file: false
+                uploading_file: false,
+                resizer: {
+                    display: false,
+                    crop_zone: {},
+                    zoom: 1
+                },
+                file_to_upload: null
             }
 
         case 'MEDIA_SWITCHER_DELETE_MEDIA':
