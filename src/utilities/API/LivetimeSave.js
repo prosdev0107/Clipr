@@ -21,10 +21,13 @@ const LivetimeSave = (new_state) => {
     }
 
     // Should we make save btn appeared ?
-    hasDataChanged(new_state,dataToSave)
+    let shouldAutoSaveData = hasDataChanged(new_state,dataToSave)
+
+    let nowTime = new Date().getTime()
 
     // If people pressed the button, send to API
-    if (new_state.page_actions.ask_for_data_saving) {
+    // With a minimum tempo of 1000ms between each API call
+    if (shouldAutoSaveData && new_state.page_actions.last_save_time > 0 && ((nowTime - new_state.page_actions.last_save_time) > 1000)) {
 
         // Cancel previous API call delay
         if (apiSaveTimeout) {
@@ -80,32 +83,15 @@ const hasDataChanged = (state, dataToSave) => {
         if (dataToSave !== null) {
             // Just call reducer if data changed
             store.dispatch(sendToReducersAction("API_RECORD_LAST_SAVED_DATA",{
-                last_data_saved: dataToSave,
-                data_unsaved: false
+                last_data_saved: dataToSave
             }))
         }
 
-    } else if (!isEqual(oldData,dataToSave)) {
-
-        // Data has changed since last api call, need to show user he should save
-        if (state.page_actions.data_unsaved !== true) {
-
-            // Just call reducer if data changed
-            store.dispatch(sendToReducersAction("API_RECORD_LAST_SAVED_DATA",{
-                data_unsaved: true
-            }))
-        }
-
-    } else {
-
-        // No edit since last api call
-        if (state.page_actions.data_unsaved !== false) {
-            // Just call reducer if data changed
-            store.dispatch(sendToReducersAction("API_RECORD_LAST_SAVED_DATA",{
-                data_unsaved: false
-            }))
-        }
+        return false
     }
+
+    // Just compare previous data saved set and the new one
+    return !isEqual(oldData,dataToSave)
 }
 
 

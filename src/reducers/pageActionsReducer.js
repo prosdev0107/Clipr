@@ -2,6 +2,8 @@
 
 const pageActionsReducer = (state = [], action) => {
 
+    let nowTime = new Date().getTime()
+
     switch (action.type) {
 
         case 'LIBRARY_STICKER_DRAG_START':
@@ -41,7 +43,8 @@ const pageActionsReducer = (state = [], action) => {
             // We can consider page has finished loading
             return {
                 ...state,
-                page_is_loading: false
+                page_is_loading: false,
+                last_save_time: nowTime
             }
 
         case 'API_UPDATE_URL_HOST':
@@ -52,22 +55,7 @@ const pageActionsReducer = (state = [], action) => {
                 url_host: action.data
             }
 
-        case 'SAVE_MENU_SAVE_BTN_PRESSED':
-
-            // Show user data is currently saving
-            if (state.data_saving_status !== 0) {
-
-                // Saving in progress, do nothing
-                return state
-            }
-
-            // Trigger save action
-            return {
-                ...state,
-                ask_for_data_saving: 1
-            }
-
-        case 'SAVE_MENU_DONE_BTN_PRESSED':
+        case 'SAVE_MENU_CLOSE_BTN_PRESSED':
 
             // Send a message to parent frame to close the window
             if (state.url_host.length > 0 && window && window.parent) {
@@ -99,7 +87,7 @@ const pageActionsReducer = (state = [], action) => {
             return {
                 ...state,
                 data_saving_status: 1,
-                ask_for_data_saving: 0
+                last_save_time: nowTime
             }
 
         case 'API_UPDATE_SAVED':
