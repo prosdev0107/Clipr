@@ -46,8 +46,6 @@ const initialState = {
         page_is_loading: true,
         // Record which data was sent to API for saving, so we are able to know if we should make save btn appear or not
         last_data_saved: null,
-        // Unix timestamp that allows to introduce a tempo between each automatic update
-        last_save_time: 0,
         // 1 means saving in progress, 2 means saving has succeeded. If string, that's an error
         data_saving_status: 0,
         // Should we put drag event listener on library or media panel

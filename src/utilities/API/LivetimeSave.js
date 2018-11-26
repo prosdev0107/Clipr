@@ -7,8 +7,7 @@ import data_providers from '../../api_endpoints.js'
 
 var apiSaveTimeout
 var clearMessageTimeout
-// var saveTimeout = 1200 // For saving on live
-var saveTimeout = 0 // Instant saving
+var saveTimeout = 600 // For saving on live
 
 
 // Send data directly to API
@@ -23,11 +22,9 @@ const LivetimeSave = (new_state) => {
     // Should we make save btn appeared ?
     let shouldAutoSaveData = hasDataChanged(new_state,dataToSave)
 
-    let nowTime = new Date().getTime()
+    console.log("auto das",shouldAutoSaveData)
 
-    // If people pressed the button, send to API
-    // With a minimum tempo of 1000ms between each API call
-    if (shouldAutoSaveData && new_state.page_actions.last_save_time > 0 && ((nowTime - new_state.page_actions.last_save_time) > 1000)) {
+    if (shouldAutoSaveData) {
 
         // Cancel previous API call delay
         if (apiSaveTimeout) {

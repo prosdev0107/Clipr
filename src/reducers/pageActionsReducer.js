@@ -2,8 +2,6 @@
 
 const pageActionsReducer = (state = [], action) => {
 
-    let nowTime = new Date().getTime()
-
     switch (action.type) {
 
         case 'LIBRARY_STICKER_DRAG_START':
@@ -43,8 +41,7 @@ const pageActionsReducer = (state = [], action) => {
             // We can consider page has finished loading
             return {
                 ...state,
-                page_is_loading: false,
-                last_save_time: nowTime
+                page_is_loading: false
             }
 
         case 'API_UPDATE_URL_HOST':
@@ -86,8 +83,7 @@ const pageActionsReducer = (state = [], action) => {
             // Show user data is currently saving
             return {
                 ...state,
-                data_saving_status: 1,
-                last_save_time: nowTime
+                data_saving_status: 1
             }
 
         case 'API_UPDATE_SAVED':
