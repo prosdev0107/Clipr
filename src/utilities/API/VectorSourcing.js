@@ -1,6 +1,20 @@
 
 import config from "../../config"
 import axios from "axios/index"
+import { setupCache } from 'axios-cache-adapter'
+
+// Create `axios-cache-adapter` instance
+var axios_cache = setupCache({
+    // Memorize search results for same query during 10 minutes
+    maxAge: 10 * 60 * 1000
+})
+
+// Create `axios` instance passing the newly created `cache.adapter`
+var api_axios = axios.create({
+    adapter: axios_cache.adapter
+})
+// PEut être api_axio est réinstancié à chaque fois ?
+// Ou le cache est simplement mal configuré
 
 export function vectorSourcing (source, type, text, offset, callback) {
 
@@ -125,7 +139,8 @@ export function vectorSourcing (source, type, text, offset, callback) {
     // Build final url to query
     let url = endpoint_url + query + "&" + fromParam + "=" + from
 
-    axios.get(url).then((response) => {
+    api_axios
+        .get(url).then((response) => {
 
         var mediasData = response.data[source_info.pagination.dataKey]
 

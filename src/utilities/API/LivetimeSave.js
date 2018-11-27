@@ -13,6 +13,7 @@ var saveTimeout = 600 // For saving on live
 // Send data directly to API
 const LivetimeSave = (new_state) => {
 
+
     // Extract data to save
     let dataToSave = {
         cs_items: new_state.cs_items,
@@ -20,9 +21,9 @@ const LivetimeSave = (new_state) => {
     }
 
     // Should we make save btn appeared ?
-    let shouldAutoSaveData = hasDataChanged(new_state,dataToSave)
-
-    console.log("auto das",shouldAutoSaveData)
+    let oldData = new_state.page_actions.last_data_saved
+    let is_page_initializing = new_state.page_actions.page_is_loading
+    let shouldAutoSaveData = hasDataChanged(oldData,dataToSave,is_page_initializing)
 
     if (shouldAutoSaveData) {
 
@@ -69,12 +70,12 @@ const LivetimeSave = (new_state) => {
 
 // Test if data to save is different from old one
 // We can't do that directly in reducer, else this would be an infinite loop
-const hasDataChanged = (state, dataToSave) => {
-
-    let oldData = state.page_actions.last_data_saved
+const hasDataChanged = (oldData, dataToSave, is_page_initializing) => {
 
     // If no previous data, that's page initialization. We fill last_data_saved but we don't make save btn appear
-    if (state.page_is_loading || typeof oldData === "undefined" || oldData === null) {
+    // Also don't auto-save data is currently initializing the editor
+     if (typeof oldData === "undefined" || oldData === null
+            || (is_page_initializing && !isEqual(oldData,dataToSave))) {
 
         // Just fill data
         if (dataToSave !== null) {
