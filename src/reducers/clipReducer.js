@@ -69,6 +69,10 @@ const clipReducer = (state = [], action) => {
 
             return editThemeFromForm(state, action.name, action.value, action.target)
 
+        case 'CLIP_UPDATE_FROM_HISTORY':
+
+            return action.data
+
         default:
             return state
     }

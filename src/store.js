@@ -1,7 +1,7 @@
 import { createStore } from 'redux'
 import rootReducer from './reducers'
 import initSubscriber from 'redux-subscriber'
-import LivetimeSave from "./utilities/API/LivetimeSave"
+import {LivetimeSave,TriggerSave} from "./utilities/API/LivetimeSave"
 import {TAB_GENERAL} from "./constants/constants"
 
 // Init state structure
@@ -44,8 +44,6 @@ const initialState = {
     page_actions: {
         // Is page currently initializing
         page_is_loading: true,
-        // Record which data was sent to API for saving, so we are able to know if we should make save btn appear or not
-        last_data_saved: null,
         // 1 means saving in progress, 2 means saving has succeeded. If string, that's an error
         data_saving_status: 0,
         // Should we put drag event listener on library or media panel
@@ -79,7 +77,15 @@ const initialState = {
     // List of all cs_items data, order by display order (DATA WILL VARY)
     cs_items: [], // Check utilities/csItemFromList to get schema of ONE cs item
     // Index of current cs_item being edited
-    cs_item_index_editing: 0
+    cs_item_index_editing: 0,
+    // Track every change user made to let it undo/redo his actions
+    history: {
+        past: [],
+        present: {},
+        future: [],
+        sendToServer: false,    // Should data be sent through saving API,
+        redoOrUndoAsked: false
+    }
 }
 
 
@@ -90,12 +96,14 @@ const store = createStore(rootReducer, initialState)
 // https://github.com/ivantsov/redux-subscriber
 export const subscriber = initSubscriber(store)
 subscriber('cs_items', state => {
-
     LivetimeSave(state)
 })
 subscriber('clip', state => {
-
     LivetimeSave(state)
 })
+subscriber('history', state => {
+    TriggerSave(state)
+})
+
 
 export default store

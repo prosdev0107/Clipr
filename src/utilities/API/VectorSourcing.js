@@ -142,11 +142,8 @@ export function vectorSourcing (source, type, text, offset, callback) {
     // Build final url to query
     let url = endpoint_url + query + "&" + fromParam + "=" + from
 
-    console.log('cll')
     api_axios
         .get(url).then((response) => {
-
-            console.log("cache",response.request.fromCache)
 
         var mediasData = response.data[source_info.pagination.dataKey]
 

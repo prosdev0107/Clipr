@@ -44,9 +44,14 @@ const csItemsReducer = (state = [], action) => {
                 function swapArrayElemts(arr, oldPosition, newPosition) {
 
                     if (oldPosition !== newPosition && oldPosition < arr.length && newPosition < arr.length) {
-                        let temp = arr[newPosition]
-                        arr[newPosition] = arr[oldPosition]
-                        arr[oldPosition] = temp
+
+                        let arr_deep_copy = JSON.parse(JSON.stringify(arr))
+
+                        let temp = arr_deep_copy[newPosition]
+                        arr_deep_copy[newPosition] = arr_deep_copy[oldPosition]
+                        arr_deep_copy[oldPosition] = temp
+
+                        return arr_deep_copy
                     }
                     return arr
                 }
@@ -65,6 +70,10 @@ const csItemsReducer = (state = [], action) => {
                 ...state,
                 new_item
             ]
+
+        case 'ITEMS_UPDATE_FROM_HISTORY':
+
+            return action.data
 
         default:
             break

@@ -5,65 +5,128 @@ import {sendToReducersAction} from "../../actions"
 import isEqual from 'lodash/isEqual'
 import data_providers from '../../api_endpoints.js'
 
+
+
+// Timeout that avoid recording too much entries in history
+// Example : when sliding opacity slider
+var historySaveTimeout
 var apiSaveTimeout
+
 var clearMessageTimeout
-var saveTimeout = 600 // For saving on live
 
 
-// Send data directly to API
-const LivetimeSave = (new_state) => {
+// See if there is something to save
+// If yes, save it to history
+// Change to history will trigger TriggerSave and will send data to server
+export const LivetimeSave = (new_state) => {
 
-
-    // Extract data to save
-    let dataToSave = {
+    // new changes
+    let new_changes = {
         cs_items: new_state.cs_items,
         clip: new_state.clip
     }
 
-    // Should we make save btn appeared ?
-    let oldData = new_state.page_actions.last_data_saved
-    let is_page_initializing = new_state.page_actions.page_is_loading
-    let shouldAutoSaveData = hasDataChanged(oldData,dataToSave,is_page_initializing)
+    if (new_state.history.redoOrUndoAsked) {
 
-    if (shouldAutoSaveData) {
+        // A redo or undo action is in progress
+        // New data is already sent to server so don't need to dispatch a HISTORY_ADD_NEW_CHANGE event
 
-        // Cancel previous API call delay
-        if (apiSaveTimeout) {
-            clearTimeout(apiSaveTimeout)
+        // We only need to make redoOrUndoAsked passed to false once all data is up to date
+        let newPresentState = new_state.history.present
+        if (isEqual(new_changes, newPresentState)) {
+            store.dispatch(sendToReducersAction("HISTORY_UPDATE_PRESENT_END"))
         }
-        // Program a new API call after a delay of 2 seconds
-        apiSaveTimeout = setTimeout(function() {
 
-            updateSaveStatus(1)
+    } else {
 
-            // Post data to API, all items at a time
-            let clip = dataToSave.clip
+        // Should we save data into history ?
+        let oldData = new_state.history.present
+        let is_page_initializing = new_state.page_actions.page_is_loading
+        let shouldAutoSaveData = hasDataChanged(oldData,new_changes,is_page_initializing)
 
-            if (typeof clip.cnv_short_code !== "undefined" && clip.cnv_short_code.length > 0) {
+        if (shouldAutoSaveData) {
 
-                let request = api_client()
+            // Save change in history
 
-                // Step 1 : update clip main info
-                request
-                    .post(data_providers.clip.update(clip.cnv_short_code), {'clip': dataToSave.clip})
-                    .then(response => {
-
-                        // Step 2 : update cs items data
-                        request
-                            .post(data_providers.cs_items.update(clip.cnv_short_code), {'items': dataToSave.cs_items})
-                            // Step 3 : done ! Hide save button
-                            .then(response => updateSaveStatus(200,null,dataToSave))
-                            .catch(error => updateSaveStatus(404,error.toString()))
-
-                    })
-                    .catch(error => updateSaveStatus(404,error.toString()))
-
-            } else {
-                updateSaveStatus(404,"wrong short code")
+            // Cancel previous history saving call if LivetimeSave is triggered within a specific timeout
+            if (historySaveTimeout) {
+                clearTimeout(historySaveTimeout)
             }
+            historySaveTimeout = setTimeout(function() {
 
-        },saveTimeout)
+                store.dispatch(sendToReducersAction("HISTORY_ADD_NEW_CHANGE",new_changes))
+
+            },250)
+
+        }
     }
+
+
+
+    return true
+}
+
+// Confirm new data sending to server for saving
+export const TriggerSave = (state) => {
+
+    let history = state.history
+    let dataToSend = history.present
+
+    if (!history.sendToServer || typeof dataToSend.cs_items === "undefined" || typeof dataToSend.clip === "undefined") {
+
+        // Missing data or don't need to save
+        return false
+    }
+
+    if (history.redoOrUndoAsked) {
+        // Update cs_items and clip state data with data from history
+        if (!isEqual(state.cs_items, dataToSend.cs_items)) {
+            store.dispatch(sendToReducersAction("ITEMS_UPDATE_FROM_HISTORY",dataToSend.cs_items))
+        }
+        if (!isEqual(state.clip, dataToSend.clip)) {
+            store.dispatch(sendToReducersAction("CLIP_UPDATE_FROM_HISTORY",dataToSend.clip))
+        }
+    }
+
+    // Cancel previous API call delay if any save already about to be triggered
+    // Ex when user hits "previous" button very quickly
+    if (apiSaveTimeout) {
+        clearTimeout(apiSaveTimeout)
+    }
+    // Program a new API call
+    apiSaveTimeout = setTimeout(function() {
+
+        updateSaveStatus(1)
+
+        // Post data to API, all items at a time
+        let clip = dataToSend.clip
+
+        if (typeof clip.cnv_short_code !== "undefined" && clip.cnv_short_code.length > 0) {
+
+            let request = api_client()
+
+            // Step 1 : update clip main info
+            request
+                .post(data_providers.clip.update(clip.cnv_short_code), {'clip': dataToSend.clip})
+                .then(response => {
+
+                    // Step 2 : update cs items data
+                    request
+                        .post(data_providers.cs_items.update(clip.cnv_short_code), {'items': dataToSend.cs_items})
+                        // Step 3 : done ! Hide save button
+                        .then(response => updateSaveStatus(200,null,dataToSend))
+                        .catch(error => updateSaveStatus(404,error.toString()))
+
+                })
+                .catch(error => updateSaveStatus(404,error.toString()))
+
+        } else {
+            updateSaveStatus(404,"wrong short code")
+        }
+
+    },400)
+
+
 
     return true
 }
@@ -74,27 +137,27 @@ const hasDataChanged = (oldData, dataToSave, is_page_initializing) => {
 
     // If no previous data, that's page initialization. We fill last_data_saved but we don't make save btn appear
     // Also don't auto-save data is currently initializing the editor
-     if (typeof oldData === "undefined" || oldData === null
-            || (is_page_initializing && !isEqual(oldData,dataToSave))) {
+    if (typeof oldData === "undefined" || oldData === null
+        || (is_page_initializing && !isEqual(oldData,dataToSave))) {
 
         // Just fill data
         if (dataToSave !== null) {
             // Just call reducer if data changed
-            store.dispatch(sendToReducersAction("API_RECORD_LAST_SAVED_DATA",{
-                last_data_saved: dataToSave
-            }))
+            store.dispatch(sendToReducersAction("HISTORY_INIT_PRESENT",dataToSave))
         }
 
         return false
     }
 
     // Just compare previous data saved set and the new one
-    return !isEqual(oldData,dataToSave)
+    let hasChanged = !isEqual(oldData,dataToSave)
+
+    return hasChanged
 }
 
 
 // Update save status text
-const updateSaveStatus = (status, text, dataSaved) => {
+const updateSaveStatus = (status, text) => {
 
     clearTimeout(clearMessageTimeout)
 
@@ -104,8 +167,7 @@ const updateSaveStatus = (status, text, dataSaved) => {
 
     } else if (status === 200) {
 
-        // Edit saving status, also record last saved data
-        store.dispatch(sendToReducersAction("API_UPDATE_SAVED",dataSaved))
+        store.dispatch(sendToReducersAction("API_UPDATE_SAVED",text))
 
         // Hide message after 2 sec
         clearMessageTimeout = setTimeout(function() {
@@ -121,5 +183,3 @@ const updateSaveStatus = (status, text, dataSaved) => {
         },2000)
     }
 }
-
-export default LivetimeSave

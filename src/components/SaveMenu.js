@@ -2,9 +2,9 @@ import React from 'react'
 import {Button} from 'react-bootstrap'
 
 
-const SaveMenu = ({data_saving_status,buttonClicked}) => {
+const SaveMenu = ({data_saving_status,canUndo,canRedo,buttonClicked}) => {
 
-    const renderSaveButton = () => {
+    const renderSaveLabel = () => {
 
         if (data_saving_status > 0) {
 
@@ -15,7 +15,7 @@ const SaveMenu = ({data_saving_status,buttonClicked}) => {
         }
 
         // Display nothing
-        return <div />
+        return null
     }
 
     const closeButtonPressed = (event) => {
@@ -24,9 +24,26 @@ const SaveMenu = ({data_saving_status,buttonClicked}) => {
         buttonClicked('SAVE_MENU_CLOSE_BTN_PRESSED',event)
     }
 
+
     return <div className="save-menu margin-bottom-20">
 
-        {renderSaveButton()}
+        {renderSaveLabel()}
+
+        <Button
+            bsStyle="info"
+            className={"inline-block btn-floating btn-sm margin-left-20 " + (canUndo ? "" : "disabled")}
+            onClick={() => buttonClicked('SAVE_MENU_UNDO_BTN_PRESSED')}
+        >
+            <i className="fa fa-undo"></i>
+        </Button>
+
+        <Button
+            bsStyle="info"
+            className={"inline-block btn-floating btn-sm margin-left-20 " + (canRedo ? "" : "disabled")}
+            onClick={() => buttonClicked('SAVE_MENU_REDO_BTN_PRESSED')}
+        >
+            <i className="fa fa-repeat"></i>
+        </Button>
 
         <Button
             bsStyle="danger"

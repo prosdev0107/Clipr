@@ -63,14 +63,6 @@ const pageActionsReducer = (state = [], action) => {
 
             return state
 
-        case 'API_RECORD_LAST_SAVED_DATA':
-
-            return {
-                ...state,
-                data_unsaved: action.data.data_unsaved,
-                last_data_saved: action.data.last_data_saved || state.last_data_saved
-            }
-
         case 'API_UPDATE_CLEAR_MESSAGE':
 
             return {
@@ -88,15 +80,10 @@ const pageActionsReducer = (state = [], action) => {
 
         case 'API_UPDATE_SAVED':
 
-            // Last data sent to server ?
-            let lastDataSaved = action.data
-
             // Show user data is successfully saved
             return {
                 ...state,
-                data_saving_status: 2,
-                data_unsaved: false,
-                last_data_saved: lastDataSaved
+                data_saving_status: 2
             }
 
         case 'API_UPDATE_FAILED':
