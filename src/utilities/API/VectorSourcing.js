@@ -4,9 +4,12 @@ import axios from "axios/index"
 import { setupCache } from 'axios-cache-adapter'
 
 // Create `axios-cache-adapter` instance
-var axios_cache = setupCache({
+const axios_cache = setupCache({
     // Memorize search results for same query during 10 minutes
-    maxAge: 10 * 60 * 1000
+    maxAge: 10 * 60 * 1000,
+    exclude: {
+        query: false
+    }
 })
 
 // Create `axios` instance passing the newly created `cache.adapter`
@@ -139,8 +142,11 @@ export function vectorSourcing (source, type, text, offset, callback) {
     // Build final url to query
     let url = endpoint_url + query + "&" + fromParam + "=" + from
 
+    console.log('cll')
     api_axios
         .get(url).then((response) => {
+
+            console.log("cache",response.request.fromCache)
 
         var mediasData = response.data[source_info.pagination.dataKey]
 
