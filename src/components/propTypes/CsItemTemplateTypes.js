@@ -1,7 +1,7 @@
 
 import PropTypes from 'prop-types'
-import {StoryStickerTypes} from "./StoryStickerTypes";
-import {OverlayTypes} from "./OverlayTypes";
+import {StoryStickerTypes} from "./StoryStickerTypes"
+import {OverlayTypes} from "./OverlayTypes"
 
 export let CsItemTemplateTypes = {
     story_stickers: PropTypes.arrayOf(PropTypes.shape(StoryStickerTypes)),

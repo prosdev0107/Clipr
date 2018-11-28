@@ -62,7 +62,7 @@ const Sticker = ({sticker}) => {
                                             case "css":
 
                                                 if (customField.property !== "undefined") {
-                                                    node.style[customField.property] = customField.value;
+                                                    node.style[customField.property] = customField.value
                                                 }
                                                 break
 

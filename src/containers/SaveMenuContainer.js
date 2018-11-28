@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
-import SaveMenu from "../components/SaveMenu";
-import {sendToReducersAction} from "../actions";
+import SaveMenu from "../components/SaveMenu"
+import {sendToReducersAction} from "../actions"
 
 const mapStateToProps = state => ({
     data_saving_status: state.page_actions.data_saving_status,

@@ -1,6 +1,6 @@
 
 import PropTypes from 'prop-types'
-import {CsItemTemplateDefaults, CsItemTemplateTypes} from "./CsItemTemplateTypes";
+import {CsItemTemplateDefaults, CsItemTemplateTypes} from "./CsItemTemplateTypes"
 
 export let CsItemTypes = {
     id: PropTypes.isRequired,

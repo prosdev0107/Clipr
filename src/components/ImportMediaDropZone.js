@@ -1,6 +1,7 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
-import config from "../config";
+import config from "../config"
+import { FormattedMessage } from 'react-intl'
 
 class ImportMediaDropZone extends React.Component {
 
@@ -84,10 +85,10 @@ class ImportMediaDropZone extends React.Component {
         switch (this.state.infoUpload) {
 
             case "NO_FILE":
-                return "Chargez votre image ou vidéo. Les vidéos sont raccourcies à 5s sur Snapchat."
+                return  <FormattedMessage id="import.media.dropzone.NO_FILE" />
 
             case "WRONG_FILE":
-                return <span className='orange-a400'>Le fichier doit être une image format .png ou .jpg, ou une vidéo format mp4, mkv, mov, flv ou webm, et ne peut excéder 25 Mo.</span>
+                return <span className='orange-a400'><FormattedMessage id="import.media.dropzone.WRONG_FILE" /></span>
 
             default:
                 return null

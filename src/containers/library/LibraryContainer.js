@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import Library from '../../components/Library'
-import {selectFromLibraryAction,sendToReducersAction} from "../../actions";
+import {selectFromLibraryAction,sendToReducersAction} from "../../actions"
 
 const mapStateToProps = state => ({
     stickers_menu_tab: state.library_dynamic.stickers_menu_tab,

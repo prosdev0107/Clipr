@@ -1,6 +1,6 @@
 import React from 'react'
 import SimpleStickerContainer from "../containers/SimpleStickerContainer"
-import {StoryStickerTypes,StoryStickerDefaults} from "./propTypes/StoryStickerTypes";
+import {StoryStickerTypes,StoryStickerDefaults} from "./propTypes/StoryStickerTypes"
 
 // A draggable, resizable box on storyStickerBoxes
 

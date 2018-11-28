@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import ImportMediaResizer from '../../components/ImportMediaResizer'
-import {sendToReducersAction} from "../../actions";
+import {sendToReducersAction} from "../../actions"
 
 const mapStateToProps = state => ({
     file: state.import_media.file_to_upload,

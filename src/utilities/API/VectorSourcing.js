@@ -118,7 +118,7 @@ export function vectorSourcing (source, type, text, offset, callback) {
 
         // Remove null and undefined values and return results
         return formatted_data.filter(function (el) {
-            return typeof el !== "undefined" && el !== null;
+            return typeof el !== "undefined" && el !== null
         })
     }
 

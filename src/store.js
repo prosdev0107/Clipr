@@ -23,7 +23,8 @@ const initialState = {
             default_font: "",
             default_color: "",
             use_static_color: false
-        }
+        },
+        user_locale: 'fr'
     },
     // Params about loaded content through library tabs
     library_dynamic: {

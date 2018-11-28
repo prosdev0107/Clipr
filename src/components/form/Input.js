@@ -1,25 +1,36 @@
 import React from 'react'
+import { injectIntl, intlShape } from 'react-intl';
 
 const Input = ({
                    input, type, label, defaultValue, placeholder,       // common
                    meta: { touched, error },                            // status
-                   forceValue, nonMaterial                              // specific to some types
-               }) => (
+                   forceValue, nonMaterial,                             // specific to some types
+                   intl
+               }) => {
 
-    <div className={"form-group "+(nonMaterial || false ? "" : "form-material material-bordered")}>
+    const renderPlaceholder = (placeholder) => {
+        return placeholder ? intl.formatMessage({id: placeholder}): undefined
+    }
+
+    return <div className={"form-group "+(nonMaterial || false ? "" : "form-material material-bordered")}>
         {(label || "").length > 0 ? <label htmlFor={input.name}>{label}</label> : "" }
         <input
             {...input}
             type={type}
             defaultValue={defaultValue}
             value={forceValue || undefined}
-            placeholder={placeholder || undefined}
+            placeholder={renderPlaceholder(placeholder)}
             // { ( (forceValue || "").length > 0 ?  {value: forceValue} : {} ) }
             className="form-control"
         />
         { touched && error && <span className="error">{error}</span>}
     </div>
 
-)
 
-export default Input
+}
+
+Input.propTypes = {
+    intl: intlShape.isRequired
+}
+
+export default injectIntl(Input)

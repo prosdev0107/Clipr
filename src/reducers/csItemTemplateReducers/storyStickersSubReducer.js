@@ -476,7 +476,7 @@ const storyStickersSubReducer = (state = [], action) => {
 
             // Edit with keyboards keys
             if (typeof action.data === "undefined" || action.data < 37 || action.data > 40) {
-                return state;
+                return state
             }
 
             let x_delta = 0, y_delta = 0
@@ -484,21 +484,21 @@ const storyStickersSubReducer = (state = [], action) => {
                 case 37:
                     // left
                     x_delta = - 0.01
-                    break;
+                    break
                 case 38:
                     // up
                     y_delta = - 0.01
-                    break;
+                    break
                 case 39:
                     // right
                     x_delta = 0.01
-                    break;
+                    break
                 case 40:
                     // down
                     y_delta = 0.01
-                       break;
+                    break
                 default:
-                    break;
+                    break
             }
 
             return state.map(storySticker =>
@@ -522,7 +522,7 @@ const storyStickersSubReducer = (state = [], action) => {
                     let position = JSON.parse(JSON.stringify(initialState.position))
 
                     // x, y , rotation...
-                    let field = inputName.replace('ssbox_position_','');
+                    let field = inputName.replace('ssbox_position_','')
 
                     // Transform value if necessary
                     if (field === "rotation") {

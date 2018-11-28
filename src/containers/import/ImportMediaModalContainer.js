@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import ImportMediaModal from '../../components/ImportMediaModal'
-import {sendToReducersAction} from "../../actions";
+import {sendToReducersAction} from "../../actions"
 
 const mapStateToProps = state => ({
     modal_show: state.import_media.show_modal,

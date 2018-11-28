@@ -25,7 +25,7 @@ const CliprIframe = ({theme, params, url_preview, is_preview}) => {
 
         // Show iframe (with short timeout to let new CSS added to be executed)
         setTimeout(function() {
-            iframe.style.opacity=1.0;
+            iframe.style.opacity=1.0
         },1000)
     }
 

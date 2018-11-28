@@ -1,6 +1,7 @@
 import React from 'react'
 import ImportMediaAPIMediaContainer from "../containers/import/ImportMediaAPIMediaContainer"
 import {Row, Col} from 'react-bootstrap'
+import { FormattedMessage } from 'react-intl'
 
 const ImportMediaContent = ({medias, is_loading}) => {
 
@@ -9,7 +10,9 @@ const ImportMediaContent = ({medias, is_loading}) => {
         // Empty
         return <div>
             <p className="text-center margin-top-50">
-                { is_loading ? "Loading..." : "Aucun contenu trouvé !" }
+                { is_loading ?
+                    <FormattedMessage id="common.loading"/> + '...' :
+                    <FormattedMessage id="common.no_content"/> }
                 </p>
         </div>
     }
@@ -31,7 +34,7 @@ const ImportMediaContent = ({medias, is_loading}) => {
         </Row>
 
         <p className="text-center margin-30">
-            { is_loading ? "Loading..." : "" }
+            { is_loading ? <FormattedMessage id="common.loading"/> : "" }
         </p>
 
     </div>

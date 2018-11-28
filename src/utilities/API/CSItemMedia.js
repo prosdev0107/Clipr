@@ -29,7 +29,7 @@ const createCSItemFromFile = (file, cropped_zone) => {
     let config = {
         onUploadProgress: progressEvent => {
             // Store progress status in global state
-            let percentCompleted = Math.min(100,Math.max(0,Math.floor((progressEvent.loaded * 100) / progressEvent.total)));
+            let percentCompleted = Math.min(100,Math.max(0,Math.floor((progressEvent.loaded * 100) / progressEvent.total)))
             store.dispatch(sendToReducersAction("IMPORT_MEDIA_PROGRESS_PERCENT",percentCompleted))
         }
     }

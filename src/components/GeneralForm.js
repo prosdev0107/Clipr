@@ -1,8 +1,9 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
 import {renderField} from "./form/renderField"
-import {ClipTypes} from "./propTypes/ClipTypes";
-import PropTypes from "prop-types";
+import {ClipTypes} from "./propTypes/ClipTypes"
+import PropTypes from "prop-types"
+import { FormattedMessage } from 'react-intl'
 
 const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip,params,formChanged, preventEnterKeySubmit}) => {
 
@@ -17,16 +18,16 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
     })
 
     let select_colors = theme_colors.map( (color) => {
-        return { value: color.id, label: color.name }
+        return { value: color.id, label:  <FormattedMessage id={"general.form.main_color."+color.id} /> }
     })
 
     let animations_label = {
-        'zoom-in' : "Zoom in",
-        'zoom-out' : "Zoom out",
-        'move-from-left': "Vers la droite",
-        'move-from-right': "Vers la gauche",
-        'move-from-top': "Vers le bas",
-        'move-from-bottom': "Vers le haut"
+        'zoom-in' : <FormattedMessage id="general.form.animation.zoom-in"/>,
+        'zoom-out' :  <FormattedMessage id="general.form.animation.zoom-out"/>,
+        'move-from-left':  <FormattedMessage id="general.form.animation.move-from-left"/>,
+        'move-from-right':  <FormattedMessage id="general.form.animation.move-from-right"/>,
+        'move-from-top':  <FormattedMessage id="general.form.animation.move-from-top"/>,
+        'move-from-bottom':  <FormattedMessage id="general.form.animation.move-from-bottom"/>
     }
     let select_animations = img_animations.map( (anim) => {
         return { value: anim, label: animations_label[anim] }
@@ -52,7 +53,7 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
     // Let's build the row data to be displayed
     let rowInputInfo = [
         {
-            'separator': 'Thème',
+            'separator': 'general.form.separator.theme',
         },
         {
             id: "theme_font",
@@ -60,7 +61,7 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
             type: "css",
             options: select_fonts,
             input: {
-                label: "Police principale",
+                label: "general.form.main_font",
                 type: "font",
             }
         },
@@ -70,7 +71,7 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
             type: "css",
             options: select_colors,
             input: {
-                label: "Couleur principale",
+                label: "general.form.main_color",
                 type: "select",
             }
         },
@@ -80,19 +81,19 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
             value: !(media_theme.use_static_color || 0),
             type: "css",
             input: {
-                label: "Couleur dégradée",
+                label: "general.form.gradient_color",
                 type: "checkbox",
             }
         },
         {
-        'separator': 'Overlay',
+        'separator': 'general.form.separator.overlay',
         },
         {
             id: "overlay_color",
             value: overlay.color || "#000000",
             type: "css",
             input: {
-                label: "Couleur",
+                label: "general.form.color",
                 type: "color",
             }
         },
@@ -101,7 +102,7 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
             value: Math.round(100*overlay.opacity) || 0,
             type: "css",
             input: {
-                label: "Opacité",
+                label: "general.form.opacity",
                 type: "number_slider",
                 step: 1,
                 min: 0,
@@ -109,7 +110,7 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
             }
         },
         {
-            'separator': 'Média',
+            'separator': 'general.form.separator.media',
         },
         {
             id: "media_display_order",
@@ -127,7 +128,7 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
             value: !(media_params.fit_screen || 0),
             type: "css",
             input: {
-                label: "Affichage plein écran",
+                label: "general.form.media.full_screen",
                 type: "checkbox",
             }
         }
@@ -140,7 +141,7 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
                 value: (media_params.duration || 5),
                 type: "css",
                 input: {
-                    label: "Durée image (s)",
+                    label: "general.form.media.duration",
                     type: "number",
                     step: 0.1,
                     min: 2,
@@ -152,7 +153,7 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
             type: "css",
             options: select_animations,
             input: {
-                label: "Animation",
+                label: "general.form.animation.title",
                 type: "select",
                 selectUp: true
             }
@@ -174,13 +175,13 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
 
                     if (typeof properties.separator !== "undefined") {
                         return <tr key={key} className="table-separator text-primary">
-                            <td><b>{properties.separator}</b></td>
+                            <td><b><FormattedMessage id={properties.separator} /></b></td>
                             <td></td>
                         </tr>
                     }
 
                     return <tr key={key}>
-                        <td>{properties.input.label}</td>
+                        <td><FormattedMessage id={properties.input.label} /></td>
                         <td>
                             {renderField(properties,formChanged)}
                         </td>

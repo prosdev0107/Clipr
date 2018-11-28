@@ -1,5 +1,5 @@
 
-import {MEDIA_PANEL_ID} from "../constants/constants";
+import {MEDIA_PANEL_ID} from "../constants/constants"
 import store from '../store'
 
 const getMediaPanelSize = () => {
@@ -78,7 +78,7 @@ export const selectFromLibraryAction = (type, event) => {
         let sticker = findStickerWithId(target.getAttribute('data-sticker-id'))
 
         // Original width of sticker compared to medial panel width
-        let init_width = Math.round(100*target.offsetWidth / mediaPanelSize.width)/100;
+        let init_width = Math.round(100*target.offsetWidth / mediaPanelSize.width)/100
 
         return {
             cs_item_index_editing: store.getState().cs_item_index_editing,
@@ -145,7 +145,7 @@ export const propertiesFormChangedAction = (event) => {
     /*if (target.tagName !== "form") {
         target = target.closest('form')
     }
-    const data = new FormData(target);*/
+    const data = new FormData(target)*/
 
     let inputName = target.name, inputValue = target.value
 

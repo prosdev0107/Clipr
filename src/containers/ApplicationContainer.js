@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import ApplicationWrapper from '../components/ApplicationWrapper'
-import {sendToReducersAction} from "../actions";
+import {sendToReducersAction} from "../actions"
 
 const mapStateToProps = state => ({
     page_is_loading: state.page_actions.page_is_loading,

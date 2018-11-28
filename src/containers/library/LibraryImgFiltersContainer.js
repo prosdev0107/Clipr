@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
-import LibraryImgFilters from "../../components/LibraryImgFilters";
-import {sendToReducersAction} from "../../actions";
+import LibraryImgFilters from "../../components/LibraryImgFilters"
+import {sendToReducersAction} from "../../actions"
 import currentCsItemEdited from "../../utilities/csItemFromList"
 
 const mapStateToProps = state => {

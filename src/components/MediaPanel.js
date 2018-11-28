@@ -102,7 +102,7 @@ const MediaPanel = ({ cs_item_general, cs_item_media, is_preview_mode, listen_dr
             let media = panel.querySelector(".media-panel-layer-media .poster")
             if (typeof media !== "undefined" && media !== null && (media.videoWidth || media.width)) {
 
-                let isVideo = typeof media.videoWidth !== "undefined" && media.videoWidth != null;
+                let isVideo = typeof media.videoWidth !== "undefined" && media.videoWidth != null
                 let mediaWidth = isVideo ? media.videoWidth : media.naturalWidth,
                     mediaHeight = isVideo ? media.videoHeight : media.naturalHeight,
                     panelWidth = mediaPanelRect.width,

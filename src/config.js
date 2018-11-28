@@ -61,7 +61,11 @@ const prod = {
             video: "/videos/?video_type=film&q=city"
         }
     },
-    aws_cdn: "https://d2fzf01co41kzj.cloudfront.net"
+    aws_cdn: "https://d2fzf01co41kzj.cloudfront.net",
+    locale: {
+        default: "fr",
+        supported: ["en","fr"]
+    }
 }
 
 const config = process.env.REACT_APP_STAGE === 'production'

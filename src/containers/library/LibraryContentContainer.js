@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import LibraryContent from '../../components/LibraryContent'
-import {TAB_GIF, TAB_IMAGE, TAB_TEXT} from "../../constants/constants";
+import {TAB_GIF, TAB_IMAGE, TAB_TEXT} from "../../constants/constants"
 
 const mapStateToProps = (state,ownProps) => {
 

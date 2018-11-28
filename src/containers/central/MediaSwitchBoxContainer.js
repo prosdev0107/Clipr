@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
-import MediaSwitchBox from "../../components/MediaSwitchBox";
-import {sendToReducersAction} from "../../actions";
+import MediaSwitchBox from "../../components/MediaSwitchBox"
+import {sendToReducersAction} from "../../actions"
 
 const mapStateToProps = (state, ownProps) => ({
     index: ownProps.index,

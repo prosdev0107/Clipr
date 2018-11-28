@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import SearchAPIBar from '../../components/SearchAPIBar'
-import {sendToReducersAction} from "../../actions";
+import {sendToReducersAction} from "../../actions"
 
 const mapStateToProps = (state, ownProps) => {
 

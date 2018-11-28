@@ -1,4 +1,5 @@
-import axios from "axios/index";
+import axios from "axios/index"
+import config from "../config"
 
 const paramsReducer = (state = [], action) => {
 
@@ -29,10 +30,16 @@ const paramsReducer = (state = [], action) => {
                     })
                 })
 
+                // If no locale received, take default
+                // Same if locale received is not supported
+                if (typeof data.params.user_locale === "undefined"
+                    || config.locale.supported.indexOf(data.params.user_locale) === -1) {
+                    data.params.user_locale = config.locale.default
+                }
+
                 return data.params
             }
             return state
-
 
         default:
             return state

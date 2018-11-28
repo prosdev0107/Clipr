@@ -5,7 +5,7 @@ import Select2 from "./Select2"
 import InputNumber from "./InputNumber"
 import InputCheckbox from "./InputCheckbox"
 import InputColor from "./InputColor"
-import InputNumberSlider from "./InputNumberSlider";
+import InputNumberSlider from "./InputNumberSlider"
 
 
 export const renderField = (properties, action) => {
@@ -25,7 +25,7 @@ export const renderField = (properties, action) => {
         nonMaterial: properties.nonMaterial,
         placeholder: properties.placeholder,
         hideValue: properties.hideValue || false, // Ex : slider number : display slider but not the number
-        type: properties.input.type
+        type: properties.input.type,
     }
     switch (properties.input.type || "text") {
 

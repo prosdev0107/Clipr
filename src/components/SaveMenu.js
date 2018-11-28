@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button} from 'react-bootstrap'
-
+import { FormattedMessage } from 'react-intl'
 
 const SaveMenu = ({data_saving_status,canUndo,canRedo,buttonClicked}) => {
 
@@ -10,7 +10,9 @@ const SaveMenu = ({data_saving_status,canUndo,canRedo,buttonClicked}) => {
 
             // Display saving status
             return <span><b>
-                { data_saving_status === 1 ? "Sauvegarde..." : ( data_saving_status === 2 ? "Sauvegardé !" : "" ) }
+                { data_saving_status === 1 ?
+                    <FormattedMessage id="save_menu.saving" /> :
+                    ( data_saving_status === 2 ? <FormattedMessage id="save_menu.saved" /> : "" ) }
             </b></span>
         }
 

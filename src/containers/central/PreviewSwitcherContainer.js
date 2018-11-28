@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import PreviewSwitcher from "../../components/PreviewSwitcher"
-import {sendToReducersAction} from "../../actions";
+import {sendToReducersAction} from "../../actions"
 
 const mapStateToProps = state => ({
     is_preview_mode: state.page_actions.is_preview_mode

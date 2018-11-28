@@ -25,7 +25,7 @@ const csItemsReducer = (state = [], action) => {
             if (typeof mediaIndexToDelete !== "undefined") {
 
                 // Remove from store
-                return state.filter((elt,index) => index !== mediaIndexToDelete);
+                return state.filter((elt,index) => index !== mediaIndexToDelete)
             }
             return state
 

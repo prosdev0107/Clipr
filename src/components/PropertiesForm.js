@@ -2,7 +2,7 @@ import React from 'react'
 import { reduxForm } from 'redux-form'
 import { STICKER_FONT_SIZE_MIN, STICKER_FONT_SIZE_MAX } from '../constants/constants'
 import {renderField} from "./form/renderField"
-
+import { FormattedMessage } from 'react-intl'
 
 const PropertiesForm = ({story_sticker,fonts,formChanged, preventEnterKeySubmit}) => {
 
@@ -23,7 +23,7 @@ const PropertiesForm = ({story_sticker,fonts,formChanged, preventEnterKeySubmit}
 
     // Finally we need to build the row data to be displayed
     let rowInputInfo = [{
-            'separator': 'Général'
+            'separator': 'properties.form.separator.general'
         }]
 
     // Add the common field
@@ -32,7 +32,7 @@ const PropertiesForm = ({story_sticker,fonts,formChanged, preventEnterKeySubmit}
         value: Math.round(rotationDeg) || 0,
         type: "attribute",
         input: {
-            label: "Rotation",
+            label: "properties.form.general.rotation",
             type: "number_slider",
             step: 1,
             min: 0,
@@ -51,13 +51,13 @@ const PropertiesForm = ({story_sticker,fonts,formChanged, preventEnterKeySubmit}
 
                 // Need to render several input to customize text
                 rowInputInfo.push({
-                    separator: "Texte intérieur"
+                    separator: "properties.form.separator.text"
                 }, {
                     id: "custom_text_content_" + customField.id,
                     value: customField.attributes.content || "",
                     type: "attribute",
                     input: {
-                        label: "Texte",
+                        label: "properties.form.text.content",
                         type: "text"
                     }
                 })
@@ -68,7 +68,7 @@ const PropertiesForm = ({story_sticker,fonts,formChanged, preventEnterKeySubmit}
                         type: "css",
                         options: fontFamilies,
                         input: {
-                            label: "Police",
+                            label: "properties.form.text.font",
                             type: "font"
                         }
                     })
@@ -79,7 +79,7 @@ const PropertiesForm = ({story_sticker,fonts,formChanged, preventEnterKeySubmit}
                         value: Math.max(STICKER_FONT_SIZE_MIN,customField.attributes.size || 0),
                         type: "css",
                         input: {
-                            label: "Taille",
+                            label: "properties.form.text.size",
                             type: "number_slider",
                             min: STICKER_FONT_SIZE_MIN,
                             max: STICKER_FONT_SIZE_MAX
@@ -92,7 +92,7 @@ const PropertiesForm = ({story_sticker,fonts,formChanged, preventEnterKeySubmit}
                         value: customField.attributes.color,
                         type: "css",
                         input: {
-                            label: "Couleur",
+                            label: "properties.form.text.color",
                             type: "color"
                         }
                     })
@@ -107,7 +107,7 @@ const PropertiesForm = ({story_sticker,fonts,formChanged, preventEnterKeySubmit}
     }
 
     rowInputInfo.push({
-        separator: "Actions"
+        separator: "properties.form.separator.actions"
     })
 
     return (
@@ -123,13 +123,13 @@ const PropertiesForm = ({story_sticker,fonts,formChanged, preventEnterKeySubmit}
 
                     if (typeof properties.separator !== "undefined") {
                         return <tr key={key} className="table-separator text-primary">
-                            <td><b>{properties.separator}</b></td>
+                            <td><b><FormattedMessage id={properties.separator} /></b></td>
                             <td></td>
                         </tr>
                     }
 
                     return <tr key={key}>
-                        <td>{properties.input.label}</td>
+                        <td><FormattedMessage id={properties.input.label} /></td>
                         <td>
                             {renderField(properties,formChanged)}
                         </td>

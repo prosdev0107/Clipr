@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import Properties from '../../components/Properties'
-import {sendToReducersAction} from "../../actions";
+import {sendToReducersAction} from "../../actions"
 import currentCsItemEdited from "../../utilities/csItemFromList"
 
 const mapStateToProps = state => ({

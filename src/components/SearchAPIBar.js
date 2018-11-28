@@ -33,7 +33,7 @@ const SearchAPIBar = ({api_source, type, searchText, searchResultsLength, is_loa
                 { renderField({
                     id: api_source+"_"+type+"_searchBar",
                     nonMaterial: true,
-                    placeholder: "Rechercher par mots-clés...",
+                    placeholder: "search_bar.placeholder",
                     input: {
                         type: "text",
                         name: api_source+"_"+type+"_search",
@@ -41,7 +41,9 @@ const SearchAPIBar = ({api_source, type, searchText, searchResultsLength, is_loa
                     }
                 }) }
 
-                <p className="text-center"><small>Powered By <span className="uppercase">{ api_source }</span></small></p>
+                <p className="text-center">
+                    <small>Powered By <span className="uppercase">{ api_source }</span></small>
+                </p>
 
             </form>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import StoryStickerContainer from '../containers/central/StoryStickerContainer'
-import {isSafari} from 'react-device-detect';
+import {isSafari} from 'react-device-detect'
 
 const StickersLayer = ({ story_stickers, listen_drag_events, transformStorySticker, sendToReducers }) => {
 

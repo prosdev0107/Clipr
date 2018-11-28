@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
-import ImportMediaDropZone from "../../components/ImportMediaDropZone";
-import {sendToReducersAction} from "../../actions";
+import ImportMediaDropZone from "../../components/ImportMediaDropZone"
+import {sendToReducersAction} from "../../actions"
 
 const mapStateToProps = () => ({
 })

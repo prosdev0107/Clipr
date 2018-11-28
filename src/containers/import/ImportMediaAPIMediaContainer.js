@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import ImportMediaAPIMedia from '../../components/ImportMediaAPIMedia'
-import {sendToReducersAction} from "../../actions";
+import {sendToReducersAction} from "../../actions"
 
 const mapStateToProps = (state,ownProps) => ({
     media: ownProps.media,

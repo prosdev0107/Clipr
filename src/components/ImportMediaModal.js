@@ -1,8 +1,9 @@
 import React from 'react'
 import {Modal} from 'react-bootstrap'
-import { Line } from 'rc-progress';
+import { Line } from 'rc-progress'
 import ImportMediaLibraryContainer from "../containers/import/ImportMediaLibraryContainer"
 import ImportMediaResizerContainer from "../containers/import/ImportMediaResizerContainer"
+import { FormattedMessage } from 'react-intl'
 
 const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, display_resizer, closeModal, loadMoreMedias}) => {
 
@@ -22,7 +23,10 @@ const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, 
     const renderOverlay = () => {
 
         let progressPercent = uploading_file_progress > 0 ? " "+uploading_file_progress+"%" : ""
-        let progressText= <span className={"infoProgress"}>Création du média en cours...{progressPercent}</span>
+        let progressText=
+            <span className={"infoProgress"}>
+                <FormattedMessage id="import.media.creation" />
+                ...{progressPercent}</span>
         let progressBar = uploading_file_progress === 0 ?  <div /> : <div className={"loader-progress-bar absolute-center-horizontal"}>
             <Line percent={uploading_file_progress} strokeWidth={4} trailWidth={4} strokeColor="#00D9EA" />
         </div>
@@ -94,7 +98,7 @@ const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, 
             <Modal.Header>
 
                 <Modal.Title>
-                    Import Media
+                    <FormattedMessage id="import.media.title" />
                 </Modal.Title>
 
                 {/* TODO : utiliser propriété closeButton dans tag Modal.Title, mais avant faut loader le bon bootstrap CSS (3.3.7 ?) */}

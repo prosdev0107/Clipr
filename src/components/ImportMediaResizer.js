@@ -1,9 +1,10 @@
 import React from 'react'
 // import LibraryContainer from "../containers/import/LibraryContainer"
 import AvatarEditor from 'react-avatar-editor'
-import {renderField} from "./form/renderField";
-import {reduxForm} from "redux-form";
+import {renderField} from "./form/renderField"
+import {reduxForm} from "redux-form"
 import createCSItemFromFile from '../utilities/API/CSItemMedia'
+import { FormattedMessage } from 'react-intl'
 
 class ImportMediaResizer extends React.Component {
 
@@ -56,7 +57,7 @@ class ImportMediaResizer extends React.Component {
                 hideValue: true,
                 type: "css",
                 input: {
-                    label: "Zoom",
+                    label: "import.media.resizer.zoom",
                     type: "number_slider",
                     min: 1,
                     max: 3,
@@ -91,7 +92,7 @@ class ImportMediaResizer extends React.Component {
                         {Object.entries(resizerInputs).map(([key, properties]) => {
 
                             return <tr key={key}>
-                                <td className={"text-right"}>{properties.input.label}</td>
+                                <td className={"text-right"}><FormattedMessage id={properties.input.label} /></td>
                                 <td>
                                     {renderField(properties,this.props.formChanged)}
                                 </td>

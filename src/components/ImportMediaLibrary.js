@@ -3,6 +3,7 @@ import ImportMediaDropZoneContainer from "../containers/import/ImportMediaDropZo
 import {Tabs, Tab} from 'react-bootstrap'
 import SearchAPIBarContainer from "../containers/library/SearchAPIBarContainer"
 import ImportMediaAPIContentContainer from "../containers/import/ImportMediaAPIContentContainer"
+import { FormattedMessage } from 'react-intl'
 
 const ImportMediaLibrary = () => {
 
@@ -16,17 +17,17 @@ const ImportMediaLibrary = () => {
 
         <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
 
-            <Tab eventKey={1} title="Templates">
+            <Tab eventKey={1} title={<FormattedMessage id="import.media.tab.template" />}>
                 Coming soon !
             </Tab>
-            <Tab eventKey={2} title="Import file">
+            <Tab eventKey={2} title={<FormattedMessage id="import.media.tab.dropzone" />}>
                 <ImportMediaDropZoneContainer />
             </Tab>
-            <Tab eventKey={3} title="Bibli Images">
+            <Tab eventKey={3} title={<FormattedMessage id="import.media.tab.image" />}>
                 <SearchAPIBarContainer type={"image"} source={"pixabay"} />
                 <ImportMediaAPIContentContainer type={"image"} source={"pixabay"}  />
             </Tab>
-            <Tab eventKey={4} title="Bibli Video">
+            <Tab eventKey={4} title={<FormattedMessage id="import.media.tab.video" />}>
                 <SearchAPIBarContainer type={"video"} source={"pixabay"} />
                 <ImportMediaAPIContentContainer type={"video"} source={"pixabay"}  />
             </Tab>
