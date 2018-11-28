@@ -1,5 +1,6 @@
 import React from 'react'
 import createCSItemFromFile from '../utilities/API/CSItemMedia'
+import { FormattedMessage } from 'react-intl'
 
 const ImportAPIMedia = ({media, showResizer}) => {
 
@@ -11,7 +12,9 @@ const ImportAPIMedia = ({media, showResizer}) => {
         }
         return <div>
             <video className={"width-full"} src={media.source.preview} controls />
-            <button className={"btn btn-default select-video"} onClick={() => clickVideo()}>Choisir</button>
+            <button className={"btn btn-default select-video"} onClick={() => clickVideo()}>
+                <FormattedMessage id={"common.choose"} />
+            </button>
         </div>
     }
 

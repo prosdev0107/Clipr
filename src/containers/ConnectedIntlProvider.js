@@ -20,7 +20,7 @@ function mapStateToProps(state) {
     }
 
     const messages = require('../translations/'+locale+'.json')
-console.log(locale,messages)
+
     return {
         locale: locale,
         key: locale,

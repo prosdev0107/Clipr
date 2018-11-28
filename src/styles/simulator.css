@@ -43,4 +43,13 @@
 .iphone-svg #screen {
   stroke-width: 3px;
 }
+.iPhone-resizer {
+  position: relative;
+}
+.iPhone-resizer iframe {
+  pointer-events: none;
+}
+.iPhone-resizer canvas {
+  position: absolute;
+}
 /*# sourceMappingURL=simulator.css.map */
