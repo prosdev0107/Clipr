@@ -29,38 +29,6 @@ const csItemsReducer = (state = [], action) => {
             }
             return state
 
-        case 'PROPERTIES_FORM_CHANGED':
-
-            if (action.name === "media_display_order") {
-
-                // User asks to change media position
-
-                // Current position of selected media
-                let oldMediaPosition = action.cs_item_index_editing
-
-                // Destination user wishes
-                let newMediaPosition = action.value
-
-                function swapArrayElemts(arr, oldPosition, newPosition) {
-
-                    if (oldPosition !== newPosition && oldPosition < arr.length && newPosition < arr.length) {
-
-                        let arr_deep_copy = JSON.parse(JSON.stringify(arr))
-
-                        let temp = arr_deep_copy[newPosition]
-                        arr_deep_copy[newPosition] = arr_deep_copy[oldPosition]
-                        arr_deep_copy[oldPosition] = temp
-
-                        return arr_deep_copy
-                    }
-                    return arr
-                }
-
-                // Now let's change array items order
-                return swapArrayElemts(state, oldMediaPosition, newMediaPosition)
-            }
-            break
-
         case 'API_CREATE_CS_ITEM_END':
 
             let new_item = action.data

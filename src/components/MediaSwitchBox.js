@@ -4,23 +4,48 @@ const MediaSwitchBox = ({index, selected, cs_item, cs_items_length, mediasSwitch
 
     function renderButtonContent() {
 
-        if (cs_item == null) {
+        if (cs_item === null) {
+
+            if ( selected === -1 ){
+
+                // That's the placeholder when dragging element
+                return <div className={"media-switchbox-btn-container"}>
+                    <button>
+                        <div className={"overlay absolute"}>
+                        </div>
+
+                    </button>
+                </div>
+
+            }
+
             // That's the "add new media" button
-            return <div>
-                    <button
-                    className={"btn btn-info btn-sm btn-floating "}
+            return <div className={"media-switchbox-btn-container"}>
+                <button
                     onClick={(event) => mediasSwitchBoxAction('SHOW_IMPORT_MEDIA_MODAL')}
-                >+</button>
+                >
+                    <div className={"overlay absolute"}>
+                        <span className={"absolute absolute-center"}>+</span>
+                    </div>
+
+                </button>
             </div>
         }
 
         return <div className={"media-switchbox-btn-container"}>
+
             <button
-                className={"btn btn-info btn-sm btn-floating "+(selected ? "btn-active" : "")}
+                className={selected ? "relative btn-active" : "relative"}
                 onClick={(event) => mediasSwitchBoxAction('MEDIA_SWITCHER_CHANGE_INDEX',{
                     new_index: index
                 })}
-            >{index+1}</button>
+            >
+                <img className={"absolute absolute-center"} src={cs_item.media.thumbnail} alt={"preview media panel"} />
+                <div className={"overlay absolute"}>
+                    <span className={"absolute absolute-center"}>{index+1}</span>
+                </div>
+            </button>
+
             <button
                 className={"btn btn-danger btn-xs btn-floating media-switchbox-delete"}
                 onClick={(event) => mediasSwitchBoxAction('MEDIA_SWITCHER_DELETE_MEDIA',{
@@ -28,10 +53,11 @@ const MediaSwitchBox = ({index, selected, cs_item, cs_items_length, mediasSwitch
                     items_length: cs_items_length
                 })}
             >D</button>
+
         </div>
     }
 
-    return <div className="media-switchbox padding-right-20 padding-left-20">
+    return <div className="media-switchbox">
 
         { renderButtonContent() }
 

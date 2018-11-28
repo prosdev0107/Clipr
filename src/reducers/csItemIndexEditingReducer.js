@@ -20,16 +20,30 @@ const csItemIndexEditingReducer = (state = [], action) => {
             // in order to avoid an index bigger than number of medias after removal
             return 0
 
-        case 'PROPERTIES_FORM_CHANGED':
+
+        case 'MEDIA_SWITCHER_SWITCH_MEDIA':
 
             if (action.name === "media_display_order") {
 
-                // User asks to change media position, so current cs item index needs to be switched
+                // User asks to change media position
+                let positions = action.data
 
-                // Now let's change array items order
-                return action.value
+                if (positions !== 2) {
+                    // There must be exactly two media to switch
+                    return state
+                }
+
+                // If one of this position is equals to current index being editing, switch this index too
+                if (action.cs_item_index_editing === positions[0]) {
+                    return positions[1]
+                }
+                if (action.cs_item_index_editing === positions[1]) {
+                    return positions[0]
+                }
+
+                return state
             }
-            return state
+            break
 
         case "API_CREATE_CS_ITEM_END":
 

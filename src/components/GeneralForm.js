@@ -113,16 +113,6 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
             'separator': 'general.form.separator.media',
         },
         {
-            id: "media_display_order",
-            value: cs_item_index_editing || 0,
-            type: "css",
-            options: display_order_choices,
-            input: {
-                label: "Ordre d'affichage",
-                type: "select",
-            }
-        },
-        {
             id: "media_fit_screen",
             // We are showing a checkbox as "enable full screen", the opposite of fit_screen value
             value: !(media_params.fit_screen || 0),

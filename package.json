@@ -19,6 +19,7 @@
     "react-designer": "^1.0.8",
     "react-device-detect": "^1.5.8",
     "react-dom": "^16.4.0",
+    "react-drag-sortable": "^1.0.6",
     "react-dropzone": "^7.0.1",
     "react-fileupload-progress": "^0.4.2",
     "react-input-color": "^1.7.2",

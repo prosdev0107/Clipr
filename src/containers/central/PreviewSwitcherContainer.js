@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    switchPreviewMode: (new_preview_mode) => dispatch(sendToReducersAction("PREVIEW_SWITCHER_CHANGE_PREVIEW_MODE", new_preview_mode)),
+    switchPreviewMode: (positions) => dispatch(sendToReducersAction("MEDIA_SWITCHER_SWITCH_MEDIA", positions)),
 })
 
 
