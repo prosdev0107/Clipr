@@ -2,17 +2,18 @@ import React from 'react'
 import {Button} from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
 
-const SaveMenu = ({data_saving_status,canUndo,canRedo,buttonClicked}) => {
+class SaveMenu extends React.Component {
 
-    const renderSaveLabel = () => {
 
-        if (data_saving_status > 0) {
+    renderSaveLabel() {
+
+        if (this.props.data_saving_status > 0) {
 
             // Display saving status
             return <span><b>
-                { data_saving_status === 1 ?
+                { this.props.data_saving_status === 1 ?
                     <FormattedMessage id="save_menu.saving" /> :
-                    ( data_saving_status === 2 ? <FormattedMessage id="save_menu.saved" /> : "" ) }
+                    ( this.props.data_saving_status === 2 ? <FormattedMessage id="save_menu.saved" /> : "" ) }
             </b></span>
         }
 
@@ -20,43 +21,71 @@ const SaveMenu = ({data_saving_status,canUndo,canRedo,buttonClicked}) => {
         return null
     }
 
-    const closeButtonPressed = (event) => {
+    closeButtonPressed(event) {
 
         // Directly closes window
-        buttonClicked('SAVE_MENU_CLOSE_BTN_PRESSED',event)
+        this.props.buttonClicked('SAVE_MENU_CLOSE_BTN_PRESSED',event)
     }
 
 
-    return <div className="save-menu margin-bottom-20">
+    componentDidMount() {
 
-        {renderSaveLabel()}
+        const {buttonClicked} = this.props
 
-        <Button
-            bsStyle="info"
-            className={"inline-block btn-floating btn-sm margin-left-20 " + (canUndo ? "" : "disabled")}
-            onClick={() => buttonClicked('SAVE_MENU_UNDO_BTN_PRESSED')}
-        >
-            <i className="fa fa-undo"></i>
-        </Button>
+        function handleKeyDown(event) {
 
-        <Button
-            bsStyle="info"
-            className={"inline-block btn-floating btn-sm margin-left-20 " + (canRedo ? "" : "disabled")}
-            onClick={() => buttonClicked('SAVE_MENU_REDO_BTN_PRESSED')}
-        >
-            <i className="fa fa-repeat"></i>
-        </Button>
+            // Is user pressing ctrl (PC) or cmd (Mac) key ?
+            if (event.ctrlKey || event.metaKey) {
 
-        <Button
-            bsStyle="danger"
-            className="inline-block btn-floating btn-sm margin-left-20"
-            onClick={(event) => closeButtonPressed(event)}
-        >
-            <i className="fa fa-times"></i>
-        </Button>
+                // Is user pressing simultaneously pressing z or y ?
+                if( event.which === 89){
+                    // User wants to redo action
+                    buttonClicked('SAVE_MENU_REDO_BTN_PRESSED')
+                }
+                else if( event.which === 90){
+                    // User wants to undo action
+                    buttonClicked('SAVE_MENU_UNDO_BTN_PRESSED')
+                }
+            }
+        }
+
+        // Detect conventional redo/undo keyboard combination
+        window.addEventListener("keydown", handleKeyDown)
+    }
+
+    render() {
+        return <div
+            className="save-menu margin-bottom-20">
+
+            {this.renderSaveLabel()}
+
+            <Button
+                bsStyle="info"
+                className={"inline-block btn-floating btn-sm margin-left-20 " + (this.props.canUndo ? "" : "disabled")}
+                onClick={() => this.props.buttonClicked('SAVE_MENU_UNDO_BTN_PRESSED')}
+            >
+                <i className="fa fa-undo"></i>
+            </Button>
+
+            <Button
+                bsStyle="info"
+                className={"inline-block btn-floating btn-sm margin-left-20 " + (this.props.canRedo ? "" : "disabled")}
+                onClick={() => this.props.buttonClicked('SAVE_MENU_REDO_BTN_PRESSED')}
+            >
+                <i className="fa fa-repeat"></i>
+            </Button>
+
+            <Button
+                bsStyle="danger"
+                className="inline-block btn-floating btn-sm margin-left-20"
+                onClick={(event) => this.closeButtonPressed(event)}
+            >
+                <i className="fa fa-times"></i>
+            </Button>
 
 
-    </div>
+        </div>
+    }
 }
 
 export default SaveMenu
