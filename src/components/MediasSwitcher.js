@@ -23,14 +23,6 @@ class MediasSwitcher extends React.Component {
         && box1MiddleY > box2.top && box1MiddleY < ( box2.top + box2.height )
     }
 
-    onMediaDragStarts(event) {
-
-        // Make trash button appeared
-        let trashButton =  document.getElementById("DELETE_MEDIA_BUTTON")
-        trashButton.classList.add('media-dragged')
-
-    }
-
     onMediaDragged(event) {
 
         // Get element dragged
@@ -38,6 +30,11 @@ class MediasSwitcher extends React.Component {
 
         // Get delete button element
         let trashButton =  document.getElementById("DELETE_MEDIA_BUTTON")
+
+        // Make trash button appeared
+        if (!trashButton.classList.contains('media-dragged')) {
+            trashButton.classList.add('media-dragged')
+        }
 
         // Is user dragging media above hidden trash button ?
         if (this.areBoxesOverlapped(mediaDragged,trashButton)) {
@@ -128,7 +125,6 @@ class MediasSwitcher extends React.Component {
             return {
                 content: <div
                     key={index} className={"media-switchbox-container"}
-                    onMouseDown={(event) => this.onMediaDragStarts(event)}
                     onMouseMove={(event) => this.onMediaDragged(event)}
                     onMouseUp={(event) => this.onMediaDragEnds(event)}
                     data-index={index}
