@@ -16,9 +16,15 @@ const csItemIndexEditingReducer = (state = [], action) => {
 
         case 'MEDIA_SWITCHER_DELETE_MEDIA':
 
-            // Every time a media is deleted, we switch index back to 0
-            // in order to avoid an index bigger than number of medias after removal
-            return 0
+
+            if (typeof action.data !== "undefined" && action.data.index === state) {
+
+                // If current media is deleted, we switch index back to 0
+                // in order to avoid an index bigger than number of medias after removal
+               return 0
+            }
+
+            return state
 
 
         case 'MEDIA_SWITCHER_SWITCH_MEDIA':

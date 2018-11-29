@@ -46,14 +46,6 @@ const MediaSwitchBox = ({index, selected, cs_item, cs_items_length, mediasSwitch
                 </div>
             </button>
 
-            <button
-                className={"btn btn-danger btn-xs btn-floating media-switchbox-delete"}
-                onClick={(event) => mediasSwitchBoxAction('MEDIA_SWITCHER_DELETE_MEDIA',{
-                    index: index,
-                    items_length: cs_items_length
-                })}
-            >D</button>
-
         </div>
     }
 
