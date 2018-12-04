@@ -11,8 +11,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    closeModal: () => dispatch(sendToReducersAction("HIDE_IMPORT_MEDIA_MODAL")),
+    closeModal: () => dispatch(sendToReducersAction("IMPORT_MEDIA_MODAL_HIDE")),
     loadMoreMedias: (data) => dispatch(sendToReducersAction("LIBRARY_SCROLL_LOAD_MORE",data)),
+    cancelResizer: () => dispatch(sendToReducersAction("IMPORT_MEDIA_CLOSE_RESIZER"))
 })
 
 

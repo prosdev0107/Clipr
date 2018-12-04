@@ -24,7 +24,7 @@ const Properties = ({story_sticker, stickers_menu_tab, propertiesButtonAction}) 
                 {/* Edit story stickers attributes */}
                 <PropertiesFormContainer story_sticker={story_sticker}/>
 
-                <div className="padding-left-15 padding-right-15 padding-bottom-50">
+                <div className="padding-left-15 padding-right-15 padding-bottom-30">
 
                     {/* Send at different position relative to other stickers */}
                     <p className="margin-0 margin-bottom-5 padding-top-15">Positionnement</p>

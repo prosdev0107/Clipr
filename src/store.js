@@ -62,7 +62,7 @@ const initialState = {
         resizer: {
             display: false,
             cropped_zone: {},
-            zoom: 1
+            zoom: 1.2
         },
         // Progress (scale 0-100) of current file uploading to server
         uploading_file_progress: 0,

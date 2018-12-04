@@ -2,8 +2,8 @@
 
   position: absolute;
   right: 0;
-  top:0;
-  bottom: 0;
+  top:75px;
+  bottom: 0px;
   width: 30%;
   min-width: 250px;
 
@@ -12,7 +12,8 @@
     position: absolute;
     left:0;
     width: 100%;
-    max-height: ~"calc( 100% - 150px)";
+    max-height: ~"calc( 100% - 75px)";
+    top: ~"calc( 50% - 37.5px)";
     overflow: visible;
     overflow-y: auto;
 
@@ -25,3 +26,12 @@
   }
 }
 
+@media (max-height: 800px) {
+
+  .properties-sidebar-container {
+    .properties-sidebar {
+      top: 50%;
+      max-height: 100%;
+    }
+  }
+}

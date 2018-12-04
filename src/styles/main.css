@@ -80,6 +80,9 @@ body {
 .uppercase {
   text-transform: uppercase;
 }
+.modal-lg {
+  max-width: 1000px;
+}
 /*****************/
 /***** Table *****/
 /*****************/
@@ -250,5 +253,10 @@ button.btn-default:not(.btn-floating).btn-active {
 }
 .icon-send-full-front {
   background-image: url('../images/move_front_full.svg');
+}
+@media (width: 1100px) {
+  .modal-lg {
+    max-width: 90%;
+  }
 }
 /*# sourceMappingURL=main.css.map */

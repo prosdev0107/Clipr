@@ -3,6 +3,7 @@
   "common.no_content": "Aucun contenu trouvé !",
   "common.choose": "Choisir",
   "common.submit": "Valider",
+  "common.back": "Retour",
   "general.form.separator.theme": "Thème",
   "general.form.separator.overlay": "Overlay",
   "general.form.separator.media": "Média",

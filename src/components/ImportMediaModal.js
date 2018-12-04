@@ -5,7 +5,7 @@ import ImportMediaLibraryContainer from "../containers/import/ImportMediaLibrary
 import ImportMediaResizerContainer from "../containers/import/ImportMediaResizerContainer"
 import { FormattedMessage } from 'react-intl'
 
-const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, display_resizer, closeModal, loadMoreMedias}) => {
+const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, display_resizer, closeModal, loadMoreMedias, cancelResizer}) => {
 
     if (modal_show) {
         setTimeout(function() {
@@ -95,11 +95,18 @@ const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, 
             className={"import-media-modal"}
             onScroll={(event) => handleScroll(event)}
         >
-            <Modal.Header>
+            <Modal.Header className={"relative"}>
 
                 <Modal.Title>
                     <FormattedMessage id="import.media.title" />
                 </Modal.Title>
+
+                <button type="button"
+                        className={display_resizer ? "btn btn-pure close absolute absolute-center-vertical " : "hidden"}
+                        onClick={() => cancelResizer()}>
+                    <span aria-hidden="true"><i className={"icon fa fa-angle-left"}></i> <FormattedMessage id="common.back" /></span>
+                    <span className="sr-only">Back</span>
+                </button>
 
                 {/* TODO : utiliser propriété closeButton dans tag Modal.Title, mais avant faut loader le bon bootstrap CSS (3.3.7 ?) */}
                 <button type="button" className="close" onClick={() => closeModal()}>

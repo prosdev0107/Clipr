@@ -47,7 +47,7 @@ const createCSItemFromFile = (file, cropped_zone) => {
             }))
 
             // Also close media import modal
-            store.dispatch(sendToReducersAction("HIDE_IMPORT_MEDIA_MODAL",response.data))
+            store.dispatch(sendToReducersAction("IMPORT_MEDIA_MODAL_HIDE",response.data))
 
         })
         .catch(error => console.log(error.toString()))

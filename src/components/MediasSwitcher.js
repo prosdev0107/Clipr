@@ -4,10 +4,10 @@ import DragSortableList from 'react-drag-sortable'
 
 class MediasSwitcher extends React.Component {
 
-    state = {
-        is_dragging_media: false,
-        is_delete_button_hovered: false
-    }
+    // We cannot use local state here to manage delete button state
+    // As changing state will break the drag movement at rendering
+    // TODO : utiliser un container pour le bouton delete
+
 
     // Is element 1 dragged over element 2 ?
     // Yes if middle of box 1 is inside box 2
@@ -23,6 +23,13 @@ class MediasSwitcher extends React.Component {
         && box1MiddleY > box2.top && box1MiddleY < ( box2.top + box2.height )
     }
 
+    onMediaDragStarts() {
+
+        // Allow trash button to appear if media dragged
+        let trashButton =  document.getElementById("DELETE_MEDIA_BUTTON")
+        trashButton.classList.add('media-dragstart')
+    }
+
     onMediaDragged(event) {
 
         // Get element dragged
@@ -30,9 +37,7 @@ class MediasSwitcher extends React.Component {
 
         // Get delete button element
         let trashButton =  document.getElementById("DELETE_MEDIA_BUTTON")
-
-        // Make trash button appeared
-        if (!trashButton.classList.contains('media-dragged')) {
+        if (!trashButton.classList.contains('media-dragged') && trashButton.classList.contains('media-dragstart')) {
             trashButton.classList.add('media-dragged')
         }
 
@@ -51,8 +56,10 @@ class MediasSwitcher extends React.Component {
 
         // Make trash button disappeared
         let trashButton =  document.getElementById("DELETE_MEDIA_BUTTON")
+        trashButton.classList.remove('media-dragstart')
         trashButton.classList.remove('media-dragged')
         trashButton.classList.remove('media-hovers-button')
+
     }
 
     // When user drops media
@@ -68,15 +75,10 @@ class MediasSwitcher extends React.Component {
 
             // Yes, means user asks to remove media
 
-
             // Index of media to removed ?
             let indexToRemove = parseInt(mediaDragged.querySelector('.media-switchbox-container').getAttribute("data-index"),0)
 
             // Remove media
-            console.log({
-                index: indexToRemove,
-                items_length: sortedList.length
-            })
             this.props.sendToReducers("MEDIA_SWITCHER_DELETE_MEDIA",{
                 index: indexToRemove,
                 items_length: sortedList.length
@@ -106,7 +108,6 @@ class MediasSwitcher extends React.Component {
                 })
             }
         }
-
     }
 
     render() {
@@ -125,6 +126,7 @@ class MediasSwitcher extends React.Component {
             return {
                 content: <div
                     key={index} className={"media-switchbox-container"}
+                    onMouseDown={(event) => this.onMediaDragStarts(event)}
                     onMouseMove={(event) => this.onMediaDragged(event)}
                     onMouseUp={(event) => this.onMediaDragEnds(event)}
                     data-index={index}
@@ -169,11 +171,7 @@ class MediasSwitcher extends React.Component {
             {/* Delete media button */}
             <button
                 id={"DELETE_MEDIA_BUTTON"}
-                className={
-                        "btn btn-danger btn-floating media-switchbox-delete "
-                        + (this.state.is_delete_button_hovered ? " media-hovers-button " : "")
-                        + (this.state.is_dragging_media ? " media-dragged " : "")
-                    }
+                className={"btn btn-danger btn-floating media-switchbox-delete"}
             >
                 <i className={"icon fa fa-trash"} />
             </button>

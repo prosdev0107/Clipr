@@ -12,7 +12,7 @@ const pageActionsReducer = (state = [], action) => {
                 show_modal: true
             }
 
-        case 'HIDE_IMPORT_MEDIA_MODAL':
+        case 'IMPORT_MEDIA_MODAL_HIDE':
 
             return {
                 ...state,
@@ -20,7 +20,7 @@ const pageActionsReducer = (state = [], action) => {
                 resizer: {
                     display: false,
                     crop_zone: {},
-                    zoom: 1
+                    zoom: 1.2
                 },
             }
 
@@ -33,6 +33,17 @@ const pageActionsReducer = (state = [], action) => {
                 resizer:  {
                     ...state.resizer,
                     display: true
+                }
+            }
+
+        case 'IMPORT_MEDIA_CLOSE_RESIZER':
+
+            return {
+                ...state,
+                file_to_upload: null,
+                resizer:  {
+                    ...state.resizer,
+                    display: false
                 }
             }
 
@@ -95,7 +106,7 @@ const pageActionsReducer = (state = [], action) => {
                 resizer: {
                     display: false,
                     crop_zone: {},
-                    zoom: 1
+                    zoom: 1.2
                 },
                 file_to_upload: null
             }

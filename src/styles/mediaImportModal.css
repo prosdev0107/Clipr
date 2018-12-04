@@ -2,9 +2,11 @@
   width: 100%;
   text-align: center;
 }
+.import-media-modal .modal-body {
+  padding-top: 10px;
+}
 .import-media-modal .modal-content {
   overflow-y: auto;
-  max-height: 900px;
 }
 .import-media-modal .overlay {
   position: absolute;
@@ -28,8 +30,18 @@
   padding-right: 10px;
 }
 .import-media-modal ul.nav-tabs {
-  margin-top: 10px;
   margin-bottom: 10px;
+}
+.import-media-modal ul.nav-tabs > li a {
+  padding: 0;
+}
+.import-media-modal ul.nav-tabs > li a > div {
+  padding: 0 25px 5px 0;
+}
+.import-media-modal ul.nav-tabs > li i {
+  margin-top: 3px;
+  vertical-align: top;
+  margin-right: 6px;
 }
 .import-media-modal ul.nav-tabs > li.active > a {
   color: #446CB3;
@@ -91,5 +103,9 @@
 .import-media-modal .resizer-actions {
   width: 100%;
   margin-left: -30px;
+}
+.iPhone-resizer iframe {
+  pointer-events: none;
+  border: none;
 }
 /*# sourceMappingURL=mediaImportModal.css.map */

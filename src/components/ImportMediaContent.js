@@ -11,20 +11,31 @@ const ImportMediaContent = ({medias, is_loading}) => {
         return <div>
             <p className="text-center margin-top-50">
                 { is_loading ?
-                    <FormattedMessage id="common.loading"/> + '...' :
+                    <FormattedMessage id="common.loading"/> :
                     <FormattedMessage id="common.no_content"/> }
                 </p>
         </div>
     }
 
-    return <div className="api-library padding-20">
+    // Adapt library height to screen (not with pure css cause problem with scroll+modal)
+    let windowHeight = window.innerHeight
+    let margin = 260
+    let heightMax = 800
+    let apiLibraryHeight = Math.min(heightMax, windowHeight-margin)
+    let styles = {
+        height: apiLibraryHeight+"px"
+    }
+
+    return <div className="api-library padding-20" style={styles}>
         <Row>
             {medias.map((media,index) =>
                 typeof media === "undefined" || typeof media.source === "undefined" ? null :
                 <Col
                     key={index}
-                    lg={media.type === "img" ? 3 : 4}
-                    sm={6}
+                    lg={media.type === "img" ? 2 : 4}
+                    md={media.type === "img" ? 3 : 4}
+                    sm={media.type === "img" ? 4 : 6}
+                    xs={media.type === "img" ? 6 : 12}
                     className={"padding-5 "+ (media.type === "img" ? "col-xlg-2" : "")}
                 >
                     <ImportMediaAPIMediaContainer media={media}/>

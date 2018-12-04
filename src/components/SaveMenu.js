@@ -61,7 +61,10 @@ class SaveMenu extends React.Component {
 
             <Button
                 bsStyle="info"
-                className={"inline-block btn-floating btn-sm margin-left-20 " + (this.props.canUndo ? "" : "disabled")}
+                className={" btn-floating btn-sm margin-left-20 "
+                + (this.props.canUndo ? "" : " disabled ")
+                + (this.props.is_preview_mode ? " hidden " : " inline-block ")
+                }
                 onClick={() => this.props.buttonClicked('SAVE_MENU_UNDO_BTN_PRESSED')}
             >
                 <i className="fa fa-undo"></i>
@@ -69,7 +72,9 @@ class SaveMenu extends React.Component {
 
             <Button
                 bsStyle="info"
-                className={"inline-block btn-floating btn-sm margin-left-20 " + (this.props.canRedo ? "" : "disabled")}
+                className={" btn-floating btn-sm margin-left-20 "
+                + (this.props.canRedo ? "" : " disabled ")
+                + (this.props.is_preview_mode ? " hidden " : " inline-block ")}
                 onClick={() => this.props.buttonClicked('SAVE_MENU_REDO_BTN_PRESSED')}
             >
                 <i className="fa fa-repeat"></i>
