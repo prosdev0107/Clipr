@@ -28,6 +28,7 @@ then
 
     # Certificate is not installed !
     # Load the temporary nginx conf file (copied just before this script execution through 01_setup.config))
+    cp -f .ebextensions/setup/conf/nginx/nginx-certbot-setup.conf /etc/nginx/nginx.conf
     sudo service nginx restart
 
     # Generate SSL certificate
