@@ -9,7 +9,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    formChanged: (event) => dispatch(sendToReducersAction("IMPORT_MEDIA_RESIZER_CHANGE_PROPERTY",event)),
+    updateCroppedZone: (data) => dispatch(sendToReducersAction("IMPORT_MEDIA_RESIZER_UPDATE_CROPPED_ZONE",data)),
+    formChanged: (event) => dispatch(sendToReducersAction("IMPORT_MEDIA_RESIZER_CHANGE_PROPERTY",event))
 })
 
 

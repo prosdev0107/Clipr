@@ -6,59 +6,53 @@
 @svgHeight: 634px;
 @bigSizeFactor: 1.3;
 
-.iPhone6 {
+#iPhonePreview {
 
-  position: absolute;
-  top: @svgHeight * 82 / @viewBoxHeight;
-  left: @svgWidth * 21 / @viewBoxWidth;
-  width: @svgWidth * 257 / @viewBoxWidth;
-  height: @svgHeight * 427 / @viewBoxHeight;
+  top: ~"calc(50% - 20px)";
 
-  @iframeWidth:  @svgWidth * 257 / @viewBoxWidth;
-  @iframeHeight:  @svgHeight * 427 / @viewBoxHeight;
+  .iPhone6 {
 
-  overflow: hidden; // else we can scroll on whole page on right, because of iframe view scaling
+    position: absolute;
+    top: @svgHeight * 82 / @viewBoxHeight;
+    left: @svgWidth * 21 / @viewBoxWidth;
+    width: @svgWidth * 257 / @viewBoxWidth;
+    height: @svgHeight * 427 / @viewBoxHeight;
 
-  .container {
+    @iframeWidth:  @svgWidth * 257 / @viewBoxWidth;
+    @iframeHeight:  @svgHeight * 427 / @viewBoxHeight;
 
-    height: 100%;
-    padding: 0;
-    margin: 0;
+    overflow: hidden; // else we can scroll on whole page on right, because of iframe view scaling
 
-    iframe {
-      margin:0;
-      border: none;
-      transform: scale(0.8);
-      transform-origin: 0 0 0;
-      width: @iframeWidth / 0.8;
-      height: @iframeHeight / 0.8;
+    .container {
+
+      height: 100%;
+      padding: 0;
+      margin: 0;
+
+      iframe {
+        margin:0;
+        border: none;
+        transform: scale(0.8);
+        transform-origin: 0 0 0;
+        width: @iframeWidth / 0.8;
+        height: @iframeHeight / 0.8;
+      }
+    }
+  }
+
+  .iphone-svg  {
+
+    width: @svgWidth;
+    height: @svgHeight;
+
+    path, rect, circle, ellipse {
+      stroke: #e0e0e0;
+      stroke-width: 2px;
+    }
+
+    #screen {
+      stroke-width: 3px;
     }
   }
 }
 
-.loader-over-camera.loader-container {
-
-  position: absolute;
-  top: @svgHeight * 11 / @viewBoxHeight;
-  left: @svgWidth * 135 / @viewBoxWidth;
-
-  .loader-wrapper {
-    height: 28px;
-    width: 28px;
-  }
-}
-
-.iphone-svg  {
-
-  width: @svgWidth;
-  height: @svgHeight;
-
-  path, rect, circle, ellipse {
-    stroke: #e0e0e0;
-    stroke-width: 2px;
-  }
-
-  #screen {
-    stroke-width: 3px;
-  }
-}

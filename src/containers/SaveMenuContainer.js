@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    buttonClicked: (type, event) => dispatch(sendToReducersAction(type, event)),
+    sendToReducers: (type, data) => dispatch(sendToReducersAction(type, data)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SaveMenu)

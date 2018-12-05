@@ -29,7 +29,7 @@ class ImportMediaDropZone extends React.Component {
             }
 
             // Ask for image resize
-            this.props.showResizer(file)
+            this.props.preselectMedia(file)
 
             // Launch file upload
 

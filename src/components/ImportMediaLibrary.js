@@ -28,6 +28,16 @@ const ImportMediaLibrary = () => {
                 <FormattedMessage id="import.media.tab.dropzone" />
             </div>}>
                 <ImportMediaDropZoneContainer />
+                To do :
+                <br />- Message "loading" + afficher médias reçus par l'API
+                <br />- Call POST create media pour chaque média uploadé dans la drop zone
+                <br />- Refresh bibli perso une fois média uploadé
+                <br />- Barre de progression des médias drop-zonés
+                <div className={"hidden"}>
+                    {/* Necessary as data feeding is made from search bar */}
+                    <SearchAPIBarContainer type={"all"} source={"clipr"} />
+                </div>
+                <ImportMediaAPIContentContainer type={"all"} source={"clipr"}  />
             </Tab>
             <Tab eventKey={3} title={<div>
                 <i className={"icon fa fa-image"} />

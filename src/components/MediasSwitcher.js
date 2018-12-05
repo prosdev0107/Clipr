@@ -8,6 +8,11 @@ class MediasSwitcher extends React.Component {
     // As changing state will break the drag movement at rendering
     // TODO : utiliser un container pour le bouton delete
 
+    state = {
+        // Force sortable zone to re-render when dragging element outside window
+        render: 0
+    }
+
 
     // Is element 1 dragged over element 2 ?
     // Yes if middle of box 1 is inside box 2
@@ -120,6 +125,17 @@ class MediasSwitcher extends React.Component {
                 selected={-1}
             />
         </div>
+
+        // Cancel dragging when leaving the screen
+        /*
+        Pb ca bloque le sort quand on re-render -> changer plugin ?
+        document.addEventListener("mouseout", (event) => {
+            if (event.target.tagName === "HTML") {
+                this.setState({
+                    render: this.state.render + 1
+                })
+            }
+        })*/
 
         let medias_sortable_list = this.props.cs_items.map((cs_item,index) => {
 

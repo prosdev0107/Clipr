@@ -1,5 +1,8 @@
 /* DEVICE SIMULATOR */
-.iPhone6 {
+#iPhonePreview {
+  top: calc(50% - 20px);
+}
+#iPhonePreview .iPhone6 {
   position: absolute;
   top: 86.93645485px;
   left: 22.4px;
@@ -7,12 +10,12 @@
   height: 452.70568562px;
   overflow: hidden;
 }
-.iPhone6 .container {
+#iPhonePreview .iPhone6 .container {
   height: 100%;
   padding: 0;
   margin: 0;
 }
-.iPhone6 .container iframe {
+#iPhonePreview .iPhone6 .container iframe {
   margin: 0;
   border: none;
   transform: scale(0.8);
@@ -20,27 +23,18 @@
   width: 342.66666667px;
   height: 565.88210702px;
 }
-.loader-over-camera.loader-container {
-  position: absolute;
-  top: 11.66220736px;
-  left: 144px;
-}
-.loader-over-camera.loader-container .loader-wrapper {
-  height: 28px;
-  width: 28px;
-}
-.iphone-svg {
+#iPhonePreview .iphone-svg {
   width: 320px;
   height: 634px;
 }
-.iphone-svg path,
-.iphone-svg rect,
-.iphone-svg circle,
-.iphone-svg ellipse {
+#iPhonePreview .iphone-svg path,
+#iPhonePreview .iphone-svg rect,
+#iPhonePreview .iphone-svg circle,
+#iPhonePreview .iphone-svg ellipse {
   stroke: #e0e0e0;
   stroke-width: 2px;
 }
-.iphone-svg #screen {
+#iPhonePreview .iphone-svg #screen {
   stroke-width: 3px;
 }
 /*# sourceMappingURL=simulator.css.map */

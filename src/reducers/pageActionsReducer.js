@@ -57,11 +57,14 @@ const pageActionsReducer = (state = [], action) => {
             // Send a message to parent frame to close the window
             if (state.url_host.length > 0 && window && window.parent) {
                 window.parent.postMessage({
-                    key: 'CLOSE_WINDOW'
+                    key: 'CLOSE_WINDOW',
                 }, state.url_host)
             }
 
-            return state
+            return {
+                ...state,
+                is_preview_mode: false
+            }
 
         case 'API_UPDATE_CLEAR_MESSAGE':
 

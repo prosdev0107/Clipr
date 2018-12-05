@@ -15,7 +15,11 @@ const data_providers = {
     },
     cs_items: {
         update: (cnv_short_code) => "/cnv/clip/"+cnv_short_code+"/cs_items/update"
-    }
+    },
+    cs_media: {
+        list:   () => "/cnv/media",
+        create: () => "/cnv/media/create"
+    },
 }
 
 export default data_providers

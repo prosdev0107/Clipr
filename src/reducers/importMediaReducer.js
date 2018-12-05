@@ -24,23 +24,41 @@ const pageActionsReducer = (state = [], action) => {
                 },
             }
 
-        case 'IMPORT_MEDIA_LAUNCH_RESIZER':
+        case 'IMPORT_MEDIA_SELECT_MEDIA':
 
-            // User has chosen his media to import, let's suggest him to resize/crop it
+            // User has chosen his media to import, just show a thumbnail at modal footer
             return {
                 ...state,
-                file_to_upload: action.data.file,
+                file_to_upload: action.data.file
+            }
+
+        case 'IMPORT_MEDIA_LAUNCH_RESIZER':
+
+            // User has validated his media to import, let's suggest him to resize/crop it
+            return {
+                ...state,
                 resizer:  {
                     ...state.resizer,
                     display: true
                 }
             }
 
+        case 'IMPORT_MEDIA_RESIZER_UPDATE_CROPPED_ZONE': {
+
+            let new_cropped_zone = action.data
+            return {
+                ...state,
+                resizer:  {
+                    ...state.resizer,
+                    crop_zone: new_cropped_zone
+                }
+            }
+        }
+
         case 'IMPORT_MEDIA_CLOSE_RESIZER':
 
             return {
                 ...state,
-                file_to_upload: null,
                 resizer:  {
                     ...state.resizer,
                     display: false

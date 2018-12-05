@@ -7,7 +7,7 @@ const mapStateToProps = () => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    showResizer: (file) => dispatch(sendToReducersAction("IMPORT_MEDIA_LAUNCH_RESIZER", {file: file})),
+    preselectMedia: (file) => dispatch(sendToReducersAction("IMPORT_MEDIA_SELECT_MEDIA", {file: file})),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(ImportMediaDropZone)

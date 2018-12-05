@@ -2,6 +2,7 @@ import React from 'react'
 import { jss } from 'react-jss'
 import LibraryContainer from "../containers/library/LibraryContainer"
 import MediaPanelContainer from "../containers/central/MediaPanelContainer"
+import IPhonePreviewContainer from "../containers/central/IPhonePreviewContainer"
 import PropertiesContainer from "../containers/properties/PropertiesContainer"
 import SaveMenuContainer from "../containers/SaveMenuContainer"
 import MediasSwitcherContainer from "../containers/central/MediasSwitcherContainer"
@@ -73,7 +74,7 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
         if (is_preview_mode) {
             return <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
 
-                <MediaPanelContainer />
+                <IPhonePreviewContainer />
 
                 <SaveMenuContainer />
 

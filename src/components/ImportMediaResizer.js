@@ -2,15 +2,9 @@ import React from 'react'
 import AvatarEditor from 'react-avatar-editor'
 import {renderField} from "./form/renderField"
 import {reduxForm} from "redux-form"
-import createCSItemFromFile from '../utilities/API/CSItemMedia'
 import { FormattedMessage } from 'react-intl'
 
 class ImportMediaResizer extends React.Component {
-
-    // https://www.npmjs.com/package/react-avatar-editor
-    state = {
-        cropped_zone: {}
-    }
 
     setEditorRef = (editor) => this.editor = editor
 
@@ -21,24 +15,8 @@ class ImportMediaResizer extends React.Component {
             // Get the final cropping area
             // Cropping is executed server-side
             let imgRect = this.editor.getCroppingRect()
-            this.setState({
-                cropped_zone: imgRect
-            })
+            this.props.updateCroppedZone(imgRect)
         }
-    }
-
-    onClickSave = () => {
-
-        // Send to server with the final cropping area and create the item
-        createCSItemFromFile(this.props.file, this.state.cropped_zone)
-
-        // Also save cropped zone in parameters
-        /*this.props.formChanged({
-            target: {
-                name: 'resizer_input_cropping',
-                value: imgRect
-            }
-        })*/
     }
 
 
@@ -63,7 +41,7 @@ class ImportMediaResizer extends React.Component {
         }
 
         let windowHeight = window.innerHeight
-        let margin = 200
+        let margin = 250
         let previewHeight = windowHeight > 0 ? Math.min(489,windowHeight-margin) : 489
         let previewWidth = previewHeight * 300 / 489;
 
@@ -73,7 +51,7 @@ class ImportMediaResizer extends React.Component {
                 {/* iPhone preview */}
                 <div className={"col-sm-7"}>
 
-                    <div className={"inline-block iPhone-resizer"}>
+                    <div className={"inline-block crop-preview"}>
 
                         <AvatarEditor
                             ref={this.setEditorRef}
@@ -109,13 +87,6 @@ class ImportMediaResizer extends React.Component {
                         <p className={"font-size-16 margin-bottom-10"}><FormattedMessage id={"import.media.resizer.zoom"} /></p>
 
                         {renderField(zoom_properties,this.props.formChanged)}
-
-                        <button
-                            className={"btn btn-primary btn-round btn-lg margin-top-20 padding-left-40 padding-right-40 padding-top-5 padding-bottom-5"}
-                            onClick={() => this.onClickSave()}
-                        >
-                            <FormattedMessage id={"common.submit"} />
-                        </button>
 
                     </div>
 

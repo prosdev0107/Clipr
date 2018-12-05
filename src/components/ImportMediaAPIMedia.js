@@ -2,16 +2,19 @@ import React from 'react'
 import createCSItemFromFile from '../utilities/API/CSItemMedia'
 import { FormattedMessage } from 'react-intl'
 
-const ImportAPIMedia = ({media, showResizer}) => {
+const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
 
     const renderMedia = () => {
+
+        let mediaUrl = media.source.preview
+
         if (media.type === "img") {
             return <div onClick={() => clickImage()}>
-                <img className={"width-full"} src={media.source.preview} alt="..." />
+                <img className={"width-full "} src={mediaUrl} alt="..." />
             </div>
         }
         return <div>
-            <video className={"width-full"} src={media.source.preview} controls />
+            <video className={"width-full"} src={mediaUrl} controls />
             <button className={"btn btn-default select-video"} onClick={() => clickVideo()}>
                 <FormattedMessage id={"common.choose"} />
             </button>
@@ -21,7 +24,7 @@ const ImportAPIMedia = ({media, showResizer}) => {
     const clickImage = () => {
 
         // Ask for image resize before upload
-        showResizer(media.source.src)
+        preselectMedia(media.source.src)
 
     }
 
@@ -34,7 +37,7 @@ const ImportAPIMedia = ({media, showResizer}) => {
 
     return (
         <div
-            className="api-library-media relative"
+            className={"api-library-media relative "+ (isCurrentlyPreselected ? "selected" : "")}
         >
 
             {renderMedia()}

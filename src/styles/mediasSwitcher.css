@@ -45,10 +45,13 @@
   position: relative;
   display: inline-block;
 }
+.medias-switcher .media-switchbox-container .media-switchbox .media-switchbox-btn-container,
+.medias-switcher .media-switchbox-container .media-switchbox .media-switchbox-btn-container button {
+  height: 80px;
+}
 .medias-switcher .media-switchbox-container .media-switchbox .media-switchbox-btn-container button {
   padding: 0;
   background: none !important;
-  height: 80px;
   width: 54px;
   overflow: hidden;
   border: none;
@@ -63,8 +66,8 @@
 }
 .medias-switcher .media-switchbox-container .media-switchbox .media-switchbox-btn-container button .overlay {
   background-color: rgba(0, 0, 0, 0.3);
-  height: 100%;
   width: 100%;
+  height: 100%;
   left: 0;
   top: 0;
   border-radius: 3px;

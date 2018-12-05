@@ -24,13 +24,13 @@ class SaveMenu extends React.Component {
     closeButtonPressed(event) {
 
         // Directly closes window
-        this.props.buttonClicked('SAVE_MENU_CLOSE_BTN_PRESSED',event)
+        this.props.sendToReducers('SAVE_MENU_CLOSE_BTN_PRESSED',event)
     }
 
 
     componentDidMount() {
 
-        const {buttonClicked} = this.props
+        const {sendToReducers} = this.props
 
         function handleKeyDown(event) {
 
@@ -40,11 +40,11 @@ class SaveMenu extends React.Component {
                 // Is user pressing simultaneously pressing z or y ?
                 if( event.which === 89){
                     // User wants to redo action
-                    buttonClicked('SAVE_MENU_REDO_BTN_PRESSED')
+                    sendToReducers('SAVE_MENU_REDO_BTN_PRESSED')
                 }
                 else if( event.which === 90){
                     // User wants to undo action
-                    buttonClicked('SAVE_MENU_UNDO_BTN_PRESSED')
+                    sendToReducers('SAVE_MENU_UNDO_BTN_PRESSED')
                 }
             }
         }
@@ -65,7 +65,7 @@ class SaveMenu extends React.Component {
                 + (this.props.canUndo ? "" : " disabled ")
                 + (this.props.is_preview_mode ? " hidden " : " inline-block ")
                 }
-                onClick={() => this.props.buttonClicked('SAVE_MENU_UNDO_BTN_PRESSED')}
+                onClick={() => this.props.sendToReducers('SAVE_MENU_UNDO_BTN_PRESSED')}
             >
                 <i className="fa fa-undo"></i>
             </Button>
@@ -75,7 +75,7 @@ class SaveMenu extends React.Component {
                 className={" btn-floating btn-sm margin-left-20 "
                 + (this.props.canRedo ? "" : " disabled ")
                 + (this.props.is_preview_mode ? " hidden " : " inline-block ")}
-                onClick={() => this.props.buttonClicked('SAVE_MENU_REDO_BTN_PRESSED')}
+                onClick={() => this.props.sendToReducers('SAVE_MENU_REDO_BTN_PRESSED')}
             >
                 <i className="fa fa-repeat"></i>
             </Button>

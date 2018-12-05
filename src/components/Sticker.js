@@ -45,6 +45,15 @@ const Sticker = ({sticker}) => {
                             // Add content
                             sticker.innerHTML = fileContent
 
+                            // Set viewBox of svg node so that texts will scale depending on screen width
+                            let svgElmt = sticker.querySelector("svg")
+                            let stickerRect = sticker.getBoundingClientRect()
+                            // The width reference for sizing is 320
+                            // We ensure scale is rendering the same on every screen by setting view box width to 320
+                            // Then adapt height
+                            let viewBoxHeight = 320 * stickerRect.height / stickerRect.width
+                            svgElmt.setAttribute("viewBox","0 0 320 "+viewBoxHeight)
+
                             if (typeof customize !== "undefined" && customize != null) {
 
                                 // Some properties in this svg need to be updated

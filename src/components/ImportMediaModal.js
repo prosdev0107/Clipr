@@ -1,11 +1,12 @@
 import React from 'react'
 import {Modal} from 'react-bootstrap'
 import { Line } from 'rc-progress'
+import ImportMediaValidateContainer from "../containers/import/ImportMediaValidateContainer"
 import ImportMediaLibraryContainer from "../containers/import/ImportMediaLibraryContainer"
 import ImportMediaResizerContainer from "../containers/import/ImportMediaResizerContainer"
 import { FormattedMessage } from 'react-intl'
 
-const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, display_resizer, closeModal, loadMoreMedias, cancelResizer}) => {
+const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, display_resizer, closeModal, loadMoreMedias}) => {
 
     if (modal_show) {
         setTimeout(function() {
@@ -66,7 +67,15 @@ const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, 
 
             if (currentTab != null) {
 
-                if (currentTab.id.indexOf("-tab-3") !== -1) {
+                if (currentTab.id.indexOf("-tab-2") !== -1) {
+
+                    // Load clipr medias library
+                    loadMoreMedias({
+                        api_source: "clipr",
+                        type: "all"
+                    })
+
+                } else if (currentTab.id.indexOf("-tab-3") !== -1) {
 
                     // Load more image
                     loadMoreMedias({
@@ -90,25 +99,18 @@ const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, 
     return <div className={"import-media-modal"}>
         <Modal
             show={modal_show}
-            onHide={() => closeModal()}
+            onHide={(e) => { /* Do nothing, there is bug if click inside modal then release outside */}}
             bsSize={"lg"}
             className={"import-media-modal"}
             onScroll={(event) => handleScroll(event)}
         >
-            <Modal.Header className={"relative"}>
+            {/* When selecting media, modal header is quite useless so better hide it */}
+            <Modal.Header className={display_resizer ? "relative" : "hidden"}>
 
                 <Modal.Title>
                     <FormattedMessage id="import.media.title" />
                 </Modal.Title>
 
-                <button type="button"
-                        className={display_resizer ? "btn btn-pure close absolute absolute-center-vertical " : "hidden"}
-                        onClick={() => cancelResizer()}>
-                    <span aria-hidden="true"><i className={"icon fa fa-angle-left"}></i> <FormattedMessage id="common.back" /></span>
-                    <span className="sr-only">Back</span>
-                </button>
-
-                {/* TODO : utiliser propriété closeButton dans tag Modal.Title, mais avant faut loader le bon bootstrap CSS (3.3.7 ?) */}
                 <button type="button" className="close" onClick={() => closeModal()}>
                     <span aria-hidden="true">×</span>
                     <span className="sr-only">Close</span>
@@ -117,15 +119,25 @@ const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, 
             </Modal.Header>
             <Modal.Body>
 
+                <button type="button" className={display_resizer ? "hidden" : "close absolute"} onClick={() => closeModal()}>
+                    <span aria-hidden="true">×</span>
+                    <span className="sr-only">Close</span>
+                </button>
+
                 <div className={display_resizer ? "hidden" : ""}>
+                    {/* Pick image from API or personal media */}
                     <ImportMediaLibraryContainer />
                 </div>
 
-                <div className={display_resizer ? "" : "hidden"}>
+                <div className={display_resizer ? "absolute absolute-center width-full padding-left-20 padding-right-20" : "hidden"}>
+                    {/* Crop/Move/Zoom on selected media */}
                     <ImportMediaResizerContainer />
                 </div>
 
             </Modal.Body>
+
+            {/* Confirm media selection/resize */}
+            <ImportMediaValidateContainer />
 
             { renderOverlay() }
 
