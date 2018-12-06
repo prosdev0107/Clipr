@@ -21,8 +21,6 @@ var api_axios = axios.create({
 
 export function vectorSourcing (source, type, text, offset, callback) {
 
-
-
     const formatMedias = (medias_original) =>  {
 
         let formatted_data = []
@@ -30,18 +28,8 @@ export function vectorSourcing (source, type, text, offset, callback) {
         switch (source) {
 
             case "clipr": {
-                formatted_data = medias_original.map((media) => {
 
-                    return {
-                        id: media.id,
-                        type: media.isVideo,
-                        // ratio: Math.round(1000*imageData.height / imageData.width)/1000,
-                        source: {
-                            src: media.src,
-                            thumbnail: media.thumbnail,
-                        }
-                    }
-                })
+                formatted_data = JSON.parse(JSON.stringify(medias_original))
 
                 break
             }
@@ -94,7 +82,8 @@ export function vectorSourcing (source, type, text, offset, callback) {
                             ratio: Math.round(1000*videoFormat.height / videoFormat.width)/1000,
                             source: {
                                 src: videoFormat.url,
-                                preview: previewVideoFormat.url
+                                src_comp: previewVideoFormat.url,
+                                thumbnail: previewVideoFormat.url
                             }
                         }
                     }
@@ -109,7 +98,8 @@ export function vectorSourcing (source, type, text, offset, callback) {
                         ratio: Math.round(1000*media.webformatHeight / media.webformatWidth)/1000,
                         source: {
                             src: media.webformatURL,
-                            preview: media.previewURL
+                            src_comp: media.previewURL,
+                            thumbnail: media.previewURL
                         }
                     }
                 })
@@ -148,11 +138,7 @@ export function vectorSourcing (source, type, text, offset, callback) {
             .get(data_providers.cs_media.list())
             .then(response => {
 
-                console.log('MY LIB')
-                console.log('aa')
-
-                var mediasData = response.data
-
+                var mediasData = response.data.medias
                 sendDataToCallback(mediasData)
             })
             .catch(error => console.log(error.toString()))

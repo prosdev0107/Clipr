@@ -1,12 +1,11 @@
 import React from 'react'
 import {Modal} from 'react-bootstrap'
-import { Line } from 'rc-progress'
 import ImportMediaValidateContainer from "../containers/import/ImportMediaValidateContainer"
 import ImportMediaLibraryContainer from "../containers/import/ImportMediaLibraryContainer"
 import ImportMediaResizerContainer from "../containers/import/ImportMediaResizerContainer"
 import { FormattedMessage } from 'react-intl'
 
-const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, display_resizer, closeModal, loadMoreMedias}) => {
+const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, display_resizer, closeModal, loadMoreMedias}) => {
 
     if (modal_show) {
         setTimeout(function() {
@@ -23,28 +22,24 @@ const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, 
 
     const renderOverlay = () => {
 
-        let progressPercent = uploading_file_progress > 0 ? " "+uploading_file_progress+"%" : ""
-        let progressText=
-            <span className={"infoProgress"}>
-                <FormattedMessage id="import.media.creation" />
-                ...{progressPercent}</span>
-        let progressBar = uploading_file_progress === 0 ?  <div /> : <div className={"loader-progress-bar absolute-center-horizontal"}>
-            <Line percent={uploading_file_progress} strokeWidth={4} trailWidth={4} strokeColor="#00D9EA" />
-        </div>
 
-        return <div className={uploading_file ? "overlay" : "hidden"}>
+        return <div className={creating_final_item ? "overlay" : "hidden"}>
+
             <div className={"loader-container absolute-center"}>
+
                 <div className="page-loader absolute-center-horizontal">
                     <div></div>
                     <div></div>
                     <div></div>
                 </div>
 
-                <p>{progressText}</p>
-
-                {progressBar}
+                <p>
+                    <span className={"infoProgress"}>
+                    <FormattedMessage id="import.media.creation" /></span>
+                </p>
 
             </div>
+
         </div>
     }
 
@@ -67,15 +62,7 @@ const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, 
 
             if (currentTab != null) {
 
-                if (currentTab.id.indexOf("-tab-2") !== -1) {
-
-                    // Load clipr medias library
-                    loadMoreMedias({
-                        api_source: "clipr",
-                        type: "all"
-                    })
-
-                } else if (currentTab.id.indexOf("-tab-3") !== -1) {
+                if (currentTab.id.indexOf("-tab-3") !== -1) {
 
                     // Load more image
                     loadMoreMedias({
@@ -95,6 +82,10 @@ const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, 
 
         }
     }
+
+    let hasUserPreselectedMedia = preselected_media != null
+        && typeof preselected_media.source !== "undefined"
+        && typeof preselected_media.source.src !== "undefined"
 
     return <div className={"import-media-modal"}>
         <Modal
@@ -117,7 +108,7 @@ const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, 
                 </button>
 
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className={ hasUserPreselectedMedia ? "footer-opened" : ""}>
 
                 <button type="button" className={display_resizer ? "hidden" : "close absolute"} onClick={() => closeModal()}>
                     <span aria-hidden="true">×</span>
@@ -129,7 +120,7 @@ const ImportMediaModal = ({modal_show, uploading_file, uploading_file_progress, 
                     <ImportMediaLibraryContainer />
                 </div>
 
-                <div className={display_resizer ? "absolute absolute-center width-full padding-left-20 padding-right-20" : "hidden"}>
+                <div className={display_resizer ? "crop-preview-container absolute absolute-center width-full padding-left-20 padding-right-20" : "hidden"}>
                     {/* Crop/Move/Zoom on selected media */}
                     <ImportMediaResizerContainer />
                 </div>

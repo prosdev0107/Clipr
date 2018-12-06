@@ -4,26 +4,14 @@ import store from '../../store'
 import {sendToReducersAction} from "../../actions"
 import data_providers from '../../api_endpoints.js'
 
+// Send user imported file to its personal library
+export const sendFileToLibrary = (file) => {
 
-// Create a CS Item from uploaded file
-const createCSItemFromFile = (file, cropped_zone) => {
-
-    let cnvShortCode = store.getState().clip.cnv_short_code
-    let postData
+    let postData = new FormData()
+    postData.append('file', file)
 
     // Initialize state
-    store.dispatch(sendToReducersAction("API_CREATE_CS_ITEM_BEGIN"))
-
-    // When creating a new media, we must submit file to server
-    // So we can generate compressed media and create a new cs_item
-    if (typeof file === "string") {
-        // That's a URL string. Server will download it by itself
-        postData = {file: file, cropped_zone: cropped_zone}
-    } else {
-        postData = new FormData()
-        postData.append('file', file)
-        postData.append('cropped_zone', JSON.stringify(cropped_zone))
-    }
+    store.dispatch(sendToReducersAction("API_CREATE_CS_MEDIA_BEGIN"))
 
     // Get and store progress status of upload
     let config = {
@@ -37,7 +25,39 @@ const createCSItemFromFile = (file, cropped_zone) => {
     // Call create API asynchronously
     let request = api_client()
     request
-        .post(data_providers.cs_item.create(cnvShortCode), postData, config)
+        .post(data_providers.cs_media.create(), postData, config)
+        .then(response => {
+
+            // Server returns the new cs_media, can stop showing uploading progress
+            store.dispatch(sendToReducersAction("API_CREATE_CS_MEDIA_END",response.data))
+
+            // Also, we need to reload user personal library
+            store.dispatch(sendToReducersAction("LIBRARY_SCROLL_LOAD_MORE", {
+                api_source: "clipr",
+                type: "all",
+                reload: true
+            }))
+
+        })
+        .catch(error => console.log(error.toString()))
+}
+
+// Create a CS Item from uploaded file
+export const createCSItemFromFile = (fileUrl, cropped_zone) => {
+
+    let cnvShortCode = store.getState().clip.cnv_short_code
+    let postData
+
+    // Initialize state
+    store.dispatch(sendToReducersAction("API_CREATE_CS_ITEM_BEGIN"))
+
+    // That's a URL string. Server will download it by itself
+    postData = {fileUrl: fileUrl, cropped_zone: cropped_zone}
+
+    // Call create API asynchronously
+    let request = api_client()
+    request
+        .post(data_providers.cs_item.create(cnvShortCode), postData)
         .then(response => {
 
             // Server returns the new cs_item, we just need to append it to our cs_items array
@@ -52,5 +72,3 @@ const createCSItemFromFile = (file, cropped_zone) => {
         })
         .catch(error => console.log(error.toString()))
 }
-
-export default createCSItemFromFile

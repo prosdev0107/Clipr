@@ -4,7 +4,7 @@ import ImportMediaValidate from '../../components/ImportMediaValidate'
 import {sendToReducersAction} from "../../actions"
 
 const mapStateToProps = state => ({
-    file: state.import_media.file_to_upload,
+    preselected_media: state.import_media.preselected_media,
     cropped_zone: state.import_media.resizer.crop_zone,
     display_resizer: state.import_media.resizer.display
 })

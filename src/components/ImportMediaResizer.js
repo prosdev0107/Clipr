@@ -8,7 +8,6 @@ class ImportMediaResizer extends React.Component {
 
     setEditorRef = (editor) => this.editor = editor
 
-
     onImageChange = () => {
         if (this.editor) {
 
@@ -22,7 +21,11 @@ class ImportMediaResizer extends React.Component {
 
     render () {
 
-        if (typeof this.props.file === "undefined" || this.props.file === null) {
+        let file = this.props.file
+
+        if (typeof this.props.file === "undefined"
+            || this.props.file === null
+            || typeof this.props.file.source === "undefined") {
             return <div />
         }
 
@@ -41,9 +44,12 @@ class ImportMediaResizer extends React.Component {
         }
 
         let windowHeight = window.innerHeight
-        let margin = 250
+        let margin = 350
         let previewHeight = windowHeight > 0 ? Math.min(489,windowHeight-margin) : 489
         let previewWidth = previewHeight * 300 / 489;
+
+        // If is video, need to show thumbnail image
+        let fileUrl = file.type === "video" ? file.source.thumbnail : file.source.src
 
         return (
             <div className={"row text-center"}>
@@ -51,11 +57,11 @@ class ImportMediaResizer extends React.Component {
                 {/* iPhone preview */}
                 <div className={"col-sm-7"}>
 
-                    <div className={"inline-block crop-preview"}>
+                    <div className={"inline-block crop-preview relative"}>
 
                         <AvatarEditor
                             ref={this.setEditorRef}
-                            image={this.props.file}
+                            image={fileUrl}
                             width={previewWidth}
                             height={previewHeight}
                             border={50}

@@ -5,9 +5,8 @@ import {sendToReducersAction} from "../../actions"
 
 const mapStateToProps = state => ({
     modal_show: state.import_media.show_modal,
-    file_to_upload: state.import_media.file_to_upload,
-    uploading_file: state.import_media.uploading_file,
-    uploading_file_progress: state.import_media.uploading_file_progress,
+    preselected_media: state.import_media.preselected_media,
+    creating_final_item: state.import_media.creating_final_item,
     display_resizer: state.import_media.resizer.display
 })
 

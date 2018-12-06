@@ -1,13 +1,11 @@
 
 import { connect } from 'react-redux'
 import ImportMediaDropZone from "../../components/ImportMediaDropZone"
-import {sendToReducersAction} from "../../actions"
 
-const mapStateToProps = () => ({
+const mapStateToProps = (state) => ({
+    uploading_file: state.import_media.uploading_file,
+    uploading_file_progress: state.import_media.uploading_file_progress,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    preselectMedia: (file) => dispatch(sendToReducersAction("IMPORT_MEDIA_SELECT_MEDIA", {file: file})),
-})
 
-export default connect(mapStateToProps,mapDispatchToProps)(ImportMediaDropZone)
+export default connect(mapStateToProps)(ImportMediaDropZone)

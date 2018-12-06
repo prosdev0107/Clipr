@@ -44,6 +44,9 @@ const libraryDynamicReducer = (state = [], action) => {
             type = action.data.type
             api_state_key = api_source+"_"+type
 
+            // Do we need to empty library before reload ?
+            let reload = action.data.reload || false
+
             // Load more content into library when scrolling down
             // We already know what have been loaded, so just need to pass is_loading to true
             // And SearchApiBar component will launch the load more process
@@ -54,7 +57,8 @@ const libraryDynamicReducer = (state = [], action) => {
                     // Update total length of elements already updated
                     [api_state_key]: {
                         ...state.search[api_state_key],
-                        is_loading: true
+                        is_loading: true,
+                        medias: reload ? [] : state.search[api_state_key].medias
                     }
                 },
             }

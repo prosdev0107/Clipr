@@ -57,16 +57,26 @@ const initialState = {
     import_media: {
         // Display new/edit media modal
         show_modal: false,
-        // File that has been chosen for import. Could be a file object, or a url
-        file_to_upload: null,
+        // Progress (scale 0-100) of current file uploading to server
+        uploading_file_progress: 0,
+        uploading_file: false,
+        // File that has been chosen for import
+        preselected_media: {
+            id: null,
+            type: null,
+            source: {
+                src: "",        // Original media
+                src_comp: "",   // Compressed media if available for quick display
+                thumbnail: ""   // If video, url to image thumbnail
+            }
+        },
         resizer: {
             display: false,
             cropped_zone: {},
             zoom: 1.2
         },
-        // Progress (scale 0-100) of current file uploading to server
-        uploading_file_progress: 0,
-        uploading_file: false,
+        // Is sending final selected media to server to create cs item
+        creating_final_item: false
     },
     // Basic info about clip (CONSTANT once editor is opened)
     clip: {

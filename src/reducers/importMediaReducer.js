@@ -29,7 +29,7 @@ const pageActionsReducer = (state = [], action) => {
             // User has chosen his media to import, just show a thumbnail at modal footer
             return {
                 ...state,
-                file_to_upload: action.data.file
+                preselected_media: action.data
             }
 
         case 'IMPORT_MEDIA_LAUNCH_RESIZER':
@@ -98,7 +98,7 @@ const pageActionsReducer = (state = [], action) => {
 
             return state
 
-        case 'API_CREATE_CS_ITEM_BEGIN':
+        case 'API_CREATE_CS_MEDIA_BEGIN':
 
             return {
                 ...state,
@@ -114,19 +114,38 @@ const pageActionsReducer = (state = [], action) => {
                 uploading_file_progress: action.data
             }
 
+        case 'API_CREATE_CS_MEDIA_END':
+
+            return {
+                ...state,
+                uploading_file_progress: 0,
+                uploading_file: false,
+                preselected_media: action.data
+            }
+
+        case 'API_CREATE_CS_ITEM_BEGIN':
+
+            return {
+                ...state,
+                creating_final_item: true
+            }
+
         case "API_CREATE_CS_ITEM_END":
 
             // Progress status (scale 0-100) of current uploading file
             return {
                 ...state,
-                uploading_file_progress: 0,
-                uploading_file: false,
+                creating_final_item: false,
                 resizer: {
                     display: false,
                     crop_zone: {},
                     zoom: 1.2
                 },
-                file_to_upload: null
+                preselected_media: {
+                    id: null,
+                    type: null,
+                    source: {}
+                }
             }
 
         case 'MEDIA_SWITCHER_DELETE_MEDIA':

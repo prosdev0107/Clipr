@@ -83,6 +83,9 @@ body {
 .modal-lg {
   max-width: 1000px;
 }
+video::-webkit-media-controls-fullscreen-button {
+  display: none;
+}
 /*****************/
 /***** Table *****/
 /*****************/

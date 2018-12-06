@@ -49,16 +49,17 @@ const prod = {
             type: "page",           // Means we should query "from the Xth page"
             per_page: 24,
         },
+        // safesearch filter = exclude explicit content from results
         endpoint: {
-            sticker: "/?image_type=vector",
-            image: "/?image_type=photo&orientation=vertical",
-            video: "/videos/?video_type=film"
+            sticker: "/?image_type=vector&safesearch=true",
+            image: "/?image_type=photo&orientation=vertical&safesearch=true",
+            video: "/videos/?video_type=film&safesearch=true"
         },
         endpoint_default: {
             // When no search text provided
-            sticker: "/?image_type=vector&q=like",
-            image: "/?image_type=photo&orientation=vertical&q=city",
-            video: "/videos/?video_type=film&q=city"
+            sticker: "/?image_type=vector&q=like&safesearch=true",
+            image: "/?image_type=photo&orientation=vertical&q=city&safesearch=true",
+            video: "/videos/?video_type=film&q=city&safesearch=true"
         }
     },
     aws_cdn: "https://d2fzf01co41kzj.cloudfront.net",

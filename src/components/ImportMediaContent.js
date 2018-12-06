@@ -1,6 +1,6 @@
 import React from 'react'
 import ImportMediaAPIMediaContainer from "../containers/import/ImportMediaAPIMediaContainer"
-import {Row, Col} from 'react-bootstrap'
+import {Row} from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
 
 const ImportMediaContent = ({medias, is_loading}) => {
@@ -30,17 +30,13 @@ const ImportMediaContent = ({medias, is_loading}) => {
         <Row>
             {medias.map((media,index) =>
                 typeof media === "undefined" || typeof media.source === "undefined" ? null :
-                <Col
+                <div
                     key={index}
-                    lg={media.type === "img" ? 2 : 4}
-                    md={media.type === "img" ? 3 : 4}
-                    sm={media.type === "img" ? 4 : 6}
-                    xs={media.type === "img" ? 6 : 12}
-                    className={"padding-5 "+ (media.type === "img" ? "col-xlg-2" : "")}
+                    className={"api-library-media-container"}
                 >
                     <ImportMediaAPIMediaContainer media={media}/>
 
-                </Col>
+                </div>
             )}
         </Row>
 
