@@ -19,7 +19,6 @@ const prod = {
     api_clipr: {
         API_BASE_URL: "https://app.clipr.co/fr/api",
         TOKEN_ENDPOINT: "https://app.clipr.co/oauth/v2/token"
-
     },
     api_giphy: {
         // Sandbox mode : 20k request per day
@@ -76,6 +75,5 @@ const config = process.env.REACT_APP_STAGE === 'production'
 
 export default {
     // Add common config values here
-    MAX_UPLOAD_MEDIA_SIZE: 25000000,
     ...config
 }

@@ -69,10 +69,6 @@ const generalSubReducer = (state = [], action) => {
                         case "media_animation":
                             media.animation = inputValue
                             break
-                        case "media_fit_screen":
-                            // We are showing a checkbox as "enable full screen", the opposite of fit_screen value
-                            media.fit_screen = !target.checked
-                            break
                         default:
                             break
                     }

@@ -7,6 +7,7 @@ const Sticker = ({sticker}) => {
 
     let {id, type, ratio, source, customize} = sticker
 
+
     // WARNING : The real clip uses exactly the same script in main.js. Be careful about any modification.
     // WARNING BIS : this one is no containing the CSS insertion script, they are already all included
     const customizeStickerOnPage = (svgId, svgPath, ratio, customize) => {
@@ -47,12 +48,11 @@ const Sticker = ({sticker}) => {
 
                             // Set viewBox of svg node so that texts will scale depending on screen width
                             let svgElmt = sticker.querySelector("svg")
-                            let stickerRect = sticker.getBoundingClientRect()
-                            // The width reference for sizing is 320
-                            // We ensure scale is rendering the same on every screen by setting view box width to 320
+                            // The width reference for sizing is 350
+                            // We ensure scale is rendering the same on every screen by setting view box width to 350
                             // Then adapt height
-                            let viewBoxHeight = 320 * stickerRect.height / stickerRect.width
-                            svgElmt.setAttribute("viewBox","0 0 320 "+viewBoxHeight)
+                            let viewBoxHeight = 350 / ratio
+                            svgElmt.setAttribute("viewBox","0 0 350 "+viewBoxHeight)
 
                             if (typeof customize !== "undefined" && customize != null) {
 
@@ -139,6 +139,7 @@ const Sticker = ({sticker}) => {
                  */
                 // Generate random id
                 let randomNb = id + "-" + Math.floor(Math.random() * Math.floor(1000))
+
                 return <div id={randomNb} onLoad={ customizeStickerOnPage(randomNb, source.svg, ratio, customize) }>
                     </div>
 

@@ -27,7 +27,9 @@ const ImportMediaLibrary = () => {
                 <i className={"icon fa fa-upload"} />
                 <FormattedMessage id="import.media.tab.dropzone" />
             </div>}>
+
                 <ImportMediaDropZoneContainer />
+
                 <div className={"hidden"}>
                     {/* Necessary as data feeding is made from search bar */}
                     <SearchAPIBarContainer type={"all"} source={"clipr"} />

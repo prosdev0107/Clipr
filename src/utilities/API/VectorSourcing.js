@@ -4,6 +4,7 @@ import axios from "axios/index"
 import { setupCache } from 'axios-cache-adapter'
 import data_providers from "../../api_endpoints";
 import api_client from "./CliprRequest";
+import {MAX_UPLOAD_MEDIA_SIZE} from "../../constants/constants"
 
 // Create `axios-cache-adapter` instance
 const axios_cache = setupCache({
@@ -47,7 +48,7 @@ export function vectorSourcing (source, type, text, offset, callback) {
                     return {
                         id: "giphy_"+media.id,
                         type: 'img',
-                        ratio: Math.round(1000*imageData.height / imageData.width)/1000,
+                        ratio: Math.round(1000*imageData.width / imageData.height)/1000,
                         source: {
                             src: imageData.url,
                         }
@@ -72,14 +73,14 @@ export function vectorSourcing (source, type, text, offset, callback) {
                         let previewVideoFormat = media.videos[allVideoFormats[allVideoFormats.length-1]]
 
                         // If file is too big, do not display
-                        if (videoFormat.height <= 0 || videoFormat.size > config.MAX_UPLOAD_MEDIA_SIZE) {
+                        if (videoFormat.height <= 0 || videoFormat.size > MAX_UPLOAD_MEDIA_SIZE) {
                             return undefined
                         }
 
                         return {
                             id: "pixabay_"+media.id,
                             type: 'video',
-                            ratio: Math.round(1000*videoFormat.height / videoFormat.width)/1000,
+                            ratio: Math.round(1000*videoFormat.width / videoFormat.height)/1000,
                             source: {
                                 src: videoFormat.url,
                                 src_comp: previewVideoFormat.url,
@@ -95,7 +96,7 @@ export function vectorSourcing (source, type, text, offset, callback) {
                     return {
                         id: "pixabay_"+media.id,
                         type: 'img',
-                        ratio: Math.round(1000*media.webformatHeight / media.webformatWidth)/1000,
+                        ratio: Math.round(1000*media.webformatWidth / media.webformatHeight)/1000,
                         source: {
                             src: media.webformatURL,
                             src_comp: media.previewURL,

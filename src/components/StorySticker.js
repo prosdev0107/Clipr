@@ -23,7 +23,7 @@ const StorySticker = ({
 
     // paddingTop allows to keep sticker ratio whatever the screen ratio is
     let container_styles = {
-        paddingTop: (Math.round(position.ratio*1000)/10)+"%"
+        paddingTop: (Math.round(1000/position.ratio)/10)+"%"
     }
 
     if (typeof position.rotation !== "undefined" && position.rotation != null) {

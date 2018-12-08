@@ -108,19 +108,6 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
                 min: 0,
                 max: 100
             }
-        },
-        {
-            'separator': 'general.form.separator.media',
-        },
-        {
-            id: "media_fit_screen",
-            // We are showing a checkbox as "enable full screen", the opposite of fit_screen value
-            value: !(media_params.fit_screen || 0),
-            type: "css",
-            input: {
-                label: "general.form.media.full_screen",
-                type: "checkbox",
-            }
         }
     ]
 

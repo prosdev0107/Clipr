@@ -18,6 +18,7 @@ const LibraryContent = ({tab,stickers, is_loading}) => {
         </div>
     }
 
+
     return <div className="stickers-library-shelf height-full padding-20">
         <Row>
             {stickers.map((sticker,index) =>
@@ -28,7 +29,7 @@ const LibraryContent = ({tab,stickers, is_loading}) => {
                     className={"padding-5 "+(tab === TAB_TEXT ? "col-xlg-6" : "col-xlg-3")}
                 >
                     <div className="library-sticker-container width-full relative">
-                        <div className={"width-full relative"} style={ {paddingTop: (Math.min(100,Math.round(sticker.ratio*1000)/10))+"%" } }>
+                        <div className={"width-full relative"} style={ {paddingTop: (Math.min(100,Math.round(1000/sticker.ratio)/10))+"%" } }>
                             <SimpleStickerContainer sticker={sticker} />
                         </div>
                     </div>

@@ -71,12 +71,13 @@ class MediasSwitcher extends React.Component {
     onSort(sortedList, dropEvent) {
 
         let trashButton =  document.getElementById("DELETE_MEDIA_BUTTON")
-        this.onMediaDragEnds() // Not fired automatically if element was dragged
 
         let mediaDragged = dropEvent.target
 
         // Is user dragging media above hidden trash button ?
-        if (this.areBoxesOverlapped(mediaDragged,trashButton)) {
+        // We use classList instead of using again areBoxesOverlapped function,
+        // Because dropEvent target may DIFFER from the real dragged element
+        if (trashButton.classList.contains('media-hovers-button')) {
 
             // Yes, means user asks to remove media
 
@@ -113,6 +114,9 @@ class MediasSwitcher extends React.Component {
                 })
             }
         }
+
+        this.onMediaDragEnds() // Not fired automatically if element was dragged
+
     }
 
     render() {

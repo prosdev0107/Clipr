@@ -13,30 +13,31 @@ const ImportMediaValidate = ({preselected_media, cropped_zone, display_resizer, 
 
     const renderPreview = () => {
 
-        switch (preselected_media.type) {
+        if ((preselected_media.source.thumbnail || "").length > 0
+        || (preselected_media.type === "img" && (preselected_media.source.src || "").length > 0 )) {
 
-            case "img":
-                return <img
-                    id={"import-preview"}
-                    alt={"loading..."}
-                    className={"absolute absolute-center-vertical margin-left-20"}
-                    src={preselected_media.source.src}
-                    height={80}
-                />
-            case "video":
-                return <video
-                    id={"import-preview"}
-                    className={"absolute absolute-center-vertical margin-left-20"}
-                    src={preselected_media.source.src}
-                    height={80}
-                />
-            default:
-                return <div/>
+            // Image, or video having a thumbnail
+            return <img
+                id={"import-preview"}
+                alt={"loading..."}
+                className={"absolute absolute-center-vertical margin-left-20"}
+                src={(preselected_media.source.thumbnail || preselected_media.source.src_comp || preselected_media.source.src)}
+                height={80}
+            />
+        } else if (preselected_media.type === "video") {
 
+            return <video
+                id={"import-preview"}
+                className={"absolute absolute-center-vertical margin-left-20"}
+                src={preselected_media.source.src}
+                height={80}
+            />
         }
+
+        return <div/>
     }
 
-    return <div className={typeof preselected_media.id !== "undefined" ? "import-controls width-full" : "hidden"}>
+    return <div className={(preselected_media.id || "").length > 0 ? "import-controls width-full" : "hidden"}>
 
         {/* On the left, preview of current preselected image */}
         {renderPreview()}

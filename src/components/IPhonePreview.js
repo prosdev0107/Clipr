@@ -55,6 +55,11 @@ const IPhonePreview = () => {
         iPhone6.style.width = Math.floor(sizeFactor * svgWidth * 257 / viewBoxWidth) + "px"
         iPhone6.style.height = (sizeFactor * svgHeight * 427 / viewBoxHeight) + "px"
 
+        // Adapt "zoom" of iframe
+        let refWidth = 300
+        let refScale = 0.8
+        let realWidth = refWidth / refScale
+
         iframe.style.width = (iframeWidth / 0.8)+ "px"
         iframe.style.height = (iframeHeight / 0.8) + "px"
     }

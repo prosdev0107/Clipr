@@ -30,7 +30,7 @@ export const find_vector_angle = (ref_point,B,C) => {
  * @param x_delta               // The x-diff between cursor end and begin positions
  * @param y_delta               // The y-diff between cursor end and begin positions
  * @param region                // Which of the 8 resize handler has been selected ?
- * @param media_panel_ratio     // media_panel height/width
+ * @param media_panel_ratio     // media_panel width/height
  * @param keepRatio             // Should keep ratio when user drags only one side
  * @returns {*}
  */
@@ -43,7 +43,7 @@ export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ra
     // And relative to Media Panel dimensions
     // AND CONSIDERING EACH STICKER IS TRANSLATED -50% -50%
     let old_mid_width = initialCoord.width / 2
-    let old_mid_height = initialCoord.ratio*initialCoord.width/media_panel_ratio / 2
+    let old_mid_height = media_panel_ratio*initialCoord.width/initialCoord.ratio / 2
     let box_corners = {
         nw: {
             x: initialCoord.x - old_mid_width,
@@ -79,12 +79,12 @@ export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ra
     if (region === "n" || region === "s") {
 
         // Width should adapt to height change
-        anti_rotated_x_delta = keepRatio ? 2*anti_rotated_y_delta / image_ratio : 0
+        anti_rotated_x_delta = keepRatio ? 2*anti_rotated_y_delta * image_ratio : 0
 
     } else if (region === "w" || region === "e") {
 
         // Height should adapt to width change
-        anti_rotated_y_delta = keepRatio ? anti_rotated_x_delta * image_ratio / 2 : 0
+        anti_rotated_y_delta = keepRatio ? anti_rotated_x_delta / image_ratio / 2 : 0
 
     } else {
 
@@ -97,7 +97,7 @@ export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ra
         let y_symbol = (anti_rotated_x_delta >= 0 && ['ne','sw'].indexOf(region) >= 0)
         || (anti_rotated_x_delta <= 0 && ['nw','se'].indexOf(region) >= 0) ? -1 : 1
 
-        anti_rotated_y_delta = y_symbol * Math.abs(anti_rotated_x_delta) * image_ratio / 2
+        anti_rotated_y_delta = y_symbol * Math.abs(anti_rotated_x_delta) / image_ratio / 2
     }
 
     // Also, the center of the box will move along the resize movement
@@ -151,7 +151,7 @@ export const resizeBox = (initialCoord, x_delta, y_delta, region, media_panel_ra
     }
 
     // Final aspect ratio ? (warning, new_box_height is relative to panel height !)
-    let newRatio = keepRatio ? image_ratio : (new_box_height * media_panel_ratio) / new_box_width
+    let newRatio = keepRatio ? image_ratio : new_box_width / (new_box_height * media_panel_ratio)
 
     // Return new coordinates of SSBox
     // With a new translation according to real center of the sticker

@@ -66,6 +66,13 @@ export const createCSItemFromFile = (fileUrl, cropped_zone) => {
                 new_items_length: store.getState().cs_items.length +1
             }))
 
+            // Reload user personal library (fileUrl is from external API, it will be added to personal library)
+            store.dispatch(sendToReducersAction("LIBRARY_SCROLL_LOAD_MORE", {
+                api_source: "clipr",
+                type: "all",
+                reload: true
+            }))
+
             // Also close media import modal
             store.dispatch(sendToReducersAction("IMPORT_MEDIA_MODAL_HIDE",response.data))
 

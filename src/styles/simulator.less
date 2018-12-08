@@ -6,6 +6,13 @@
 @svgHeight: 634px;
 @bigSizeFactor: 1.3;
 
+@iframeTopInViewBox: 82px;
+@iframeLeftInViewBox: 21px;
+@iframeWidthInViewBox: 257px;
+@iframeHeightInViewBox: 427px;
+
+@viewBoxRatio: @svgHeight / @viewBoxHeight;
+
 #iPhonePreview {
 
   top: ~"calc(50% - 20px)";
@@ -13,13 +20,13 @@
   .iPhone6 {
 
     position: absolute;
-    top: @svgHeight * 82 / @viewBoxHeight;
-    left: @svgWidth * 21 / @viewBoxWidth;
-    width: @svgWidth * 257 / @viewBoxWidth;
-    height: @svgHeight * 427 / @viewBoxHeight;
+    top: @iframeTopInViewBox * @viewBoxRatio;
+    left: @iframeLeftInViewBox * @viewBoxRatio;
+    width: @iframeWidthInViewBox * @viewBoxRatio;
+    height: @iframeHeightInViewBox * @viewBoxRatio;
 
-    @iframeWidth:  @svgWidth * 257 / @viewBoxWidth;
-    @iframeHeight:  @svgHeight * 427 / @viewBoxHeight;
+    @iframeWidth: @iframeWidthInViewBox * @viewBoxRatio;
+    @iframeHeight: @iframeHeightInViewBox * @viewBoxRatio;
 
     overflow: hidden; // else we can scroll on whole page on right, because of iframe view scaling
 
