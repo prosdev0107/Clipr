@@ -64,13 +64,13 @@ export function vectorSourcing (source, type, text, offset, callback) {
 
                     if (type === 'video') {
 
-                        let allVideoFormats = Object.keys(media.videos)
+                        // If available, medium format is the best for HD display
+                        let videoFormat = media.videos.medium || media.videos.small || media.videos.large
 
-                        // Take biggest format available
-                        let videoFormat = media.videos[allVideoFormats[0]]
+                        // If available, choose the lowest format available for preview (tiny is too low so avoid it)
+                        let previewVideoFormat =  media.videos.small ||  media.videos.medium || media.videos.large
 
-                        // Also take lowest available for preview
-                        let previewVideoFormat = media.videos[allVideoFormats[allVideoFormats.length-1]]
+                        console.log(videoFormat, previewVideoFormat)
 
                         // If file is too big, do not display
                         if (videoFormat.height <= 0 || videoFormat.size > MAX_UPLOAD_MEDIA_SIZE) {

@@ -3,7 +3,7 @@ import AvatarEditor from 'react-avatar-editor'
 import {renderField} from "./form/renderField"
 import {reduxForm} from "redux-form"
 import { FormattedMessage } from 'react-intl'
-import isEqual from 'lodash/isEqual'
+// import isEqual from 'lodash/isEqual'
 
 class ImportMediaResizer extends React.Component {
 
@@ -27,6 +27,10 @@ class ImportMediaResizer extends React.Component {
     // Avoid image to be positioned out of borders
     onPositionChange = () => {
 
+        if (this.editor) {
+            let imgRect = this.editor.getCroppingRect()
+            console.log(imgRect)
+        }
         /*let imgRect = this.editor.getCroppingRect()
         let newRect = {}
 
@@ -104,7 +108,7 @@ class ImportMediaResizer extends React.Component {
                             color={[0, 0, 0, 0.7]}
                             // position={typeof this.state.position.x !== "undefined" ? this.state.position : undefined}
                             // Watch image position change to avoid moving it out of broder
-                            // onPositionChange={this.onPositionChange()}
+                            onPositionChange={this.onPositionChange()}
                         >
                         </AvatarEditor>
 

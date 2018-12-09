@@ -1,10 +1,9 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
-import config from "../config"
 import { FormattedMessage } from 'react-intl'
 import {sendFileToLibrary} from '../utilities/API/CSItemMedia'
 import { Line } from 'rc-progress'
-import {MAX_UPLOADED_MEDIA_SIZE} from "../constants/constants"
+import {MAX_UPLOAD_MEDIA_SIZE} from "../constants/constants"
 
 class ImportMediaDropZone extends React.Component {
 
@@ -46,7 +45,7 @@ class ImportMediaDropZone extends React.Component {
                 onDropRejected={this.onDropRejected.bind(this)}
                 multiple={false}
                 accept={"image/jpeg, image/png, video/*"}
-                maxSize={config.MAX_UPLOAD_MEDIA_SIZE}
+                maxSize={MAX_UPLOAD_MEDIA_SIZE}
                 style={this.dropzoneStyle}
             >
                 {this.renderDropZoneText()}
