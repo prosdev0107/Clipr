@@ -11,8 +11,6 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
     }
     let mediaUrl = media.source.src_comp
 
-    console.log('med',media);
-
     // Generate thumbnail from video if we don't have on yet
     // ACCES CONTROL ALLOW ORIGIN * MUST BE SET ON TARGET VIDEO if loaded from external API
     // Else, forget the library
@@ -39,7 +37,6 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
             media.source.thumbnail = dataURL;
         }
 
-        console.log(media)
         preselectMedia(media)
     }
 
@@ -55,7 +52,11 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
             className={"api-library-media relative "+ (isCurrentlyPreselected ? "selected" : "")}
             onClick={() => clickMedia()}
         >
-            <video src={mediaUrl} controls crossorigin="anonymous"/>
+            <video controls crossOrigin="anonymous"
+                   /* poster={(media.source.thumbnail || "")} */
+            >
+                <source src={mediaUrl} type="video/mp4" />
+            </video>
             <button className={"btn btn-default btn-round select-video"} onClick={(e) => generateThumbnail(e)}>
                 <FormattedMessage id={"common.choose"} />
             </button>

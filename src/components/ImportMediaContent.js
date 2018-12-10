@@ -3,11 +3,15 @@ import ImportMediaAPIMediaContainer from "../containers/import/ImportMediaAPIMed
 import {Row} from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
 
-const ImportMediaContent = ({medias, is_loading}) => {
+const ImportMediaContent = ({medias, is_loading, source}) => {
 
     if (medias.length === 0) {
 
         // Empty
+        // If source is Clipr, disaply nothing, dropzone is already taken all the place
+        if (source === "clipr") {
+            return <div />
+        }
         return <div>
             <p className="text-center margin-top-50">
                 { is_loading ?

@@ -27,10 +27,12 @@ const pageActionsReducer = (state = [], action) => {
         case 'IMPORT_MEDIA_SELECT_MEDIA':
 
             // User has chosen his media to import, just show a thumbnail at modal footer
-            console.log(action.data);
             return {
                 ...state,
-                preselected_media: action.data
+                preselected_media: action.data,
+                resizer: {
+                    zoom: 1.2
+                },
             }
 
         case 'IMPORT_MEDIA_LAUNCH_RESIZER':

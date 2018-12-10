@@ -13,7 +13,8 @@ const mapStateToProps = (state,ownProps) => {
 
     return {
         medias: mediasSearch.medias || [],
-        is_loading: is_loading
+        is_loading: is_loading,
+        source: ownProps.source
     }
 }
 export default connect(mapStateToProps)(ImportMediaContent)

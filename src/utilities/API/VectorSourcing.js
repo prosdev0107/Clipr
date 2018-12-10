@@ -70,8 +70,6 @@ export function vectorSourcing (source, type, text, offset, callback) {
                         // If available, choose the lowest format available for preview (tiny is too low so avoid it)
                         let previewVideoFormat =  media.videos.small ||  media.videos.medium || media.videos.large
 
-                        console.log(videoFormat, previewVideoFormat)
-
                         // If file is too big, do not display
                         if (videoFormat.height <= 0 || videoFormat.size > MAX_UPLOAD_MEDIA_SIZE) {
                             return undefined

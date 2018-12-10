@@ -27,11 +27,10 @@ class ImportMediaResizer extends React.Component {
     // Avoid image to be positioned out of borders
     onPositionChange = () => {
 
-        if (this.editor) {
+        /*if (this.editor) {
             let imgRect = this.editor.getCroppingRect()
-            console.log(imgRect)
         }
-        /*let imgRect = this.editor.getCroppingRect()
+        let imgRect = this.editor.getCroppingRect()
         let newRect = {}
 
         // Todo : resize pour éviter que l'utilisateur fasse nimp
@@ -112,7 +111,7 @@ class ImportMediaResizer extends React.Component {
                         >
                         </AvatarEditor>
 
-                        <iframe src="http://landing.clipr.local:8888/wufbox/test/?in_simulator=1&force_no_list=1&url_host=http://192.168.1.19:3000&only_native=1"
+                        <iframe src={this.props.url_preview + "&only_native=1"}
                                 className={"absolute absolute-center"}
                                 title={"resize-iframe"}
                                 width={previewWidth} height={previewHeight}
