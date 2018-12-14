@@ -1,25 +1,12 @@
 import React from 'react'
 
-const MediaSwitchBox = ({index, selected, cs_item, cs_items_length, mediasSwitchBoxAction}) => {
+const MediaSwitchBox = ({index, selected, type, cs_item, cs_items_length, mediasSwitchBoxAction}) => {
 
     function renderButtonContent() {
 
-        if (cs_item === null) {
+        if (type === "add") {
 
-            if ( selected === -1 ){
-
-                // That's the placeholder when dragging element
-                return <div className={"media-switchbox-btn-container"}>
-                    <button>
-                        <div className={"overlay absolute"}>
-                        </div>
-
-                    </button>
-                </div>
-
-            }
-
-            // That's the "add new media" button
+            // "add new media" button
             return <div className={"media-switchbox-btn-container"}>
                 <button
                     onClick={(event) => mediasSwitchBoxAction('SHOW_IMPORT_MEDIA_MODAL')}
@@ -30,8 +17,31 @@ const MediaSwitchBox = ({index, selected, cs_item, cs_items_length, mediasSwitch
 
                 </button>
             </div>
+        } else if (type === "delete"){
+
+            // "remove media" button "appears when one media is dragging
+            return <div className={"media-switchbox-btn-container"}>
+                <button>
+                    <div className={"overlay absolute"}>
+                        <span className={"absolute absolute-center"}><i className={"fa fa-trash-alt"}/> </span>
+                    </div>
+                </button>
+            </div>
+
+        } else if ( selected === -1 ){
+
+            // That's the placeholder when dragging element
+            return <div className={"media-switchbox-btn-container"}>
+                <button>
+                    <div className={"overlay absolute"}>
+                    </div>
+
+                </button>
+            </div>
+
         }
 
+        // Media box
         let btnStyles = {
             backgroundImage: "url('"+cs_item.media.thumbnail+"')"
         }

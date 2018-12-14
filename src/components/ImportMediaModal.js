@@ -85,8 +85,6 @@ const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, d
 
     let hasUserPreselectedMedia = preselected_media !== null && (preselected_media.id || "").length > 0
 
-    // console.log(preselected_media.id.length)
-
     return <div className={"import-media-modal"}>
         <Modal
             show={modal_show}

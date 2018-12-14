@@ -81,7 +81,29 @@ export const TriggerSave = (state) => {
     if (history.redoOrUndoAsked) {
         // Update cs_items and clip state data with data from history
         if (!isEqual(state.cs_items, dataToSend.cs_items)) {
+
             store.dispatch(sendToReducersAction("ITEMS_UPDATE_FROM_HISTORY",dataToSend.cs_items))
+
+            // If current edited media will change from order after cs_items update,
+            // We need cs_item_index_editing to follow this change
+            if (state.cs_items.length > state.cs_item_index_editing) {
+                let current_edited_item = state.cs_items[state.cs_item_index_editing]
+                let current_edited_id = current_edited_item.id
+
+                // Find index of this same item in the new cs_items
+                for (var i=0; i < dataToSend.cs_items.length; i++) {
+                    if (dataToSend.cs_items[i].id === current_edited_id) {
+                        if (i !== state.cs_item_index_editing) {
+                            console.log(i,state.cs_item_index_editing)
+                            store.dispatch(sendToReducersAction("MEDIA_SWITCHER_CHANGE_INDEX",{
+                                new_index: i
+                            }))
+                        }
+                        break;
+                    }
+                }
+            }
+
         }
         if (!isEqual(state.clip, dataToSend.clip)) {
             store.dispatch(sendToReducersAction("CLIP_UPDATE_FROM_HISTORY",dataToSend.clip))

@@ -1,5 +1,5 @@
 import React from 'react'
-import {resizeIframe, resizeSimulator} from "../utilities/simulatorSize"
+import {resizeIframe} from "../utilities/simulatorSize"
 
 const CliprIframe = ({theme, params, url_preview, is_preview}) => {
 

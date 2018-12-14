@@ -6,13 +6,12 @@ class MediasSwitcher extends React.Component {
 
     // We cannot use local state here to manage delete button state
     // As changing state will break the drag movement at rendering
-    // TODO : utiliser un container pour le bouton delete
+    // TODO : utiliser un container pour les bouton add/delete
 
     state = {
         // Force sortable zone to re-render when dragging element outside window
         render: 0
     }
-
 
     // Is element 1 dragged over element 2 ?
     // Yes if middle of box 1 is inside box 2
@@ -31,8 +30,8 @@ class MediasSwitcher extends React.Component {
     onMediaDragStarts() {
 
         // Allow trash button to appear if media dragged
-        let trashButton =  document.getElementById("DELETE_MEDIA_BUTTON")
-        trashButton.classList.add('media-dragstart')
+        let mediaSwitcher =  document.querySelector(".medias-switcher")
+        mediaSwitcher.classList.add('media-dragstart')
     }
 
     onMediaDragged(event) {
@@ -40,30 +39,31 @@ class MediasSwitcher extends React.Component {
         // Get element dragged
         let mediaDragged = event.target
 
-        // Get delete button element
-        let trashButton =  document.getElementById("DELETE_MEDIA_BUTTON")
-        if (!trashButton.classList.contains('media-dragged') && trashButton.classList.contains('media-dragstart')) {
-            trashButton.classList.add('media-dragged')
+        let mediaSwitcher =  document.querySelector(".medias-switcher")
+
+        if (!mediaSwitcher.classList.contains('media-dragged') && mediaSwitcher.classList.contains('media-dragstart')) {
+            mediaSwitcher.classList.add('media-dragged')
         }
 
         // Is user dragging media above hidden trash button ?
+        let trashButton =  document.getElementById("DELETE_MEDIA_BUTTON")
         if (this.areBoxesOverlapped(mediaDragged,trashButton)) {
             // We don't use locale state here, as rendering breaks drag movement
-            trashButton.classList.add('media-hovers-button')
-            trashButton.classList.add('btn-active')
+            mediaSwitcher.classList.add('media-hovers-button')
+            mediaSwitcher.classList.add('btn-active')
         } else {
-            trashButton.classList.remove('media-hovers-button')
-            trashButton.classList.remove('btn-active')
+            mediaSwitcher.classList.remove('media-hovers-button')
+            mediaSwitcher.classList.remove('btn-active')
         }
     }
 
     onMediaDragEnds() {
 
         // Make trash button disappeared
-        let trashButton =  document.getElementById("DELETE_MEDIA_BUTTON")
-        trashButton.classList.remove('media-dragstart')
-        trashButton.classList.remove('media-dragged')
-        trashButton.classList.remove('media-hovers-button')
+        let mediaSwitcher =  document.querySelector(".medias-switcher")
+        mediaSwitcher.classList.remove('media-dragstart')
+        mediaSwitcher.classList.remove('media-dragged')
+        mediaSwitcher.classList.remove('media-hovers-button')
 
     }
 
@@ -71,13 +71,14 @@ class MediasSwitcher extends React.Component {
     onSort(sortedList, dropEvent) {
 
         let trashButton =  document.getElementById("DELETE_MEDIA_BUTTON")
+        let mediaSwitcher =  document.querySelector(".medias-switcher")
 
         let mediaDragged = dropEvent.target
 
         // Is user dragging media above hidden trash button ?
         // We use classList instead of using again areBoxesOverlapped function,
         // Because dropEvent target may DIFFER from the real dragged element
-        if (trashButton.classList.contains('media-hovers-button')) {
+        if (mediaSwitcher.classList.contains('media-hovers-button')) {
 
             // Yes, means user asks to remove media
 
@@ -153,6 +154,7 @@ class MediasSwitcher extends React.Component {
                 >
                     <MediaSwitchBoxContainer
                         index={index}
+                        type={"item"}
                         cs_item={cs_item}
                         selected={index === this.props.cs_item_index_editing}
                     />
@@ -178,23 +180,27 @@ class MediasSwitcher extends React.Component {
                 type="horizontal"/>
 
             {/* Add media button */}
-            <div className={"media-switchbox-container media-switchbox-add"}>
+            <div id="ADD_MEDIA_BUTTON" className={"media-switchbox-container media-switchbox-add"}>
 
                 <MediaSwitchBoxContainer
+                    type={"add"}
                     cs_item={null}
                     selected={0}
                 />
 
             </div>
 
+            {/* Remove media button */}
+            <div id="DELETE_MEDIA_BUTTON" className={"media-switchbox-container media-switchbox-delete"}>
 
-            {/* Delete media button */}
-            <button
-                id={"DELETE_MEDIA_BUTTON"}
-                className={"btn btn-danger btn-floating media-switchbox-delete"}
-            >
-                <i className={"fa fa-trash-alt"} />
-            </button>
+                <MediaSwitchBoxContainer
+                    type={"delete"}
+                    cs_item={null}
+                    selected={0}
+                />
+
+            </div>
+
 
         </div>
     }

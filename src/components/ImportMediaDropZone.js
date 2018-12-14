@@ -92,7 +92,7 @@ class ImportMediaDropZone extends React.Component {
         }
 
         // No file in zone, show indications
-        return  <p className={"infoText absolute-center"}><FormattedMessage id="import.media.dropzone.NO_FILE" /></p>
+        return  <p className={"infoText absolute-center"}><i className={"fas fa-upload margin-right-5"}></i> <FormattedMessage id="import.media.dropzone.NO_FILE" /></p>
     }
 
 

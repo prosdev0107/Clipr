@@ -78,7 +78,7 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
             className={"api-library-media relative "+ (isCurrentlyPreselected ? "selected" : "")}
             onClick={() => clickMedia()}
         >
-            <video controls crossOrigin="anonymous" loop
+            <video crossOrigin="anonymous" loop
                    onLoadStart={(e) => removeControls(e)}
                    onClick={(e) => generateThumbnail(e)}
                    onMouseOver={(e) => playVideo(e)}
@@ -87,8 +87,8 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
             >
                 <source src={mediaUrl} type="video/mp4" />
             </video>
-            <i className={"fas fa-video"}></i>
-            <canvas className={"hidden"}></canvas>
+            <canvas className={"hidden"}/>
+            <i className={"fas fa-video"}/>
         </div>
 }
 
