@@ -2,6 +2,7 @@ import React from 'react'
 
 import ClipIframeContainer from '../containers/central/ClipIframeContainer'
 import PreviewSwitcherContainer from "../containers/central/PreviewSwitcherContainer"
+import {resizeSimulator} from "../utilities/simulatorSize"
 
 const IPhonePreview = () => {
 
@@ -26,56 +27,28 @@ const IPhonePreview = () => {
         </svg>`
     )
 
-    const resizeSimulator = () => {
+    const refreshSimulator = () => {
 
         var iPhone = document.getElementById("iPhonePreview")
-        var iframe = iPhone.querySelector("iframe")
 
         // Best height for simulator ?
         var simulatorHeight = Math.min(800, 0.80*window.innerHeight)
 
-        var viewBoxWidth = 300
-        var viewBoxHeight = 598
-        var svgWidth = 270
-        var svgHeight = 535
-
-        var sizeFactor = simulatorHeight/svgHeight;
-
-        var iframeWidth =  sizeFactor * svgWidth * 257 / viewBoxWidth
-        var iframeHeight =  sizeFactor * svgHeight * 427 / viewBoxHeight
-
-        // Adapt each components to this new height
-        var iPhoneSVG = iPhone.querySelector('.iphone-svg')
-        iPhoneSVG.style.width = (sizeFactor * svgWidth)+ "px"
-        iPhoneSVG.style.height = (sizeFactor * svgHeight) + "px"
-
-        var iPhone6 = iPhone.querySelector('.iPhone6')
-        iPhone6.style.top = (sizeFactor * svgHeight * 82 / viewBoxHeight) + "px"
-        iPhone6.style.left = Math.ceil(sizeFactor * svgWidth * 21 / viewBoxWidth) + "px"
-        iPhone6.style.width = Math.floor(sizeFactor * svgWidth * 257 / viewBoxWidth) + "px"
-        iPhone6.style.height = (sizeFactor * svgHeight * 427 / viewBoxHeight) + "px"
-
-        // Adapt "zoom" of iframe
-        // let refWidth = 300
-        // let refScale = 0.8
-        // let realWidth = refWidth / refScale
-
-        iframe.style.width = (iframeWidth / 0.8)+ "px"
-        iframe.style.height = (iframeHeight / 0.8) + "px"
+       resizeSimulator(iPhone, simulatorHeight)
     }
 
     // Resize simulator dynamically to keep
-    window.addEventListener("resize", resizeSimulator)
+    window.addEventListener("resize", refreshSimulator)
 
     // We use resizeSimulator at different levels to ensure having no strange transition at preview
 
-    return <div id="iPhonePreview" className={"absolute absolute-center"} onLoad={() => resizeSimulator()} >
+    return <div id="iPhonePreview" className={"absolute absolute-center"} onLoad={() => refreshSimulator()} >
 
-            <div dangerouslySetInnerHTML={{__html: renderIPhone()}} onLoad={() => resizeSimulator()} />
+            <div dangerouslySetInnerHTML={{__html: renderIPhone()}} onLoad={() => refreshSimulator()} />
 
             <div className="iPhone6" >
 
-                <div className="container" onLoad={() => resizeSimulator()} >
+                <div className="container" onLoad={() => refreshSimulator()} >
                     <ClipIframeContainer is_preview={1}/>
                 </div>
 

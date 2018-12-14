@@ -87,6 +87,7 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
             >
                 <source src={mediaUrl} type="video/mp4" />
             </video>
+            <i className={"fas fa-video"}></i>
             <canvas className={"hidden"}></canvas>
         </div>
 }

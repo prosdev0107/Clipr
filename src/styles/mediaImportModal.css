@@ -124,6 +124,12 @@
   box-shadow: 0px 1px 5px #999;
   height: 100%;
 }
+.import-media-modal .modal-dialog .modal-content .modal-body .tab-content .api-library .api-library-media-container .api-library-media i {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  color: white;
+}
 .import-media-modal .modal-dialog .modal-content .modal-body .tab-content .api-library .api-library-media-container .api-library-media img,
 .import-media-modal .modal-dialog .modal-content .modal-body .tab-content .api-library .api-library-media-container .api-library-media video {
   height: 100%;

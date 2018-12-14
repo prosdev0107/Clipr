@@ -1,4 +1,5 @@
 import React from 'react'
+import {resizeIframe, resizeSimulator} from "../utilities/simulatorSize"
 
 const CliprIframe = ({theme, params, url_preview, is_preview}) => {
 
@@ -23,6 +24,9 @@ const CliprIframe = ({theme, params, url_preview, is_preview}) => {
             },iframe.src)
         }
 
+        // Scale iframe to keep iphone look alike ratio
+        refreshIframe()
+
         // Show iframe (with short timeout to let new CSS added to be executed)
         setTimeout(function() {
             iframe.style.opacity=1.0
@@ -44,6 +48,18 @@ const CliprIframe = ({theme, params, url_preview, is_preview}) => {
             }, iframe.src)
         }
     }
+
+    const refreshIframe = () => {
+
+        var iframe = document.getElementById('Clip_Iframe') || null
+        var container = document.querySelector(".media-panel-layer-buttons")
+        if (iframe) {
+            resizeIframe(iframe, container.offsetWidth, container.offsetHeight)
+        }
+    }
+
+    // Resize iframe dynamically to keep same appearance
+    window.addEventListener("resize", refreshIframe)
 
     return is_preview ?
 

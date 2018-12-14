@@ -124,7 +124,7 @@ const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events, is_imp
         return 'poster-fill-height'
     }
 
-    return <div className={"media-panel-container absolute-center "+(is_importing_media ? "disabled" : "")}>
+    return <div className={"media-panel-container absolute-center "}>
 
         <div id={MEDIA_PANEL_ID} className="media-panel">
 
@@ -150,8 +150,9 @@ const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events, is_imp
             {/* Native elements layer or preview mode */}
             {/* On Safari, iframe CONTENT cannot be set entirely to pointer-event none, so will receive the drag over and on drop events */}
             {/* That's why we need to deactivate it while dragging elements */}
+            {/* Also need to hide it when drag'n dropping file from import modal, else dropzone is not working well on CHROME */}
             <div className={"media-panel-layer media-panel-layer-buttons "
-                +(isSafari && listen_drag_events ? "hidden" : "")} >
+                +((isSafari && listen_drag_events) || is_importing_media ? "hidden" : "")} >
 
                 <ClipIframeContainer is_preview={0} />
 

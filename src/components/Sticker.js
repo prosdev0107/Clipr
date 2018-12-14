@@ -3,7 +3,7 @@ import {StickerDefaults,StickerTypes} from "./propTypes/StickerTypes"
 import axios from "axios/index"
 import PropTypes from 'prop-types'
 
-const Sticker = ({sticker}) => {
+const Sticker = ({sticker, RENDERING_BASE_WIDTH}) => {
 
     let {id, type, ratio, source, customize} = sticker
 
@@ -48,11 +48,12 @@ const Sticker = ({sticker}) => {
 
                             // Set viewBox of svg node so that texts will scale depending on screen width
                             let svgElmt = sticker.querySelector("svg")
-                            // The width reference for sizing is 350
+                            // The width reference for sizing is 350 (RENDERING_BASE_WIDTH)
                             // We ensure scale is rendering the same on every screen by setting view box width to 350
                             // Then adapt height
-                            let viewBoxHeight = 350 / ratio
-                            svgElmt.setAttribute("viewBox","0 0 350 "+viewBoxHeight)
+                            let viewBoxHeight = RENDERING_BASE_WIDTH / ratio
+                            svgElmt.setAttribute("viewBox","0 0 "+RENDERING_BASE_WIDTH+" "+viewBoxHeight)
+                            svgElmt.setAttribute("preserveAspectRatio","xMidYMid slice")
 
                             if (typeof customize !== "undefined" && customize != null) {
 

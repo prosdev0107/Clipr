@@ -24,7 +24,8 @@ const initialState = {
             default_color: "",
             use_static_color: false
         },
-        user_locale: 'fr'
+        user_locale: 'fr',
+        RENDERING_BASE_WIDTH: 350 // Width to use as viewBox width for SVG elements
     },
     // Params about loaded content through library tabs
     library_dynamic: {
