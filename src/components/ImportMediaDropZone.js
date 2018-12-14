@@ -8,7 +8,8 @@ import {MAX_UPLOAD_MEDIA_SIZE} from "../constants/constants"
 class ImportMediaDropZone extends React.Component {
 
     state = {
-        infoUpload: ""
+        infoUpload: "",
+        zoneStatus: ""
     }
 
     // Cancel dropzone default inline style by setting an empty object
@@ -16,10 +17,27 @@ class ImportMediaDropZone extends React.Component {
     dropzoneStyle = {
     }
 
-    onDrop = acceptedFiles => {
+    onDrag = (event) => {
 
         this.setState({
-            infoUpload: "ACCEPTED_FILE"
+            zoneStatus: " hovering "
+        })
+
+        event.preventDefault();
+    }
+
+    onDragLeave = (event) => {
+
+        this.setState({
+            zoneStatus: ""
+        })
+    }
+
+    onDrop = (acceptedFiles, rejectedFiles, event) => {
+
+        this.setState({
+            infoUpload: "ACCEPTED_FILE",
+            zoneStatus: ""
         })
 
         // There should be only one file per upload
@@ -29,20 +47,26 @@ class ImportMediaDropZone extends React.Component {
             sendFileToLibrary(file)
 
         })
+
+        event.preventDefault();
     }
     onDropRejected = (file) => {
         this.setState({
-            infoUpload: "WRONG_FILE"
+            infoUpload: "WRONG_FILE",
+            zoneStatus: ""
         })
     }
 
+
     renderDropZone = () => {
 
-        return <div className={"dropzone "+(this.props.bigDropZone ? "big-dropzone absolute absolute-center" : "")}>
+        return <div className={"dropzone "+this.state.zoneStatus+(this.props.bigDropZone ? "big-dropzone absolute absolute-center" : "")}>
 
             <Dropzone
                 onDrop={this.onDrop.bind(this)}
+                onDragOver={(evt) => {this.onDrag(evt)}}
                 onDropRejected={this.onDropRejected.bind(this)}
+                onDragLeave={(evt) => {this.onDragLeave(evt)}}
                 multiple={false}
                 accept={"image/jpeg, image/png, video/*"}
                 maxSize={MAX_UPLOAD_MEDIA_SIZE}

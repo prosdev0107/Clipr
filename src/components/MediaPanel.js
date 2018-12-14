@@ -16,7 +16,7 @@ import PreviewSwitcherContainer from "../containers/central/PreviewSwitcherConta
  * @returns {*}
  * @constructor
  */
-const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events }) => {
+const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events, is_importing_media }) => {
 
     let overlay = cs_item_general.overlay || {}
     let mediaParams = cs_item_general.media || {}
@@ -124,7 +124,7 @@ const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events }) => {
         return 'poster-fill-height'
     }
 
-    return <div className={"media-panel-container absolute-center"}>
+    return <div className={"media-panel-container absolute-center "+(is_importing_media ? "disabled" : "")}>
 
         <div id={MEDIA_PANEL_ID} className="media-panel">
 

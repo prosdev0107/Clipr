@@ -18,13 +18,13 @@ const ImportMediaLibrary = () => {
         <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
 
             {/* <Tab eventKey={1} title={<div>
-                <i className={"icon fa fa-upload"} />
+                <i className={"fa fa-upload"} />
                 <FormattedMessage id="import.media.tab.template" />
             </div>}>
                 Coming soon !
             </Tab> */}
             <Tab eventKey={2} title={<div>
-                <i className={"icon fa fa-upload"} />
+                <i className={"fas fa-layer-group"} />
                 <FormattedMessage id="import.media.tab.dropzone" />
             </div>}>
 
@@ -37,14 +37,14 @@ const ImportMediaLibrary = () => {
                 <ImportMediaAPIContentContainer type={"all"} source={"clipr"}  />
             </Tab>
             <Tab eventKey={3} title={<div>
-                <i className={"icon fa fa-image"} />
+                <i className={"fa fa-image"} />
                 <FormattedMessage id="import.media.tab.image" />
             </div>}>
                 <SearchAPIBarContainer type={"image"} source={"pixabay"} />
                 <ImportMediaAPIContentContainer type={"image"} source={"pixabay"}  />
             </Tab>
             <Tab eventKey={4} title={<div>
-                <i className={"icon fa fa-play"} />
+                <i className={"fas fa-video"} />
                 <FormattedMessage id="import.media.tab.video" />
             </div>}>
                 <SearchAPIBarContainer type={"video"} source={"pixabay"} />

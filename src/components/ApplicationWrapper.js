@@ -83,7 +83,6 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
 
         return <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
 
-            <ImportMediaModalContainer />
 
             <MediasSwitcherContainer />
 
@@ -95,6 +94,7 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
 
             <SaveMenuContainer />
 
+            <ImportMediaModalContainer />
 
         </div>
     }

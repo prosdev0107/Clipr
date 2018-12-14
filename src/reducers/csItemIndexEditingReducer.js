@@ -16,12 +16,19 @@ const csItemIndexEditingReducer = (state = [], action) => {
 
         case 'MEDIA_SWITCHER_DELETE_MEDIA':
 
+            if (typeof action.data !== "undefined" && typeof action.data.index !== "undefined") {
 
-            if (typeof action.data !== "undefined" && action.data.index === state) {
+                // Index that will be removed
+                let indexToRemove = action.data.index
 
-                // If current media is deleted, we switch index back to 0
-                // in order to avoid an index bigger than number of medias after removal
-               return 0
+                // current index
+                let currentIndex = state
+
+                // Whatever the media to remove is,
+                // if its index is greater than or equal to current index being edited
+                // We substract current index by one
+                // So we ensure staying on current media being edited
+                return Math.max(0, currentIndex >= indexToRemove ? currentIndex-1 : currentIndex);
             }
 
             return state

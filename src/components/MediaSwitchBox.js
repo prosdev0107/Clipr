@@ -32,6 +32,10 @@ const MediaSwitchBox = ({index, selected, cs_item, cs_items_length, mediasSwitch
             </div>
         }
 
+        let btnStyles = {
+            backgroundImage: "url('"+cs_item.media.thumbnail+"')"
+        }
+
         return <div className={"media-switchbox-btn-container"}>
 
             <button
@@ -39,8 +43,8 @@ const MediaSwitchBox = ({index, selected, cs_item, cs_items_length, mediasSwitch
                 onClick={(event) => mediasSwitchBoxAction('MEDIA_SWITCHER_CHANGE_INDEX',{
                     new_index: index
                 })}
+                style={btnStyles}
             >
-                <img className={"absolute absolute-center"} src={cs_item.media.thumbnail} alt={"preview media panel"} />
                 <div className={"overlay absolute"}>
                     <span className={"absolute absolute-center"}>{index+1}</span>
                 </div>

@@ -12,7 +12,7 @@ const LeftMenu = ({stickers_menu_tab, changeTab}) => {
                 <li className="site-menu-item">
                     <a className={`animsition-link ${ stickers_menu_tab === TAB_GENERAL ? "active" : ""}`} href=""
                        onClick={(e) => {e.preventDefault();changeTab(TAB_GENERAL);}} >
-                        <i className="site-menu-icon fa fa-mobile" aria-hidden="true"></i>
+                        <i className="site-menu-icon fa fa-mobile-alt" aria-hidden="true"></i>
                         <span className="site-menu-title"><FormattedMessage id="sidebar.tab.general" /></span>
                     </a>
                 </li>

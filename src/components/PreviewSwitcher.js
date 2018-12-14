@@ -15,7 +15,7 @@ const PreviewSwitcher = ({is_preview_mode, switchPreviewMode}) => {
         <button
             className={"btn btn-info btn-lg"}
             onClick={() => togglePreviewMode()} >
-            <i className={"margin-right-5 icon fa "+btnIcon}></i>
+            <i className={"margin-right-5 fa "+btnIcon}></i>
             { btnText }
         </button>
 

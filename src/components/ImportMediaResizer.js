@@ -14,11 +14,19 @@ class ImportMediaResizer extends React.Component {
 
     setEditorRef = (editor) => this.editor = editor
 
-    onImageChange = () => {
-        if (this.editor) {
+    onImageReady = () => {
+        // Store zone to crop init value
+        this.updateZoneToCrop()
+    }
 
+    onImageChange = () => {
+        this.updateZoneToCrop()
+    }
+
+    updateZoneToCrop = () => {
+        if (this.editor) {
             // Get the final cropping area
-            // Cropping is executed server-side
+            // Cropping will ve executed server-side
             let imgRect = this.editor.getCroppingRect()
             this.props.updateCroppedZone(imgRect)
         }
@@ -55,7 +63,7 @@ class ImportMediaResizer extends React.Component {
         }
 
         let windowHeight = window.innerHeight
-        let margin = 350
+        let margin = 330
         let previewHeight = windowHeight > 0 ? Math.min(489,windowHeight-margin) : 489
         let previewWidth = previewHeight * 300 / 489;
 
@@ -100,8 +108,9 @@ class ImportMediaResizer extends React.Component {
                             image={fileUrl}
                             width={previewWidth}
                             height={previewHeight}
-                            border={50}
+                            border={40}
                             scale={this.props.zoom}
+                            onImageReady={() => this.onImageReady()}
                             onImageChange={() => this.onImageChange()}
                             className={""}
                             color={[0, 0, 0, 0.7]}
@@ -122,7 +131,7 @@ class ImportMediaResizer extends React.Component {
 
                 </div>
 
-                {/* Zoom slider + Validate button */}
+                {/* Zoom slider */}
                 <div className={"col-sm-5"}>
 
                     <div className={"absolute absolute-center resizer-actions"}>

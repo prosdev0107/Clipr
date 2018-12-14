@@ -29,7 +29,7 @@
   "general.form.animation.move-from-bottom": "Vers le haut",
   "import.media.title": "Ajouter un média",
   "import.media.tab.template": "Templates",
-  "import.media.tab.dropzone": "Importer un fichier",
+  "import.media.tab.dropzone": "Bibliothèque",
   "import.media.tab.image": "Images",
   "import.media.tab.video": "Vidéos",
   "import.media.dropzone.NO_FILE": "Chargez votre image ou vidéo. Les vidéos sont raccourcies à 5s sur Snapchat.",

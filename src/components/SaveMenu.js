@@ -55,34 +55,31 @@ class SaveMenu extends React.Component {
 
     render() {
         return <div
-            className="save-menu margin-bottom-20">
+            className={this.props.is_preview_mode ? "hidden" : "save-menu margin-bottom-20"}>
 
             {this.renderSaveLabel()}
 
             <Button
                 bsStyle="info"
                 className={" btn-floating btn-sm margin-left-20 "
-                + (this.props.canUndo ? "" : " disabled ")
-                + (this.props.is_preview_mode ? " hidden " : " inline-block ")
-                }
+                + (this.props.canUndo ? "" : " disabled ")}
                 onClick={() => this.props.sendToReducers('SAVE_MENU_UNDO_BTN_PRESSED')}
             >
-                <i className="fa fa-undo"></i>
+                <i className="fas fa-undo-alt"></i>
             </Button>
 
             <Button
                 bsStyle="info"
                 className={" btn-floating btn-sm margin-left-20 "
-                + (this.props.canRedo ? "" : " disabled ")
-                + (this.props.is_preview_mode ? " hidden " : " inline-block ")}
+                + (this.props.canRedo ? "" : " disabled ")}
                 onClick={() => this.props.sendToReducers('SAVE_MENU_REDO_BTN_PRESSED')}
             >
-                <i className="fa fa-repeat"></i>
+                <i className="fas fa-redo-alt"></i>
             </Button>
 
             <Button
                 bsStyle="danger"
-                className="inline-block btn-floating btn-sm margin-left-20"
+                className={"inline-block btn-floating btn-sm margin-left-20"}
                 onClick={(event) => this.closeButtonPressed(event)}
             >
                 <i className="fa fa-times"></i>

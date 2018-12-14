@@ -18,6 +18,8 @@
   bottom: -16px;
   left: 50%;
   opacity: 0;
+  cursor: auto;
+  font-size: 32px;
   transition: all 100ms ease-in;
   transform: translateX(-50%) translateY(50%) scale(1);
 }
@@ -33,7 +35,7 @@
   opacity: 0.5;
 }
 .medias-switcher .media-switchbox-container {
-  padding: 10px 20px;
+  padding: 10px;
 }
 .medias-switcher .media-switchbox-container:not(.media-switchbox-add) button {
   cursor: grab;
@@ -51,12 +53,13 @@
 }
 .medias-switcher .media-switchbox-container .media-switchbox .media-switchbox-btn-container button {
   padding: 0;
-  background: none !important;
   width: 54px;
   overflow: hidden;
   border: none;
   box-shadow: 0 1px 4px 0 #818181;
   border-radius: 3px;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .medias-switcher .media-switchbox-container .media-switchbox .media-switchbox-btn-container button.btn-active {
   box-shadow: 0 1px 8px 0 #000;
@@ -84,6 +87,7 @@
   cursor: pointer;
   border: dashed 3px #237eff;
   box-shadow: none;
+  background: transparent;
 }
 .medias-switcher .media-switchbox-container.media-switchbox-add .media-switchbox .media-switchbox-btn-container button .overlay {
   background-color: transparent;
@@ -95,13 +99,14 @@
 }
 @media (max-height: 750px) {
   .medias-switcher .media-switchbox-container {
-    padding: 5px 10px;
+    padding: 5px 6px;
   }
 }
 @media (max-height: 660px) {
   .medias-switcher .media-switchbox-container {
-    padding: 2px 10px;
+    padding: 2px 6px;
   }
+  .medias-switcher .media-switchbox-container .media-switchbox .media-switchbox-btn-container,
   .medias-switcher .media-switchbox-container .media-switchbox .media-switchbox-btn-container button {
     height: 66px;
     width: 44px;

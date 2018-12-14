@@ -193,7 +193,7 @@ class MediasSwitcher extends React.Component {
                 id={"DELETE_MEDIA_BUTTON"}
                 className={"btn btn-danger btn-floating media-switchbox-delete"}
             >
-                <i className={"icon fa fa-trash"} />
+                <i className={"fa fa-trash-alt"} />
             </button>
 
         </div>

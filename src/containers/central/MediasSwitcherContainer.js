@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    sendToReducers: (type, new_cs_items) => dispatch(sendToReducersAction(type, new_cs_items)),
+    sendToReducers: (type, data) => dispatch(sendToReducersAction(type, data)),
 })
 
 

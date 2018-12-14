@@ -122,11 +122,9 @@ table tr.table-separator td {
 /*****************/
 .checkbox-custom input[type="checkbox"]:checked + label::after,
 .checkbox-custom input[type="radio"]:checked + label::after {
-  font-family: 'FontAwesome';
+  font-family: 'Font Awesome 5 Free';
   content: "\f00c";
-}
-.checkbox-custom label::after {
-  padding-top: 0;
+  font-weight: 900;
 }
 .select-up .Select-menu-outer {
   position: absolute !important;
