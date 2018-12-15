@@ -33,37 +33,38 @@ Do NOT develop onto this one to keep the same behavior as reality
     height: auto;
     z-index: -100;
     background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-position: 50% 50%;
     background-repeat: no-repeat;
-    border: 0;
     background-color: transparent;
-  }
+    background-position: 50% 50%;
+    border: 0;
+    opacity: 0;
 
-  .poster-fit-screen {
-    max-width: 100%;
-    max-height:100%;
-    min-width: 100%;
-  }
 
-  .poster-full-screen {
-    min-width: 100%;
-    min-height: 100%;
-    background-position: top left;
-    background-repeat: no-repeat;
-    -webkit-background-size:cover;
-    -moz-background-size:cover;
-    -o-background-size:cover;
-    background-size:cover;
-  }
+    &.poster-fit-screen {
+      max-width: 100%;
+      max-height:100%;
+      @colorDarkLevel: 38;
+      @shadowMedia: 0px 2px 5px 1px rgba(@colorDarkLevel,@colorDarkLevel,@colorDarkLevel,0.5);
+      -moz-box-shadow: @shadowMedia;
+      -webkit-box-shadow: @shadowMedia;
+      -o-box-shadow: @shadowMedia;
+      box-shadow: @shadowMedia;
+    }
 
-  .poster-fill-height {
-    max-height: 100%;
-  }
+    &.poster-full-screen {
+      min-width: 100%;
+      min-height: 100%;
+      background-position: top left;
+    }
 
-  .poster-fill-width {
-    max-width: 100%;
+    &.poster-fill-height {
+      height: 100%;
+      opacity: 1;
+    }
+
+    &.poster-fill-width {
+      width: 100%;
+      opacity: 1;
+    }
   }
 }

@@ -94,7 +94,6 @@ export const TriggerSave = (state) => {
                 for (var i=0; i < dataToSend.cs_items.length; i++) {
                     if (dataToSend.cs_items[i].id === current_edited_id) {
                         if (i !== state.cs_item_index_editing) {
-                            console.log(i,state.cs_item_index_editing)
                             store.dispatch(sendToReducersAction("MEDIA_SWITCHER_CHANGE_INDEX",{
                                 new_index: i
                             }))

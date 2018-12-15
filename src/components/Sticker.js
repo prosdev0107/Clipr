@@ -40,20 +40,13 @@ const Sticker = ({sticker, RENDERING_BASE_WIDTH}) => {
 
                         // Get sticker location
                         let sticker = document.getElementById(svgId)
+                        let svgType = "sticker"; // gif, img...
 
                         if (typeof sticker !== "undefined" && sticker != null) {
 
                             // Add content
                             sticker.innerHTML = fileContent
 
-                            // Set viewBox of svg node so that texts will scale depending on screen width
-                            let svgElmt = sticker.querySelector("svg")
-                            // The width reference for sizing is 350 (RENDERING_BASE_WIDTH)
-                            // We ensure scale is rendering the same on every screen by setting view box width to 350
-                            // Then adapt height
-                            let viewBoxHeight = RENDERING_BASE_WIDTH / ratio
-                            svgElmt.setAttribute("viewBox","0 0 "+RENDERING_BASE_WIDTH+" "+viewBoxHeight)
-                            svgElmt.setAttribute("preserveAspectRatio","xMidYMid slice")
 
                             if (typeof customize !== "undefined" && customize != null) {
 
@@ -85,6 +78,9 @@ const Sticker = ({sticker, RENDERING_BASE_WIDTH}) => {
 
                                             case "text":
 
+                                                // text svg have a viewbox always defined with 350w 175h
+                                                svgType = "text";
+
                                                 // Several properties to edit about text
                                                 let attributes = customField.attributes
                                                 if (typeof attributes !== "undefined" && attributes != null) {
@@ -113,6 +109,27 @@ const Sticker = ({sticker, RENDERING_BASE_WIDTH}) => {
 
                                     return 0
                                 })
+                            }
+
+                            // Set viewBox of svg node so that texts will scale depending on screen width
+                            let svgElmt = sticker.querySelector("svg")
+
+                            // The width reference for sizing is 350 (RENDERING_BASE_WIDTH)
+                            // We ensure scale is rendering the same on every screen by setting view box width to 350
+                            // Then adapt height
+                            let viewBoxHeight = svgType === "text" ?
+                                RENDERING_BASE_WIDTH / 2 :
+                                RENDERING_BASE_WIDTH / ratio
+
+                            svgElmt.setAttribute("viewBox","0 0 "+RENDERING_BASE_WIDTH+" "+viewBoxHeight)
+                            svgElmt.setAttribute("preserveAspectRatio","xMidYMid slice")
+
+                            // Also need to set full height and width in PX of foreign object tag if existing
+                            // Else content will not be centered properly
+                            var fObject = svgElmt.querySelector("foreignObject.table-container");
+                            if (fObject) {
+                                fObject.style.width = RENDERING_BASE_WIDTH+"px";
+                                fObject.style.height = viewBoxHeight+"px";
                             }
                         }
                     }

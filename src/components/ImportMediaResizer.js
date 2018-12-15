@@ -3,14 +3,8 @@ import AvatarEditor from 'react-avatar-editor'
 import {renderField} from "./form/renderField"
 import {reduxForm} from "redux-form"
 import { FormattedMessage } from 'react-intl'
-// import isEqual from 'lodash/isEqual'
 
 class ImportMediaResizer extends React.Component {
-
-    state = {
-        // Avoid image to be positioned out of borders
-        position: {}
-    }
 
     setEditorRef = (editor) => this.editor = editor
 
@@ -30,26 +24,6 @@ class ImportMediaResizer extends React.Component {
             let imgRect = this.editor.getCroppingRect()
             this.props.updateCroppedZone(imgRect)
         }
-    }
-
-    // Avoid image to be positioned out of borders
-    onPositionChange = () => {
-
-        /*if (this.editor) {
-            let imgRect = this.editor.getCroppingRect()
-        }
-        let imgRect = this.editor.getCroppingRect()
-        let newRect = {}
-
-        // Todo : resize pour éviter que l'utilisateur fasse nimp
-        // Si fit screen -> centrer sur image
-
-        if (!isEqual(imgRect,newRect)) {
-            // Reposition image
-            this.setState({
-                position: newRect
-            })
-        }*/
     }
 
     render () {
@@ -77,6 +51,16 @@ class ImportMediaResizer extends React.Component {
         let minScale =
             mediaRatio > 0 && croppingZoneRatio > 0 ?
             Math.min(mediaRatio / croppingZoneRatio, croppingZoneRatio / mediaRatio) : 1;
+
+        // When not full screen, user should not be allowed to drag image
+        // So we block image at center of the cropping area
+        let position = null
+        if (this.editor) {
+            let imgRect = this.editor.getCroppingRect()
+            if (imgRect.x < 0 || imgRect.y < 0) {
+                position = {x:0.5,y:0.5}
+            }
+        }
 
         // Define inputs that let user manipulate image
         let zoom_properties = {
@@ -116,7 +100,7 @@ class ImportMediaResizer extends React.Component {
                             color={[0, 0, 0, 0.7]}
                             // position={typeof this.state.position.x !== "undefined" ? this.state.position : undefined}
                             // Watch image position change to avoid moving it out of broder
-                            onPositionChange={this.onPositionChange()}
+                            position={position === null ? undefined : position}
                         >
                         </AvatarEditor>
 

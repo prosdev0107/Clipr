@@ -26,33 +26,31 @@ Do NOT develop onto this one to keep the same behavior as reality
   height: auto;
   z-index: -100;
   background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-position: 50% 50%;
   background-repeat: no-repeat;
-  border: 0;
   background-color: transparent;
+  background-position: 50% 50%;
+  border: 0;
+  opacity: 0;
 }
-.media-panel-layer-media .poster-fit-screen {
+.media-panel-layer-media .poster.poster-fit-screen {
   max-width: 100%;
   max-height: 100%;
-  min-width: 100%;
+  -moz-box-shadow: 0px 2px 5px 1px rgba(38, 38, 38, 0.5);
+  -webkit-box-shadow: 0px 2px 5px 1px rgba(38, 38, 38, 0.5);
+  -o-box-shadow: 0px 2px 5px 1px rgba(38, 38, 38, 0.5);
+  box-shadow: 0px 2px 5px 1px rgba(38, 38, 38, 0.5);
 }
-.media-panel-layer-media .poster-full-screen {
+.media-panel-layer-media .poster.poster-full-screen {
   min-width: 100%;
   min-height: 100%;
   background-position: top left;
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
 }
-.media-panel-layer-media .poster-fill-height {
-  max-height: 100%;
+.media-panel-layer-media .poster.poster-fill-height {
+  height: 100%;
+  opacity: 1;
 }
-.media-panel-layer-media .poster-fill-width {
-  max-width: 100%;
+.media-panel-layer-media .poster.poster-fill-width {
+  width: 100%;
+  opacity: 1;
 }
 /*# sourceMappingURL=clip.css.map */

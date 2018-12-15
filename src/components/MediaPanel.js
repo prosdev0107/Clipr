@@ -54,47 +54,18 @@ const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events, is_imp
 
         // If image already loaded, need to call function manually to adapt media size depending on full screen on/off
         // Because of asynchronous rendering, we need to add class from there
-        // TODO : do it a cleaner way using a local state
-        let additionalClass = fillMediaMethod()
+        // let additionalClass = fillMediaMethod(posterType)
 
         return <img
-            className={`poster absolute-center ${posterType} ${additionalClass}`}
+            className={`poster absolute-center ${posterType}`}
             src={mediaToImg}
             alt="media"
-            onLoad={() => fillMediaMethod()}
+            onLoad={() => fillMediaMethod(posterType)}
         />
-
-        /*
-
-        ON LOAD EVENT NOT WORKING ON VIDEO
-        As a result, neither poster-fill-height nor poster-fill-width can be added
-        if (cs_item.media.isVideo) {
-
-            let src_mp4 = cs_item.media.src.replace(cs_item.ext,'-comp.mp4')
-            let src_webm = cs_item.media.src.replace(cs_item.ext,'-comp.webm')
-
-            return <video
-                className={`poster  absolute-center ${posterType}`}
-                webkit-playsinline="true" defaultMuted muted autoplay="autoplay" playsinline="true"
-                onLoad={(event) => fillMediaMethod(event)}
-            >
-                <source src={src_mp4} type='video/mp4'/>
-                <source src={src_webm} type='video/webm'/>
-            </video>
-
-        } else {
-
-            return <img
-                className={`poster absolute-center ${posterType}`}
-                src={cs_item.media.src}
-                alt="media"
-                onLoad={(event) => fillMediaMethod(event)}
-            />
-        }*/
     }
 
     // Adapt to height or width depending of media dimensions
-    const fillMediaMethod = () => {
+    const fillMediaMethod = (posterType) => {
 
         let panel = document.getElementById(MEDIA_PANEL_ID)
         if (panel != null) {
@@ -108,20 +79,35 @@ const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events, is_imp
                     panelWidth = mediaPanelRect.width,
                     panelHeight = mediaPanelRect.height
 
-                // Make video full screen : fill panelWidth if width too big, else fill width
-                if (mediaWidth/mediaHeight > panelWidth/panelHeight) {
+                let fillMethod = "poster-fill-width"
+
+                if (posterType === "poster-full-screen") {
+
+                    if (mediaWidth/mediaHeight > panelWidth/panelHeight) {
+                        // For same height, media is wider than panel
+                        // Thus to get full screen media we need to set height at 100%
+                        fillMethod = "poster-fill-height"
+                    }
+
+                } else if (mediaWidth/mediaHeight < panelWidth/panelHeight) {
+                    fillMethod = "poster-fill-height"
+                }
+
+                // Apply fill method to media
+                if (fillMethod === "poster-fill-height") {
                     media.classList.remove('poster-fill-width')
                     media.classList.add('poster-fill-height')
-                    return 'poster-fill-height'
                 } else {
                     media.classList.remove('poster-fill-height')
                     media.classList.add('poster-fill-width')
-                    return 'poster-fill-width'
                 }
+                return fillMethod
             }
         }
-        // Default is fill height because full screen by default
-        return 'poster-fill-height'
+
+        // By default (when we don't dim yet),
+        // There is a better chance we need to fill height when full screen
+        return posterType === "poster-full-screen" ? "poster-fill-height" : "poster-fill-width"
     }
 
     return <div className={"media-panel-container absolute-center "}>

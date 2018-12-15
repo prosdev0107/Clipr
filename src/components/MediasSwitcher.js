@@ -70,7 +70,6 @@ class MediasSwitcher extends React.Component {
     // When user drops media
     onSort(sortedList, dropEvent) {
 
-        let trashButton =  document.getElementById("DELETE_MEDIA_BUTTON")
         let mediaSwitcher =  document.querySelector(".medias-switcher")
 
         let mediaDragged = dropEvent.target
