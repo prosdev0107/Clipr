@@ -5,6 +5,7 @@
 }
 .import-media-modal .modal-dialog .modal-content {
   overflow-y: hidden;
+  overflow-x: hidden;
   height: calc(100% - 50px);
   margin-top: 25px;
   max-height: 800px!important;
