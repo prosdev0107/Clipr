@@ -3,17 +3,25 @@ import AvatarEditor from 'react-avatar-editor'
 import {renderField} from "./form/renderField"
 import {reduxForm} from "redux-form"
 import { FormattedMessage } from 'react-intl'
+import {resizeIframe} from "../utilities/simulatorSize"
 
 class ImportMediaResizer extends React.Component {
+
+    state = {
+        wantedPosition: {x: 0.5, y: 0.5},
+        border: 40
+    }
 
     setEditorRef = (editor) => this.editor = editor
 
     onImageReady = () => {
         // Store zone to crop init value
         this.updateZoneToCrop()
+        // Refresh iframe size
+        this.refreshIframe()
     }
 
-    onImageChange = () => {
+    onImageChange = (a) => {
         this.updateZoneToCrop()
     }
 
@@ -24,6 +32,68 @@ class ImportMediaResizer extends React.Component {
             let imgRect = this.editor.getCroppingRect()
             this.props.updateCroppedZone(imgRect)
         }
+    }
+
+    onPositionChange = (newPosition) => {
+        this.setState({
+            wantedPosition: newPosition
+        })
+    }
+
+    // Scale iframe to keep iphone look alike ratio
+    refreshIframe = () => {
+
+        let iFrameContainer = document.querySelector(".crop-preview")
+        let iFrame = iFrameContainer.querySelector("iframe")
+        let border = this.state.border
+        let containerRect = iFrameContainer.getBoundingClientRect()
+        if (iFrame && containerRect.width > 0) {
+            resizeIframe(iFrame, iFrameContainer.offsetWidth - 2*border, iFrameContainer.offsetHeight - 2*border)
+            iFrame.style.transform = iFrame.style.transform + " translateX(-50%) translateY(-50%)"
+        }
+    }
+
+    // When not full screen, user should not be allowed to drag image
+    // So we block image at center of the cropping area
+    correctPosition = (newPosition, blockYScroll) => {
+
+        if (this.editor) {
+
+            let imgRect = this.editor.getCroppingRect()
+            let rectWidth = imgRect.width
+            let rectHeight = imgRect.height
+
+            if (rectWidth > 0 && rectHeight > 0) {
+
+                // TODO : scale dans local state
+                // et quand il change, recalculer la nouvelle position à la main ?
+                // ca promet d'être assez tricky
+
+                // imgRect.x : crop area LEFT CORNER coordinates, taking left corner of cropped image as referential
+                // position.x : crop area CENTER coordinates, taking left corner of cropped image as referential
+
+                if (imgRect.x < 0 || imgRect.y < 0) {
+
+                    if (blockYScroll) {
+
+                        let minXCenter = rectWidth/2
+                        let maxXCenter = 1-rectWidth/2
+
+                        newPosition.y = 0.5
+                        newPosition.x = Math.max(minXCenter, Math.min(maxXCenter,newPosition.x))
+
+                    } else {
+
+                        let minYCenter = rectHeight/2
+                        let maxYCenter = 1-rectHeight/2
+
+                        newPosition.y = Math.max(minYCenter, Math.min(maxYCenter,newPosition.y))
+                        newPosition.x = 0.5
+                    }
+                }
+            }
+        }
+        return newPosition
     }
 
     render () {
@@ -41,7 +111,6 @@ class ImportMediaResizer extends React.Component {
         let previewHeight = windowHeight > 0 ? Math.min(489,windowHeight-margin) : 489
         let previewWidth = previewHeight * 300 / 489;
 
-
         // How to choose min scale factor to have an image that fits entirely the window when slider is at min
         // Knowing scale = 1 => full screen fit
         let mediaRatio = file.ratio || 1 // Width / Height
@@ -51,16 +120,6 @@ class ImportMediaResizer extends React.Component {
         let minScale =
             mediaRatio > 0 && croppingZoneRatio > 0 ?
             Math.min(mediaRatio / croppingZoneRatio, croppingZoneRatio / mediaRatio) : 1;
-
-        // When not full screen, user should not be allowed to drag image
-        // So we block image at center of the cropping area
-        let position = null
-        if (this.editor) {
-            let imgRect = this.editor.getCroppingRect()
-            if (imgRect.x < 0 || imgRect.y < 0) {
-                position = {x:0.5,y:0.5}
-            }
-        }
 
         // Define inputs that let user manipulate image
         let zoom_properties = {
@@ -92,15 +151,15 @@ class ImportMediaResizer extends React.Component {
                             image={fileUrl}
                             width={previewWidth}
                             height={previewHeight}
-                            border={40}
+                            border={this.state.border}
                             scale={this.props.zoom}
                             onImageReady={() => this.onImageReady()}
-                            onImageChange={() => this.onImageChange()}
+                            onImageChange={(a) => this.onImageChange(a)}
                             className={""}
                             color={[0, 0, 0, 0.7]}
-                            // position={typeof this.state.position.x !== "undefined" ? this.state.position : undefined}
-                            // Watch image position change to avoid moving it out of broder
-                            position={position === null ? undefined : position}
+                            position={this.correctPosition(this.state.wantedPosition, mediaRatio > croppingZoneRatio)}
+                            // Watch image position change to avoid moving it out of border
+                            onPositionChange={(newPosition) => this.onPositionChange(newPosition)}
                         >
                         </AvatarEditor>
 

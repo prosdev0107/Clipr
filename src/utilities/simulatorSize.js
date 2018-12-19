@@ -60,6 +60,7 @@ export const resizeSimulator = (iPhone, targetedHeight) => {
 
 export const resizeIframe = (iframe, targetWidth, targetHeight) => {
 
+
     // To keep same rendering of clip whatever the size of iframe is,
     // We use css scale property
     // Scale 1 corresponds to iPhone 6S size : 325px x 667px
@@ -68,7 +69,6 @@ export const resizeIframe = (iframe, targetWidth, targetHeight) => {
 
     // Scale of iframe needed t keep iframe "seen" content at 325px
     var iframeScale = targetWidth / iframeBaseWidth;
-
 
     iframe.style.transform = 'scale('+iframeScale+')';
     iframe.style.width = (targetWidth / iframeScale) + "px";

@@ -39,6 +39,7 @@
   border-radius: 3px;
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
 }
 .medias-switcher .media-switchbox-container .media-switchbox .media-switchbox-btn-container button.btn-active {
   box-shadow: 0 1px 8px 0 #000;

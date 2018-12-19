@@ -118,7 +118,7 @@ const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, d
                     <ImportMediaLibraryContainer />
                 </div>
 
-                <div className={display_resizer ? "crop-preview-container absolute absolute-center width-full padding-left-20 padding-right-20" : "hidden"}>
+                <div className={display_resizer ? "crop-preview-container absolute absolute-center width-full padding-left-20 padding-right-20" : "crop-preview-hidden"}>
                     {/* Crop/Move/Zoom on selected media */}
                     <ImportMediaResizerContainer />
                 </div>

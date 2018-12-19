@@ -159,6 +159,11 @@
   width: 100%;
   margin-left: -30px;
 }
+.import-media-modal .modal-dialog .modal-content .modal-body .crop-preview-hidden {
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
 .import-media-modal .modal-dialog .modal-content .modal-body .crop-preview-container {
   padding-bottom: 120px;
 }

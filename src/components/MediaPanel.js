@@ -16,13 +16,21 @@ import PreviewSwitcherContainer from "../containers/central/PreviewSwitcherConta
  * @returns {*}
  * @constructor
  */
-const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events, is_importing_media }) => {
+const MediaPanel = ({ cs_item_general, cs_item_media, listen_drag_events, is_importing_media, cs_item_index_editing, sendToReducers }) => {
 
     let overlay = cs_item_general.overlay || {}
     let mediaParams = cs_item_general.media || {}
     let overlay_styles = {
         backgroundColor: overlay.color,
         opacity: overlay.opacity
+    }
+
+    if ((cs_item_media.src || "").length === 0 && cs_item_index_editing > 0) {
+        // Media is not available anymore (could happen when redo/undo last element while editing it)
+        // Better reinit to index 0 than displaying "empty" media
+        sendToReducers('MEDIA_SWITCHER_CHANGE_INDEX',{
+            new_index: 0
+        })
     }
 
     const renderBlurBackground = () => {

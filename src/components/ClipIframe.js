@@ -9,7 +9,7 @@ const CliprIframe = ({theme, params, url_preview, is_preview}) => {
     let fontSource = theme_fonts.find(function (obj) { return obj.name === selected_font })
 
     // Transform iframe content to keep only the buttons
-    const tranformIframe = (event) => {
+    const transformIframe = (event) => {
 
         let iframe = event.target
 
@@ -76,7 +76,7 @@ const CliprIframe = ({theme, params, url_preview, is_preview}) => {
             src={url_preview + "&only_native=1"}
             title="Clip buttons only preview"
             allowtransparency="true"
-            onLoad={(event) => tranformIframe(event)}/>
+            onLoad={(event) => transformIframe(event)}/>
 }
 
 export default CliprIframe

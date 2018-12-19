@@ -113,16 +113,23 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
 
     if (!(media_params.isVideo || 0)) {
 
+        // Duration selector
+        let size = 12 // Max is 15s
+        let startAt = 3 // Min is 3s
+        let duration_options = [...Array(size).keys()].map(i => ({
+            value: i + startAt,
+            label: i + startAt
+        }))
+
         rowInputInfo.push({
                 id: "media_duration",
                 value: (media_params.duration || 5),
                 type: "css",
+                options: duration_options,
                 input: {
                     label: "general.form.media.duration",
-                    type: "number",
-                    step: 0.1,
-                    min: 2,
-                    max: 20
+                    type: "select",
+                    selectUp: true
                 }
             },{
             id: "media_animation",

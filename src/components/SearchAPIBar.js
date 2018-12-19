@@ -34,6 +34,7 @@ const SearchAPIBar = ({api_source, type, searchText, searchResultsLength, is_loa
                     id: api_source+"_"+type+"_searchBar",
                     nonMaterial: true,
                     placeholder: "search_bar.placeholder",
+                    value: searchText || "",
                     input: {
                         type: "text",
                         name: api_source+"_"+type+"_search",
