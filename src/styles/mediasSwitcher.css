@@ -56,9 +56,20 @@
   border-radius: 3px;
 }
 .medias-switcher .media-switchbox-container .media-switchbox .media-switchbox-btn-container button .overlay span {
-  color: white;
-  text-shadow: 1px 1px 3px #000;
+  color: #eee;
+  text-shadow: 0 0 3px #000;
   font-size: 30px;
+}
+.medias-switcher .media-switchbox-container .media-switchbox .media-switchbox-btn-container button.btn-active {
+  transform: scale(1.04);
+}
+.medias-switcher .media-switchbox-container .media-switchbox .media-switchbox-btn-container button.btn-active .overlay {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.medias-switcher .media-switchbox-container .media-switchbox .media-switchbox-btn-container button.btn-active .overlay span {
+  color: white;
+  text-shadow: 0 0 4px #00a7ff;
+  font-size: 35px;
 }
 .medias-switcher .media-switchbox-container.media-switchbox-add,
 .medias-switcher .media-switchbox-container.media-switchbox-delete {

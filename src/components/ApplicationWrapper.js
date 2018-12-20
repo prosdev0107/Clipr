@@ -70,17 +70,7 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
 
 
     const renderAppWithItemsContent = () => {
-
-        if (is_preview_mode) {
-            return <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
-
-                <IPhonePreviewContainer />
-
-                <SaveMenuContainer />
-
-            </div>
-        }
-
+        
         return <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
 
 
@@ -128,17 +118,29 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
 
         </div>
 
-        : ( has_items ?
+        : (is_preview_mode ?
 
                 <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
 
-                    { renderAppWithItemsContent() }
+                    <IPhonePreviewContainer />
 
-                </div> :
+                </div>
+                :
 
-                renderAppWithNoItemsContent()
+                ( has_items ?
 
+                        <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
+
+                            { renderAppWithItemsContent() }
+
+                        </div> :
+
+                        renderAppWithNoItemsContent()
+
+                )
         )
+
+
 
 }
 

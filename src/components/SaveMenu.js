@@ -55,7 +55,7 @@ class SaveMenu extends React.Component {
 
     render() {
         return <div
-            className={this.props.is_preview_mode ? "hidden" : "save-menu margin-bottom-20"}>
+            className={"save-menu margin-bottom-20"}>
 
             {this.renderSaveLabel()}
 
