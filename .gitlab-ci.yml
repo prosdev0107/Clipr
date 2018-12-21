@@ -16,7 +16,7 @@ stages:
 
 Build Staging:
   only:
-      - editeurv2
+      - staging
   image: node:8.11.3
   stage: staging
   environment: staging
