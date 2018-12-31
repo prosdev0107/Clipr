@@ -26,6 +26,12 @@ const pageActionsReducer = (state = [], action) => {
 
         case 'IMPORT_MEDIA_SELECT_MEDIA':
 
+            if (typeof action.data === "undefined"
+                || action.data === null
+                || typeof action.data.source === "undefined" ) {
+                return state
+            }
+
             // User has chosen his media to import, just show a thumbnail at modal footer
             return {
                 ...state,
@@ -118,6 +124,16 @@ const pageActionsReducer = (state = [], action) => {
             }
 
         case 'API_CREATE_CS_MEDIA_END':
+
+            if (typeof action.data === "undefined"
+                || action.data === null
+                || typeof action.data.source === "undefined" ) {
+                return {
+                    ...state,
+                    uploading_file_progress: 0,
+                    uploading_file: false,
+                }
+            }
 
             return {
                 ...state,

@@ -4,6 +4,7 @@ import ImportMediaValidateContainer from "../containers/import/ImportMediaValida
 import ImportMediaLibraryContainer from "../containers/import/ImportMediaLibraryContainer"
 import ImportMediaResizerContainer from "../containers/import/ImportMediaResizerContainer"
 import { FormattedMessage } from 'react-intl'
+import ImportMediaOverlay from "./ImportMediaOverlay";
 
 const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, display_resizer, closeModal, loadMoreMedias}) => {
 
@@ -19,31 +20,10 @@ const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, d
         },50)
     }
 
-
     const renderOverlay = () => {
 
-
-        return <div className={creating_final_item ? "overlay" : "hidden"}>
-
-            <div className={"loader-container absolute-center"}>
-
-                <div className="page-loader absolute-center-horizontal">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-
-                <p>
-                    <span className={"infoProgress"}>
-                    <FormattedMessage id="import.media.creation" /></span>
-                </p>
-
-            </div>
-
-        </div>
+        return creating_final_item ? <ImportMediaOverlay /> : <div />
     }
-
-
 
     const handleScroll = (event) => {
 

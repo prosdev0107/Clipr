@@ -7,8 +7,15 @@ import data_providers from '../../api_endpoints.js'
 // Send user imported file to its personal library
 export const sendFileToLibrary = (file) => {
 
-    let postData = new FormData()
-    postData.append('file', file)
+    let postData
+
+    if (typeof file === "string" && file.length < 500) {
+        postData = {'file':file}
+    } else {
+        postData = new FormData()
+        postData.append('file', file)
+    }
+
 
     // Initialize state
     store.dispatch(sendToReducersAction("API_CREATE_CS_MEDIA_BEGIN"))

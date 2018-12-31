@@ -1,5 +1,6 @@
 import React from 'react'
 import ImportMediaDropZoneContainer from "../containers/import/ImportMediaDropZoneContainer"
+import ImportMediaFromUrlContainer from "../containers/import/ImportMediaFromUrlContainer"
 import {Tabs, Tab} from 'react-bootstrap'
 import SearchAPIBarContainer from "../containers/library/SearchAPIBarContainer"
 import ImportMediaAPIContentContainer from "../containers/import/ImportMediaAPIContentContainer"
@@ -49,6 +50,12 @@ const ImportMediaLibrary = () => {
             </div>}>
                 <SearchAPIBarContainer type={"video"} source={"pixabay"} />
                 <ImportMediaAPIContentContainer type={"video"} source={"pixabay"}  />
+            </Tab>
+            <Tab eventKey={5} title={<div>
+                <i className={"fas fa-globe"} />
+                <FormattedMessage id="import.media.tab.website" />
+            </div>}>
+                <ImportMediaFromUrlContainer />
             </Tab>
 
         </Tabs>
