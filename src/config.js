@@ -1,7 +1,7 @@
 
 const dev = {
     api_clipr: {
-        API_BASE_URL: "http://app.clipr.local:8888/fr/api",
+        API_BASE_URL: "http://app.clipr.local:8888/api",
         TOKEN_ENDPOINT: "http://app.clipr.local:8888/oauth/v2/token"
     },
     aws_cdn: "http://app.landing.local:8888"
@@ -9,7 +9,7 @@ const dev = {
 
 const staging = {
     api_clipr: {
-        API_BASE_URL: "https://app.aws.clipr.co/fr/api",
+        API_BASE_URL: "https://app.aws.clipr.co/api",
         TOKEN_ENDPOINT: "https://app.aws.clipr.co/oauth/v2/token"
     },
     aws_cdn: "https://dee78mez9gquu.cloudfront.net"
@@ -17,7 +17,7 @@ const staging = {
 
 const prod = {
     api_clipr: {
-        API_BASE_URL: "https://app.clipr.co/fr/api",
+        API_BASE_URL: "https://app.clipr.co/api",
         TOKEN_ENDPOINT: "https://app.clipr.co/oauth/v2/token"
     },
     api_giphy: {

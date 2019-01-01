@@ -1,24 +1,24 @@
 const data_providers = {
     sticker: {
-        list: "/cnv/stickers"
+        list: "/story/stickers"
     },
     clip: {
-        read:   (cnv_short_code) => "/cnv/clip/"+cnv_short_code,
-        update: (cnv_short_code) => "/cnv/clip/"+cnv_short_code+"/update"
+        read:   (cnv_short_code) => "/story/clip/"+cnv_short_code,
+        update: (cnv_short_code) => "/story/clip/"+cnv_short_code+"/update"
     },
     cs_item: {
-        list:   (cnv_short_code) => "/cnv/clip/"+cnv_short_code+"/cs_items",
-        create: (cnv_short_code) => "/cnv/clip/"+cnv_short_code+"/cs_items/create",
-        read:   (cnv_short_code, cs_item_id) => "/cnv/clip/"+cnv_short_code+"/cs_items/"+cs_item_id,
-        update: (cnv_short_code, cs_item_id) => "/cnv/clip/"+cnv_short_code+"/cs_items/"+cs_item_id+"/update"
+        list:   (cnv_short_code) => "/story/clip/"+cnv_short_code+"/cs_items",
+        create: (cnv_short_code) => "/story/clip/"+cnv_short_code+"/cs_items/create",
+        read:   (cnv_short_code, cs_item_id) => "/story/clip/"+cnv_short_code+"/cs_items/"+cs_item_id,
+        update: (cnv_short_code, cs_item_id) => "/story/clip/"+cnv_short_code+"/cs_items/"+cs_item_id+"/update"
         // No delete endpoint here, as it's already managed by API cs_items.update
     },
     cs_items: {
-        update: (cnv_short_code) => "/cnv/clip/"+cnv_short_code+"/cs_items/update"
+        update: (cnv_short_code) => "/story/clip/"+cnv_short_code+"/cs_items/update"
     },
     cs_media: {
-        list:   () => "/cnv/media",
-        create: () => "/cnv/media/create"
+        list:   () => "/story/media",
+        create: () => "/story/media/create"
     },
 }
 
