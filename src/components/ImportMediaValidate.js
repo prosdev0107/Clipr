@@ -2,14 +2,34 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { createCSItemFromFile } from "../utilities/API/CSItemMedia";
 
-const ImportMediaValidate = ({preselected_media, cropped_zone, display_resizer, confirmMedia, cancelResize}) => {
+// BOTTOM NAVIGATION BAR of modal
+
+const ImportMediaValidate = ({preselected_media, cropped_zone, cropped_time, display_resizer, display_videocrop, sendToReducers, cancelResize}) => {
 
     const validateResize = () => {
 
         // Send to server with the final cropping area and create the item
-        createCSItemFromFile(preselected_media.source.src, cropped_zone)
+        createCSItemFromFile(preselected_media.source.src, cropped_zone, cropped_time)
 
     }
+
+    const validateVideoCropping = () => {
+
+        // Go to resizer
+        sendToReducers("IMPORT_MEDIA_LAUNCH_RESIZER")
+
+    }
+
+    const validateMediaSelection = () => {
+
+        // Go to resizer if image, cropper if video
+        if (preselected_media.type === "img") {
+            sendToReducers("IMPORT_MEDIA_LAUNCH_RESIZER")
+        } else {
+            sendToReducers("IMPORT_MEDIA_LAUNCH_VIDEO_CROPPER")
+        }
+    }
+
 
     const renderPreview = () => {
 
@@ -37,6 +57,27 @@ const ImportMediaValidate = ({preselected_media, cropped_zone, display_resizer, 
         return <div/>
     }
 
+    const submitClicked = () => {
+        if (display_resizer) {
+            // Step 3 : confirm media duration
+            validateResize()
+        } else if (display_videocrop) {
+            // Step 2 (if video) : confirm video cropping in duration
+            validateVideoCropping()
+        } else {
+            // Step 1 : confirm media selection
+            validateMediaSelection()
+        }
+    }
+
+    const cancelClicked = () => {
+        if (display_resizer && (preselected_media.type !== "img")) {
+            sendToReducers("IMPORT_MEDIA_LAUNCH_VIDEO_CROPPER")
+        } else {
+            sendToReducers("IMPORT_MEDIA_CLOSE_CROPPER_AND_RESIZER")
+        }
+    }
+
     return <div className={(preselected_media.id || "").length > 0 ? "import-controls width-full" : "hidden"}>
 
         {/* On the left, preview of current preselected image */}
@@ -46,15 +87,15 @@ const ImportMediaValidate = ({preselected_media, cropped_zone, display_resizer, 
         <div className={"btn-wrapper absolute absolute-center-vertical"}>
 
             <button
-                className={display_resizer ? "btn btn-default btn-round padding-left-30 padding-right-30 font-size-16 margin-right-10" : "hidden"}
-                onClick={() => cancelResize()}
+                className={display_resizer || display_videocrop ? "btn btn-default btn-round padding-left-30 padding-right-30 font-size-16 margin-right-10" : "hidden"}
+                onClick={() => cancelClicked()}
             >
                 <FormattedMessage id="common.back"/>
             </button>
 
             <button
                 className={"btn btn-primary btn-round padding-left-30 padding-right-30 font-size-16"}
-                onClick={() => display_resizer ? validateResize() : confirmMedia()}
+                onClick={() => submitClicked()}
             >
                 <FormattedMessage id="common.submit"/>
             </button>

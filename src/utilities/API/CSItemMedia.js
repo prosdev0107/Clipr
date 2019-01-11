@@ -50,7 +50,7 @@ export const sendFileToLibrary = (file) => {
 }
 
 // Create a CS Item from uploaded file
-export const createCSItemFromFile = (fileUrl, cropped_zone) => {
+export const createCSItemFromFile = (fileUrl, cropped_zone, cropped_time) => {
 
     let cnvShortCode = store.getState().clip.cnv_short_code
     let postData
@@ -59,7 +59,11 @@ export const createCSItemFromFile = (fileUrl, cropped_zone) => {
     store.dispatch(sendToReducersAction("API_CREATE_CS_ITEM_BEGIN"))
 
     // That's a URL string. Server will download it by itself
-    postData = {fileUrl: fileUrl, cropped_zone: cropped_zone}
+    postData = {
+        fileUrl: fileUrl,
+        cropped_zone: cropped_zone,
+        cropped_time: cropped_time
+    }
 
     // Call create API asynchronously
     let request = api_client()

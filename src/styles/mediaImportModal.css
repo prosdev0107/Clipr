@@ -139,9 +139,6 @@
   display: block;
   white-space: initial;
 }
-.import-media-modal .modal-dialog .modal-content .modal-body .tab-content .api-library .api-library-media-container .api-library-media video::-webkit-media-controls {
-  display: none;
-}
 .import-media-modal .modal-dialog .modal-content .modal-body .tab-content .api-library .api-library-media-container .api-library-media button.select-video {
   position: absolute;
   right: 1px;
@@ -174,6 +171,54 @@
 .import-media-modal .modal-dialog .modal-content .modal-body .crop-preview-container .crop-preview iframe {
   pointer-events: none;
   border: none;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper {
+  width: 100%;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .input-range__label {
+  display: none;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper video {
+  width: 100%;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .input-range__slider {
+  background-color: #237eff;
+  border-color: #237eff;
+  margin-top: -0.75rem;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .input-range__track {
+  height: 0.5rem;
+  border-radius: 0.5rem;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .input-range__track--active {
+  background-color: #237eff;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player button i {
+  color: white;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider {
+  width: calc(100% - 70px);
+  margin-left: 10px;
+  vertical-align: middle;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .input-range__slider {
+  background-color: white;
+  border-color: white;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .input-range__track {
+  background-color: #777;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .input-range__track .input-range__track--active {
+  background-color: #ccc;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .timer-display {
+  margin-top: 10px;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .timer-display .text-right {
+  float: right;
 }
 .import-media-modal .modal-dialog .modal-content .import-controls {
   padding: 0px 10px;

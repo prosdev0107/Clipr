@@ -7,7 +7,8 @@ const mapStateToProps = state => ({
     modal_show: state.import_media.show_modal,
     preselected_media: state.import_media.preselected_media,
     creating_final_item: state.import_media.creating_final_item,
-    display_resizer: state.import_media.resizer.display
+    display_resizer: state.import_media.resizer.display,
+    display_videocrop: state.import_media.videocrop.display
 })
 
 const mapDispatchToProps = (dispatch) => ({

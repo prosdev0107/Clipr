@@ -33,12 +33,59 @@ const pageActionsReducer = (state = [], action) => {
             }
 
             // User has chosen his media to import, just show a thumbnail at modal footer
+            // Also reinitialize video cropper and image resizer
             return {
                 ...state,
                 preselected_media: action.data,
                 resizer: {
                     zoom: 1.2
                 },
+                videocrop: {
+                    start: 0,
+                    end: 0
+                }
+            }
+
+        case 'IMPORT_MEDIA_LAUNCH_VIDEO_CROPPER':
+
+            // User has validated his media to import, let's suggest him to resize/crop it
+            return {
+                ...state,
+                videocrop:  {
+                    ...state.videocrop,
+                    display: true
+                },
+                resizer:  {
+                    ...state.resizer,
+                    display: false
+                }
+            }
+
+        case 'IMPORT_MEDIA_CLOSE_CROPPER_AND_RESIZER':
+
+            return {
+                ...state,
+                videocrop:  {
+                    ...state.videocrop,
+                    display: false
+                },
+                resizer:  {
+                    ...state.resizer,
+                    display: false
+                }
+            }
+
+        case 'IMPORT_MEDIA_VIDEO_CROPPER_UPDATE_DURATION':
+
+            // User has validated his media to import, let's suggest him to resize/crop it
+            let new_time_limits = action.data
+            return {
+                ...state,
+                videocrop:  {
+                    ...state.videocrop,
+                    start: new_time_limits.start,
+                    end: new_time_limits.end
+                }
             }
 
         case 'IMPORT_MEDIA_LAUNCH_RESIZER':
@@ -46,6 +93,10 @@ const pageActionsReducer = (state = [], action) => {
             // User has validated his media to import, let's suggest him to resize/crop it
             return {
                 ...state,
+                videocrop:  {
+                    ...state.videocrop,
+                    display: false
+                },
                 resizer:  {
                     ...state.resizer,
                     display: true
@@ -63,16 +114,6 @@ const pageActionsReducer = (state = [], action) => {
                 }
             }
         }
-
-        case 'IMPORT_MEDIA_CLOSE_RESIZER':
-
-            return {
-                ...state,
-                resizer:  {
-                    ...state.resizer,
-                    display: false
-                }
-            }
 
         case 'IMPORT_MEDIA_RESIZER_CHANGE_PROPERTY':
 
@@ -106,6 +147,20 @@ const pageActionsReducer = (state = [], action) => {
             }
 
             return state
+
+        case 'IMPORT_MEDIA_UPDATE_VIDEO_THUMBNAIL':
+
+            return {
+                ...state,
+                preselected_media: {
+                    ...state.preselected_media,
+                    source: {
+                        ...state.preselected_media.source,
+                        thumbnail: action.data
+                    }
+
+                }
+            }
 
         case 'API_CREATE_CS_MEDIA_BEGIN':
 

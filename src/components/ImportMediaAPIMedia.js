@@ -1,4 +1,5 @@
 import React from 'react'
+import {generateVideoThumbnail} from "../utilities/videoThumbnail"
 
 const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
 
@@ -10,7 +11,7 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
     }
     let mediaUrl = media.source.src_comp
 
-    // Generate thumbnail from video if we don't have on yet
+    // Generate thumbnail from video if we don't have any yet
     // ACCES CONTROL ALLOW ORIGIN * MUST BE SET ON TARGET VIDEO if loaded from external API
     // Else, forget the library
     const generateThumbnail = (event) => {
@@ -21,22 +22,15 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
             // We need to generate image thumbnail ourself
             let button = event.target
 
-            // Container of media ?
+            // Find video element
             let mediaContainer = button.closest(".api-library-media")
             let video = mediaContainer.querySelector("video")
-            let canvas = mediaContainer.querySelector("canvas")
 
-            // make canvas same dimensions than video
-            canvas.width = video.videoWidth
-            canvas.height = video.videoHeight
-
-            //generate thumbnail URL data
-            var context = canvas.getContext('2d')
-            context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
-            var dataURL = canvas.toDataURL()
+            // Generate thumbnail and get its url
+            let url = generateVideoThumbnail(video)
 
             // Inject in media thumbnail field
-            media.source.thumbnail = dataURL
+            media.source.thumbnail = url
         }
 
         preselectMedia(media)
@@ -87,7 +81,6 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
             >
                 <source src={mediaUrl} type="video/mp4" />
             </video>
-            <canvas className={"hidden"}/>
             <i className={"fas fa-video"}/>
         </div>
 }

@@ -6,12 +6,16 @@ import {sendToReducersAction} from "../../actions"
 const mapStateToProps = state => ({
     preselected_media: state.import_media.preselected_media,
     cropped_zone: state.import_media.resizer.crop_zone,
-    display_resizer: state.import_media.resizer.display
+    cropped_time: {
+        start: state.import_media.videocrop.start,
+        end: state.import_media.videocrop.end,
+    },
+    display_resizer: state.import_media.resizer.display,
+    display_videocrop: state.import_media.videocrop.display
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    confirmMedia: (event) => dispatch(sendToReducersAction("IMPORT_MEDIA_LAUNCH_RESIZER",event)),
-    cancelResize: (event) => dispatch(sendToReducersAction("IMPORT_MEDIA_CLOSE_RESIZER",event)),
+    sendToReducers: (type,event) => dispatch(sendToReducersAction(type,event))
 })
 
 

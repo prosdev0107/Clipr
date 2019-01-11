@@ -71,6 +71,11 @@ const initialState = {
                 thumbnail: ""   // If video, url to image thumbnail
             }
         },
+        videocrop: {
+            display: false,
+            start: 0,
+            end: 0
+        },
         resizer: {
             display: false,
             cropped_zone: {},
