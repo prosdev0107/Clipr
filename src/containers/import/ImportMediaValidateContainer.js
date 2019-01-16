@@ -4,14 +4,14 @@ import ImportMediaValidate from '../../components/ImportMediaValidate'
 import {sendToReducersAction} from "../../actions"
 
 const mapStateToProps = state => ({
-    preselected_media: state.import_media.preselected_media,
+    preselected_media: state.import_media.media_picker.preselected,
     cropped_zone: state.import_media.resizer.crop_zone,
     cropped_time: {
         start: state.import_media.videocrop.start,
         end: state.import_media.videocrop.end,
     },
-    display_resizer: state.import_media.resizer.display,
-    display_videocrop: state.import_media.videocrop.display
+    is_first_step: state.import_media.template_selector.display,
+    is_last_step: state.import_media.resizer.display,
 })
 
 const mapDispatchToProps = (dispatch) => ({

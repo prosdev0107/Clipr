@@ -5,7 +5,7 @@ import {sendToReducersAction} from "../../actions"
 
 const mapStateToProps = state => ({
     url_preview: state.clip.url_preview,
-    file: state.import_media.preselected_media,
+    file: state.import_media.media_picker.preselected,
     zoom: state.import_media.resizer.zoom
 })
 

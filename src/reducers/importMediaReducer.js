@@ -2,26 +2,139 @@
 
 const pageActionsReducer = (state = [], action) => {
 
+    let isImage = state.media_picker.preselected.type === "img"
+
+    let displayTemplateSelector = false
+    let displayMediaPicker = false
+    let displayVideoCropper = false
+    let displayMediaResizer = false
+
     switch (action.type) {
+
+        // Show/hide the modal
 
         case 'SHOW_IMPORT_MEDIA_MODAL':
 
             // Display a large modal that let user import a media into story
+            // Also initialize every steps
             return {
                 ...state,
-                show_modal: true
+                show_modal: true,
+                template_selector: {
+                    display: true,
+                    id: null
+                },
+                media_picker: {
+                    display: false
+                },
+                videocrop:  {
+                    ...state.videocrop,
+                    display: false,
+                    start: 0,
+                    end: 0
+                },
+                resizer:  {
+                    ...state.resizer,
+                    display: false,
+                    zoom: 1.2
+                }
             }
 
         case 'IMPORT_MEDIA_MODAL_HIDE':
 
             return {
                 ...state,
-                show_modal: false,
-                resizer: {
-                    display: false,
-                    crop_zone: {},
-                    zoom: 1.2
+                show_modal: false
+            }
+
+        // What happened when user presses "Confirm" or "Cancel" on modal footer section
+
+        case 'IMPORT_MEDIA_GO_NEXT_STEP':
+
+            // Find out which step should be now display
+
+            if (state.media_picker.display) {
+                displayTemplateSelector = true
+            } else if (state.videocrop.display) {
+                displayMediaPicker = true
+            } else if (state.resizer.display) {
+                // If is vido, go to video cropper
+                displayVideoCropper = isImage ? false : true
+                // Else skip this step and go directly to media picker
+                displayMediaPicker = isImage ? true : false
+            }
+
+            return {
+                ...state,
+                template_selector:  {
+                    ...state.template_selector,
+                    display: displayTemplateSelector
                 },
+                media_picker:  {
+                    ...state.media_picker,
+                    display: displayMediaPicker
+                },
+                videocrop:  {
+                    ...state.videocrop,
+                    display: displayVideoCropper
+                },
+                resizer:  {
+                    ...state.resizer,
+                    display: displayMediaResizer
+                }
+            }
+
+        case 'IMPORT_MEDIA_GO_PREVIOUS_STEP':
+
+            // Find out which step should be now display
+
+            if (state.template_selector.display) {
+                displayMediaPicker = true
+            } else if (state.media_picker.display) {
+                // If is vido, go to video cropper
+                displayVideoCropper = isImage ? false : true
+                // Else skip this step and go directly to media resize
+                displayMediaResizer = isImage ? true : false
+            } else if (state.videocrop.display) {
+                displayMediaResizer = true
+            }
+
+            return {
+                ...state,
+                template_selector:  {
+                    ...state.template_selector,
+                    display: displayTemplateSelector
+                },
+                media_picker:  {
+                    ...state.media_picker,
+                    display: displayMediaPicker
+                },
+                videocrop:  {
+                    ...state.videocrop,
+                    display: displayVideoCropper
+                },
+                resizer:  {
+                    ...state.resizer,
+                    display: displayMediaResizer
+                },
+            }
+
+        // Save modified data among each step of creation
+
+        case 'IMPORT_MEDIA_SELECT_TEMPLATE':
+
+            if (typeof action.data === "undefined" || action.data === null) {
+                return state
+            }
+
+            // User has chosen his media to import, just show a thumbnail at modal footer
+            // Also reinitialize video cropper and image resizer
+            return {
+                ...state,
+                template: {
+                    ...state.template,
+                    id: action.data
+                }
             }
 
         case 'IMPORT_MEDIA_SELECT_MEDIA':
@@ -33,45 +146,11 @@ const pageActionsReducer = (state = [], action) => {
             }
 
             // User has chosen his media to import, just show a thumbnail at modal footer
-            // Also reinitialize video cropper and image resizer
             return {
                 ...state,
-                preselected_media: action.data,
-                resizer: {
-                    zoom: 1.2
-                },
-                videocrop: {
-                    start: 0,
-                    end: 0
-                }
-            }
-
-        case 'IMPORT_MEDIA_LAUNCH_VIDEO_CROPPER':
-
-            // User has validated his media to import, let's suggest him to resize/crop it
-            return {
-                ...state,
-                videocrop:  {
-                    ...state.videocrop,
-                    display: true
-                },
-                resizer:  {
-                    ...state.resizer,
-                    display: false
-                }
-            }
-
-        case 'IMPORT_MEDIA_CLOSE_CROPPER_AND_RESIZER':
-
-            return {
-                ...state,
-                videocrop:  {
-                    ...state.videocrop,
-                    display: false
-                },
-                resizer:  {
-                    ...state.resizer,
-                    display: false
+                media_picker: {
+                    ...state.media_picker,
+                    preselected: action.data
                 }
             }
 
@@ -85,21 +164,6 @@ const pageActionsReducer = (state = [], action) => {
                     ...state.videocrop,
                     start: new_time_limits.start,
                     end: new_time_limits.end
-                }
-            }
-
-        case 'IMPORT_MEDIA_LAUNCH_RESIZER':
-
-            // User has validated his media to import, let's suggest him to resize/crop it
-            return {
-                ...state,
-                videocrop:  {
-                    ...state.videocrop,
-                    display: false
-                },
-                resizer:  {
-                    ...state.resizer,
-                    display: true
                 }
             }
 
@@ -152,15 +216,19 @@ const pageActionsReducer = (state = [], action) => {
 
             return {
                 ...state,
-                preselected_media: {
-                    ...state.preselected_media,
-                    source: {
-                        ...state.preselected_media.source,
-                        thumbnail: action.data
+                media_picker: {
+                    ...state.media_picker,
+                    preselected: {
+                        ...state.media_picker.preselected,
+                        source: {
+                            ...state.media_picker.preselected.source,
+                            thumbnail: action.data
+                        }
                     }
-
                 }
             }
+
+        // End of media creation on boarding : create the new CSItem
 
         case 'API_CREATE_CS_MEDIA_BEGIN':
 
@@ -194,7 +262,10 @@ const pageActionsReducer = (state = [], action) => {
                 ...state,
                 uploading_file_progress: 0,
                 uploading_file: false,
-                preselected_media: action.data
+                media_picker: {
+                    ...state.media_picker,
+                    preselected: action.data
+                }
             }
 
         case 'API_CREATE_CS_ITEM_BEGIN':
@@ -215,10 +286,13 @@ const pageActionsReducer = (state = [], action) => {
                     crop_zone: {},
                     zoom: 1.2
                 },
-                preselected_media: {
-                    id: null,
-                    type: null,
-                    source: {}
+                media_picker: {
+                    ...state.media_picker,
+                    preselected: {
+                        id: null,
+                        type: null,
+                        source: {}
+                    }
                 }
             }
 

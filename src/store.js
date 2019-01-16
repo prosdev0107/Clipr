@@ -61,21 +61,32 @@ const initialState = {
         // Progress (scale 0-100) of current file uploading to server
         uploading_file_progress: 0,
         uploading_file: false,
-        // File that has been chosen for import
-        preselected_media: {
-            id: null,
-            type: null,
-            source: {
-                src: "",        // Original media
-                src_comp: "",   // Compressed media if available for quick display
-                thumbnail: ""   // If video, url to image thumbnail
-            }
+        // Step 1 : Choose a template
+        template_selector: {
+            display: false,
+            id: null
         },
+        // Step 2 : Pick media
+        media_picker: {
+            display: false,
+            // File that has been chosen for import
+            selected_media: {
+                id: null,
+                type: null,
+                source: {
+                    src: "",        // Original media
+                    src_comp: "",   // Compressed media if available for quick display
+                    thumbnail: ""   // If video, url to image thumbnail
+                }
+            },
+        },
+        // Step 3 (if video) : crop video in duration
         videocrop: {
             display: false,
             start: 0,
             end: 0
         },
+        // Step 4 : crop media in size
         resizer: {
             display: false,
             cropped_zone: {},

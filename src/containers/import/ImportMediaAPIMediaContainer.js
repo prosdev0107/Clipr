@@ -8,7 +8,7 @@ const mapStateToProps = (state,ownProps) => {
     // Before defining state, let's determinate if this media is the one currently pre-selected by user
     let media = ownProps.media
     let mediaUrl = media.source.src
-    let preselected_media = state.import_media.preselected_media
+    let preselected_media = state.import_media.media_picker.preselected
     let isCurrentlyPreselected = typeof preselected_media.source !== "undefined" && mediaUrl === preselected_media.source.src
 
     return {

@@ -7,7 +7,7 @@ import ImportMediaVideoCropperContainer from "../containers/import/ImportMediaVi
 import { FormattedMessage } from 'react-intl'
 import ImportMediaOverlay from "./ImportMediaOverlay";
 
-const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, display_resizer, display_videocrop, closeModal, loadMoreMedias}) => {
+const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, display_template_selector, display_media_picker, display_resizer, display_videocrop, closeModal, loadMoreMedias}) => {
 
     if (modal_show) {
         setTimeout(function() {
@@ -64,7 +64,44 @@ const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, d
         }
     }
 
+    const renderModalContent = () => {
+
+        if (display_template_selector) {
+
+            return <div>
+                {/* Step & : Choose a template */}
+                <ImportMediaLibraryContainer />
+            </div>
+
+        } else if (display_media_picker) {
+
+            return <div>
+                {/* Step 2 : Pick image from API or personal media */}
+                <ImportMediaLibraryContainer />
+            </div>
+
+        } else if (display_videocrop) {
+
+            return <div className={"crop-preview-container absolute absolute-center width-full padding-left-20 padding-right-20"}>
+                {/* Step 3 : Crop selected video */}
+                <ImportMediaVideoCropperContainer />
+            </div>
+
+        } else if (display_resizer) {
+
+            return <div className={"crop-preview-container absolute absolute-center width-full padding-left-20 padding-right-20"}>
+                {/* Step4 : Crop/Move/Zoom on selected media */}
+                <ImportMediaResizerContainer />
+            </div>
+        }
+    }
+
     let hasUserPreselectedMedia = preselected_media !== null && (preselected_media.id || "").length > 0
+
+    let modalTitle =
+        display_template_selector ? "import.template.title" :
+            (display_videocrop ? "import.videocrop.title" :
+                (display_resizer ? "import.resize.title" : "import.media.title" ))
 
     return <div className={"import-media-modal"}>
         <Modal
@@ -74,11 +111,11 @@ const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, d
             className={"import-media-modal"}
             onScroll={(event) => handleScroll(event)}
         >
-            {/* When selecting media, modal header is quite useless so better hide it */}
-            <Modal.Header className={display_resizer || display_videocrop ? "relative" : "hidden"}>
+            {/* When picking media (step 2), modal header is quite useless so better hide it */}
+            <Modal.Header className={!display_media_picker ? "relative" : "hidden"}>
 
                 <Modal.Title>
-                    <FormattedMessage id={display_resizer ? "import.media.title" : "import.media.videocrop.title"} />
+                    <FormattedMessage id={modalTitle} />
                 </Modal.Title>
 
                 <button type="button" className="close" onClick={() => closeModal()}>
@@ -89,29 +126,17 @@ const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, d
             </Modal.Header>
             <Modal.Body className={ hasUserPreselectedMedia ? "footer-opened" : ""}>
 
-                <button type="button" className={display_resizer || display_videocrop ? "hidden" : "close absolute"} onClick={() => closeModal()}>
+                {/* At step 2 there is no modal header so we need to add this close button */}
+                <button type="button" className={!display_media_picker ? "hidden" : "close absolute"} onClick={() => closeModal()}>
                     <span aria-hidden="true">×</span>
                     <span className="sr-only">Close</span>
                 </button>
 
-                <div className={display_resizer || display_videocrop ? "hidden" : ""}>
-                    {/* Pick image from API or personal media */}
-                    <ImportMediaLibraryContainer />
-                </div>
-
-                <div className={display_videocrop ? "crop-preview-container absolute absolute-center width-full padding-left-20 padding-right-20" : "hidden"}>
-                    {/* Crop selected video */}
-                    <ImportMediaVideoCropperContainer />
-                </div>
-
-                <div className={display_resizer ? "crop-preview-container absolute absolute-center width-full padding-left-20 padding-right-20" : "crop-preview-hidden"}>
-                    {/* Crop/Move/Zoom on selected media */}
-                    <ImportMediaResizerContainer />
-                </div>
+                {renderModalContent()}
 
             </Modal.Body>
 
-            {/* Confirm media selection/resize */}
+            {/* Footer : confirm/cancel step */}
             <ImportMediaValidateContainer />
 
             { renderOverlay() }
