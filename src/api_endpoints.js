@@ -2,6 +2,9 @@ const data_providers = {
     sticker: {
         list: "/story/stickers"
     },
+    template: {
+        list: (type, from, length) =>  "/story/templates?type="+type+"&from="+(from || 0)+"&length="+(length || 24)
+    },
     clip: {
         read:   (cnv_short_code) => "/story/clip/"+cnv_short_code,
         update: (cnv_short_code) => "/story/clip/"+cnv_short_code+"/update"

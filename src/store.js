@@ -25,7 +25,12 @@ const initialState = {
             use_static_color: false
         },
         user_locale: 'fr',
-        RENDERING_BASE_WIDTH: 350 // Width to use as viewBox width for SVG elements
+        RENDERING_BASE_WIDTH: 350,  // Width to use as viewBox width for SVG elements
+        templates: {
+            types: [
+               "articles"
+                ]
+            }
     },
     // Params about loaded content through library tabs
     library_dynamic: {
@@ -40,7 +45,7 @@ const initialState = {
             //      medias: [],
             //      is_loading: true
             // }
-        },
+        }
     },
     // Live status of some actions
     page_actions: {
@@ -64,13 +69,13 @@ const initialState = {
         // Step 1 : Choose a template
         template_selector: {
             display: false,
-            id: null
+            template: {}
         },
         // Step 2 : Pick media
         media_picker: {
             display: false,
             // File that has been chosen for import
-            selected_media: {
+            preselected: {
                 id: null,
                 type: null,
                 source: {

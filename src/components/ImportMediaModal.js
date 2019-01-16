@@ -1,8 +1,9 @@
 import React from 'react'
-import {Modal} from 'react-bootstrap'
+import {Modal, ProgressBar} from 'react-bootstrap'
 import ImportMediaValidateContainer from "../containers/import/ImportMediaValidateContainer"
 import ImportMediaLibraryContainer from "../containers/import/ImportMediaLibraryContainer"
 import ImportMediaResizerContainer from "../containers/import/ImportMediaResizerContainer"
+import MediaTemplateLibraryContainer from "../containers/library/MediaTemplateLibraryContainer"
 import ImportMediaVideoCropperContainer from "../containers/import/ImportMediaVideoCropperContainer"
 import { FormattedMessage } from 'react-intl'
 import ImportMediaOverlay from "./ImportMediaOverlay";
@@ -68,14 +69,14 @@ const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, d
 
         if (display_template_selector) {
 
-            return <div>
-                {/* Step & : Choose a template */}
-                <ImportMediaLibraryContainer />
+            return <div className="height-full">
+                {/* Step 1 : Choose a template */}
+                <MediaTemplateLibraryContainer />
             </div>
 
         } else if (display_media_picker) {
 
-            return <div>
+            return <div className="height-full">
                 {/* Step 2 : Pick image from API or personal media */}
                 <ImportMediaLibraryContainer />
             </div>
@@ -90,18 +91,27 @@ const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, d
         } else if (display_resizer) {
 
             return <div className={"crop-preview-container absolute absolute-center width-full padding-left-20 padding-right-20"}>
-                {/* Step4 : Crop/Move/Zoom on selected media */}
+                {/* Step 4 : Crop/Move/Zoom on selected media */}
                 <ImportMediaResizerContainer />
             </div>
         }
+        return <div />
     }
-
-    let hasUserPreselectedMedia = preselected_media !== null && (preselected_media.id || "").length > 0
 
     let modalTitle =
         display_template_selector ? "import.template.title" :
             (display_videocrop ? "import.videocrop.title" :
-                (display_resizer ? "import.resize.title" : "import.media.title" ))
+                (display_resizer ? "import.resizer.title" : "import.media.title" ))
+
+    let progress = 33
+    if (display_media_picker) {
+        progress = 66
+    } else if (display_videocrop) {
+        progress = 85
+    } else if (display_resizer) {
+        progress = 100
+    }
+
 
     return <div className={"import-media-modal"}>
         <Modal
@@ -111,8 +121,9 @@ const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, d
             className={"import-media-modal"}
             onScroll={(event) => handleScroll(event)}
         >
-            {/* When picking media (step 2), modal header is quite useless so better hide it */}
-            <Modal.Header className={!display_media_picker ? "relative" : "hidden"}>
+            <Modal.Header>
+
+                <ProgressBar active now={progress} />
 
                 <Modal.Title>
                     <FormattedMessage id={modalTitle} />
@@ -124,20 +135,17 @@ const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, d
                 </button>
 
             </Modal.Header>
-            <Modal.Body className={ hasUserPreselectedMedia ? "footer-opened" : ""}>
 
-                {/* At step 2 there is no modal header so we need to add this close button */}
-                <button type="button" className={!display_media_picker ? "hidden" : "close absolute"} onClick={() => closeModal()}>
-                    <span aria-hidden="true">×</span>
-                    <span className="sr-only">Close</span>
-                </button>
+            <Modal.Body>
 
                 {renderModalContent()}
 
             </Modal.Body>
 
             {/* Footer : confirm/cancel step */}
-            <ImportMediaValidateContainer />
+            <Modal.Footer>
+                <ImportMediaValidateContainer />
+            </Modal.Footer>
 
             { renderOverlay() }
 

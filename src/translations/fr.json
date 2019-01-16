@@ -28,7 +28,7 @@
   "general.form.animation.move-from-top": "Vers le bas",
   "general.form.animation.move-from-bottom": "Vers le haut",
   "import.template.title": "Choisir un template",
-  "import.media.title": "Ajouter un média",
+  "import.media.title": "Choisir le média",
   "import.media.tab.template": "Templates",
   "import.media.tab.dropzone": "Bibliothèque",
   "import.media.tab.image": "Images",

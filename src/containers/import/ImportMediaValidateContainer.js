@@ -12,6 +12,12 @@ const mapStateToProps = state => ({
     },
     is_first_step: state.import_media.template_selector.display,
     is_last_step: state.import_media.resizer.display,
+    allow_submit: (
+        (state.import_media.template_selector.display && (state.import_media.template_selector.template.id || "").length > 0)
+        || (state.import_media.media_picker.display && (state.import_media.media_picker.preselected.id || "").length > 0)
+        || state.import_media.videocrop.display
+        || state.import_media.resizer.display
+    )
 })
 
 const mapDispatchToProps = (dispatch) => ({

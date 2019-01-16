@@ -1,8 +1,8 @@
 
 
-const pageActionsReducer = (state = [], action) => {
+const importMediaReducer = (state = [], action) => {
 
-    let isImage = state.media_picker.preselected.type === "img"
+    let isImage = typeof state.media_picker !== "undefined" ? state.media_picker.preselected.type === "img" : 1
 
     let displayTemplateSelector = false
     let displayMediaPicker = false
@@ -21,10 +21,12 @@ const pageActionsReducer = (state = [], action) => {
                 ...state,
                 show_modal: true,
                 template_selector: {
+                    ...state.template_selector,
                     display: true,
-                    id: null
+                    template: {}
                 },
                 media_picker: {
+                    ...state.media_picker,
                     display: false
                 },
                 videocrop:  {
@@ -53,15 +55,15 @@ const pageActionsReducer = (state = [], action) => {
 
             // Find out which step should be now display
 
-            if (state.media_picker.display) {
-                displayTemplateSelector = true
-            } else if (state.videocrop.display) {
+            if (state.template_selector.display) {
                 displayMediaPicker = true
-            } else if (state.resizer.display) {
-                // If is vido, go to video cropper
+            } else if (state.media_picker.display) {
+                // If is video, go to video cropper
                 displayVideoCropper = isImage ? false : true
-                // Else skip this step and go directly to media picker
-                displayMediaPicker = isImage ? true : false
+                // Else skip this step and go directly to media resize
+                displayMediaResizer = isImage ? true : false
+            } else if (state.videocrop.display) {
+                displayMediaResizer = true
             }
 
             return {
@@ -88,15 +90,15 @@ const pageActionsReducer = (state = [], action) => {
 
             // Find out which step should be now display
 
-            if (state.template_selector.display) {
-                displayMediaPicker = true
-            } else if (state.media_picker.display) {
-                // If is vido, go to video cropper
-                displayVideoCropper = isImage ? false : true
-                // Else skip this step and go directly to media resize
-                displayMediaResizer = isImage ? true : false
+            if (state.media_picker.display) {
+                displayTemplateSelector = true
             } else if (state.videocrop.display) {
-                displayMediaResizer = true
+                displayMediaPicker = true
+            } else if (state.resizer.display) {
+                // If is video, go to video cropper
+                displayVideoCropper = isImage ? false : true
+                // Else skip this step and go directly to media picker
+                displayMediaPicker = isImage ? true : false
             }
 
             return {
@@ -127,13 +129,16 @@ const pageActionsReducer = (state = [], action) => {
                 return state
             }
 
-            // User has chosen his media to import, just show a thumbnail at modal footer
+            // User has chosen his media to import, just show a thumbnail at modal footers
             // Also reinitialize video cropper and image resizer
             return {
                 ...state,
-                template: {
-                    ...state.template,
-                    id: action.data
+                template_selector: {
+                    ...state.template_selector,
+                    template: {
+                        ...state.template,
+                        ...action.data
+                    }
                 }
             }
 
@@ -312,4 +317,4 @@ const pageActionsReducer = (state = [], action) => {
     }
 }
 
-export default pageActionsReducer
+export default importMediaReducer

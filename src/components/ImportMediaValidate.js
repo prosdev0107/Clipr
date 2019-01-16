@@ -4,7 +4,7 @@ import { createCSItemFromFile } from "../utilities/API/CSItemMedia";
 
 // BOTTOM NAVIGATION BAR of modal
 
-const ImportMediaValidate = ({preselected_media, cropped_zone, cropped_time, is_first_step, is_last_step, sendToReducers, cancelResize}) => {
+const ImportMediaValidate = ({preselected_media, cropped_zone, cropped_time, is_first_step, is_last_step, allow_submit, sendToReducers}) => {
 
 
     const renderPreview = () => {
@@ -34,11 +34,13 @@ const ImportMediaValidate = ({preselected_media, cropped_zone, cropped_time, is_
     }
 
     const submitClicked = () => {
-        if (is_last_step) {
-            // If we are on last step, launch media creation process
-            createCSItemFromFile(preselected_media.source.src, cropped_zone, cropped_time)
-        } else {
-            sendToReducers("IMPORT_MEDIA_GO_NEXT_STEP")
+        if (allow_submit) {
+            if (is_last_step) {
+                // If we are on last step, launch media creation process
+                createCSItemFromFile(preselected_media.source.src, cropped_zone, cropped_time)
+            } else {
+                sendToReducers("IMPORT_MEDIA_GO_NEXT_STEP")
+            }
         }
     }
 
@@ -46,7 +48,7 @@ const ImportMediaValidate = ({preselected_media, cropped_zone, cropped_time, is_
         sendToReducers("IMPORT_MEDIA_GO_PREVIOUS_STEP")
     }
 
-    return <div className={(preselected_media.id || "").length > 0 ? "import-controls width-full" : "hidden"}>
+    return <div className="import-controls width-full">
 
         {/* On the left, preview of current preselected image */}
         {renderPreview()}
@@ -62,7 +64,8 @@ const ImportMediaValidate = ({preselected_media, cropped_zone, cropped_time, is_
             </button>
 
             <button
-                className={"btn btn-primary btn-round padding-left-30 padding-right-30 font-size-16"}
+                className={"btn btn-primary btn-round padding-left-30 padding-right-30 font-size-16 "+(allow_submit ? "" : "disabled")}
+                disabled={allow_submit ? "" : "disabled"}
                 onClick={() => submitClicked()}
             >
                 <FormattedMessage id="common.submit"/>

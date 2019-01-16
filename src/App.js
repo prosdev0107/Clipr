@@ -23,6 +23,7 @@ import './styles/clip.min.css'
 import './styles/fake-interactions.css'
 import './styles/mediaImportModal.css'
 import './styles/simulator.css'
+import './styles/templatesLibrary.min.css'
 
 import ApplicationContainer from "./containers/ApplicationContainer"
 

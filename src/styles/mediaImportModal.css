@@ -18,8 +18,17 @@
   padding: 0;
   padding-right: 10px;
 }
+.import-media-modal .modal-dialog .modal-content .modal-header .progress {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 10px;
+  border-radius: 0;
+}
 .import-media-modal .modal-dialog .modal-content .modal-body {
   padding: 0;
+  height: calc(100% - 166px);
 }
 .import-media-modal .modal-dialog .modal-content .modal-body button.close {
   right: 8px;
@@ -49,9 +58,6 @@
 }
 .import-media-modal .modal-dialog .modal-content .modal-body ul.nav-tabs > li > a:hover {
   text-decoration: none;
-}
-.import-media-modal .modal-dialog .modal-content .modal-body.footer-opened .tab-content {
-  bottom: 100px;
 }
 .import-media-modal .modal-dialog .modal-content .modal-body .tab-content {
   padding: 15px;
@@ -162,9 +168,6 @@
   opacity: 0;
   pointer-events: none;
 }
-.import-media-modal .modal-dialog .modal-content .modal-body .crop-preview-container {
-  padding-bottom: 120px;
-}
 .import-media-modal .modal-dialog .modal-content .modal-body .crop-preview-container .crop-preview canvas {
   display: block;
 }
@@ -220,22 +223,25 @@
 .import-media-modal .modal-dialog .modal-content .video-cropper .timer-display .text-right {
   float: right;
 }
-.import-media-modal .modal-dialog .modal-content .import-controls {
+.import-media-modal .modal-dialog .modal-content .modal-footer {
+  height: 100px;
+}
+.import-media-modal .modal-dialog .modal-content .modal-footer .import-controls {
+  height: 100px;
   padding: 0px 10px;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100px;
   box-shadow: 0px 0px 6px #666;
   background-color: #d6dade;
 }
-.import-media-modal .modal-dialog .modal-content .import-controls img,
-.import-media-modal .modal-dialog .modal-content .import-controls video {
+.import-media-modal .modal-dialog .modal-content .modal-footer .import-controls img,
+.import-media-modal .modal-dialog .modal-content .modal-footer .import-controls video {
   border: solid 4px #237eff;
   border-radius: 5px;
 }
-.import-media-modal .modal-dialog .modal-content .import-controls .btn-wrapper {
+.import-media-modal .modal-dialog .modal-content .modal-footer .import-controls .btn-wrapper {
   right: 20px;
 }
 .import-media-modal .modal-dialog .modal-content .overlay {

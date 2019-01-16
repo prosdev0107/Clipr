@@ -18,7 +18,6 @@ const LibraryContent = ({tab,stickers, is_loading}) => {
         </div>
     }
 
-
     return <div className="stickers-library-shelf height-full padding-20">
         <Row>
             {stickers.map((sticker,index) =>

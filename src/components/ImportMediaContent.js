@@ -21,16 +21,7 @@ const ImportMediaContent = ({medias, is_loading, source}) => {
         </div>
     }
 
-    // Adapt library height to screen (not with pure css cause problem with scroll+modal)
-    let windowHeight = window.innerHeight
-    let margin = 260
-    let heightMax = 800
-    let apiLibraryHeight = Math.min(heightMax, windowHeight-margin)
-    let styles = {
-        height: apiLibraryHeight+"px"
-    }
-
-    return <div className="api-library padding-20" style={styles}>
+    return <div className="api-library padding-20">
         <Row>
             {medias.map((media,index) =>
                 typeof media === "undefined" || typeof media.source === "undefined" ? null :

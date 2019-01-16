@@ -51,18 +51,17 @@ class ImportMediaVideoCropper extends React.Component {
             })
 
             // Also, adapt crop editor to window
-            let windowHeight = window.innerHeight;
+            let modalHeight = document.querySelector('.import-media-modal .modal-content').offsetHeight;
+
             let videoHeight = video.videoHeight;
             let videoWidth = video.videoWidth;
 
-            // Video height / window height cannot be more like that
-            let ratioMax = 31/68;
-            let maxVideoHeight = windowHeight*ratioMax
+            let maxVideoHeight = modalHeight - 290;
             let maxVideoWidth = Math.min(640, maxVideoHeight * videoWidth / videoHeight)
+
             this.setState({
                 maxVideoWidth: maxVideoWidth
             })
-
         }
     }
 
@@ -209,36 +208,39 @@ class ImportMediaVideoCropper extends React.Component {
             maxWidth: this.state.maxVideoWidth+"px"
         }
 
-        return <div className="video-cropper center-block" style={blocStyles}>
+        return <div className="video-cropper">
 
-            {this.renderVideo()}
+            <div className="center-block" style={blocStyles}>
 
-            <div className={"video-player"}>
+                {this.renderVideo()}
 
-                <button
-                    className={"video-player-control btn btn-pure inline-block"}
-                    onClick={() => this.toggleVideo()} >
-                    <i className={"fas "+(this.state.videoIsPlaying ? "fa-pause" : "fa-play")} />
-                </button>
+                <div className={"video-player"}>
 
-                <div className={"video-player-slider inline-block"}>
-                    <InputRange
-                        draggableTrack
-                        maxValue={this.state.videoDuration > 0 ? this.state.videoDuration : 0.1}
-                        minValue={0}
-                        allowSameValues={true}
-                        step={0.01}
-                        formatLabel={value => this.timeToString(value)}
-                        onChangeStart={() => this.toggleVideo(0)}
-                        onChange={value => this.setState({player:value})}
-                        onChangeComplete={value => this.playerInputChanged(value)}
-                        value={this.state.player} />
+                    <button
+                        className={"video-player-control btn btn-pure inline-block"}
+                        onClick={() => this.toggleVideo()} >
+                        <i className={"fas "+(this.state.videoIsPlaying ? "fa-pause" : "fa-play")} />
+                    </button>
+
+                    <div className={"video-player-slider inline-block"}>
+                        <InputRange
+                            draggableTrack
+                            maxValue={this.state.videoDuration > 0 ? this.state.videoDuration : 0.1}
+                            minValue={0}
+                            allowSameValues={true}
+                            step={0.01}
+                            formatLabel={value => this.timeToString(value)}
+                            onChangeStart={() => this.toggleVideo(0)}
+                            onChange={value => this.setState({player:value})}
+                            onChangeComplete={value => this.playerInputChanged(value)}
+                            value={this.state.player} />
+                    </div>
+
                 </div>
 
             </div>
 
-
-            <div className={"margin-top-30 margin-top-20"}>
+            <div className={"margin-10 margin-bottom-0"}>
 
                 <InputRange
                     draggableTrack
@@ -254,10 +256,10 @@ class ImportMediaVideoCropper extends React.Component {
                 <div className={"width-full timer-display"}>
 
                 <span className={"text-left"}>
-                    <FormattedMessage id="import.media.videocrop.time.start" /> : { this.timeToString(this.state.timer.min) }
+                    <FormattedMessage id="import.videocrop.time.start" /> : { this.timeToString(this.state.timer.min) }
                 </span>
                     <span className={"text-right"}>
-                    <FormattedMessage id="import.media.videocrop.time.end" /> : { this.timeToString(this.state.timer.max) }
+                    <FormattedMessage id="import.videocrop.time.end" /> : { this.timeToString(this.state.timer.max) }
                 </span>
 
                 </div>

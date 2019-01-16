@@ -37,7 +37,10 @@ const paramsReducer = (state = [], action) => {
                     data.params.user_locale = config.locale.default
                 }
 
-                return data.params
+                return {
+                    ...state,
+                    ...data.params
+                }
             }
             return state
 
