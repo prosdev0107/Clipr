@@ -22,12 +22,12 @@ const importMediaReducer = (state = [], action) => {
                 show_modal: true,
                 template_selector: {
                     ...state.template_selector,
-                    display: true,
+                    display: false,
                     template: {}
                 },
                 media_picker: {
                     ...state.media_picker,
-                    display: false
+                    display: true
                 },
                 videocrop:  {
                     ...state.videocrop,

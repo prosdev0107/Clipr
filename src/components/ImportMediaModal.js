@@ -123,7 +123,7 @@ const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, d
         >
             <Modal.Header>
 
-                <ProgressBar active now={progress} />
+                {/* <ProgressBar active now={progress} /> */}
 
                 <Modal.Title>
                     <FormattedMessage id={modalTitle} />

@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
         start: state.import_media.videocrop.start,
         end: state.import_media.videocrop.end,
     },
-    is_first_step: state.import_media.template_selector.display,
+    is_first_step: state.import_media.media_picker.display,
     is_last_step: state.import_media.resizer.display,
     allow_submit: (
         (state.import_media.template_selector.display && (state.import_media.template_selector.template.id || "").length > 0)
