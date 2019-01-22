@@ -231,6 +231,9 @@
   border-color: #ddd;
   margin-top: -0.7rem;
 }
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .slider-cropper {
+  pointer-events: none;
+}
 .import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .slider-cropper .input-range__slider-container .input-range__slider {
   margin-top: -1.15rem;
   width: 0.8rem;
@@ -239,6 +242,7 @@
   cursor: ew-resize;
   border-radius: 2px;
   border: none;
+  pointer-events: auto;
 }
 .import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .slider-cropper .input-range__slider-container .input-range__slider::after {
   clear: both;
