@@ -258,7 +258,7 @@
         }
 
         .input-range__track {
-          height: 0.5rem;
+          height: 0.4rem;
           border-radius: 0.5rem;
         }
         .input-range__track--active {
@@ -289,11 +289,63 @@
 
               background-color: #777;
 
-
               .input-range__track--active {
-                background-color: #ccc;
+                background-color: #ddd;
               }
             }
+
+            .slider-cropper, .slider-player {
+
+              .input-range__track--background {
+                margin-top: 0;
+                transform: translateY(-50%);
+              }
+
+            }
+
+            .slider-player {
+              .input-range__track, .input-range__track--active {
+                background-color: rgba(0,0,0,0);
+              }
+              .input-range__slider {
+                background-color: #ddd;
+                border-color: #ddd;
+                margin-top: -0.7rem;
+              }
+            }
+
+            .slider-cropper {
+
+              .input-range__slider-container {
+
+                .input-range__slider {
+
+                  margin-top: -1.15rem;
+                  width: 0.8rem;
+                  height: 1.8rem;
+                  background-color: #f7dd00;
+                  cursor: ew-resize;
+                  border-radius: 2px;
+                  border: none;
+
+                  &::after {
+
+                    clear: both;
+                    content: "";
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    width: 0;
+                    height: 0;
+                    transform: translateX(-50%) translateY(-50%);
+                    border: 5px solid rgba(0,0,0,0.7);
+                    border-radius: 50px;
+                  }
+                }
+
+              }
+            }
+
           }
         }
 
