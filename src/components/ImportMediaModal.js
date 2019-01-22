@@ -1,5 +1,6 @@
 import React from 'react'
-import {Modal, ProgressBar} from 'react-bootstrap'
+//import {Modal, ProgressBar} from 'react-bootstrap'
+import {Modal} from 'react-bootstrap'
 import ImportMediaValidateContainer from "../containers/import/ImportMediaValidateContainer"
 import ImportMediaLibraryContainer from "../containers/import/ImportMediaLibraryContainer"
 import ImportMediaResizerContainer from "../containers/import/ImportMediaResizerContainer"
@@ -103,14 +104,14 @@ const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, d
             (display_videocrop ? "import.videocrop.title" :
                 (display_resizer ? "import.resizer.title" : "import.media.title" ))
 
-    let progress = 33
+   /* let progress = 33
     if (display_media_picker) {
         progress = 66
     } else if (display_videocrop) {
         progress = 85
     } else if (display_resizer) {
         progress = 100
-    }
+    }*/
 
 
     return <div className={"import-media-modal"}>

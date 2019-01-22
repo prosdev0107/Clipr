@@ -1,5 +1,4 @@
 import React from 'react'
-import { FormattedMessage } from 'react-intl'
 import InputRange from 'react-input-range';
 import {reduxForm} from "redux-form";
 import 'react-input-range/lib/css/index.css'
