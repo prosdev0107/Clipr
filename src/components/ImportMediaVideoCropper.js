@@ -11,6 +11,7 @@ class ImportMediaVideoCropper extends React.Component {
 
     state = {
         player: 0,
+        playerVisible: true,
         timer: {
             min: 0,
             max: 0
@@ -115,37 +116,19 @@ class ImportMediaVideoCropper extends React.Component {
     cropInputChanged = (value) => {
 
         let oldMin = this.state.timer.min
-        let video = document.getElementById("trim-video")
+
+        // Edit local state
+        this.cropInputChanging(value)
+        setTimeout(() => {
+            this.setState({
+                playerVisible: true
+            })
+        },50)
 
         let correctedMax = Math.min(this.state.videoDuration, Math.max(0,value.max))
         let correctedMin = Math.min(correctedMax, Math.max(0,value.min))
-        this.setState({
-            timer: {
-                min: correctedMin,
-                max: correctedMax
-            }
-        })
 
-        // Update player position if necessary
-        let currentTime = this.state.player
-        if (currentTime < correctedMin || currentTime > correctedMax) {
-
-            // Correct player position if beyond limits
-            let correctedTime = Math.min(correctedMax, Math.max(correctedMin,currentTime))
-            this.setState({
-                player: correctedTime
-            })
-
-            // If video is paused, play for 1ms to change current appearance
-            // With a little timeout, because we need an updated state
-            video.currentTime = correctedTime
-            if (video.paused) {
-                video.play()
-                video.pause()
-            }
-        }
-
-        // Store to global state
+        // Save to global state
         this.props.updateDurations({
             start: correctedMin,
             end: correctedMax
@@ -156,10 +139,39 @@ class ImportMediaVideoCropper extends React.Component {
 
             // Take screenshot AT CURRENT TIME
             setTimeout(function() {
+                let video = document.getElementById("trim-video")
                 let url = generateVideoThumbnail(video)
                 this.props.sendToReducers("IMPORT_MEDIA_UPDATE_VIDEO_THUMBNAIL", url)
             }, 300);
+
         }
+    }
+
+    cropInputChanging = (value) => {
+
+
+        // Pause video if was playing
+        this.toggleVideo(0)
+
+        // Are we editing left or right cursor
+        let isMovingRightCursor = this.state.timer.max !== value.max;
+        let isMovingLeftCursor = this.state.timer.min !== value.min;
+
+        // If moving right cursor, move video player cursor on it
+        let newPlayerPosition = isMovingRightCursor ?
+            value.max :
+            (isMovingLeftCursor ? value.min : this.state.player)
+
+        this.setState({
+            timer: value,
+            player: newPlayerPosition,
+            playerVisible: false
+        })
+
+        // Play video for 10ms to change current video appearance
+        // With a little timeout, because we need an updated state
+        let video = document.getElementById("trim-video")
+        video.currentTime = newPlayerPosition
     }
 
     timeToString = (time) => {
@@ -224,7 +236,7 @@ class ImportMediaVideoCropper extends React.Component {
 
                     <div className={"video-player-slider inline-block relative"}>
 
-                        <div className={"absolute absolute-center width-full slider-player"}>
+                        <div className={"absolute absolute-center width-full slider-player "+(this.state.playerVisible ? "" : "hidden")}>
                             <InputRange
                                 draggableTrack
                                 maxValue={this.state.videoDuration > 0 ? this.state.videoDuration : 0.1}
@@ -246,7 +258,7 @@ class ImportMediaVideoCropper extends React.Component {
                                 allowSameValues={true}
                                 step={0.01}
                                 formatLabel={value => this.timeToString(value)}
-                                onChange={value => this.setState({timer:value})}
+                                onChange={value => this.cropInputChanging(value)}
                                 onChangeComplete={value => this.cropInputChanged(value)}
                                 value={this.state.timer} />
                         </div>
