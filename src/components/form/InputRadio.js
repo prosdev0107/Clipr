@@ -19,7 +19,6 @@ const InputRadio = ({
     return (
         <div>
             {options.map(function(option, idx){
-                console.log('selectedOption',selectedOption)
                 return <div
                     className="radio-custom radio-primary margin-right-15 inline-block"
                     key={idx}
@@ -40,7 +39,6 @@ const InputRadio = ({
                 </div>
             })}
         </div>
-
     )
 }
 
