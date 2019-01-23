@@ -6,6 +6,15 @@ const InputRadio = ({
                    meta: { touched, error } ,                                           // status
                }) => {
 
+    const onChange = (option, name) => {
+        // Transform to event-like
+        input.onChange({
+            target: {
+                name: name,
+                value: option.value
+            }
+        })
+    }
 
     return (
         <div>
@@ -21,6 +30,7 @@ const InputRadio = ({
                         name={input.name}
                         value={option.value}
                         defaultChecked={selectedOption === option.value}
+                        onChange={(option) => onChange(option,input.name)}
                         inline />
                     {/* Need to display label even if empty to make the box appear */}
                     <label htmlFor={input.name+"_"+idx}>
