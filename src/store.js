@@ -105,7 +105,8 @@ const initialState = {
         id: "",
         cnv_short_code: "",
         cnv_type: "INPUT",
-        url_preview: ""
+        url_preview: "",
+        timerMode: "HORIZONTAL"
     },
     // List of all cs_items data, order by display order (DATA WILL VARY)
     cs_items: [], // Check utilities/csItemFromList to get schema of ONE cs item

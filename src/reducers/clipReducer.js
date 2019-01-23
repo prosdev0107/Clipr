@@ -15,7 +15,8 @@ const clipReducer = (state = [], action) => {
                     cnv_short_code: data.cnv_short_code,
                     cnv_type: data.cnv_type,
                     url_preview: data.url_preview,
-                    theme: data.theme
+                    theme: data.theme,
+                    timerMode: data.timerMode
                 }
             }
             return state
@@ -28,7 +29,14 @@ const clipReducer = (state = [], action) => {
                 // Else we would modify directly the state itself
                 // Which is an anti-pattern, React would consider state hasn't changed so no re-rendering
 
-                if (inputName.indexOf('theme_') === 0) {
+                if (inputName === "timer_mode_is_horizontal") {
+                    console.log('NEW VALUE : ',inputValue)
+                    return {
+                        ...initialState,
+                        timerMode: target.checked ? "HORIZONTAL" : "CIRCULAR"
+                    }
+
+                } else if (inputName.indexOf('theme_') === 0) {
 
                     let theme = JSON.parse(JSON.stringify(initialState.theme || {}))
 

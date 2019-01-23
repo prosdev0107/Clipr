@@ -56,6 +56,15 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
             'separator': 'general.form.separator.theme',
         },
         {
+            id: "timer_mode_is_horizontal",
+            value: clip.timerMode === "HORIZONTAL",
+            type: "css",
+            input: {
+                label: "general.form.timer_mode",
+                type: "checkbox",
+            }
+        },
+        {
             id: "theme_font",
             value: media_theme.font || "",
             type: "css",
