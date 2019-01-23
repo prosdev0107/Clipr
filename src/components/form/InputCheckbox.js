@@ -13,7 +13,7 @@ const InputCheckbox = ({
             value={input.name}
             checked={is_checked ? "checked" : 0}
         />
-        {/* Need to display label even if empty to mke the box appear */}
+        {/* Need to display label even if empty to make the box appear */}
         <label htmlFor={input.name}>{label}</label>
         { touched && error && <span className="error">{error}</span>}
     </div>

@@ -3,6 +3,7 @@ import { Field } from 'redux-form'
 import Input from "./Input"
 import Select2 from "./Select2"
 import InputNumber from "./InputNumber"
+import InputRadio from "./InputRadio"
 import InputCheckbox from "./InputCheckbox"
 import InputColor from "./InputColor"
 import InputNumberSlider from "./InputNumberSlider"
@@ -47,6 +48,15 @@ export const renderField = (properties, action) => {
                           selectedOption={properties.value}
                           component={Select2}
                           selectUp={properties.input.selectUp || false}
+                          options={(properties.options || {})}
+                          onChange={(event) => typeof action === "function" ? action(event) : null} />
+
+        case "radio":
+
+            // On change attribute needed on select tag !
+            return <Field {...common}
+                          selectedOption={properties.value}
+                          component={InputRadio}
                           options={(properties.options || {})}
                           onChange={(event) => typeof action === "function" ? action(event) : null} />
 

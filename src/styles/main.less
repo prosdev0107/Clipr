@@ -130,7 +130,7 @@ table {
     td {
       padding: 10px 15px;
 
-      .checkbox-custom {
+      .checkbox-custom, .radio-custom {
         margin: 0;
       }
 
@@ -175,6 +175,15 @@ table {
   font-family: 'Font Awesome 5 Free';
   content: "\f00c";
   font-weight: 900;
+}
+.radio-custom label {
+  padding-left: 5px;
+}
+.radio-custom label::before {
+  top: 1px;
+}
+.radio-custom label::after {
+  top: 8px;
 }
 
 .select-up .Select-menu-outer {

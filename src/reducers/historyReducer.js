@@ -20,6 +20,18 @@ const historyReducer = (state = [], action) => {
      *   So that redoOrUndoAsked can be passed to false (ONLY WHEN DATA IS EQUALS TO HISTORY STATE PRESENT)
      */
 
+    // Is clip preview appearance (color, timer mode) has changed ?
+    // If yes, we will need to reload clip preview in iframes after modifications are saved
+    let shouldReloadIFrames = false
+    const shouldReloadIFramesMethod = (old_state, new_state) => {
+        return typeof old_state.clip !== "undefined"
+            && typeof new_state.clip !== "undefined"
+            && (
+                !isEqual(old_state.clip.theme, new_state.clip.theme)
+                || !isEqual(old_state.clip.timerMode, new_state.clip.timerMode)
+            )
+    }
+
     switch (action.type) {
 
         case 'HISTORY_INIT_PRESENT':
@@ -39,8 +51,13 @@ const historyReducer = (state = [], action) => {
             // User made a new change
             if (typeof action.data !== "undefined") {
 
+                let newChanges = action.data
+
+                // Should we reload preview iframes ?
+                shouldReloadIFrames = shouldReloadIFramesMethod(state.present, newChanges)
+
                 // Verify that new change is different
-                if (!isEqual(action.data, state.present)) {
+                if (!isEqual(newChanges, state.present)) {
 
                     return {
                         ...state,
@@ -50,7 +67,9 @@ const historyReducer = (state = [], action) => {
                         present: action.data,       // Update current history
                         future: [],                 // It's a non-sens to keep future data for redo, as a totally new change broke our history
                         sendToServer: true,
-                        redoOrUndoAsked: false
+                        redoOrUndoAsked: false,
+                        // Don't pass reloadClipPreviews to false if it was true, it will cancel iframes reload
+                        reloadClipPreviews: state.reloadClipPreviews || shouldReloadIFrames
                     }
                 }
             }
@@ -68,6 +87,9 @@ const historyReducer = (state = [], action) => {
             // Get future data that should be now passed in present state
             new_present = state.future.slice(-1)[0]
 
+            // Should we reload preview iframes ?
+            shouldReloadIFrames = shouldReloadIFramesMethod(state.present, new_present)
+
             return {
                 ...state,
                 past: state.past
@@ -75,7 +97,8 @@ const historyReducer = (state = [], action) => {
                 present: new_present,
                 future: state.future.slice(0,-1),       // Remove last element of future history
                 sendToServer: true,
-                redoOrUndoAsked: true
+                redoOrUndoAsked: true,
+                reloadClipPreviews: state.reloadClipPreviews || shouldReloadIFrames
             }
 
         case 'SAVE_MENU_UNDO_BTN_PRESSED':
@@ -89,6 +112,10 @@ const historyReducer = (state = [], action) => {
 
             // Get future data that should be now passed in present state
             new_present = state.past.slice(-1)[0]
+
+            // Should we reload preview iframes ?
+            shouldReloadIFrames = shouldReloadIFramesMethod(state.present, new_present)
+
             return {
                 ...state,
                 past: state.past.slice(0,-1),
@@ -96,10 +123,9 @@ const historyReducer = (state = [], action) => {
                 future: state.future
                     .concat(state.present),               // Pass old present data in past history
                 sendToServer: true,
-                redoOrUndoAsked: true
+                redoOrUndoAsked: true,
+                reloadClipPreviews: state.reloadClipPreviews || shouldReloadIFrames
             }
-
-
 
         case 'HISTORY_UPDATE_PRESENT_END':
 
@@ -114,6 +140,13 @@ const historyReducer = (state = [], action) => {
             return {
                 ...state,
                 sendToServer: false
+            }
+
+        case 'REFRESH_CLIP_PREVIEWS':
+
+            return {
+                ...state,
+                reloadClipPreviews: false
             }
 
         default:

@@ -26,6 +26,7 @@ export const LivetimeSave = (new_state) => {
         clip: new_state.clip
     }
 
+
     if (new_state.history.redoOrUndoAsked) {
 
         // A redo or undo action is in progress
@@ -52,6 +53,7 @@ export const LivetimeSave = (new_state) => {
             if (historySaveTimeout) {
                 clearTimeout(historySaveTimeout)
             }
+
             historySaveTimeout = setTimeout(function() {
 
                 store.dispatch(sendToReducersAction("HISTORY_ADD_NEW_CHANGE",new_changes))
@@ -135,7 +137,16 @@ export const TriggerSave = (state) => {
                     request
                         .post(data_providers.cs_items.update(clip.cnv_short_code), {'items': dataToSend.cs_items})
                         // Step 3 : done ! Hide save button
-                        .then(response => updateSaveStatus(200,null,dataToSend))
+                        .then(response => {
+
+                            // Notify for success
+                            updateSaveStatus(200,null,dataToSend)
+                            // Reload clip preview in iframe if necessary
+
+                            if (history.reloadClipPreviews) {
+                                store.dispatch(sendToReducersAction("REFRESH_CLIP_PREVIEWS"))
+                            }
+                        })
                         .catch(error => updateSaveStatus(404,error.toString()))
 
                 })

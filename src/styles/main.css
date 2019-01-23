@@ -102,7 +102,8 @@ video::-webkit-media-controls-fullscreen-button {
 table tr td {
   padding: 10px 15px;
 }
-table tr td .checkbox-custom {
+table tr td .checkbox-custom,
+table tr td .radio-custom {
   margin: 0;
 }
 table tr td:last-child {
@@ -135,6 +136,15 @@ table tr.table-separator td {
   font-family: 'Font Awesome 5 Free';
   content: "\f00c";
   font-weight: 900;
+}
+.radio-custom label {
+  padding-left: 5px;
+}
+.radio-custom label::before {
+  top: 1px;
+}
+.radio-custom label::after {
+  top: 8px;
 }
 .select-up .Select-menu-outer {
   position: absolute !important;

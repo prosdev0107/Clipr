@@ -30,7 +30,6 @@ const clipReducer = (state = [], action) => {
                 // Which is an anti-pattern, React would consider state hasn't changed so no re-rendering
 
                 if (inputName === "timer_mode_is_horizontal") {
-                    console.log('NEW VALUE : ',inputValue)
                     return {
                         ...initialState,
                         timerMode: target.checked ? "HORIZONTAL" : "CIRCULAR"

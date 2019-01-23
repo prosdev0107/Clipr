@@ -44,6 +44,14 @@ const paramsReducer = (state = [], action) => {
             }
             return state
 
+        case "REFRESH_CLIP_PREVIEWS":
+
+            // Force iframe preview reload when appearance is changed
+            return {
+                ...state,
+                iFrameRandomized: Math.trunc(Math.random() * 100000)
+            }
+
         default:
             return state
     }

@@ -57,11 +57,21 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
         },
         {
             id: "timer_mode_is_horizontal",
-            value: clip.timerMode === "HORIZONTAL",
+            value: clip.timerMode,
             type: "css",
+            options: [
+                {
+                    value: "HORIZONTAL",
+                    label: "general.form.timer_mode.hrz"
+                },
+                {
+                    value: "CIRCULAR",
+                    label: "general.form.timer_mode.crl"
+                }
+            ],
             input: {
                 label: "general.form.timer_mode",
-                type: "checkbox",
+                type: "radio",
             }
         },
         {

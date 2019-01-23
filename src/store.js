@@ -25,6 +25,7 @@ const initialState = {
             use_static_color: false
         },
         user_locale: 'fr',
+        iFrameRandomized: 0, // Each time this parameter is edited, clip preview will reload in iframes
         RENDERING_BASE_WIDTH: 350,  // Width to use as viewBox width for SVG elements
         templates: {
             types: [
@@ -118,8 +119,9 @@ const initialState = {
         present: {},
         future: [],
         sendToServer: false,    // Should data be sent through saving API,
-        redoOrUndoAsked: false
-    }
+        redoOrUndoAsked: false,
+        reloadClipPreviews: false // Is clip appearance supposed to change, meaning we need to reload iFrames
+    },
 }
 
 
