@@ -142,7 +142,6 @@
 
           .media-previews-wrapper {
 
-
             .media-preview-wrapper {
 
               text-align: center;
@@ -206,6 +205,16 @@
                   transition: all 100ms ease-in;
                   transform: scale(1.04);
                 }
+
+                .video-duration {
+                  position: absolute;
+                  bottom: 11px;
+                  right: 5px;
+                  color: white;
+                  text-shadow: 2px 4px 3px rgba(0,0,0,0.5);
+                  font-size: 12px;
+                  font-weight: 500;
+                }
               }
             }
           }
@@ -243,127 +252,148 @@
 
         width: 100%;
 
-        .input-range__label {
-          display: none;
-        }
+        .video-player-wrapper {
 
-        video {
-          width: 100%;
-        }
+            min-width: 400px;
+            background-color: #888;
 
-        .input-range__slider {
-          background-color: #237eff;
-          border-color: #237eff;
-          margin-top: -0.75rem;
-        }
-
-        .input-range__track {
-          height: 0.4rem;
-          border-radius: 0.5rem;
-        }
-        .input-range__track--active {
-          background-color: #237eff;
-        }
-
-        .video-player {
-
-          background-color: rgba(0,0,0,0.7);
-
-          button {
-            i {
-              color: white;
-            }
+          .input-range__label {
+            display: none;
           }
-          .video-player-slider {
 
-            width: ~"calc(100% - 70px)";
-            margin-left: 10px;
-            vertical-align: middle;
+          video {
+            width: 100%;
+          }
 
-            .input-range__slider {
-              background-color: white;
-              border-color: white;
-            }
+          .input-range__slider {
+            background-color: #237eff;
+            border-color: #237eff;
+            margin-top: -0.75rem;
+          }
 
-            .input-range__track {
+          .input-range__track {
+            height: 0.4rem;
+            border-radius: 0.5rem;
+          }
+          .input-range__track--active {
+            background-color: #237eff;
+          }
 
-              background-color: #777;
+          .video-player {
 
-              .input-range__track--active {
-                background-color: #ddd;
+            background-color: rgba(0,0,0,0.7);
+
+            button {
+              i {
+                color: white;
               }
             }
+            .video-player-slider {
 
-            .slider-cropper, .slider-player {
+              width: ~"calc(100% - 130px)";
+              margin-left: 10px;
+              vertical-align: middle;
 
-              .input-range__track--background {
-                margin-top: 0;
-                transform: translateY(-50%);
-              }
-
-            }
-
-            .slider-player {
-              .input-range__track, .input-range__track--active {
-                background-color: rgba(0,0,0,0);
-              }
               .input-range__slider {
-                background-color: #ddd;
-                border-color: #ddd;
-                width: 0.4rem;
-                height: 1.4rem;
-                border-radius: 2px;
-                margin-top: -0.9rem;
-
+                background-color: white;
+                border-color: white;
               }
-            }
 
-            .slider-cropper {
+              .input-range__track {
 
-              pointer-events:none;
+                background-color: #777;
 
-              .input-range__slider-container {
+                .input-range__track--active {
+                  background-color: #ddd;
+                }
+              }
 
-                .input-range__slider {
+              .slider-cropper, .slider-player {
 
-                  margin-top: -1.15rem;
-                  width: 0.8rem;
-                  height: 1.8rem;
-                  background-color: #f7dd00;
-                  cursor: ew-resize;
-                  border-radius: 2px;
-                  border: none;
-                  pointer-events: auto;
-
-                  &::after {
-
-                    clear: both;
-                    content: "";
-                    position: absolute;
-                    left: 50%;
-                    top: 50%;
-                    width: 0;
-                    height: 0;
-                    transform: translateX(-50%) translateY(-50%);
-                    border: 5px solid rgba(0,0,0,0.7);
-                    border-radius: 50px;
-                  }
+                .input-range__track--background {
+                  margin-top: 0;
+                  transform: translateY(-50%);
                 }
 
               }
+
+              .slider-player {
+                .input-range__track, .input-range__track--active {
+                  background-color: rgba(0,0,0,0);
+                }
+                .input-range__slider {
+                  background-color: #ddd;
+                  border-color: #ddd;
+                  width: 0.4rem;
+                  height: 1.4rem;
+                  border-radius: 2px;
+                  margin-top: -0.9rem;
+
+                }
+              }
+
+              .slider-cropper {
+
+                pointer-events:none;
+
+                .input-range__slider-container {
+
+                  .input-range__slider {
+
+                    margin-top: -1.15rem;
+                    width: 0.8rem;
+                    height: 1.8rem;
+                    background-color: #f7dd00;
+                    cursor: ew-resize;
+                    border-radius: 2px;
+                    border: none;
+                    pointer-events: auto;
+
+                    &::after {
+
+                      clear: both;
+                      content: "";
+                      position: absolute;
+                      left: 50%;
+                      top: 50%;
+                      width: 0;
+                      height: 0;
+                      transform: translateX(-50%) translateY(-50%);
+                      border: 5px solid rgba(0,0,0,0.7);
+                      border-radius: 50px;
+                    }
+                  }
+
+                }
+              }
+
             }
 
+            .video-player-duration-crop {
+              color: white;
+              display: inline-block;
+              width: 65px;
+              font-weight: 500;
+              font-size: 12px;
+              text-align: right;
+
+              &.video-player-duration-cropped {
+                color: #ffdf00;
+              }
+            }
+          }
+
+          .timer-display {
+
+            margin-top: 10px;
+
+            .text-right {
+              float: right;
+            }
           }
         }
 
-        .timer-display {
 
-          margin-top: 10px;
-
-          .text-right {
-            float: right;
-          }
-        }
       }
 
       .modal-footer {

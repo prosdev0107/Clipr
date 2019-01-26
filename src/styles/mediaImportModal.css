@@ -159,6 +159,15 @@
   transition: all 100ms ease-in;
   transform: scale(1.04);
 }
+.import-media-modal .modal-dialog .modal-content .modal-body .tab-content .api-library .api-library-media-container .api-library-media .video-duration {
+  position: absolute;
+  bottom: 11px;
+  right: 5px;
+  color: white;
+  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.5);
+  font-size: 12px;
+  font-weight: 500;
+}
 .import-media-modal .modal-dialog .modal-content .modal-body .resizer-actions {
   width: 100%;
   margin-left: -30px;
@@ -178,55 +187,59 @@
 .import-media-modal .modal-dialog .modal-content .video-cropper {
   width: 100%;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .input-range__label {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper {
+  min-width: 400px;
+  background-color: #888;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .input-range__label {
   display: none;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper video {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper video {
   width: 100%;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .input-range__slider {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .input-range__slider {
   background-color: #237eff;
   border-color: #237eff;
   margin-top: -0.75rem;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .input-range__track {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .input-range__track {
   height: 0.4rem;
   border-radius: 0.5rem;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .input-range__track--active {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .input-range__track--active {
   background-color: #237eff;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .video-player {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player {
   background-color: rgba(0, 0, 0, 0.7);
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .video-player button i {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player button i {
   color: white;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider {
-  width: calc(100% - 70px);
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player .video-player-slider {
+  width: calc(100% - 130px);
   margin-left: 10px;
   vertical-align: middle;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .input-range__slider {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player .video-player-slider .input-range__slider {
   background-color: white;
   border-color: white;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .input-range__track {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player .video-player-slider .input-range__track {
   background-color: #777;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .input-range__track .input-range__track--active {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player .video-player-slider .input-range__track .input-range__track--active {
   background-color: #ddd;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .slider-cropper .input-range__track--background,
-.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .slider-player .input-range__track--background {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player .video-player-slider .slider-cropper .input-range__track--background,
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player .video-player-slider .slider-player .input-range__track--background {
   margin-top: 0;
   transform: translateY(-50%);
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .slider-player .input-range__track,
-.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .slider-player .input-range__track--active {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player .video-player-slider .slider-player .input-range__track,
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player .video-player-slider .slider-player .input-range__track--active {
   background-color: rgba(0, 0, 0, 0);
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .slider-player .input-range__slider {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player .video-player-slider .slider-player .input-range__slider {
   background-color: #ddd;
   border-color: #ddd;
   width: 0.4rem;
@@ -234,10 +247,10 @@
   border-radius: 2px;
   margin-top: -0.9rem;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .slider-cropper {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player .video-player-slider .slider-cropper {
   pointer-events: none;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .slider-cropper .input-range__slider-container .input-range__slider {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player .video-player-slider .slider-cropper .input-range__slider-container .input-range__slider {
   margin-top: -1.15rem;
   width: 0.8rem;
   height: 1.8rem;
@@ -247,7 +260,7 @@
   border: none;
   pointer-events: auto;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .video-player .video-player-slider .slider-cropper .input-range__slider-container .input-range__slider::after {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player .video-player-slider .slider-cropper .input-range__slider-container .input-range__slider::after {
   clear: both;
   content: "";
   position: absolute;
@@ -259,10 +272,21 @@
   border: 5px solid rgba(0, 0, 0, 0.7);
   border-radius: 50px;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .timer-display {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player .video-player-duration-crop {
+  color: white;
+  display: inline-block;
+  width: 65px;
+  font-weight: 500;
+  font-size: 12px;
+  text-align: right;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .video-player .video-player-duration-crop.video-player-duration-cropped {
+  color: #ffdf00;
+}
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .timer-display {
   margin-top: 10px;
 }
-.import-media-modal .modal-dialog .modal-content .video-cropper .timer-display .text-right {
+.import-media-modal .modal-dialog .modal-content .video-cropper .video-player-wrapper .timer-display .text-right {
   float: right;
 }
 .import-media-modal .modal-dialog .modal-content .modal-footer {

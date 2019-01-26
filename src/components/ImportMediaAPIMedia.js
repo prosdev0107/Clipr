@@ -1,5 +1,6 @@
 import React from 'react'
 import {generateVideoThumbnail} from "../utilities/videoThumbnail"
+import {timeToString} from "../utilities/toolbox"
 
 const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
 
@@ -60,6 +61,17 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
         }
     }
 
+    // Display total length of video available
+    const updateVideoDuration = (event) => {
+
+        // Find where to display duration
+        let video = event.target
+        let durationSpan = video.parentNode.querySelector('.video-duration')
+
+        // Transform time to a readable one
+        durationSpan.innerHTML = timeToString(video.duration)
+    }
+
     return media.type === "img" ?
         <div
             className={"api-library-media relative "+ (isCurrentlyPreselected ? "selected" : "")}
@@ -77,11 +89,13 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
                    onClick={(e) => generateThumbnail(e)}
                    onMouseOver={(e) => playVideo(e)}
                    onMouseOut={(e) => stopVideo(e)}
+                   onLoadedMetadata={(e) => updateVideoDuration(e)}
                    /* poster={(media.source.thumbnail || "")} */
             >
                 <source src={mediaUrl} type="video/mp4" />
             </video>
             <i className={"fas fa-video"}/>
+            <span className={"video-duration"}></span>
         </div>
 }
 

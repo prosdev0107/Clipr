@@ -1,8 +1,9 @@
 import React from 'react'
-import InputRange from 'react-input-range';
-import {reduxForm} from "redux-form";
+import InputRange from 'react-input-range'
+import {reduxForm} from "redux-form"
 import 'react-input-range/lib/css/index.css'
 import {generateVideoThumbnail} from "../utilities/videoThumbnail"
+import {timeToString} from "../utilities/toolbox"
 
 // No reliable plugin for that one !
 // Need to do all by ourselves
@@ -89,11 +90,16 @@ class ImportMediaVideoCropper extends React.Component {
         let currentTime = video.currentTime
 
         if (currentTime < this.state.timer.min || currentTime > this.state.timer.max ) {
+
+            // Pause video if was playing, to avoid auto-loop effect
+            this.toggleVideo(0);
+
             // Go back to video start
             this.setState({
                 player: this.state.timer.min
             })
             video.currentTime = this.state.timer.min
+
         } else {
             // Update player position
             this.setState({
@@ -116,12 +122,14 @@ class ImportMediaVideoCropper extends React.Component {
     cropInputChanged = (value) => {
 
         let oldMin = this.state.timer.min
+        let video = document.getElementById("trim-video")
 
         // Edit local state
         this.cropInputChanging(value)
+
         setTimeout(() => {
             this.setState({
-                playerVisible: true
+                playerVisible: true,
             })
         },50)
 
@@ -139,7 +147,6 @@ class ImportMediaVideoCropper extends React.Component {
 
             // Take screenshot AT CURRENT TIME
             setTimeout(function() {
-                let video = document.getElementById("trim-video")
                 let url = generateVideoThumbnail(video)
                 this.props.sendToReducers("IMPORT_MEDIA_UPDATE_VIDEO_THUMBNAIL", url)
             }, 300);
@@ -174,37 +181,20 @@ class ImportMediaVideoCropper extends React.Component {
         video.currentTime = newPlayerPosition
     }
 
-    timeToString = (time) => {
 
-        let remainingTime = time;
-
-        let hours = Math.trunc(remainingTime/3600)
-        let hoursString =  hours < 10 ? "0"+hours : hours;
-        remainingTime = remainingTime - hours*3600
-
-        let minutes = Math.trunc(remainingTime/60)
-        let minString =  minutes < 10 ? "0"+minutes : minutes;
-        remainingTime = remainingTime - minutes*60
-
-        let seconds = Math.trunc(remainingTime)
-        let secString =  seconds < 10 ? "0"+seconds : seconds;
-        remainingTime = remainingTime - seconds
-
-        let cents = Math.trunc(remainingTime*100)
-        let centsString =  cents < 10 ? "0"+cents : cents;
-
-        return hours > 0 ?
-            hoursString+":"+minString+":"+secString+'"'+centsString :
-            minString+":"+secString+'"'+centsString
-    }
 
     renderVideo = () => {
+
+        let blocStyles = {
+            maxWidth: this.state.maxVideoWidth+"px"
+        }
+
         return !this.props.url_video || this.props.url_video.length === 0 ?
             <div />
             :
             <video id={"trim-video"}
                    crossOrigin="anonymous"
-                   className={"block"}
+                   className={"center-block"}
                    width="640"
                    /* poster={this.props.url_poster} */
                    onLoadStart={(e) => this.removeControls(e)}
@@ -212,17 +202,25 @@ class ImportMediaVideoCropper extends React.Component {
                    onDurationChange={(e) => this.manageVideoDuration(e)}
                    onTimeUpdate={(e) => this.manageVideoCurrentTime(e)}
                    src={this.props.url_video}
+                   style={blocStyles}
             />
     }
     render() {
 
+        let maxWrapperWidth = Math.max(400, this.state.maxVideoWidth)+"px"
         let blocStyles = {
-            maxWidth: this.state.maxVideoWidth+"px"
+            maxWidth: maxWrapperWidth
         }
+
+        // What should we display as video duration ?
+        let durationCropped = this.state.timer.max - this.state.timer.min
+        // If user crops the video, change color of the duration label
+        // Because it's hard for user to come back EXACTLY to original cursor position, we calculate that this way :
+        let isCropped = (this.state.videoDuration - durationCropped)/this.state.videoDuration >= 0.01
 
         return <div className="video-cropper">
 
-            <div className="center-block" style={blocStyles}>
+            <div className="video-player-wrapper center-block" style={blocStyles}>
 
                 {this.renderVideo()}
 
@@ -243,7 +241,7 @@ class ImportMediaVideoCropper extends React.Component {
                                 minValue={0}
                                 allowSameValues={true}
                                 step={0.01}
-                                formatLabel={value => this.timeToString(value)}
+                                formatLabel={value => timeToString(value, true)}
                                 onChangeStart={() => this.toggleVideo(0)}
                                 onChange={value => this.setState({player:value})}
                                 onChangeComplete={value => this.playerInputChanged(value)}
@@ -257,13 +255,17 @@ class ImportMediaVideoCropper extends React.Component {
                                 minValue={0}
                                 allowSameValues={true}
                                 step={0.01}
-                                formatLabel={value => this.timeToString(value)}
+                                formatLabel={value => timeToString(value, true)}
                                 onChange={value => this.cropInputChanging(value)}
                                 onChangeComplete={value => this.cropInputChanged(value)}
                                 value={this.state.timer} />
                         </div>
 
                     </div>
+
+                    <span
+                        className={"video-player-duration-crop "+(isCropped ? "video-player-duration-cropped" : "")}
+                    >{ timeToString(durationCropped, true) }</span>
 
                 </div>
 
