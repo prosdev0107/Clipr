@@ -5,7 +5,9 @@ import {sendToReducersAction} from "../../actions"
 
 const mapStateToProps = state => ({
     url_poster: state.import_media.media_picker.preselected.source.thumbnail,
-    url_video: state.import_media.media_picker.preselected.source === "img" ? "" : state.import_media.media_picker.preselected.source.src
+    url_video: state.import_media.media_picker.preselected.source === "img" ? "" : state.import_media.media_picker.preselected.source.src,
+    crop_start: state.import_media.videocrop.start,
+    crop_end: state.import_media.videocrop.end
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -14,12 +14,13 @@ class ImportMediaVideoCropper extends React.Component {
         player: 0,
         playerVisible: true,
         timer: {
-            min: 0,
-            max: 0
+            min: this.props.crop_start,
+            max: this.props.crop_end
         },
         videoDuration: 0,
         videoIsPlaying: false,
-        maxVideoWidth: 640
+        maxVideoWidth: 640,
+        updateTimeout: null
     }
 
     // With firefox, we need to remove controls this way
@@ -36,19 +37,27 @@ class ImportMediaVideoCropper extends React.Component {
 
         if (newDuration > 0 && newDuration !== this.state.videoDuration) {
 
+            // Because this method will be triggered if back from resize step,
+            // We cannot just set start = 0 and end = newDuration
+            // Else previous crop will be erased
+            let timerStart = this.state.timer.min >= newDuration ? 0 : this.state.timer.min
+            let timerEnd = this.state.timer.max === 0 || this.state.timer.max > newDuration ? newDuration : this.state.timer.max
+
             // Update time cropper slider
             this.setState({
                 videoDuration: newDuration,
                 timer: {
-                    min: 0,
-                    max: newDuration
-                }
+                    min: timerStart,
+                    max: timerEnd
+                },
+                player: timerStart
             })
+            video.currentTime = timerStart
 
             // Store to global state
             this.props.updateDurations({
-                start: 0,
-                end: newDuration
+                start: timerStart,
+                end: timerEnd
             })
 
             // Also, adapt crop editor to window
@@ -121,37 +130,27 @@ class ImportMediaVideoCropper extends React.Component {
 
     cropInputChanged = (value) => {
 
-        let oldMin = this.state.timer.min
-        let video = document.getElementById("trim-video")
-
         // Edit local state
         this.cropInputChanging(value)
+        this.setState({
+            playerVisible: true,
+        })
 
-        setTimeout(() => {
-            this.setState({
-                playerVisible: true,
-            })
-        },50)
-
+        // Store new cursor position to global state
         let correctedMax = Math.min(this.state.videoDuration, Math.max(0,value.max))
         let correctedMin = Math.min(correctedMax, Math.max(0,value.min))
-
-        // Save to global state
         this.props.updateDurations({
             start: correctedMin,
             end: correctedMax
         })
 
-        // If minimum value has changed, edit thumbnail
-        if (oldMin !== correctedMin) {
+        // Update video with a short timout, time for video to have an up-to-date preview
+        setTimeout(() => {
+            let video = document.getElementById("trim-video")
+            let url = generateVideoThumbnail(video)
+            this.props.sendToReducers("IMPORT_MEDIA_UPDATE_VIDEO_THUMBNAIL", url)
+        }, 350)
 
-            // Take screenshot AT CURRENT TIME
-            setTimeout(function() {
-                let url = generateVideoThumbnail(video)
-                this.props.sendToReducers("IMPORT_MEDIA_UPDATE_VIDEO_THUMBNAIL", url)
-            }, 300);
-
-        }
     }
 
     cropInputChanging = (value) => {
@@ -165,9 +164,9 @@ class ImportMediaVideoCropper extends React.Component {
         let isMovingLeftCursor = this.state.timer.min !== value.min;
 
         // If moving right cursor, move video player cursor on it
-        let newPlayerPosition = isMovingRightCursor ?
-            value.max :
-            (isMovingLeftCursor ? value.min : this.state.player)
+        let newPlayerPosition = isMovingLeftCursor ?
+            value.min :
+            (isMovingRightCursor ? value.max : this.state.player)
 
         this.setState({
             timer: value,
@@ -218,6 +217,14 @@ class ImportMediaVideoCropper extends React.Component {
         // Because it's hard for user to come back EXACTLY to original cursor position, we calculate that this way :
         let isCropped = (this.state.videoDuration - durationCropped)/this.state.videoDuration >= 0.01
 
+        // The following calculations are theoricately useless, but we have some problems of rounded number with js
+        let vidDuration = this.state.videoDuration > 0 ? this.state.videoDuration : 0.1
+        let playerCorrected = Math.max(0,Math.min(this.state.player, vidDuration))
+        let timerCorrected = {
+            min: Math.max(this.state.timer.min, 0),
+            max: Math.min(this.state.timer.max, vidDuration),
+        }
+
         return <div className="video-cropper">
 
             <div className="video-player-wrapper center-block" style={blocStyles}>
@@ -237,7 +244,7 @@ class ImportMediaVideoCropper extends React.Component {
                         <div className={"absolute absolute-center width-full slider-player "+(this.state.playerVisible ? "" : "hidden")}>
                             <InputRange
                                 draggableTrack
-                                maxValue={this.state.videoDuration > 0 ? this.state.videoDuration : 0.1}
+                                maxValue={vidDuration}
                                 minValue={0}
                                 allowSameValues={true}
                                 step={0.01}
@@ -245,20 +252,20 @@ class ImportMediaVideoCropper extends React.Component {
                                 onChangeStart={() => this.toggleVideo(0)}
                                 onChange={value => this.setState({player:value})}
                                 onChangeComplete={value => this.playerInputChanged(value)}
-                                value={this.state.player} />
+                                value={playerCorrected} />
                         </div>
 
                         <div className={"absolute absolute-center width-full slider-cropper"}>
                             <InputRange
                                 draggableTrack
-                                maxValue={this.state.videoDuration > 0 ? this.state.videoDuration : 0.1}
+                                maxValue={vidDuration}
                                 minValue={0}
                                 allowSameValues={true}
                                 step={0.01}
                                 formatLabel={value => timeToString(value, true)}
                                 onChange={value => this.cropInputChanging(value)}
                                 onChangeComplete={value => this.cropInputChanged(value)}
-                                value={this.state.timer} />
+                                value={timerCorrected} />
                         </div>
 
                     </div>

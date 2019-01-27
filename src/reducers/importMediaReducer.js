@@ -31,14 +31,11 @@ const importMediaReducer = (state = [], action) => {
                 },
                 videocrop:  {
                     ...state.videocrop,
-                    display: false,
-                    start: 0,
-                    end: 0
+                    display: false
                 },
                 resizer:  {
                     ...state.resizer,
-                    display: false,
-                    zoom: 1.2
+                    display: false
                 }
             }
 
@@ -66,6 +63,10 @@ const importMediaReducer = (state = [], action) => {
                 displayMediaResizer = true
             }
 
+            // Do we need to reset cropper cursor positions and resizer zoom ?
+            // Yes if we come from media picking step
+            let resetMediaSettings = state.media_picker.display
+
             return {
                 ...state,
                 template_selector:  {
@@ -78,11 +79,14 @@ const importMediaReducer = (state = [], action) => {
                 },
                 videocrop:  {
                     ...state.videocrop,
-                    display: displayVideoCropper
+                    display: displayVideoCropper,
+                    start: resetMediaSettings ? 0 : state.videocrop.start,
+                    end: resetMediaSettings ? 0 : state.videocrop.end
                 },
                 resizer:  {
                     ...state.resizer,
-                    display: displayMediaResizer
+                    display: displayMediaResizer,
+                    zoom: resetMediaSettings ? 1.2 : state.resizer.zoom
                 }
             }
 
@@ -151,6 +155,7 @@ const importMediaReducer = (state = [], action) => {
             }
 
             // User has chosen his media to import, just show a thumbnail at modal footer
+            // Also reset  every
             return {
                 ...state,
                 media_picker: {
