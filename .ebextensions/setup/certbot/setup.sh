@@ -22,11 +22,11 @@ fi
 
 # Reinstall certbot utility to avoid some exceptions
 sudo rm -rf /opt/eff.org/*
-sudo /usr/local/bin/certbot-auto --debug # this will throws an error at first time
+sudo /usr/local/bin/certbot-auto --debug --help # this will throws an error at first time
 sudo cp -f /opt/eff.org/certbot/venv/lib64/python2.7/site-packages /opt/eff.org/certbot/venv/lib64/python2.7/site-packages.sav
 sudo ln -s /opt/eff.org/certbot/venv/lib64/python2.7/dist-packages/ /opt/eff.org/certbot/venv/lib64/python2.7/site-packages
 cd ~/
-sudo /usr/local/bin/certbot-auto --debug # this time no exception
+sudo /usr/local/bin/certbot-auto --debug --help # this time no exception
 
 # Check if SSL cert installed
 certPath="/etc/letsencrypt/live/cliprcert/privkey.pem"

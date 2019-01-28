@@ -135,7 +135,7 @@ class ImportMediaVideoCropper extends React.Component {
         }
     }
 
-    playerInputChanged = (value) => { 
+    playerInputChanged = (value) => {
 
         // When user moves player cursor himself, ensure the cursor is still on the right range
         let newPosition = Math.min(this.state.timer.max, Math.max(this.state.timer.min,value))
