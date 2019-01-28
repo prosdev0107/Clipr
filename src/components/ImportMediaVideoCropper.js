@@ -116,8 +116,7 @@ class ImportMediaVideoCropper extends React.Component {
         let currentTime = video.currentTime
 
         // Javascript is still messing around with exact values
-        // So we need to round everything before comparing
-
+        // So we need to round everything before comparison
         if (Math.trunc(currentTime*1000) < Math.trunc(1000*this.state.timer.min)
             || Math.trunc(currentTime*1000) > Math.trunc(1000*this.state.timer.max) ) {
 
@@ -145,6 +144,10 @@ class ImportMediaVideoCropper extends React.Component {
 
     cropInputChanged = (value) => {
 
+        // Javascript is still messing around with exact values
+        // So we need to round everything before comparison
+        let hasMovedLeftCursor = Math.trunc(1000*this.state.timer.min) !== Math.trunc(1000*this.props.crop_start)
+
         // Edit local state
         this.cropInputChanging(value)
 
@@ -160,24 +163,33 @@ class ImportMediaVideoCropper extends React.Component {
             end: correctedMax
         })
 
-        // Update video with a short timout, time for video to have an up-to-date preview
-        setTimeout(() => {
-            let video = document.getElementById("trim-video")
-            let url = generateVideoThumbnail(video)
-            if (url.length > 10000) {
-                this.props.sendToReducers("IMPORT_MEDIA_UPDATE_VIDEO_THUMBNAIL", url)
-            } else {
-                // try one more time
-                setTimeout(() => {
-                    let video = document.getElementById("trim-video")
-                    let url = generateVideoThumbnail(video)
-                    if (url.length > 10000) {
-                        this.props.sendToReducers("IMPORT_MEDIA_UPDATE_VIDEO_THUMBNAIL", url)
-                    }
-                }, 400)
-            }
-        }, 300)
+        // Update video with a short timeout, time for video to have an up-to-date preview
+        if (hasMovedLeftCursor) {
+            this.tryGenerateVideoThumbnail()
+        }
+    }
 
+    tryGenerateVideoThumbnail = (nbTry) => {
+
+        nbTry = nbTry || 0
+
+        // Get video thumbnail
+        let video = document.getElementById("trim-video")
+        let url = generateVideoThumbnail(video)
+        console.log('nb Try',nbTry, url.length)
+        if (url.length > 10000) {
+
+            this.props.sendToReducers("IMPORT_MEDIA_UPDATE_VIDEO_THUMBNAIL", url)
+
+        } else if (nbTry < 2) {
+
+            // video is not ready, try again with short timeout
+            nbTry++
+            setTimeout(() => {
+                console.log('try again')
+                this.tryGenerateVideoThumbnail(nbTry)
+            }, 300)
+        }
     }
 
     cropInputChanging = (value) => {
