@@ -32,7 +32,7 @@ class ImportMediaVideoCropper extends React.Component {
     // Init slider max range value with video durations
     manageVideoDuration = (e) => {
 
-        let video = e.target;
+        let video = e.target
         let newDuration = video.duration
 
         if (newDuration > 0 && newDuration !== this.state.videoDuration) {
@@ -49,10 +49,9 @@ class ImportMediaVideoCropper extends React.Component {
                 timer: {
                     min: timerStart,
                     max: timerEnd
-                },
-                player: timerStart
+                }
             })
-            video.currentTime = timerStart
+            this.setPlayerCursorPosition(timerStart)
 
             // Store to global state
             this.props.updateDurations({
@@ -78,17 +77,35 @@ class ImportMediaVideoCropper extends React.Component {
 
     // Play/pause video control button
     toggleVideo = (state) => {
-        let video = document.getElementById("trim-video");
-        if(video.paused && (typeof state === "undefined" || state === 1)){
-            video.play();
+
+        let video = document.getElementById("trim-video")
+        if(video.paused && (typeof state === "undefined" || state === 1)) {
+            video.play()
             this.setState({
                 videoIsPlaying: true
             })
-        } else if (typeof state === "undefined" || state === 0) {
-            video.pause();
+        } else if (!video.paused && (typeof state === "undefined" || state === 0)) {
+            video.pause()
             this.setState({
                 videoIsPlaying: false
             })
+        }
+    }
+
+    // Set player cursor position along with video current time property
+    setPlayerCursorPosition = (newPosition) => {
+
+        let video = document.getElementById("trim-video")
+        let videoCurrentTime = video.currentTime
+
+        newPosition = newPosition || videoCurrentTime
+
+        this.setState({
+            player: newPosition
+        })
+
+        if (newPosition !== videoCurrentTime) {
+            video.currentTime = newPosition
         }
     }
 
@@ -98,19 +115,21 @@ class ImportMediaVideoCropper extends React.Component {
         let video = event.target
         let currentTime = video.currentTime
 
-        if (currentTime < this.state.timer.min || currentTime > this.state.timer.max ) {
+        // Javascript is still messing around with exact values
+        // So we need to round everything before comparing
+
+        if (Math.trunc(currentTime*1000) < Math.trunc(1000*this.state.timer.min)
+            || Math.trunc(currentTime*1000) > Math.trunc(1000*this.state.timer.max) ) {
 
             // Pause video if was playing, to avoid auto-loop effect
-            this.toggleVideo(0);
+            this.toggleVideo(0)
 
             // Go back to video start
-            this.setState({
-                player: this.state.timer.min
-            })
-            video.currentTime = this.state.timer.min
+            this.setPlayerCursorPosition(this.state.timer.min)
 
         } else {
-            // Update player position
+
+            // Update player cursor position
             this.setState({
                 player: currentTime
             })
@@ -119,19 +138,16 @@ class ImportMediaVideoCropper extends React.Component {
 
     playerInputChanged = (value) => {
 
-        this.setState({
-            player: Math.min(this.state.timer.max, Math.max(this.state.timer.min,value))
-        })
-
-        let video = document.getElementById("trim-video")
-        video.currentTime = value
-        this.toggleVideo(1)
+        // When user moves player cursor himself, ensure the cursor is still on the right range
+        let newPosition = Math.min(this.state.timer.max, Math.max(this.state.timer.min,value))
+        this.setPlayerCursorPosition(newPosition)
     }
 
     cropInputChanged = (value) => {
 
         // Edit local state
         this.cropInputChanging(value)
+
         this.setState({
             playerVisible: true,
         })
@@ -148,13 +164,28 @@ class ImportMediaVideoCropper extends React.Component {
         setTimeout(() => {
             let video = document.getElementById("trim-video")
             let url = generateVideoThumbnail(video)
-            this.props.sendToReducers("IMPORT_MEDIA_UPDATE_VIDEO_THUMBNAIL", url)
-        }, 350)
+            if (url.length > 10000) {
+                this.props.sendToReducers("IMPORT_MEDIA_UPDATE_VIDEO_THUMBNAIL", url)
+            } else {
+                // try one more time
+                setTimeout(() => {
+                    let video = document.getElementById("trim-video")
+                    let url = generateVideoThumbnail(video)
+                    if (url.length > 10000) {
+                        this.props.sendToReducers("IMPORT_MEDIA_UPDATE_VIDEO_THUMBNAIL", url)
+                    }
+                }, 400)
+            }
+        }, 300)
 
     }
 
     cropInputChanging = (value) => {
 
+        // Hide player cursor for no strange transition
+        if (this.state.playerVisible) {
+            this.setState({playerVisible:false})
+        }
 
         // Pause video if was playing
         this.toggleVideo(0)
@@ -169,15 +200,11 @@ class ImportMediaVideoCropper extends React.Component {
             (isMovingRightCursor ? value.max : this.state.player)
 
         this.setState({
-            timer: value,
-            player: newPlayerPosition,
-            playerVisible: false
+            timer: value
         })
 
-        // Play video for 10ms to change current video appearance
-        // With a little timeout, because we need an updated state
-        let video = document.getElementById("trim-video")
-        video.currentTime = newPlayerPosition
+        // Update video preview
+        this.setPlayerCursorPosition(newPlayerPosition)
     }
 
 
@@ -249,7 +276,6 @@ class ImportMediaVideoCropper extends React.Component {
                                 allowSameValues={true}
                                 step={0.01}
                                 formatLabel={value => timeToString(value, true)}
-                                onChangeStart={() => this.toggleVideo(0)}
                                 onChange={value => this.setState({player:value})}
                                 onChangeComplete={value => this.playerInputChanged(value)}
                                 value={playerCorrected} />

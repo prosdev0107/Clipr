@@ -30,7 +30,7 @@ const InputRadio = ({
                         value={option.value}
                         defaultChecked={selectedOption === option.value}
                         onChange={(option) => onChange(option,input.name)}
-                        inline />
+                        inline="true" />
                     {/* Need to display label even if empty to make the box appear */}
                     <label htmlFor={input.name+"_"+idx}>
                         <FormattedMessage id={option.label} />
