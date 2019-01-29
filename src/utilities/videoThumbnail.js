@@ -1,8 +1,8 @@
 
 
-// Generate thumbnail from video
+// Generate thumbnail from video (works only if video ready state is 4)
 // ACCES CONTROL ALLOW ORIGIN * MUST BE SET ON TARGET VIDEO if loaded from external API
-// Else, forget it
+// Else, forget it !
 export const generateVideoThumbnail = (video) => {
 
     // Create a canvas element

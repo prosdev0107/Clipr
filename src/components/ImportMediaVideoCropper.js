@@ -172,13 +172,14 @@ class ImportMediaVideoCropper extends React.Component {
     tryGenerateVideoThumbnail = (nbTry) => {
 
         nbTry = nbTry || 0
-        let maxNbTry = 2
+        let maxNbTry = 8
 
-        // Get video thumbnail
+        // Get video thumbnail (works only if video ready is 4)
         let video = document.getElementById("trim-video")
         let url = generateVideoThumbnail(video)
-        if (url.length > 100000 || (nbTry >= maxNbTry && url.length > 30000)) {
+        if ((url.length > 100 && video.readyState === 4) || (nbTry >= maxNbTry && url.length > 50000)) {
 
+            console.log('ok',url.length)
             this.props.sendToReducers("IMPORT_MEDIA_UPDATE_VIDEO_THUMBNAIL", url)
 
         } else if (nbTry < maxNbTry) {
@@ -187,7 +188,7 @@ class ImportMediaVideoCropper extends React.Component {
             nbTry++
             setTimeout(() => {
                 this.tryGenerateVideoThumbnail(nbTry)
-            }, 300)
+            }, 400)
         }
     }
 

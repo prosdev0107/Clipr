@@ -23,6 +23,7 @@ const ImportMediaValidate = ({preselected_media, cropped_zone, cropped_time, is_
         } else if (preselected_media.type === "video") {
 
             return <video
+                crossOrigin="anonymous"
                 id={"import-preview"}
                 className={"absolute absolute-center-vertical margin-left-20"}
                 src={preselected_media.source.src}
