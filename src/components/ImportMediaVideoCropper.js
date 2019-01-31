@@ -23,6 +23,16 @@ class ImportMediaVideoCropper extends React.Component {
         updateTimeout: null
     }
 
+    // After initialization, simulate a 1st crop to generate a thumbnail (chrome f@ix)
+    componentDidMount() {
+        this.tryGenerateVideoThumbnail()
+    }
+
+    // Same just before unloading the view
+    componentWillUnmount() {
+        this.tryGenerateVideoThumbnail(100)
+    }
+
     // With firefox, we need to remove controls this way
     removeControls = (event) => {
         let video = event.target
@@ -177,9 +187,8 @@ class ImportMediaVideoCropper extends React.Component {
         // Get video thumbnail (works only if video ready is 4)
         let video = document.getElementById("trim-video")
         let url = generateVideoThumbnail(video)
-        if ((url.length > 100 && video.readyState === 4) || (nbTry >= maxNbTry && url.length > 50000)) {
+        if ((url.length > 100 && video.readyState === 4) || (nbTry === maxNbTry && url.length > 50000)) {
 
-            console.log('ok',url.length)
             this.props.sendToReducers("IMPORT_MEDIA_UPDATE_VIDEO_THUMBNAIL", url)
 
         } else if (nbTry < maxNbTry) {
@@ -203,8 +212,8 @@ class ImportMediaVideoCropper extends React.Component {
         this.toggleVideo(0)
 
         // Are we editing left or right cursor
-        let isMovingRightCursor = this.state.timer.max !== value.max;
-        let isMovingLeftCursor = this.state.timer.min !== value.min;
+        let isMovingRightCursor = Math.round(100*this.state.timer.max) !== Math.round(100*value.max);
+        let isMovingLeftCursor = Math.round(100*this.state.timer.min) !== Math.round(100*value.min);
 
         // If moving right cursor, move video player cursor on it
         let newPlayerPosition = isMovingLeftCursor ?
