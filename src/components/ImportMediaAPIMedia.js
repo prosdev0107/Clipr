@@ -31,7 +31,9 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
             let url = generateVideoThumbnail(video)
 
             // Inject in media thumbnail field
-            media.source.thumbnail = url
+            if (url != null && url.length > 0) {
+                media.source.thumbnail = url
+            }
         }
 
         preselectMedia(media)

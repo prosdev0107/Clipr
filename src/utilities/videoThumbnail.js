@@ -19,7 +19,13 @@ export const generateVideoThumbnail = (video) => {
     //generate thumbnail URL data
     var context = canvas.getContext('2d')
     context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
-    var dataURL = canvas.toDataURL()
+    var dataURL = ""
+    try {
+        // May fail depending on browser policy vs video CORS
+        dataURL = canvas.toDataURL()
+    } catch (err) {
+        console.log('Error converting video to image URL : '+err)
+    }
 
     // Remove canvas
     document.body.removeChild(canvas)
