@@ -73,11 +73,19 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
         // Transform time to a readable one
         durationSpan.innerHTML = timeToString(video.duration)
     }
+    
+    // If user just imports this media, we may have not optimized it yet
+    let isMediaDisabled = media.need_optimization || 0
 
-    return media.type === "img" ?
+    if (isMediaDisabled && media.type !== "img") {
+        // That's a non-clickable video, need to display a thumbnail
+        mediaUrl = media.source.thumbnail
+    }
+
+    return media.type === "img" || isMediaDisabled ?
         <div
-            className={"api-library-media relative "+ (isCurrentlyPreselected ? "selected" : "")}
-            onClick={() => clickMedia()}
+            className={"api-library-media relative "+ (isMediaDisabled ? "disabled" : (isCurrentlyPreselected ? "selected" : ""))}
+            onClick={() => isMediaDisabled ? null : clickMedia()}
         >
             <img src={mediaUrl} alt="..." />
         </div>
