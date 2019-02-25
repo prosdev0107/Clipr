@@ -33,12 +33,6 @@ const csItemIndexEditingReducer = (state = [], action) => {
 
             return state
 
-
-        case "API_CREATE_CS_ITEM_END":
-
-            // This allow MediaSwitcher to switch to new media once created
-            return action.data.new_items_length - 1
-
         default:
             return state
     }

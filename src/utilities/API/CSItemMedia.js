@@ -71,10 +71,15 @@ export const createCSItemFromFile = (fileUrl, cropped_zone, cropped_time) => {
         .post(data_providers.cs_item.create(cnvShortCode), postData)
         .then(response => {
 
-            // Server returns the new cs_item, we just need to append it to our cs_items array
-            store.dispatch(sendToReducersAction("API_CREATE_CS_ITEM_END",{
-                ...response.data,
-                new_items_length: store.getState().cs_items.length +1
+            let all_items = response.data || []
+
+            // Update all stories items
+            store.dispatch(sendToReducersAction("API_UPDATE_CS_ITEMS",all_items))
+            store.dispatch(sendToReducersAction("API_CREATE_CS_ITEM_END"))
+
+            // Select last item of story
+            store.dispatch(sendToReducersAction("MEDIA_SWITCHER_CHANGE_INDEX",{
+                new_index: all_items.length - 1
             }))
 
             // Reload user personal library (fileUrl is from external API, it will be added to personal library)
@@ -85,7 +90,7 @@ export const createCSItemFromFile = (fileUrl, cropped_zone, cropped_time) => {
             }))
 
             // Also close media import modal
-            store.dispatch(sendToReducersAction("IMPORT_MEDIA_MODAL_HIDE",response.data))
+            store.dispatch(sendToReducersAction("IMPORT_MEDIA_MODAL_HIDE"))
 
         })
         .catch(error => console.log(error.toString()))
