@@ -174,11 +174,16 @@
                 box-shadow: 0px 1px 5px #999;
                 height: 100%;
 
-                i {
+                i:not(.absolute-center) {
                   position: absolute;
                   top: 6px;
                   left: 6px;
                   color: white;
+                }
+
+                &.disabled i {
+                  font-size: 30px;
+                  color: #d8ad00;
                 }
 
                 img, video {
