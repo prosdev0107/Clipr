@@ -16,17 +16,21 @@ const SearchAPIBar = ({api_source, type, searchText, searchResultsLength, is_loa
             searchResultsLength,
             stickersLoaded
         )
+
         // For clipr API, we need to reload the lib every 20 seconds, so we can refresh status of media waiting for optimization
+        /*
+        This behaviour may not be needed yet
         if (api_source === "clipr") {
             refreshCliprLibrary()
         }
+        */
     }
-    
+
+    /*
     function refreshCliprLibrary() {
 
-        console.log('launch timeout')
         setTimeout(function() {
-            console.log('REFRESH');
+
             vectorSourcing(
                 api_source,
                 type,
@@ -37,6 +41,7 @@ const SearchAPIBar = ({api_source, type, searchText, searchResultsLength, is_loa
             refreshCliprLibrary();
         },20000);
     }
+    */
 
     return <div className="search-api-bar-container">
 

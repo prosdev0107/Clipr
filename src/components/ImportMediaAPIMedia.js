@@ -75,7 +75,8 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
     }
 
     // If user just imports this media, we may have not optimized it yet
-    let isMediaDisabled = media.need_optimization || 0
+    // let isMediaDisabled = media.need_optimization || 0
+    let isMediaDisabled = 0 // For now we can disable that behaviour
 
     if (isMediaDisabled && media.type !== "img") {
         // That's a non-clickable video, need to display a thumbnail

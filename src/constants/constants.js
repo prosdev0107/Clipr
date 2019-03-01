@@ -11,4 +11,4 @@ export const TAB_TEXT = 4
 export const TAB_GIF = 5
 export const TAB_ANIMATION = 6
 
-export const MAX_UPLOAD_MEDIA_SIZE = 25000000
+export const MAX_UPLOAD_MEDIA_SIZE = 100000000
