@@ -38,7 +38,12 @@ const ImportMediaValidate = ({preselected_media, cropped_zone, cropped_time, is_
         if (allow_submit) {
             if (is_last_step) {
                 // If we are on last step, launch media creation process
-                createCSItemFromFile(preselected_media.source.src, cropped_zone, cropped_time)
+                createCSItemFromFile({
+                    url: preselected_media.source.src,
+                    // In case this a media from user library, sending media is more stable
+                    // Because url will be changed by cron if media was just imported by user
+                    id: preselected_media.id || null
+                }, cropped_zone, cropped_time)
             } else {
                 sendToReducers("IMPORT_MEDIA_GO_NEXT_STEP")
             }
