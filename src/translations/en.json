@@ -45,7 +45,7 @@
   "import.videocrop.time.start": "Start",
   "import.videocrop.time.end": "End",
   "import.resizer.title": "Resize media",
-  "import.creation": "Media creation in progress",
+  "import.media.creation": "Media creation in progress",
   "import.media.url.input.placeholder": "Link to media (ex : https://www.facebook.com/vittoriobrumotti/videos/1910651732576301/)",
   "import.media.url.input.submit": "Download",
   "import.media.url.instructions.line1": "Both following link format are supported",
