@@ -53,6 +53,7 @@
   "import.media.url.instructions.line3": "Youtube / Facebook / Instagram media link",
   "panel.preview.mode_edition": "Edit",
   "panel.preview.mode_preview": "Preview",
+  "panel.preview.media_treatment_in_progress": "Medias recently uploaded could take few minutes to be treated.",
   "properties.form.separator.general": "General",
   "properties.form.separator.text": "Inside text",
   "properties.form.separator.actions": "Actions",

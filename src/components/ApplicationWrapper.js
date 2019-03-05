@@ -7,6 +7,7 @@ import PropertiesContainer from "../containers/properties/PropertiesContainer"
 import SaveMenuContainer from "../containers/SaveMenuContainer"
 import MediasSwitcherContainer from "../containers/central/MediasSwitcherContainer"
 import ImportMediaModalContainer from "../containers/import/ImportMediaModalContainer"
+import { FormattedMessage } from 'react-intl'
 
 const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_fonts, theme_fonts, is_preview_mode, has_items, clickAppContainer }) => {
 
@@ -122,6 +123,9 @@ const ApplicationWrapper = ({ page_is_loading, data_saving_status, stickers_font
 
                 <div className="height-full width-full" data-isbodywrapper="1" onClick={(event) => clickAppContainer(event)}>
 
+                    <p className="text-center absolute absolute-center-horizontal warning-media-treatment">
+                        <FormattedMessage id="panel.preview.media_treatment_in_progress" />
+                    </p>
                     <IPhonePreviewContainer />
 
                 </div>

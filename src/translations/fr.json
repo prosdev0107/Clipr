@@ -53,6 +53,7 @@
   "import.media.url.instructions.line3": "Lien Youtube / Facebook / Instagram / Pinterest",
   "panel.preview.mode_edition": "Modifier",
   "panel.preview.mode_preview": "Preview",
+  "panel.preview.media_treatment_in_progress": "Le traitement des vidéos peuvent prendre quelques minutes avant d’apparaître.",
   "properties.form.separator.general": "Général",
   "properties.form.separator.text": "Texte intérieur",
   "properties.form.separator.actions": "Actions",
