@@ -9,6 +9,30 @@ const importMediaReducer = (state = [], action) => {
     let displayVideoCropper = false
     let displayMediaResizer = false
 
+    const getModalInitialState = (initState) => {
+        return {
+            ...initState,
+            show_modal: true,
+            template_selector: {
+                ...initState.template_selector,
+                display: false,
+                template: {}
+            },
+            media_picker: {
+                ...initState.media_picker,
+                display: true
+            },
+            videocrop:  {
+                ...initState.videocrop,
+                display: false
+            },
+            resizer:  {
+                ...initState.resizer,
+                display: false
+            }
+        }
+    }
+
     switch (action.type) {
 
         // Show/hide the modal
@@ -17,27 +41,7 @@ const importMediaReducer = (state = [], action) => {
 
             // Display a large modal that let user import a media into story
             // Also initialize every steps
-            return {
-                ...state,
-                show_modal: true,
-                template_selector: {
-                    ...state.template_selector,
-                    display: false,
-                    template: {}
-                },
-                media_picker: {
-                    ...state.media_picker,
-                    display: true
-                },
-                videocrop:  {
-                    ...state.videocrop,
-                    display: false
-                },
-                resizer:  {
-                    ...state.resizer,
-                    display: false
-                }
-            }
+            return getModalInitialState(state)
 
         case 'IMPORT_MEDIA_MODAL_HIDE':
 
@@ -310,10 +314,7 @@ const importMediaReducer = (state = [], action) => {
 
             // If there is no media left, display media import modal
             if (action.data.items_length <= 1) {
-                return {
-                    ...state,
-                    show_modal: true
-                }
+                return getModalInitialState(state)
             }
             return state
 
