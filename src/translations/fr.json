@@ -37,7 +37,7 @@
   "import.media.tab.image": "Images",
   "import.media.tab.video": "Vidéos",
   "import.media.tab.website": "Réseau social",
-  "import.media.dropzone.NO_FILE": "Chargez votre image ou vidéo. Les vidéos sont raccourcies à 5s sur Snapchat.",
+  "import.media.dropzone.NO_FILE": "Chargez votre image ou vidéo",
   "import.media.dropzone.WRONG_FILE": "Le fichier doit être une image format .png ou .jpg, ou une vidéo format mp4, mkv, mov, flv ou webm, et ne peut excéder 100 Mo",
   "import.media.resizer.zoom": "Zoom",
   "import.media.resizer.instructions": "Ajustez le média en le déplacant et/ou redimensionnant",
