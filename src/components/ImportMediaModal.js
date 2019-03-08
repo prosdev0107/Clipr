@@ -45,7 +45,15 @@ const ImportMediaModal = ({modal_show, preselected_media, creating_final_item, d
 
             if (currentTab != null) {
 
-                if (currentTab.id.indexOf("-tab-3") !== -1) {
+                if (currentTab.id.indexOf("-tab-2") !== -1) {
+
+                    // Load more image
+                    loadMoreMedias({
+                        api_source: "clipr",
+                        type: "all"
+                    })
+
+                } else if (currentTab.id.indexOf("-tab-3") !== -1) {
 
                     // Load more image
                     loadMoreMedias({

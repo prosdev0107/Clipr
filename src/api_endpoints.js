@@ -20,7 +20,7 @@ const data_providers = {
         update: (cnv_short_code) => "/story/clip/"+cnv_short_code+"/cs_items/update"
     },
     cs_media: {
-        list:   () => "/story/media",
+        list:   (offset, limit) => "/story/media?offset="+(offset || 0)+"&limit="+(limit || 0),
         create: () => "/story/media/create"
     },
 }

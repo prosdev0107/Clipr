@@ -74,6 +74,24 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
         durationSpan.innerHTML = timeToString(video.duration)
     }
 
+    // hide media if src not found
+    const mediaSrcNotFound = (event) => {
+        let elmt = event.target
+
+        // Find media container
+        let i=0
+        let parent = event.target.parentNode
+        while (!parent.classList.contains("api-library-media-container") && i < 2) {
+            parent = parent.parentNode
+            i++
+        }
+
+        // Hide it
+        if (parent.classList.contains("api-library-media-container")) {
+            parent.style.display="none"
+        }
+    }
+
     // If user just imports this media, we may have not optimized it yet
     // let isMediaDisabled = media.need_optimization || 0
     let isMediaDisabled = 0 // For now we can disable that behaviour
@@ -88,7 +106,10 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
             className={"api-library-media relative "+ (isMediaDisabled ? "disabled" : (isCurrentlyPreselected ? "selected" : ""))}
             onClick={() => isMediaDisabled ? null : clickMedia()}
         >
-            <img src={mediaUrl} alt="..." />
+            <img src={mediaUrl}
+                 alt=""
+                 onError={(evt) => mediaSrcNotFound(evt)}
+            />
 
             <i className={isMediaDisabled ? "fa fa-hourglass-half absolute absolute-center" : "hidden"}/>
         </div>
@@ -103,6 +124,7 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
                    onMouseOver={(e) => playVideo(e)}
                    onMouseOut={(e) => stopVideo(e)}
                    onLoadedMetadata={(e) => updateVideoDuration(e)}
+                   onError={(evt) => mediaSrcNotFound(evt)}
                    /* poster={(media.source.thumbnail || "")} */
             >
                 <source src={mediaUrl} type="video/mp4" />

@@ -158,6 +158,13 @@
             }
           }
 
+          .fade:not(.in) {
+            .api-library, .search-api-bar-container {
+              // Release memory when not showing
+              display: none;
+            }
+          }
+
           .api-library {
 
             .api-library-media-container {

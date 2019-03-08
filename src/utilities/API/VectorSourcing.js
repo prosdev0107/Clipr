@@ -131,10 +131,11 @@ export function vectorSourcing (source, type, text, offset, callback) {
     }
 
     if (source === "clipr") {
+
         // We request our private api instead of public one
         let request = api_client()
         request
-            .get(data_providers.cs_media.list())
+            .get(data_providers.cs_media.list(offset || 0, 20))
             .then(response => {
 
                 var mediasData = response.data.medias
