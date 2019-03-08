@@ -80,7 +80,7 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
 
         // Find media container
         let i=0
-        let parent = event.target.parentNode
+        let parent = elmt.parentNode
         while (!parent.classList.contains("api-library-media-container") && i < 2) {
             parent = parent.parentNode
             i++
