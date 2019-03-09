@@ -32,3 +32,25 @@ export const generateVideoThumbnail = (video) => {
 
     return dataURL
 }
+
+export const tryGenerateVideoThumbnail = (video, nbTry, callback) => {
+
+    nbTry = nbTry || 0
+    let maxNbTry = 8
+
+    // Get video thumbnail (works only if video ready is 4)
+    let url = generateVideoThumbnail(video)
+    if ((url.length > 100 && video.readyState === 4) || (nbTry === maxNbTry && url.length > 50000)) {
+
+        // Looks good ! Or too many attempts failed
+        callback(url)
+
+    } else if (nbTry < maxNbTry) {
+
+        // video is not ready, try again with short timeout
+        nbTry++
+        setTimeout(() => {
+            tryGenerateVideoThumbnail(video, nbTry, callback)
+        }, 400)
+    }
+}

@@ -2,7 +2,7 @@ import React from 'react'
 import InputRange from 'react-input-range'
 import {reduxForm} from "redux-form"
 import 'react-input-range/lib/css/index.css'
-import {generateVideoThumbnail} from "../utilities/videoThumbnail"
+import {tryGenerateVideoThumbnail} from "../utilities/videoThumbnail"
 import {timeToString} from "../utilities/toolbox"
 
 // No reliable plugin for that one !
@@ -25,12 +25,12 @@ class ImportMediaVideoCropper extends React.Component {
 
     // After initialization, simulate a 1st crop to generate a thumbnail (chrome f@ix)
     componentDidMount() {
-        this.tryGenerateVideoThumbnail()
+        tryGenerateVideoThumbnail(document.getElementById("trim-video"),0,this.videoThumbnailCallback)
     }
 
     // Same just before unloading the view
     componentWillUnmount() {
-        this.tryGenerateVideoThumbnail(100)
+        tryGenerateVideoThumbnail(document.getElementById("trim-video"),100,this.videoThumbnailCallback)
     }
 
     // With firefox, we need to remove controls this way
@@ -175,30 +175,16 @@ class ImportMediaVideoCropper extends React.Component {
 
         // Update video with a short timeout, time for video to have an up-to-date preview
         if (hasMovedLeftCursor) {
-            this.tryGenerateVideoThumbnail()
+            tryGenerateVideoThumbnail(document.getElementById("trim-video"),0, this.videoThumbnailCallback)
         }
     }
 
-    tryGenerateVideoThumbnail = (nbTry) => {
+    videoThumbnailCallback = (url) => {
 
-        nbTry = nbTry || 0
-        let maxNbTry = 8
-
-        // Get video thumbnail (works only if video ready is 4)
-        let video = document.getElementById("trim-video")
-        let url = generateVideoThumbnail(video)
-        if ((url.length > 100 && video.readyState === 4) || (nbTry === maxNbTry && url.length > 50000)) {
-
+        if (url != null && url.length > 100) {
             this.props.sendToReducers("IMPORT_MEDIA_UPDATE_VIDEO_THUMBNAIL", url)
-
-        } else if (nbTry < maxNbTry) {
-
-            // video is not ready, try again with short timeout
-            nbTry++
-            setTimeout(() => {
-                this.tryGenerateVideoThumbnail(nbTry)
-            }, 400)
         }
+
     }
 
     cropInputChanging = (value) => {

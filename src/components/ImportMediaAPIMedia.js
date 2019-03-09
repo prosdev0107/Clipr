@@ -1,5 +1,5 @@
 import React from 'react'
-import {generateVideoThumbnail} from "../utilities/videoThumbnail"
+import {tryGenerateVideoThumbnail} from "../utilities/videoThumbnail"
 import {timeToString} from "../utilities/toolbox"
 
 const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
@@ -28,12 +28,12 @@ const ImportAPIMedia = ({media, isCurrentlyPreselected, preselectMedia}) => {
             let video = mediaContainer.querySelector("video")
 
             // Generate thumbnail and get its url
-            let url = generateVideoThumbnail(video)
-
-            // Inject in media thumbnail field
-            if (url != null && url.length > 0) {
-                media.source.thumbnail = url
-            }
+            tryGenerateVideoThumbnail(video, 0, function(url) {
+                // Inject in media thumbnail field
+                if (url != null && url.length > 0) {
+                    media.source.thumbnail = url
+                }
+            })
         }
 
         preselectMedia(media)
