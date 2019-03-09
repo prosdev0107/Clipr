@@ -119,6 +119,10 @@
   max-height: 140px;
   max-width: 240px;
 }
+.import-media-modal .modal-dialog .modal-content .modal-body .tab-content .fade:not(.in) .api-library,
+.import-media-modal .modal-dialog .modal-content .modal-body .tab-content .fade:not(.in) .search-api-bar-container {
+  display: none;
+}
 .import-media-modal .modal-dialog .modal-content .modal-body .tab-content .api-library .api-library-media-container {
   padding: 5px;
   height: 181px;
