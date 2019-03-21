@@ -29,6 +29,7 @@ const historyReducer = (state = [], action) => {
             && (
                 !isEqual(old_state.clip.theme, new_state.clip.theme)
                 || !isEqual(old_state.clip.timerMode, new_state.clip.timerMode)
+                || !isEqual(old_state.clip.sponsored, new_state.clip.sponsored)
             )
     }
 

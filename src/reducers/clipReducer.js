@@ -16,7 +16,9 @@ const clipReducer = (state = [], action) => {
                     cnv_type: data.cnv_type,
                     url_preview: data.url_preview,
                     theme: data.theme,
-                    timerMode: data.timerMode
+                    timerMode: data.timerMode,
+                    sponsored: data.sponsored,
+                    showSponsoredSwitch: data.showSponsoredSwitch,
                 }
             }
             return state
@@ -33,6 +35,12 @@ const clipReducer = (state = [], action) => {
                     return {
                         ...initialState,
                         timerMode: target.checked ? "HORIZONTAL" : "CIRCULAR"
+                    }
+
+                } else if (inputName === "is_sponsored") {
+                    return {
+                        ...initialState,
+                        sponsored: target.checked ? 1 : 0
                     }
 
                 } else if (inputName.indexOf('theme_') === 0) {
