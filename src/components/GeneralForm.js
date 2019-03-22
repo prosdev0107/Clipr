@@ -74,7 +74,7 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
                 type: "radio",
             }
         },
-        {
+        /*{
             id: "is_sponsored",
             value: clip.sponsored || 0,
             type: "css",
@@ -83,7 +83,7 @@ const GeneralForm = ({cs_item_general,cs_item_index_editing,cs_items_length,clip
                 label: "general.form.is_sponsored",
                 type: "checkbox",
             }
-        },
+        },*/
         {
             id: "theme_font",
             value: media_theme.font || "",
