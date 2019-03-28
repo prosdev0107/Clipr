@@ -15,6 +15,7 @@ const clipReducer = (state = [], action) => {
                     cnv_short_code: data.cnv_short_code,
                     cnv_type: data.cnv_type,
                     url_preview: data.url_preview,
+                    url_only_native: data.url_only_native,
                     theme: data.theme,
                     timerMode: data.timerMode,
                     sponsored: data.sponsored,
