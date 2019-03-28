@@ -107,7 +107,10 @@ const initialState = {
         cnv_short_code: "",
         cnv_type: "INPUT",
         url_preview: "",
-        timerMode: "CIRCULAR"
+        url_only_native: "",
+        timerMode: "CIRCULAR",
+        sponsored: 0,
+        showSponsoredSwitch: 0
     },
     // List of all cs_items data, order by display order (DATA WILL VARY)
     cs_items: [], // Check utilities/csItemFromList to get schema of ONE cs item

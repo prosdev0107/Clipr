@@ -163,7 +163,7 @@ class ImportMediaResizer extends React.Component {
                         >
                         </AvatarEditor>
 
-                        <iframe src={this.props.url_preview + "&only_native=1"}
+                        <iframe src={this.props.url_only_native}
                                 className={"absolute absolute-center"}
                                 title={"resize-iframe"}
                                 width={previewWidth} height={previewHeight}

@@ -4,7 +4,7 @@ import ImportMediaResizer from '../../components/ImportMediaResizer'
 import {sendToReducersAction} from "../../actions"
 
 const mapStateToProps = state => ({
-    url_preview: state.clip.url_preview,
+    url_only_native: state.clip.url_only_native,
     file: state.import_media.media_picker.preselected,
     zoom: state.import_media.resizer.zoom
 })

@@ -1,7 +1,7 @@
 import React from 'react'
 import {resizeIframe} from "../utilities/simulatorSize"
 
-const CliprIframe = ({url_preview, is_preview, randomized}) => {
+const CliprIframe = ({url_iFrame, is_preview, randomized}) => {
 
     // Transform iframe content to keep only the buttons
     const transformIframe = (event) => {
@@ -30,7 +30,7 @@ const CliprIframe = ({url_preview, is_preview, randomized}) => {
     window.addEventListener("resize", refreshIframe)
 
     // Force src reload
-    let url_randomized = url_preview+"&rand="+randomized;
+    let url_randomized = url_iFrame+"&rand="+randomized
 
     return is_preview ?
 
@@ -44,7 +44,7 @@ const CliprIframe = ({url_preview, is_preview, randomized}) => {
 
         <iframe
             id="Clip_Iframe"
-            src={url_randomized + "&only_native=1"}
+            src={url_randomized}
             title="Clip buttons only preview"
             allowtransparency="true"
             onLoad={(event) => transformIframe(event)}/>
