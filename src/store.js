@@ -107,7 +107,7 @@ const initialState = {
         cnv_short_code: "",
         cnv_type: "INPUT",
         url_preview: "",
-        url_only_native: ""
+        url_only_native: "",
         timerMode: "CIRCULAR",
         sponsored: 0,
         showSponsoredSwitch: 0
