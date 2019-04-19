@@ -25,7 +25,7 @@ const LibraryContent = ({tab,stickers, is_loading}) => {
                     key={index}
                     lg={tab === TAB_TEXT ? 12 : 4}
                     sm={tab === TAB_TEXT ? 12 : 6}
-                    className={"padding-5 "+(tab === TAB_TEXT ? "col-xlg-6" : "col-xlg-3")}
+                    className={"padding-5 "+(tab === TAB_TEXT ? "col-xlg-12" : "col-xlg-3")}
                 >
                     <div className="library-sticker-container width-full relative">
                         <div className={"width-full relative"} style={ {paddingTop: (Math.min(100,Math.round(1000/sticker.ratio)/10))+"%" } }>
