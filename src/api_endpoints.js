@@ -7,21 +7,22 @@ const data_providers = {
     },
     clip: {
         read:   (cnv_short_code) => "/story/clip/"+cnv_short_code,
-        update: (cnv_short_code) => "/story/clip/"+cnv_short_code+"/update"
+        update: (cnv_short_code) => "/story/clip/"+cnv_short_code
     },
     cs_item: {
         list:   (cnv_short_code) => "/story/clip/"+cnv_short_code+"/cs_items",
-        create: (cnv_short_code) => "/story/clip/"+cnv_short_code+"/cs_items/create",
+        create: (cnv_short_code) => "/story/clip/"+cnv_short_code+"/cs_items",
         read:   (cnv_short_code, cs_item_id) => "/story/clip/"+cnv_short_code+"/cs_items/"+cs_item_id,
-        update: (cnv_short_code, cs_item_id) => "/story/clip/"+cnv_short_code+"/cs_items/"+cs_item_id+"/update"
+        update: (cnv_short_code, cs_item_id) => "/story/clip/"+cnv_short_code+"/cs_items/"+cs_item_id
         // No delete endpoint here, as it's already managed by API cs_items.update
     },
     cs_items: {
+        // Update all items at a time
         update: (cnv_short_code) => "/story/clip/"+cnv_short_code+"/cs_items/update"
     },
     cs_media: {
         list:   (offset, limit) => "/story/media?offset="+(offset || 0)+"&limit="+(limit || 0),
-        create: () => "/story/media/create"
+        create: () => "/story/media"
     },
 }
 
